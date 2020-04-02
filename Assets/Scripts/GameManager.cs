@@ -22,15 +22,15 @@ public class GameManager : MonoBehaviour, Subject
     private bool WizardIsPlaying;
 
     // Game players
-    private Player MyPlayer;            // The player currently playing in this session (same value as one of the four player variables below)
-    private Player WarriorPlayer;
-    private Player ArcherPlayer;
-    private Player DwarfPlayer;
-    private Player WizardPlayer;
+    private AndorPlayer MyPlayer;            // The player currently playing in this session (same value as one of the four player variables below)
+    private AndorPlayer WarriorPlayer;
+    private AndorPlayer ArcherPlayer;
+    private AndorPlayer DwarfPlayer;
+    private AndorPlayer WizardPlayer;
 
     // Turn management
-    private Player CurrentTurnPlayer;   // The player whose turn it is
-    private List<Player> TurnOrder;
+    private AndorPlayer CurrentTurnPlayer;   // The player whose turn it is
+    private List<AndorPlayer> TurnOrder;
 
     // Game mode
     private DifficultyLevel Difficulty;
@@ -71,25 +71,25 @@ public class GameManager : MonoBehaviour, Subject
         // Initialize players and their corresponding heroes (including their board positions)
         if (WarriorIsPlaying)
         {
-            WarriorPlayer = GameObject.Find("GameManager").AddComponent<Player>();       // TODO real value
+            WarriorPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
             WarriorPlayer.SetHero(HeroManager.GetHero(HeroType.Warrior));
             HeroManager.InitializeHero(HeroType.Warrior, InitialWarrior);
         }
         if (ArcherIsPlaying)
         {
-            ArcherPlayer = GameObject.Find("GameManager").AddComponent<Player>();       // TODO real value
+            ArcherPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
             ArcherPlayer.SetHero(HeroManager.GetHero(HeroType.Archer));
             HeroManager.InitializeHero(HeroType.Archer, InitialArcher);
         }
         if (DwarfIsPlaying)
         {
-            DwarfPlayer = GameObject.Find("GameManager").AddComponent<Player>();       // TODO real value
+            DwarfPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
             DwarfPlayer.SetHero(HeroManager.GetHero(HeroType.Dwarf));
             HeroManager.InitializeHero(HeroType.Dwarf, InitialDwarf);
         }
         if (WizardIsPlaying)
         {
-            WizardPlayer = GameObject.Find("GameManager").AddComponent<Player>();       // TODO real value
+            WizardPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
             WizardPlayer.SetHero(HeroManager.GetHero(HeroType.Wizard));
             HeroManager.InitializeHero(HeroType.Wizard, InitialWizard);
         }
@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour, Subject
     }
 
     // Get a reference to the player controlling this game instance
-    public Player GetSelfPlayer()
+    public AndorPlayer GetSelfPlayer()
     {
         return MyPlayer;
     }
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour, Subject
         else return MyPlayer.GetHero();
     }
 
-    public Player GetCurrentTurnPlayer()
+    public AndorPlayer GetCurrentTurnPlayer()
     {
         return CurrentTurnPlayer;
     }
@@ -173,13 +173,13 @@ public class GameManager : MonoBehaviour, Subject
     }
 
     // Returns a randomly generated turn order
-    private List<Player> GenerateTurnOrder()
+    private List<AndorPlayer> GenerateTurnOrder()
     {
         int NumOfPlayers = GetNumOfPlayers();
-        List<Player> NewTurnOrder = new List<Player>(NumOfPlayers);
+        List<AndorPlayer> NewTurnOrder = new List<AndorPlayer>(NumOfPlayers);
 
         // Create a grab bag from which to draw
-        List<Player> GrabBag = new List<Player>(4);
+        List<AndorPlayer> GrabBag = new List<AndorPlayer>(4);
         if (WarriorIsPlaying) GrabBag.Add(WarriorPlayer);
         if (ArcherIsPlaying) GrabBag.Add(ArcherPlayer);
         if (DwarfIsPlaying) GrabBag.Add(DwarfPlayer);

@@ -34,16 +34,14 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
     private void GetCurrentRoomPlayers()
     {
-        // Commenting out due to compilation error
-        /*
-        foreach(KeyValuePair<int, Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
+
+        foreach(KeyValuePair<int, Photon.Realtime.Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
         {
             AddPlayerListing(playerInfo.Value);
         }
-        */
     }
 
-    private void AddPlayerListing(Player newPlayer)
+    private void AddPlayerListing(Photon.Realtime.Player newPlayer)
     {
 
         //checks if the player is already in the lobby
@@ -67,13 +65,15 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     }
 
     // public override void OnPlayerEnteredRoom(Player newPlayer)
-    public void OnPlayerEnteredRoom(Player newPlayer)               // Removed override which caused compilation error
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)               // Removed override which caused compilation error
     {
         AddPlayerListing(newPlayer);
     }
 
+    
+
     // public override void OnPlayerLeftRoom(Player otherPlayer)
-    public void OnPlayerLeftRoom(Player otherPlayer)               // Removed override which caused compilation error
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)               // Removed override which caused compilation error
     {
         //finds the player that left
         int index = currentPlayers.FindIndex(x => x.Player == otherPlayer);

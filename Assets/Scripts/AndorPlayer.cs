@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class AndorPlayer : MonoBehaviour
 {
     // Hero controlled by this player
     Hero MyHero = null;
