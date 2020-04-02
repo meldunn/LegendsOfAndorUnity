@@ -259,4 +259,5 @@ public class WaypointManager : MonoBehaviour
         if (IndexOfSecondRegion < 0) return false;
         else return true;
     }
+    
 }
