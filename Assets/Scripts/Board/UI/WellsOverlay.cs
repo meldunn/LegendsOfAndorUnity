@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WellsOverlay : MonoBehaviour
+public class WellsOverlay : MonoBehaviour, Observer
 {
 
-    public GameObject WellsPanel;
+    // Reference to GameManager
+    private GameManager GameManager;
+
+    GameObject WellsPanel;
 
     public void OpenPanel()
     {
@@ -16,5 +19,31 @@ public class WellsOverlay : MonoBehaviour
             Debug.Log(isActive);
             WellsPanel.SetActive(!isActive);
         }
+    }
+
+    public void Initialize()
+    {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // Register as an observer of GameManager
+        GameManager.Attach(this);
+
+        // Initialize references to children components
+        WellsPanel = GameObject.Find("WellsPanel");
+
+        Debug.Log("Wells Overlay ...");
+        if(WellsPanel != null)
+        {
+            Debug.Log("Working!!!");
+        }
+
+    }
+
+    public void log(){
+        Debug.Log("testiing");
+    }
+
+    public void UpdateData(string Category)
+    {
+        Debug.Log("updated");
     }
 }
