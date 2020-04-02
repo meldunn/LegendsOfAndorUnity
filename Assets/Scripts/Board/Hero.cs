@@ -18,8 +18,8 @@ public class Hero : MonoBehaviour
     int timeOfDay;
     int myGold;
     int numFarmers;
-    int numWineSkins;
     bool moveCompleted;
+    HeroInventory heroInventory; //need to initialize somewhere
     Waypoint myRegion;
 
     // Start is called before the first frame update
@@ -119,7 +119,7 @@ public class Hero : MonoBehaviour
     // Returns whether the hero has a bow object
     private bool HasBow()
     {
-        return false;       // TODO real value
+        return false;       // after initialized: return myInventory.containItem(Bow);
     }
 
     public void SetWaypoint(Waypoint Region)
