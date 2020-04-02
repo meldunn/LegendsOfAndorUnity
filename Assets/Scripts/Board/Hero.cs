@@ -82,6 +82,18 @@ public class Hero : MonoBehaviour
         }
     }
 
+    public void EmptyWell()
+    {
+        if(myRegion.containsWell())
+        {
+            // willpower ++;
+            myRegion.emptyWell();
+            Debug.Log("Hero drank from a well");
+        }
+    }
+
+
+
     // Returns whether the hero is close enought to fight the given creature
     public bool IsEligibleForBattle(Creature Creature)
     {

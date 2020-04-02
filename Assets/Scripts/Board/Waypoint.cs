@@ -17,6 +17,9 @@ public class Waypoint : MonoBehaviour
 
     int gold;
 
+    // If Waypoint has well, and if it is filled
+    private bool wellInitialized = false;
+    private bool wellFilled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -112,5 +115,43 @@ public class Waypoint : MonoBehaviour
     public bool Equals(Waypoint Other)
     {
         return (Other != null && this.GetWaypointNum() == Other.GetWaypointNum());
+    }
+
+    public void initializeWell()
+    {
+        wellInitialized = true;
+        this.refillWell();
+        Debug.Log("Well initialized");
+    }
+
+    public bool containsWell()
+    {
+        return wellInitialized;
+    }
+
+    public void refillWell()
+    {
+        if(wellInitialized)
+        {
+            wellFilled = true;
+            Debug.Log("Well filled");
+        }
+        else
+        {
+            Debug.Log("Current Waypoint does not contain a well");
+        }
+    }
+
+    public void emptyWell()
+    {
+        if(wellInitialized)
+        {
+            wellFilled = false;
+            Debug.Log("Well has been emptied");
+        }
+        else
+        {
+            Debug.Log("Error. This waypoint does not contain a well.");
+        }
     }
 }
