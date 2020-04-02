@@ -18,8 +18,8 @@ public class Hero : MonoBehaviour
     int timeOfDay;
     int myGold;
     int numFarmers;
-    int numWineSkins;
     bool moveCompleted;
+    HeroInventory myInventory;
     Waypoint myRegion;
 
     // Start is called before the first frame update
@@ -119,7 +119,7 @@ public class Hero : MonoBehaviour
     // Returns whether the hero has a bow object
     private bool HasBow()
     {
-        return false;       // TODO real value
+        return false; //this.myInventory.ContainsItem();   
     }
 
     public void SetWaypoint(Waypoint Region)
