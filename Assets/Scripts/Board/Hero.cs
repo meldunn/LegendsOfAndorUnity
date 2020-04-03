@@ -56,7 +56,7 @@ public class Hero : MonoBehaviour
     // Moves the hero to the specified location with no regards for game rules
     public void Teleport(int RegionNum)
     {
-        // TODO
+        myRegion = WaypointManager.GetWaypoint(RegionNum);
     }
 
     public void pickupGold()
@@ -82,14 +82,20 @@ public class Hero : MonoBehaviour
         }
     }
 
-    public void EmptyWell()
+    public void EmptyWell(int regionNumber)
     {
-        if(myRegion.containsWell())
+        Teleport(45);
+        if(myRegion.GetWaypointNum() == regionNumber)
         {
-            // willpower ++;
-            myRegion.emptyWell();
-            Debug.Log("Hero drank from a well");
+            Debug.Log("my favourite well!" + regionNumber);
         }
+        // TODO
+        //if(myRegion.containsWell())
+        //{
+        //    willpower ++;
+        //    myRegion.emptyWell();
+        //    Debug.Log("Hero drank from a well");
+        //}
     }
 
 

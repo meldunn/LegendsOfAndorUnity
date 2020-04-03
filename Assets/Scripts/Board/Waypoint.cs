@@ -16,10 +16,7 @@ public class Waypoint : MonoBehaviour
     private List<Farmer> farmers = new List<Farmer>();
 
     int gold;
-
-    // If Waypoint has well, and if it is filled
-    private bool wellInitialized = false;
-    private bool wellFilled = false;
+    Well well;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +39,11 @@ public class Waypoint : MonoBehaviour
         }
         
         WaypointNum = Number;
+        if(Number == 5 || Number == 35 || Number == 45 || Number == 55)
+        {
+            well = new Well();
+        }
+
     }
 
     public int GetWaypointNum()
@@ -117,41 +119,15 @@ public class Waypoint : MonoBehaviour
         return (Other != null && this.GetWaypointNum() == Other.GetWaypointNum());
     }
 
-    public void initializeWell()
-    {
-        wellInitialized = true;
-        this.refillWell();
-        Debug.Log("Well initialized");
-    }
-
     public bool containsWell()
     {
-        return wellInitialized;
-    }
-
-    public void refillWell()
-    {
-        if(wellInitialized)
+        if(well != null)
         {
-            wellFilled = true;
-            Debug.Log("Well filled");
+            return true;
         }
         else
         {
-            Debug.Log("Current Waypoint does not contain a well");
-        }
-    }
-
-    public void emptyWell()
-    {
-        if(wellInitialized)
-        {
-            wellFilled = false;
-            Debug.Log("Well has been emptied");
-        }
-        else
-        {
-            Debug.Log("Error. This waypoint does not contain a well.");
+            return false;
         }
     }
 }

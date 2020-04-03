@@ -8,9 +8,9 @@ public class UIManager : MonoBehaviour
     HeroMenu HeroMenu;
     HeroControlMenu HeroControlMenu;
     StartBattleMenu StartBattleMenu;
-
-    // Overlays
-    GameObject WellsOverlay;
+    
+    // References to Game Overlays
+    GameObject WellsOverlayObject;
 
     // Directly linked UI elements
     [SerializeField]
@@ -36,8 +36,10 @@ public class UIManager : MonoBehaviour
         HeroControlMenu = GameObject.Find("HeroControlMenu").GetComponent<HeroControlMenu>();
         StartBattleMenu = StartBattleMenuObject.GetComponent<StartBattleMenu>();
 
-        // Overlay references (UI elements)
-        WellsOverlay = GameObject.Find("WellsOverlay");
+
+        // Get references to UI Game Objects
+        WellsOverlayObject = GameObject.Find("WellsOverlay");
+
 
         // Initialize all UI elements
         HeroMenu.Initialize();
@@ -55,10 +57,10 @@ public class UIManager : MonoBehaviour
         // Toggle Wells Overlay
         if(Input.GetKeyDown("w"))
         {
-            toggleGameObjectVisibility(WellsOverlay);
+            toggleGameObjectVisibility(WellsOverlayObject);
         }
     }
-    private void toggleGameObjectVisibility(GameObject GameObject)
+    public void toggleGameObjectVisibility(GameObject GameObject)
     {
             if(GameObject != null)
             {
