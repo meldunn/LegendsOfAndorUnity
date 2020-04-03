@@ -10,10 +10,8 @@ public class UIManager : MonoBehaviour
     StartBattleMenu StartBattleMenu;
     WellUIManager WellUIManager;
     InputManager InputManager;
+    RuneStoneMenu RuneStoneMenu;
     
-    // References to Game Overlays
-    GameObject WellsOverlayObject;
-
     // Directly linked UI elements
     [SerializeField]
     GameObject StartBattleMenuObject = null;
@@ -33,11 +31,14 @@ public class UIManager : MonoBehaviour
 
     public void Initialize()
     {
-        // Initialize references to UI elements
+        // Initialize references to UI element
         HeroMenu = GameObject.Find("HeroMenu").GetComponent<HeroMenu>();
         HeroControlMenu = GameObject.Find("HeroControlMenu").GetComponent<HeroControlMenu>();
         StartBattleMenu = StartBattleMenuObject.GetComponent<StartBattleMenu>();
         WellUIManager = GameObject.Find("WellUIManager").GetComponent<WellUIManager>();
+        RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
+
+        // Must come AFTER all initializations
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
 
         // Initialize all UI elements
@@ -45,6 +46,9 @@ public class UIManager : MonoBehaviour
         HeroControlMenu.Initialize();
         StartBattleMenu.Initialize();
         WellUIManager.Initialize();
+        RuneStoneMenu.Initialize();
+        
+        // Must come AFTER all initializations
         InputManager.Initialize();
     }
     

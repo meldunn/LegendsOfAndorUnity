@@ -1,21 +1,18 @@
-﻿// From Alexander Zotov's Unity 2D Board Game Tutorial: https://www.youtube.com/watch?v=W8ielU8iURI
-
-// DO NOT USE; WILL BE REMOVED
-
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Dice : MonoBehaviour
+public class RuneStoneDice : MonoBehaviour
 {
     private Sprite[] diceSides;
     private SpriteRenderer rend;
-    private int whosTurn = 1;
     private bool coroutineAllowed = true;
 
     private int currentDiceRoll;
 
-    private GameManager GameManager;
+    private RuneStoneMenu RuneStoneMenu;
 
     // Use this for initialization
     private void Start()
@@ -25,14 +22,13 @@ public class Dice : MonoBehaviour
         rend.sprite = diceSides[5];
     }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
-
     private void OnMouseDown()
     {
+        if(RuneStoneMenu == null)
+        {
+            RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
+        }
+
         if (!GameControl.gameOver && coroutineAllowed)
             StartCoroutine("RollTheDice");
     }
@@ -43,28 +39,19 @@ public class Dice : MonoBehaviour
         int randomDiceSide = 0;
         for (int i = 0; i <= 20; i++)
         {
-            randomDiceSide = Random.Range(1, 7);
+            randomDiceSide = UnityEngine.Random.Range(1, 7);
             rend.sprite = diceSides[randomDiceSide];
             yield return new WaitForSeconds(0.05f);
         }
 
-        GameControl.diceSideThrown = randomDiceSide;
+        // check which dice was rolled
+        bool OnesPosition = String.Equals(gameObject.name, "RuneOnesDice");
+        Debug.Log("Change Rune Ones Die to " + randomDiceSide);
+        if(RuneStoneMenu != null)
+        {
+            RuneStoneMenu.FinishedRoll(OnesPosition, randomDiceSide);
+        }
 
-        currentDiceRoll = randomDiceSide;
-
-        Debug.Log("Set dice side to "+ GameControl.diceSideThrown);
-
-        //if (whosTurn == 1)
-        //{
-        //    GameControl.MovePlayer(1);
-        //}
-        //else if (whosTurn == -1)
-        //{
-        //    GameControl.MovePlayer(2);
-        //}
-        //whosTurn *= -1;
-        
         coroutineAllowed = true;
     }
-
 }
