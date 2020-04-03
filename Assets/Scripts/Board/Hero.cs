@@ -6,6 +6,7 @@ public class Hero : MonoBehaviour
 {
     // Reference to WaypointManager
     private WaypointManager WaypointManager;
+    private UIManager UIManager;
 
     // Type of hero
     HeroType Type;
@@ -27,6 +28,7 @@ public class Hero : MonoBehaviour
     {
         // Initialize reference to WaypointManager
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 
     // Update is called once per frame
@@ -57,6 +59,8 @@ public class Hero : MonoBehaviour
     public void Teleport(int RegionNum)
     {
         myRegion = WaypointManager.GetWaypoint(RegionNum);
+        // TODO: change transform location of hero
+        HeroMoveUI();
     }
 
     public void pickupGold()
@@ -82,7 +86,7 @@ public class Hero : MonoBehaviour
         }
     }
 
-    public void EmptyWell(int regionNumber)
+    public void DrinkFromWell(int regionNumber)
     {
         Teleport(45);
         if(myRegion.GetWaypointNum() == regionNumber)
@@ -145,5 +149,10 @@ public class Hero : MonoBehaviour
     public Waypoint GetWaypoint()
     {
         return myRegion;
+    }
+
+    private void HeroMoveUI()
+    {
+        UIManager.onHeroMove(this);
     }
 }

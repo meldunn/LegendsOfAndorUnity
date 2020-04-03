@@ -16,6 +16,8 @@ public class Waypoint : MonoBehaviour
     private List<Farmer> farmers = new List<Farmer>();
 
     int gold;
+    
+    private bool ContainsWell = false;
     Well well;
 
     // Start is called before the first frame update
@@ -39,9 +41,11 @@ public class Waypoint : MonoBehaviour
         }
         
         WaypointNum = Number;
+
         if(Number == 5 || Number == 35 || Number == 45 || Number == 55)
         {
             well = new Well();
+            ContainsWell = true;
         }
 
     }
@@ -121,13 +125,7 @@ public class Waypoint : MonoBehaviour
 
     public bool containsWell()
     {
-        if(well != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        // For now, assume only wells on the spaces have been initalized
+        return ContainsWell;
     }
 }

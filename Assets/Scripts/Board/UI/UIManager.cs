@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     HeroMenu HeroMenu;
     HeroControlMenu HeroControlMenu;
     StartBattleMenu StartBattleMenu;
+    WellUIManager WellUIManager;
+    InputManager InputManager;
     
     // References to Game Overlays
     GameObject WellsOverlayObject;
@@ -26,7 +28,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        handleKeyStroke();
+
     }
 
     public void Initialize()
@@ -35,41 +37,32 @@ public class UIManager : MonoBehaviour
         HeroMenu = GameObject.Find("HeroMenu").GetComponent<HeroMenu>();
         HeroControlMenu = GameObject.Find("HeroControlMenu").GetComponent<HeroControlMenu>();
         StartBattleMenu = StartBattleMenuObject.GetComponent<StartBattleMenu>();
-
-
-        // Get references to UI Game Objects
-        WellsOverlayObject = GameObject.Find("WellsOverlay");
-
+        WellUIManager = GameObject.Find("WellUIManager").GetComponent<WellUIManager>();
+        InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
 
         // Initialize all UI elements
         HeroMenu.Initialize();
         HeroControlMenu.Initialize();
         StartBattleMenu.Initialize();
+        WellUIManager.Initialize();
+        InputManager.Initialize();
+    }
+    
+    public void onHeroMove(Hero Hero)
+    {
+        // Makes all the nevessary UI changes AFTER a Hero has moved to the new Waypoint
+
+        Waypoint HeroRegion = Hero.GetWaypoint();
+        //Debug.Log("Landed on region "+HeroRegion.GetWaypointNum());
+        if(HeroRegion.containsWell())
+        {
+            WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
+        }
+
     }
 
     public StartBattleMenu GetStartBattleMenu()
     {
         return this.StartBattleMenu;
-    }
-
-    private void handleKeyStroke()
-    {
-        // Toggle Wells Overlay
-        if(Input.GetKeyDown("w"))
-        {
-            toggleGameObjectVisibility(WellsOverlayObject);
-        }
-    }
-    public void toggleGameObjectVisibility(GameObject GameObject)
-    {
-            if(GameObject != null)
-            {
-                bool isActive = GameObject.activeSelf;
-                GameObject.SetActive(!isActive);
-            }
-            else
-            {
-                Debug.Log("Error. GameObject referenced null");
-            }
     }
 }
