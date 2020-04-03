@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public ItemType itemType;
-    public int amount;
+  
 
     public enum ItemType
     {
@@ -19,6 +19,11 @@ public class Item : MonoBehaviour
 
     }
 
+    private void OnMouseUp()
+    {
+        // On click, perform action with switch case
+        
+    }
 
     // Start is called before the first frame update
     void Start()
