@@ -61,6 +61,8 @@ public class Hero : MonoBehaviour
         myRegion = WaypointManager.GetWaypoint(RegionNum);
         // TODO: change transform location of hero
         HeroMoveUI();
+
+        //Debug.Log("New Region is now "+ myRegion.GetWaypointNum());
     }
 
     public void pickupGold()
@@ -86,16 +88,21 @@ public class Hero : MonoBehaviour
         }
     }
 
-    public void DrinkFromWell(int regionNumber)
+    public void DrinkFromWell(int regionNum)
     {
-        Teleport(45);
-        if(myRegion.GetWaypointNum() == regionNumber)
+        // TODO: avoid Teleport and fix null reference to myRegion
+        Teleport(regionNum);
+        if(myRegion != null)
         {
-            Debug.Log("my favourite well!" + regionNumber);
+            if(myRegion.containsFullWell())
+            {
+                // willpower ++;
+                myRegion.EmptyWell();
+            }
         }
-        if(myRegion.containsWell())
+        else
         {
-            Debug.Log("This contains a well");
+            Debug.Log("Error. myRegion reference null.");
         }
     }
 

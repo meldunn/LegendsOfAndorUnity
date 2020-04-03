@@ -259,5 +259,16 @@ public class WaypointManager : MonoBehaviour
         if (IndexOfSecondRegion < 0) return false;
         else return true;
     }
+
+    public void ReplenishAllWells()
+    {
+        // TODO: Fix Null pointer exception for wells array
+        //
+        // Waypoints[5].ReplenishWell();
+        // Waypoints[35].ReplenishWell();
+        // Waypoints[45].ReplenishWell();
+        // Waypoints[55].ReplenishWell();
+        Debug.Log("Request to Replenish All Wells");
+    }
     
 }

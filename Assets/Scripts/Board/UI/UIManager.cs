@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
 
         Waypoint HeroRegion = Hero.GetWaypoint();
         //Debug.Log("Landed on region "+HeroRegion.GetWaypointNum());
-        if(HeroRegion.containsWell())
+        if(HeroRegion.containsFullWell())
         {
             WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
         }

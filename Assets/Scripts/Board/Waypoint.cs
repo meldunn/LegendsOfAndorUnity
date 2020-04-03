@@ -118,14 +118,29 @@ public class Waypoint : MonoBehaviour
         gold++;
     }
 
+    public bool containsFullWell()
+    {
+        if(ContainsWell && well.IsFull())
+        {
+            return true;
+        }
+
+        return false;
+    }
+    public void EmptyWell()
+    {
+        well.EmptyWell();
+        Debug.Log("Well has been empited and is now " + well.IsFull());
+    }
+    public void ReplenishWell()
+    {
+        Debug.Log("Region " + this.GetWaypointNum() + " gets well replenished.");
+        well.ReplenishWell();
+    }
+
     public bool Equals(Waypoint Other)
     {
         return (Other != null && this.GetWaypointNum() == Other.GetWaypointNum());
     }
 
-    public bool containsWell()
-    {
-        // For now, assume only wells on the spaces have been initalized
-        return ContainsWell;
-    }
 }

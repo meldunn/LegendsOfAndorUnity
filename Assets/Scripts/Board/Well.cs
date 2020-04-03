@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class Well : MonoBehaviour
 {
-    private bool full = false; 
+    private bool Full = false; 
 
     public Well(){
-        full = true;
+        Full = true;
     }
 
-    public bool isFull(){
-        return full;
+    public bool IsFull(){
+        return Full;
     }
-    public void replenishWell(){
-        full = true;
+    public void ReplenishWell(){
+        Full = true;
     }
-    public void emptyWell(){
-        if(!isFull())
+    public void EmptyWell(){
+        if(!IsFull())
         {
             Debug.Log("Error. You tried to empty an empty well");
         }
         else
         {
-            full = false;
+            Full = false;
         }
     }
 }

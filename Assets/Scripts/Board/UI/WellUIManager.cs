@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WellUIManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class WellUIManager : MonoBehaviour
     private GameObject Well35Button;
     private GameObject Well45Button;
     private GameObject Well55Button;
+
+    private Button Button5;
 
 
     // Start is called before the first frame update
@@ -51,19 +54,24 @@ public class WellUIManager : MonoBehaviour
         }
     }
     
-    private void toggleButtonFocus(GameObject ButtonObject)
+    private void toggleButtonFocus(GameObject ButtonObject, bool Focused)
     {
-        // TODO
-        // Might not be requierd  - if button only pops up if well is available
-       // if(ButtonObject != null)
-       // {
-       //     bool isFocused = ButtonObject.interactable;
-       //     ButtonObject.interactable = !isFocused;
-       // }
-       // else
-       // {
-       //     Debug.Log("Error. GameObject reference null");
-       // }
+        if(ButtonObject != null)
+        {
+            Button Button = ButtonObject.GetComponent<Button>();
+            if(Focused)
+            {
+                Button.interactable = false;
+            }
+            else
+            {
+                Button.interactable = true;
+            }
+        }
+        else
+        {
+            Debug.Log("Error. GameObject reference null");
+        }
     }
 
     public void DisplayWellButton(int WaypointNum)
@@ -97,19 +105,19 @@ public class WellUIManager : MonoBehaviour
         switch (WaypointNum)
         {
             case(5):
-                toggleButtonFocus(Well5Button);
+                toggleButtonFocus(Well5Button, false);
                 break;
 
             case(45):
-                toggleButtonFocus(Well45Button);
+                toggleButtonFocus(Well45Button, false);
                 break;
 
             case(35):
-                toggleButtonFocus(Well35Button);
+                toggleButtonFocus(Well35Button, false);
                 break;
 
             case(55):
-                toggleButtonFocus(Well55Button);
+                toggleButtonFocus(Well55Button, false);
                 break;
                 
             default:
