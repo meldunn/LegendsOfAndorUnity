@@ -4,18 +4,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private NetworkSettings networkSettings;
 
+
     //TODO: fix creation of rooms on leave
     //TODO: make so that only master player can start the game.
 
     //1. Connect to master
-    void Start()
+    void Awake()
     {
         print("Connecting...");
+        PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime = networkSettings.AppID;
         PhotonNetwork.NickName = networkSettings.NickName;
         PhotonNetwork.GameVersion = networkSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();

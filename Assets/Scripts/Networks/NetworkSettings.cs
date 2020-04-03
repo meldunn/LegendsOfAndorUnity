@@ -12,4 +12,8 @@ public class NetworkSettings : ScriptableObject
     private string nickName = "vitaly";
     public string NickName { get { return nickName; } }
 
+    [SerializeField]
+    private string app_id = "d4408bb2-cc46-441f-a12b-33f9f0571f95";
+    public string AppID { get { return app_id; } }
+
 }
