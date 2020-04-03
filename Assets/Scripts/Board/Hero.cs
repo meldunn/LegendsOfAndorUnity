@@ -19,7 +19,7 @@ public class Hero : MonoBehaviour
     int myGold;
     int numFarmers;
     bool moveCompleted;
-    HeroInventory myInventory;
+    HeroInventory heroInventory; //need to initialize somewhere
     Waypoint myRegion;
 
     // Start is called before the first frame update
@@ -82,6 +82,18 @@ public class Hero : MonoBehaviour
         }
     }
 
+    public void EmptyWell()
+    {
+        if(myRegion.containsWell())
+        {
+            // willpower ++;
+            myRegion.emptyWell();
+            Debug.Log("Hero drank from a well");
+        }
+    }
+
+
+
     // Returns whether the hero is close enought to fight the given creature
     public bool IsEligibleForBattle(Creature Creature)
     {
@@ -119,7 +131,7 @@ public class Hero : MonoBehaviour
     // Returns whether the hero has a bow object
     private bool HasBow()
     {
-        return false; //this.myInventory.ContainsItem();   
+        return false;       // after initialized: return myInventory.containItem(Bow);
     }
 
     public void SetWaypoint(Waypoint Region)

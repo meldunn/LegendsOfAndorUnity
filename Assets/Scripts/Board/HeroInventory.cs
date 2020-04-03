@@ -12,24 +12,29 @@ public class HeroInventory : MonoBehaviour
         itemList = new List<Item>();
     }
 
-    public void AddItem(Item item)
+    public void addItem(Item item)
     {
         itemList.Add(item);
     }
 
-    public void ContainsItem(Item item)
+    public void containsItem(Item item)
     {
         itemList.Contains(item);
+    }
+
+    public List<Item> getInventory()
+    {
+        return itemList;
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
