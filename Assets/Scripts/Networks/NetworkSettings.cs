@@ -9,7 +9,7 @@ public class NetworkSettings : ScriptableObject
     private string gameVersion = "0.0.0";
     public string GameVersion { get { return gameVersion; } }
     [SerializeField]
-    private string nickName = "andor" + Random.Range(1,1000);
+    private string nickName = "andor";
     public string NickName { get { return nickName; } }
 
     [SerializeField]

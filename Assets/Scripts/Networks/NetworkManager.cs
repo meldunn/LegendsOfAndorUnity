@@ -19,7 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         print("Connecting...");
         PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime = networkSettings.AppID;
-        PhotonNetwork.NickName = networkSettings.NickName;
+        PhotonNetwork.NickName = networkSettings.NickName + Random.Range(1,1000);
         PhotonNetwork.GameVersion = networkSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
     }
