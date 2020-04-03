@@ -10,14 +10,14 @@ public class Well : MonoBehaviour
         full = true;
     }
 
-    public bool isEmpty(){
-        return !full;
+    public bool isFull(){
+        return full;
     }
     public void replenishWell(){
         full = true;
     }
     public void emptyWell(){
-        if(isEmpty())
+        if(!isFull())
         {
             Debug.Log("Error. You tried to empty an empty well");
         }

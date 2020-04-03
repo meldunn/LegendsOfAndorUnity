@@ -89,13 +89,10 @@ public class Hero : MonoBehaviour
         {
             Debug.Log("my favourite well!" + regionNumber);
         }
-        // TODO
-        //if(myRegion.containsWell())
-        //{
-        //    willpower ++;
-        //    myRegion.emptyWell();
-        //    Debug.Log("Hero drank from a well");
-        //}
+        if(myRegion.containsWell())
+        {
+            Debug.Log("This contains a well");
+        }
     }
 
 
