@@ -7,6 +7,8 @@ public class CanvasManager : MonoBehaviour
     private GameObject createOrJoinRoomCanvas;
     [SerializeField]
     private GameObject currentRoomCanvas;
+    [SerializeField]
+    private GameObject setNickNameCanvas;
 
     private void Awake()
     {
@@ -17,5 +19,11 @@ public class CanvasManager : MonoBehaviour
     {
         createOrJoinRoomCanvas.SetActive(!createOrJoinRoomCanvas.activeSelf);
         currentRoomCanvas.SetActive(!currentRoomCanvas.activeSelf);
+    }
+
+    public void SwitchToCreateRoom()
+    {
+        createOrJoinRoomCanvas.SetActive(true);
+        setNickNameCanvas.SetActive(false);
     }
 }
