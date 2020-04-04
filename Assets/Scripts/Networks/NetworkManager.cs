@@ -19,7 +19,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         print("Connecting...");
         PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime = networkSettings.AppID;
-        PhotonNetwork.NickName = networkSettings.NickName + Random.Range(1,1000);
         PhotonNetwork.GameVersion = networkSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -27,7 +26,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         print("Connected");
-        print(PhotonNetwork.LocalPlayer.NickName);
 
         PhotonNetwork.JoinLobby();
     }
