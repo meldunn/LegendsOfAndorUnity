@@ -44,6 +44,7 @@ public class HeroMenu : MonoBehaviour, Observer
         UpdateTurn();
     }
 
+    // Used in Observer design pattern
     public void UpdateData(string Category)
     {
         if (string.Equals(Category, "TURN"))

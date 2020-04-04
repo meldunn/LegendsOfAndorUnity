@@ -11,10 +11,13 @@ public class UIManager : MonoBehaviour
     WellUIManager WellUIManager;
     InputManager InputManager;
     RuneStoneMenu RuneStoneMenu;
-    
+    BattleInvitationMenu BattleInvitationMenu;
+
     // Directly linked UI elements
     [SerializeField]
     GameObject StartBattleMenuObject = null;
+    [SerializeField]
+    GameObject BattleInvitationMenuObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +40,7 @@ public class UIManager : MonoBehaviour
         StartBattleMenu = StartBattleMenuObject.GetComponent<StartBattleMenu>();
         WellUIManager = GameObject.Find("WellUIManager").GetComponent<WellUIManager>();
         RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
+        BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
 
         // Must come AFTER all initializations
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -47,6 +51,7 @@ public class UIManager : MonoBehaviour
         StartBattleMenu.Initialize();
         WellUIManager.Initialize();
         RuneStoneMenu.Initialize();
+        BattleInvitationMenu.Initialize();
         
         // Must come AFTER all initializations
         InputManager.Initialize();

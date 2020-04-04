@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : MonoBehaviour
+public class Hero : MonoBehaviour, Subject
 {
     // Reference to WaypointManager
     private WaypointManager WaypointManager;
     private UIManager UIManager;
+
+    // List of Observers (Observer design pattern)
+    List<Observer> Observers = new List<Observer>();
 
     // Type of hero
     HeroType Type;
@@ -22,6 +25,12 @@ public class Hero : MonoBehaviour
     bool moveCompleted;
     HeroInventory heroInventory; //need to initialize somewhere
     Waypoint myRegion;
+
+    // Current battle invitation
+    BattleInvitation BattleInvitation;
+
+    // Battle created by this hero
+    Battle OwnedBattle;
 
     // Start is called before the first frame update
     void Start()
@@ -106,8 +115,6 @@ public class Hero : MonoBehaviour
         }
     }
 
-
-
     // Returns whether the hero is close enought to fight the given creature
     public bool IsEligibleForBattle(Creature Creature)
     {
@@ -148,6 +155,28 @@ public class Hero : MonoBehaviour
         return false;       // after initialized: return myInventory.containItem(Bow);
     }
 
+    public void SetOwnedBattle(Battle OwnedBattle)
+    {
+        this.OwnedBattle = OwnedBattle;
+    }
+
+    public Battle GetOwnedBattle()
+    {
+        return OwnedBattle;
+    }
+
+    public void SendBattleInvitation(BattleInvitation Invitation)
+    {
+        this.BattleInvitation = Invitation;
+
+        Notify("INVITE_STATUS");
+    }
+
+    public BattleInvitation GetBattleInvitation()
+    {
+        return BattleInvitation;
+    }
+
     public void SetWaypoint(Waypoint Region)
     {
         this.myRegion = Region;
@@ -161,5 +190,26 @@ public class Hero : MonoBehaviour
     private void HeroMoveUI()
     {
         UIManager.onHeroMove(this);
+    }
+
+    // Used in Observer design pattern
+    public void Attach(Observer o)
+    {
+        Observers.Add(o);
+    }
+
+    // Used in Observer design pattern
+    public void Detach(Observer o)
+    {
+        Observers.Remove(o);
+    }
+
+    // Used in Observer design pattern
+    public void Notify(string Category)
+    {
+        foreach (Observer o in Observers)
+        {
+            o.UpdateData(Category);
+        }
     }
 }

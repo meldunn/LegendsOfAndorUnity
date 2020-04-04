@@ -58,6 +58,7 @@ public class HeroControlMenu : MonoBehaviour, Observer
         UpdateControl();
     }
 
+    // Used in Observer design pattern
     public void UpdateData(string Category)
     {
         if (string.Equals(Category, "CONTROL"))
