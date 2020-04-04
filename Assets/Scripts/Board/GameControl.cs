@@ -6,23 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum NarratorLetter { 
-    A = 1,
-    B = 2,
-    C = 3,
-    D = 4,
-    E = 5,
-    F = 6,
-    G = 7,
-    H = 7,
-    I = 8,
-    J = 9,
-    K = 10,
-    L = 11,
-    M = 12,
-    N = 13,
-    Z = 14
-};
+
 
 public class GameControl : MonoBehaviour
 {
