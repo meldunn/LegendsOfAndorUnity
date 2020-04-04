@@ -103,6 +103,11 @@ public class StartBattleMenu : MonoBehaviour, Observer
         EnableButton(StartBattleStartButton);
         EnableButton(StartBattleCancelButton);
 
+        WarriorStartBattleInviteIcon.GetComponent<HeroInviteIcon>().Reset();
+        ArcherStartBattleInviteIcon.GetComponent<HeroInviteIcon>().Reset();
+        DwarfStartBattleInviteIcon.GetComponent<HeroInviteIcon>().Reset();
+        WizardStartBattleInviteIcon.GetComponent<HeroInviteIcon>().Reset();
+
         UpdateMainHero();
         UpdateMainCreature();
         UpdateAvailableOtherHeroes();
@@ -280,5 +285,19 @@ public class StartBattleMenu : MonoBehaviour, Observer
     public void UpdateWaitStatus()
     {
         // TODO
+    }
+
+    // Adds the target hero to the list of heroes to invite to the battle
+    public void AddInvite(HeroType Type)
+    {
+        Hero TargetHero = HeroManager.GetHero(Type);
+        Battle.AddHeroToInvite(TargetHero);
+    }
+
+    // Removes the target hero from the list of heroes to invite to the battle
+    public void RemoveInvite(HeroType Type)
+    {
+        Hero TargetHero = HeroManager.GetHero(Type);
+        Battle.RemoveHeroToInvite(TargetHero);
     }
 }

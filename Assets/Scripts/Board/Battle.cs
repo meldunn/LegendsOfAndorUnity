@@ -13,11 +13,26 @@ public class Battle : Subject
     // Creature being fought
     Creature Creature;
 
+    // Heroes that the battle starter wants to invite to the battle
+    List<Hero> HeroesToInvite = new List<Hero>();
+    
     // Constructor
     public Battle(Hero BattleStarter, Creature Creature)        // Initialize a battle without any other participants
     {
         this.BattleStarter = BattleStarter;
         this.Creature = Creature;
+    }
+
+    // Adds a hero to the list of participants to invite
+    public void AddHeroToInvite(Hero Hero)
+    {
+        HeroesToInvite.Add(Hero);
+    }
+
+    // Removes a hero from the list of participants to invite
+    public void RemoveHeroToInvite(Hero Hero)
+    {
+        HeroesToInvite.Remove(Hero);
     }
 
     public Creature GetCreature()
