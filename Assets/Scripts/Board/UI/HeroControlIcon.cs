@@ -8,7 +8,7 @@ public class HeroControlIcon : MonoBehaviour
     private GameManager GameManager;
 
     // The Hero type represented by this icon
-    HeroType Type;
+    private HeroType Type;
 
     // Start is called before the first frame update
     void Start()
