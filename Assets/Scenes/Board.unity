@@ -2512,7 +2512,6 @@ GameObject:
   m_Component:
   - component: {fileID: 298237720}
   - component: {fileID: 298237721}
-  - component: {fileID: 298237722}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -2547,18 +2546,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartBattleMenuObject: {fileID: 1596547670}
---- !u!114 &298237722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 298237719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fde8660038d4c63f28398629eb547ed0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &303074506
 GameObject:
   m_ObjectHideFlags: 0
