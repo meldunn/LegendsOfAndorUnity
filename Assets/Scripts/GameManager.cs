@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour, Subject
     private UIManager UIManager;
     private HeroManager HeroManager;
     private CreatureManager CreatureManager;
+    private NarratorManager NarratorManager;
 
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour, Subject
     private int InitialArcher = 25;
     private int InitialDwarf = 7;
     private int InitialWizard = 34;
+    private static NarratorLetter curLetter = NarratorLetter.A;
 
     // Start is called before the first frame update
     void Start()
@@ -53,11 +55,13 @@ public class GameManager : MonoBehaviour, Subject
         UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
 
         // Initialize the non-UI managers
         WaypointManager.Initialize();
         HeroManager.Initialize();
         CreatureManager.Initialize();
+        NarratorManager.Initialize();
 
         // Initialize game difficulty
         Difficulty = DifficultyLevel.Normal;    // TODO real value
