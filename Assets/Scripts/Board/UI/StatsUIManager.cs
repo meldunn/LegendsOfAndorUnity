@@ -16,13 +16,16 @@ public class StatsUIManager : MonoBehaviour
     void Update()
     {
         Text farmerText = GameObject.Find("FarmersText").GetComponent<UnityEngine.UI.Text>();
-        Text willPower = GameObject.Find("FarmersText").GetComponent<UnityEngine.UI.Text>();
-        Text farmerText = GameObject.Find("FarmersText").GetComponent<UnityEngine.UI.Text>();
-        Text farmerText = GameObject.Find("FarmersText").GetComponent<UnityEngine.UI.Text>();
-        //UIText.text = gameObject.GetComponent<Text>().text;
-        //UIText = GameObject.FindGameObjectWithTag("Text").GetComponent<UnityEngine.UI.Text>();
-        farmerText.text = "Farmer: ";
-        //farmerText = "Farmers: ";
+        Text willpowerText = GameObject.Find("WillpowerText").GetComponent<UnityEngine.UI.Text>();
+        Text strengthText = GameObject.Find("StrengthText").GetComponent<UnityEngine.UI.Text>();
+        Text goldText = GameObject.Find("GoldText").GetComponent<UnityEngine.UI.Text>();
+
+        GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        farmerText.text = " Farmers: " + gameManager.GetSelfHero().getNumFarmers();
+        willpowerText.text = " Willpower: " + gameManager.GetSelfHero().getWillpower();
+        strengthText.text = " Strength: " + gameManager.GetSelfHero().getStrength();
+        goldText.text = " Gold: " + gameManager.GetSelfHero().getGold();
     }
 
     public void Initialize()

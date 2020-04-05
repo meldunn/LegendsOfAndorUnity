@@ -212,4 +212,24 @@ public class Hero : MonoBehaviour, Subject
             o.UpdateData(Category);
         }
     }
+
+    public int getStrength()
+    {
+        return strength;
+    }
+
+    public int getNumFarmers()
+    {
+        return numFarmers;
+    }
+
+    public int getWillpower()
+    {
+        return willpower;
+    }
+
+    public int getGold()
+    {
+        return myGold;
+    }
 }
