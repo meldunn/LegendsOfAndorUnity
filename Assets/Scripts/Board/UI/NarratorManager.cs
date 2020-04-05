@@ -56,7 +56,7 @@ public class NarratorManager : MonoBehaviour
             WaypointName = "Waypoint " + name.ToString();
             waypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
             waypoints[i].SetWaypointNum(i);
-            Debug.Log(waypoints[i].GetLocation());
+            //Debug.Log(waypoints[i].GetLocation());
             //Debug.Log(i);
         }
         //Debug.Log(waypoints[2].GetLocation());
