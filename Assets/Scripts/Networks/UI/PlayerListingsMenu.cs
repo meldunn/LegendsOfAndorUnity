@@ -12,6 +12,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     private Transform content;
     [SerializeField]
     private PlayerListing playerListing;
+    [SerializeField]
+    private GameObject startGameButton;
 
     private List<PlayerListing> currentPlayers = new List<PlayerListing>();
 
@@ -19,6 +21,9 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         GetCurrentRoomPlayers();
+
+        if (PhotonNetwork.IsMasterClient)
+            startGameButton.SetActive(true);
     }
 
     public override void OnDisable()
@@ -34,6 +39,9 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
     private void GetCurrentRoomPlayers()
     {
+        if (!PhotonNetwork.IsConnected) return;
+        if (PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.Players == null) return;
+
 
         foreach(KeyValuePair<int, Photon.Realtime.Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
         {
@@ -84,6 +92,11 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             Destroy(currentPlayers[index].gameObject);
             currentPlayers.RemoveAt(index);
         }
+
+
+        //if master client leaves, check if this client becomes master
+        if (PhotonNetwork.IsMasterClient)
+            startGameButton.SetActive(true);
     }
 
     public void OnClick_LeaveRoom()

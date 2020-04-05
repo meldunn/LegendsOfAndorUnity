@@ -18,9 +18,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Awake()
     {
         print("Connecting...");
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime = networkSettings.AppID;
         PhotonNetwork.GameVersion = networkSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
+        
     }
 
     public override void OnConnectedToMaster()
