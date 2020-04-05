@@ -29,6 +29,33 @@ public class HeroCardUI : MonoBehaviour
         }   
     }
 
+    public void displayArcherHeroCard()
+    {
+        if (ArcherHeroCard.activeSelf){
+            ArcherHeroCard.SetActive(false);
+        } else{
+            ArcherHeroCard.SetActive(true);
+        }   
+    }
+
+    public void displayDwarfHeroCard()
+    {
+        if (DwarfHeroCard.activeSelf){
+            DwarfHeroCard.SetActive(false);
+        } else{
+            DwarfHeroCard.SetActive(true);
+        }   
+    }
+
+    public void displayWizardHeroCard()
+    {
+        if (WizardHeroCard.activeSelf){
+            WizardHeroCard.SetActive(false);
+        } else{
+            WizardHeroCard.SetActive(true);
+        }   
+    }
+
     // Start is called before the first frame update
     void Start()
     {
