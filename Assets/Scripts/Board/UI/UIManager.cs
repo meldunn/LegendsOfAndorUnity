@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     InputManager InputManager;
     RuneStoneMenu RuneStoneMenu;
     BattleInvitationMenu BattleInvitationMenu;
+    StatsUIManager StatsUIManager;
 
     // Directly linked UI elements
     [SerializeField]
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
         WellUIManager = GameObject.Find("WellUIManager").GetComponent<WellUIManager>();
         RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
         BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
+        StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
 
         // Must come AFTER all initializations
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -52,7 +54,8 @@ public class UIManager : MonoBehaviour
         WellUIManager.Initialize();
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
-        
+        StatsUIManager.Initialize();
+
         // Must come AFTER all initializations
         InputManager.Initialize();
     }
