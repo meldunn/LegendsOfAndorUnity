@@ -168,4 +168,9 @@ public class HeroManager : MonoBehaviour
 
         return HeroTypes;
     }
+
+    //public void Move()
+    //{
+    //    GameManager.GetCurrentTurnHero().Move();
+    //}
 }

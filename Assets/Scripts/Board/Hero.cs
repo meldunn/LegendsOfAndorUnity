@@ -74,6 +74,17 @@ public class Hero : MonoBehaviour, Subject
         //Debug.Log("New Region is now "+ myRegion.GetWaypointNum());
     }
 
+    public void Move()
+    {
+        //if (GetSelfHero() == GetCurrentTurnHero())
+        //{
+        //    Debug.Log("hero turn character is on wp " + GetCurrentTurnHero().GetWaypoint().GetWaypointNum());
+        //    Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
+        //}
+        Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
+
+    }
+
     public void pickupGold()
     {
         if (myRegion.pickupOneGold() == 1) 

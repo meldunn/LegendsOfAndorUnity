@@ -176,6 +176,11 @@ public class GameManager : MonoBehaviour, Subject
         return Count;
     }
 
+    public void HeroMove()
+    {
+        GetCurrentTurnHero().Move();
+    }
+
     // Returns a randomly generated turn order
     private List<AndorPlayer> GenerateTurnOrder()
     {
