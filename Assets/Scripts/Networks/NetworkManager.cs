@@ -19,7 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         print("Connecting...");
         PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime = networkSettings.AppID;
+        //PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime = networkSettings.AppID;
         PhotonNetwork.GameVersion = networkSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
         
@@ -34,7 +34,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        print("Disconnected" + cause.ToString());
+        print("Disconnected " + cause.ToString());
     }
 
 }

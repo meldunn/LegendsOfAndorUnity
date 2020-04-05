@@ -35,6 +35,9 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         }
 
         currentPlayers.Clear();
+
+
+        startGameButton.SetActive(false);
     }
 
     private void GetCurrentRoomPlayers()
@@ -94,7 +97,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         }
 
 
-        //if master client leaves, check if this client becomes master
+        ////if master client leaves, check if this client becomes master
         if (PhotonNetwork.IsMasterClient)
             startGameButton.SetActive(true);
     }
@@ -104,5 +107,17 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom(true);
         print("left room");
         CanvasManager.Instance.SwitchCanvases();
+    }
+
+    public void OnClick_StartGame()
+    {
+        if (!PhotonNetwork.IsConnected) return;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+            PhotonNetwork.LoadLevel(1);
+        }   
     }
 }

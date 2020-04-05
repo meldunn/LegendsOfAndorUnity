@@ -18,9 +18,11 @@ public class CreateRoom : MonoBehaviourPunCallbacks
     {
         if (!PhotonNetwork.IsConnected)
         {
-            print("not connected");
+            print("Log: not connected, on room creation");
             return;
         }
+
+        if (string.IsNullOrWhiteSpace(roomName.text)) return;
 
         RoomOptions options = new RoomOptions();
         options.MaxPlayers = 4;
