@@ -147,12 +147,16 @@ public class HeroManager : MonoBehaviour
     public List<HeroType> GetHeroesEligibleForBattle(Battle Battle)
     {
         List<HeroType> EligibleHeroes = new List<HeroType>();
-        Creature Creature = Battle.GetCreature();
 
-        if (Warrior.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Warrior.GetHeroType());
-        if (Archer.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Archer.GetHeroType());
-        if (Dwarf.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Dwarf.GetHeroType());
-        if (Wizard.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Wizard.GetHeroType());
+        if (Battle != null)
+        {
+            Creature Creature = Battle.GetCreature();
+
+            if (Warrior.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Warrior.GetHeroType());
+            if (Archer.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Archer.GetHeroType());
+            if (Dwarf.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Dwarf.GetHeroType());
+            if (Wizard.IsEligibleForBattle(Creature)) EligibleHeroes.Add(Wizard.GetHeroType());
+        }
 
         return EligibleHeroes;
     }
