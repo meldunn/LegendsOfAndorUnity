@@ -199,7 +199,7 @@ public class Hero : MonoBehaviour, Subject
 
         // Notify observers; notifications can be received to prompt UI updates
         Notify("TIME");
-        Notify("WILLPOWER");
+        Notify("HERO_WILLPOWER");
 
         return true;
     }
