@@ -21,17 +21,6 @@ public class WellUIManager : MonoBehaviour
     private Button Button5;
     private int[] WellPosition = {5, 35, 45, 55};
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void Initialize()
     {
         Well5Button = GameObject.Find("well5Button");
@@ -44,10 +33,24 @@ public class WellUIManager : MonoBehaviour
         Well45Image = GameObject.Find("well45");
         Well55Image = GameObject.Find("well55");
 
+        PlaceWell(Well5Image, 5);
+        PlaceWell(Well35Image, 35);
+        PlaceWell(Well45Image, 45);
+        PlaceWell(Well55Image, 55);
         toggleGameObjectVisibility(Well5Button);
         toggleGameObjectVisibility(Well35Button);
         toggleGameObjectVisibility(Well45Button);
         toggleGameObjectVisibility(Well55Button);
+
+    }
+
+    private void PlaceWell(GameObject WellImage, int WaypointNum)
+    {
+        string WaypointName = "Waypoint ("+WaypointNum+")";
+
+        Waypoint Waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
+
+        WellImage.transform.Translate(Waypoint.GetLocation() - WellImage.transform.position);
     }
 
     private void toggleGameObjectVisibility(GameObject GameObject)

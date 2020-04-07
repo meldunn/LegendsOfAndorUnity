@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     RuneStoneMenu RuneStoneMenu;
     BattleInvitationMenu BattleInvitationMenu;
     StatsUIManager StatsUIManager;
+    MerchantUIManager MerchantUIManager;
 
     // Directly linked UI elements
     [SerializeField]
@@ -43,6 +44,7 @@ public class UIManager : MonoBehaviour
         RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
         BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
         StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
+        MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
 
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -55,9 +57,11 @@ public class UIManager : MonoBehaviour
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
         StatsUIManager.Initialize();
+        MerchantUIManager.Initialize();
 
         // Must come AFTER all initializations
         InputManager.Initialize();
+
     }
     
     public void onHeroMove(Hero Hero)
@@ -67,9 +71,9 @@ public class UIManager : MonoBehaviour
         Waypoint HeroRegion = Hero.GetWaypoint();
         //Debug.Log("Landed on region "+HeroRegion.GetWaypointNum());
         if(HeroRegion.containsFullWell())
-        {
             WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
-        }
+
+        MerchantUIManager.UpdateMerchantButton(HeroRegion.GetWaypointNum());
 
     }
 

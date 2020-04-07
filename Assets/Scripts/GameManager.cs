@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour, Subject
     private int InitialSkralLocation = 19;
     private int[] InitialEasyFarmerLocation = { 24, 36 };
     private int[] InitialNormalFarmerLocation = { 24 };
+    private int[] MerchantLocation = { 18, 57, 71 };
     private int InitialWarrior = 14;
     private int InitialArcher = 25;
     private int InitialDwarf = 7;
@@ -126,6 +127,17 @@ public class GameManager : MonoBehaviour, Subject
             default:
                 Debug.LogError("Cannot spawn farmers; invalid difficulty level");
                 break;
+        }
+
+        // Generate Initial Merchants
+        for(int i=0; i<MerchantLocation.Length; i++)
+        {
+            string WaypointName = "Waypoint (" + MerchantLocation[i] + ")";
+            GameObject Waypoint = GameObject.Find(WaypointName);
+            Waypoint.AddComponent<Merchant>();
+
+            Merchant Merchant = Waypoint.GetComponent<Merchant>();
+            Merchant.Initialize();
         }
 
         // Initialize the UI manager

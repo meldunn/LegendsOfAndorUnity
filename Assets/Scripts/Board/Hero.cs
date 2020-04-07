@@ -69,7 +69,7 @@ public class Hero : MonoBehaviour, Subject
     {
         myRegion = WaypointManager.GetWaypoint(RegionNum);
         // TODO: change transform location of hero
-        HeroMoveUI();
+        Move();
 
         //Debug.Log("New Region is now "+ myRegion.GetWaypointNum());
     }
@@ -82,6 +82,8 @@ public class Hero : MonoBehaviour, Subject
         //    Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
         //}
         Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
+
+        UIManager.onHeroMove(this);
 
     }
 
@@ -196,11 +198,6 @@ public class Hero : MonoBehaviour, Subject
     public Waypoint GetWaypoint()
     {
         return myRegion;
-    }
-
-    private void HeroMoveUI()
-    {
-        UIManager.onHeroMove(this);
     }
 
     // Used in Observer design pattern
