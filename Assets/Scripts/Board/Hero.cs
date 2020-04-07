@@ -168,6 +168,42 @@ public class Hero : MonoBehaviour, Subject
         return false;       // after initialized: return myInventory.containItem(Bow);
     }
 
+    // Tries to advance the time marker and returns whether or not the operation succeeded
+    public bool AdvanceTimeMarker(int Amount)
+    {
+        int NewTime = timeOfDay + Amount;
+        int NewWillpower = willpower;
+
+        // Validate the new time value
+        if (NewTime > 10)
+        {
+            Debug.Log("Cannot advance time marker; new time would exceed 10 hours.");
+            return false;
+        }
+        else if (NewTime >= 8)
+        {
+            int NumOfOvertimeHours = NewTime - 7;
+            NewWillpower = willpower - 2 * NumOfOvertimeHours;
+
+            // Validate the new willpower value
+            if (NewWillpower <= 0)      // Allowing overtime to bring a hero's willpower to 0 is disallowed
+            {
+                Debug.Log("Cannot advance time marker; overtime cannot be used if it brings a hero to 0 willpower.");
+                return false;
+            }
+        }
+
+        // Finalize the time marker advancement
+        timeOfDay = NewTime;
+        willpower = NewWillpower;
+
+        // Notify observers; notifications can be received to prompt UI updates
+        Notify("TIME");
+        Notify("WILLPOWER");
+
+        return true;
+    }
+
     public void SetOwnedBattle(Battle OwnedBattle)
     {
         this.OwnedBattle = OwnedBattle;
