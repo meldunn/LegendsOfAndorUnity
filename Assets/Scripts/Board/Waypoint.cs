@@ -13,6 +13,8 @@ public class Waypoint : MonoBehaviour
     // Heroes on this waypoint
     private List<Hero> Heroes = new List<Hero>(4);
 
+    private List<RuneStone> RuneStones = new List<RuneStone>(3);
+
     private List<Farmer> farmers = new List<Farmer>();
 
     int gold;
@@ -41,11 +43,11 @@ public class Waypoint : MonoBehaviour
         }
         
         WaypointNum = Number;
-
+         
+        // Initialize wells
         if(Number == 5 || Number == 35 || Number == 45 || Number == 55)
         {
             well = new Well();
-            ContainsWell = true;
         }
 
     }
@@ -120,7 +122,7 @@ public class Waypoint : MonoBehaviour
 
     public bool containsFullWell()
     {
-        if(ContainsWell && well.IsFull())
+        if(ContainsWell && well != null)
         {
             return true;
         }
@@ -141,6 +143,11 @@ public class Waypoint : MonoBehaviour
     public bool Equals(Waypoint Other)
     {
         return (Other != null && this.GetWaypointNum() == Other.GetWaypointNum());
+    }
+
+    public void InitializeRuneStone(int ID)
+    {
+        RuneStones.Add(new RuneStone(ID));
     }
 
 }

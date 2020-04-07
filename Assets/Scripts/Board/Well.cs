@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Well : MonoBehaviour
+public class Well
 {
     private bool Full = false; 
 
-    public Well(){
+    public Well() {
         Full = true;
     }
 

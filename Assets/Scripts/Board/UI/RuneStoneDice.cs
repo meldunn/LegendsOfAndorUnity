@@ -1,4 +1,9 @@
-﻿using System;
+﻿/*
+ *
+ * Dice rolling from Alexander Zotov's tutorial: https://www.youtube.com/watch?time_continue=4&v=W8ielU8iURI&feature=emb_title
+ *
+ */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +51,7 @@ public class RuneStoneDice : MonoBehaviour
 
         // check which dice was rolled
         bool OnesPosition = String.Equals(gameObject.name, "RuneOnesDice");
-        Debug.Log("Change Rune Ones Die to " + randomDiceSide);
+        // Debug.Log("Change Rune Ones Die to " + randomDiceSide);
         if(RuneStoneMenu != null)
         {
             RuneStoneMenu.FinishedRoll(OnesPosition, randomDiceSide);

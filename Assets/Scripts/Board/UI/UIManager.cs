@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
         BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
         StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
 
-        // Must come AFTER all initializations
+        // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
 
         // Initialize all UI elements

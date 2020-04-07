@@ -7,13 +7,19 @@ public class WellUIManager : MonoBehaviour
 {
 
     private GameManager GameManager;
+
+    private GameObject Well5Image;
+    private GameObject Well35Image;
+    private GameObject Well45Image;
+    private GameObject Well55Image;
+
     private GameObject Well5Button;
     private GameObject Well35Button;
     private GameObject Well45Button;
     private GameObject Well55Button;
 
     private Button Button5;
-
+    private int[] WellPosition = {5, 35, 45, 55};
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +38,11 @@ public class WellUIManager : MonoBehaviour
         Well35Button = GameObject.Find("well35Button");
         Well45Button = GameObject.Find("well45Button");
         Well55Button = GameObject.Find("well55Button");
+
+        Well5Image = GameObject.Find("well5");
+        Well35Image = GameObject.Find("well35");
+        Well45Image = GameObject.Find("well45");
+        Well55Image = GameObject.Find("well55");
 
         toggleGameObjectVisibility(Well5Button);
         toggleGameObjectVisibility(Well35Button);
@@ -54,6 +65,7 @@ public class WellUIManager : MonoBehaviour
         }
     }
     
+    // Called when a Hero drinks from a well
     private void toggleButtonFocus(GameObject ButtonObject, bool Focused)
     {
         if(ButtonObject != null)
@@ -74,6 +86,39 @@ public class WellUIManager : MonoBehaviour
         }
     }
 
+    // Called when a Hero lands on a waypoint with a well on it
+    //public void PositionWells(int WaypointNum)
+    //{
+        //Waypoint Waypoint = GameObject.Find("Waypoint (5)").GetComponent<Waypoint>();
+        //Vector3 Image_Location = Waypoint.GetLocation();
+        //Waypoint.transform.Translate;
+
+        //switch (WaypointNum)
+        //{
+        //    case(5):
+        //        
+        //        //toggleGameObjectVisibility(Well5Button);
+        //        break;
+
+        //    case(45):
+        //        //toggleGameObjectVisibility(Well45Button);
+        //        break;
+
+        //    case(35):
+        //        //toggleGameObjectVisibility(Well35Button);
+        //        break;
+
+        //    case(55):
+        //        //toggleGameObjectVisibility(Well55Button);
+        //        break;
+        //        
+        //    default:
+        //        Debug.Log("Error. No well on waypoint "+WaypointNum);
+        //        break;
+        //}
+    //}
+
+    // Called when a Hero lands on a waypoint with a well on it
     public void DisplayWellButton(int WaypointNum)
     {
         switch (WaypointNum)
@@ -100,6 +145,7 @@ public class WellUIManager : MonoBehaviour
         }
     }
     
+    // Allows well button to be clicked with a new day
     public void FocusWellButton(int WaypointNum)
     {
         switch (WaypointNum)

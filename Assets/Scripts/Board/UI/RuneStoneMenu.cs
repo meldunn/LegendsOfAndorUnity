@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RuneStoneMenu : MonoBehaviour
 {
+    WaypointManager WaypointManager;
     // list of images
     private string[] IconName;
     private GameObject DiceTen;
@@ -18,7 +19,7 @@ public class RuneStoneMenu : MonoBehaviour
     private int RuneStonePosition;
     private int NumRuneStonesPlaced;
 
-    private bool isCoroutineExecuting = false;
+    // private bool isCoroutineExecuting = false;
 
     public void Initialize()
     {
@@ -38,11 +39,13 @@ public class RuneStoneMenu : MonoBehaviour
         TextOne = GameObject.Find("RuneOnesText");
         PlacementText = GameObject.Find("RuneStonePlacementText");
         
-        //Debug.Log("Rune Stone Menu Initialized");
+        // Hide placement text to start
         toggleGameObjectVisibility(PlacementText);
 
         TensRolled = false;
         OnesRolled = false;
+
+        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
     }
 
     public void FinishedRoll(bool OnesDice, int Value)
@@ -76,10 +79,6 @@ public class RuneStoneMenu : MonoBehaviour
 
     public void FinishedBothRolls()
     {
-        // Animate the hidden stone image
-        // Text: Rune Stone Placed on __
-        // Add Rune Stone to the Waypoin
-        // Make the dice visible again
          if(NumRuneStonesPlaced == 5)
          {
              Invoke("AllRuneStonesPlaced", 4);
@@ -91,6 +90,8 @@ public class RuneStoneMenu : MonoBehaviour
              GameObject RuneStoneImage = GameObject.Find(IconName[NumRuneStonesPlaced]);
              toggleGameObjectVisibility(RuneStoneImage);
 
+             // Debug.Log(NumRuneStonesPlaced);
+
              if(NumRuneStonesPlaced == 0)
              {
                  toggleGameObjectVisibility(PlacementText);
@@ -98,9 +99,7 @@ public class RuneStoneMenu : MonoBehaviour
              UpdatePlacementText(RuneStonePosition);
 
              // Place a rune stone
-             Debug.Log("Place Rune Stone at Waypoint "+RuneStonePosition);
-             // GetWayPoint(RollNum);
-             // PlaceRuneStone(Waypoint);
+             PlaceRuneStone(RuneStonePosition, NumRuneStonesPlaced);
 
              // Reset the Dice
              RuneStonePosition = 0;
@@ -135,5 +134,18 @@ public class RuneStoneMenu : MonoBehaviour
         {
             Debug.Log("Error. GameObject referenced null");
         }
+    }
+    
+    private void PlaceRuneStone(int RegionNum, int RuneStoneNum)
+    {
+        RuneStoneNum++;
+        string RuneStoneName = "runestone" + RuneStoneNum.ToString();
+        GameObject RuneStoneImage = GameObject.Find(RuneStoneName);
+        
+        // Debug.Log("Place Rune Stone at Waypoint "+ RuneStoneName);
+        Waypoint Waypoint = WaypointManager.GetWaypoint(RuneStonePosition);
+
+        RuneStoneImage.transform.Translate(Waypoint.GetLocation() - RuneStoneImage.transform.position);
+        Waypoint.InitializeRuneStone(RuneStoneNum);
     }
 }
