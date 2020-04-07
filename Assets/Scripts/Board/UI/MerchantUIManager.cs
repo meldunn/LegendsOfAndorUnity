@@ -80,4 +80,13 @@ public class MerchantUIManager : MonoBehaviour
                 break;
         }
     }
+
+    public void ShowMerchantMenu(int MerchantNum)
+    {
+        // Displays the merchant menu at (0,0,0)
+        GameObject MerchantMenu = GameObject.Find("MerchantMenu");
+
+        Vector3 Location = new Vector3(0, 0, 0);
+        MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
+    }
 }
