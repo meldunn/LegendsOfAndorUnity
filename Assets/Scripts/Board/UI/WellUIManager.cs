@@ -37,10 +37,6 @@ public class WellUIManager : MonoBehaviour
         PlaceWell(Well35Image, 35);
         PlaceWell(Well45Image, 45);
         PlaceWell(Well55Image, 55);
-        toggleGameObjectVisibility(Well5Button);
-        toggleGameObjectVisibility(Well35Button);
-        toggleGameObjectVisibility(Well45Button);
-        toggleGameObjectVisibility(Well55Button);
 
     }
 
@@ -53,93 +49,47 @@ public class WellUIManager : MonoBehaviour
         WellImage.transform.Translate(Waypoint.GetLocation() - WellImage.transform.position);
     }
 
-    private void toggleGameObjectVisibility(GameObject GameObject)
+    private void toggleGameObjectVisibility(GameObject GameObject, bool ShowRequest)
     {
         // toggle visibility of any GameObject
+        // Debug.Log(GameObject);
 
         if(GameObject != null)
         {
-            bool isActive = GameObject.activeSelf;
-            GameObject.SetActive(!isActive);
+            if(ShowRequest) GameObject.SetActive(false);
+
+            else GameObject.SetActive(true);
         }
         else
         {
             Debug.Log("Error. GameObject referenced null");
         }
     }
-    
-    // Called when a Hero drinks from a well
-    private void toggleButtonFocus(GameObject ButtonObject, bool Focused)
-    {
-        if(ButtonObject != null)
-        {
-            Button Button = ButtonObject.GetComponent<Button>();
-            if(Focused)
-            {
-                Button.interactable = false;
-            }
-            else
-            {
-                Button.interactable = true;
-            }
-        }
-        else
-        {
-            Debug.Log("Error. GameObject reference null");
-        }
-    }
-
-    // Called when a Hero lands on a waypoint with a well on it
-    //public void PositionWells(int WaypointNum)
-    //{
-        //Waypoint Waypoint = GameObject.Find("Waypoint (5)").GetComponent<Waypoint>();
-        //Vector3 Image_Location = Waypoint.GetLocation();
-        //Waypoint.transform.Translate;
-
-        //switch (WaypointNum)
-        //{
-        //    case(5):
-        //        
-        //        //toggleGameObjectVisibility(Well5Button);
-        //        break;
-
-        //    case(45):
-        //        //toggleGameObjectVisibility(Well45Button);
-        //        break;
-
-        //    case(35):
-        //        //toggleGameObjectVisibility(Well35Button);
-        //        break;
-
-        //    case(55):
-        //        //toggleGameObjectVisibility(Well55Button);
-        //        break;
-        //        
-        //    default:
-        //        Debug.Log("Error. No well on waypoint "+WaypointNum);
-        //        break;
-        //}
-    //}
 
     // Called when a Hero lands on a waypoint with a well on it
     public void DisplayWellButton(int WaypointNum)
     {
+        Vector3 Offset = new Vector3(0,1,0);
         switch (WaypointNum)
         {
             case(5):
-                toggleGameObjectVisibility(Well5Button);
+                Well5Button.transform.Translate(Well5Image.transform.position - Well5Button.transform.position - Offset);
+                toggleGameObjectVisibility(Well5Image, true);
                 break;
 
             case(45):
-                toggleGameObjectVisibility(Well45Button);
+                Well45Button.transform.Translate(Well45Image.transform.position - Well45Button.transform.position + Offset);
+                toggleGameObjectVisibility(Well5Image, true);
                 break;
 
             case(35):
-                toggleGameObjectVisibility(Well35Button);
+                Well35Button.transform.Translate(Well35Image.transform.position - Well35Button.transform.position + Offset);
+                toggleGameObjectVisibility(Well5Image, true);
                 break;
 
             case(55):
-                toggleGameObjectVisibility(Well55Button);
+                Well55Button.transform.Translate(Well55Image.transform.position - Well35Button.transform.position - Offset);
+                toggleGameObjectVisibility(Well5Image, true);
                 break;
                 
             default:
@@ -149,24 +99,24 @@ public class WellUIManager : MonoBehaviour
     }
     
     // Allows well button to be clicked with a new day
-    public void FocusWellButton(int WaypointNum)
+    public void HideWellButton(int WaypointNum)
     {
         switch (WaypointNum)
         {
             case(5):
-                toggleButtonFocus(Well5Button, false);
+                Well5Button.SetActive(false);
                 break;
 
             case(45):
-                toggleButtonFocus(Well45Button, false);
+                Well45Button.SetActive(false);
                 break;
 
             case(35):
-                toggleButtonFocus(Well35Button, false);
+                Well35Button.SetActive(false);
                 break;
 
             case(55):
-                toggleButtonFocus(Well55Button, false);
+                Well55Button.SetActive(false);
                 break;
                 
             default:
@@ -174,4 +124,10 @@ public class WellUIManager : MonoBehaviour
                 break;
         }
     }
+
+    public void WellsReplenished()
+    {
+        // Resiet
+    }
+    
 }

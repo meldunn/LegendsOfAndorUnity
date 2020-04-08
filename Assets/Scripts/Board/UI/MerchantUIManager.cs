@@ -5,6 +5,7 @@ using UnityEngine;
 public class MerchantUIManager : MonoBehaviour
 {
     // Stored in numerical order { 18, 57, 71 }
+    private GameObject MerchantMenu;
     
     private List<GameObject> Merchant = new List<GameObject>(3);
     private List<GameObject> MerchantButton = new List<GameObject>(3);
@@ -13,6 +14,9 @@ public class MerchantUIManager : MonoBehaviour
     public void Initialize()
     {
         // Initialize data
+        
+        MerchantMenu = GameObject.Find("MerchantMenu");
+
         string IconName = "";
         string ButtonName = "";
         for(int i=0; i<Location.Length; i++)
@@ -29,6 +33,8 @@ public class MerchantUIManager : MonoBehaviour
         PlaceMerchants();
         for(int i=0; i<MerchantButton.Count; i++) 
             Visibility(MerchantButton[i], false);
+        
+        // TODO Hide witch at the start
     }
 
     // Called once in Initialize() to place the merchants
@@ -75,8 +81,6 @@ public class MerchantUIManager : MonoBehaviour
                 Visibility(MerchantButton[2], true);
                 break;
             default:
-                Debug.Log("Error in UpdateMerchant. No merchant on region "
-                        + RegionNumber);
                 break;
         }
     }
@@ -84,9 +88,10 @@ public class MerchantUIManager : MonoBehaviour
     public void ShowMerchantMenu(int MerchantNum)
     {
         // Displays the merchant menu at (0,0,0)
-        GameObject MerchantMenu = GameObject.Find("MerchantMenu");
-
         Vector3 Location = new Vector3(0, 0, 0);
         MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
+    }
+    public void UpdateItemAmount(bool Increase, string ItemName){
+
     }
 }

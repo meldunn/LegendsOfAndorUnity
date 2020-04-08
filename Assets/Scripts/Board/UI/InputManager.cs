@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     // Get References to all the GameObjects
     private GameObject WellsOverlay;
     private GameObject RuneStoneMenu;
+    private GameObject MerchantsOverlay;
 
 
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class InputManager : MonoBehaviour
         // Get references to Game Objects
         WellsOverlay = GameObject.Find("WellsOverlay");
         RuneStoneMenu = GameObject.Find("RuneStoneMenu");
+        MerchantsOverlay = GameObject.Find("MerchantsOverlay");
 
         // Set the default visibility
         toggleGameObjectVisibility(RuneStoneMenu);
@@ -60,6 +62,12 @@ public class InputManager : MonoBehaviour
         if(Input.GetKeyDown("r"))
         {
             toggleGameObjectVisibility(RuneStoneMenu);
+        }
+
+        // Toggle Merchants Overlay
+        if(Input.GetKeyDown("m"))
+        {
+            toggleGameObjectVisibility(MerchantsOverlay);
         }
     }
 }

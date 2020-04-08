@@ -74,8 +74,6 @@ public class Hero : MonoBehaviour, Subject
         myRegion = WaypointManager.GetWaypoint(RegionNum);
         // TODO: change transform location of hero
         Move();
-
-        //Debug.Log("New Region is now "+ myRegion.GetWaypointNum());
     }
 
     public void Move()
@@ -118,13 +116,21 @@ public class Hero : MonoBehaviour, Subject
     {
         // TODO: avoid Teleport and fix null reference to myRegion
         Teleport(regionNum);
+
         if(myRegion != null)
         {
             if(myRegion.containsFullWell())
             {
-                // willpower ++;
                 myRegion.EmptyWell();
+
+                // Warrior special ability
+                if(Type == HeroType.Warrior && willpower <= maxWillpower - 5) willpower += 5;
+                
+                if(willpower <= maxWillpower - 3) willpower += 3;
+
+                else willpower = maxWillpower;
             }
+            Debug.Log(Type + " now has will power "+willpower);
         }
         else
         {

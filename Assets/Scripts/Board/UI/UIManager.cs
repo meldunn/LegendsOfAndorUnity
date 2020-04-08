@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         WellUIManager = GameObject.Find("WellUIManager").GetComponent<WellUIManager>();
         RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
         BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
-        StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
+        // StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
         MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
         BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
 
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
         WellUIManager.Initialize();
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
-        StatsUIManager.Initialize();
+        // StatsUIManager.Initialize();
         MerchantUIManager.Initialize();
         BattleMenu.Initialize();
 

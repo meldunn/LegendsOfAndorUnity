@@ -51,6 +51,7 @@ public class Waypoint : MonoBehaviour
         if(Number == 5 || Number == 35 || Number == 45 || Number == 55)
         {
             well = new Well();
+            ContainsWell = true;
         }
 
     }
