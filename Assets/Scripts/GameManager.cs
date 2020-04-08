@@ -290,7 +290,10 @@ public class GameManager : MonoBehaviour, Subject
     // Used in Observer design pattern
     public void Notify(string Category)
     {
-        foreach (Observer o in Observers)
+        // Iterate through a copy of the observer list in case observers detach themselves during notify
+        var ObserversCopy = new List<Observer>(Observers);
+
+        foreach (Observer o in ObserversCopy)
         {
             o.UpdateData(Category);
         }

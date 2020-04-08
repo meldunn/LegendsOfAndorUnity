@@ -14,12 +14,15 @@ public class UIManager : MonoBehaviour
     BattleInvitationMenu BattleInvitationMenu;
     StatsUIManager StatsUIManager;
     MerchantUIManager MerchantUIManager;
+    BattleMenu BattleMenu;
 
     // Directly linked UI elements
     [SerializeField]
     GameObject StartBattleMenuObject = null;
     [SerializeField]
     GameObject BattleInvitationMenuObject = null;
+    [SerializeField]
+    GameObject BattleMenuObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +48,7 @@ public class UIManager : MonoBehaviour
         BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
         StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
         MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
+        BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
 
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -58,6 +62,7 @@ public class UIManager : MonoBehaviour
         BattleInvitationMenu.Initialize();
         StatsUIManager.Initialize();
         MerchantUIManager.Initialize();
+        BattleMenu.Initialize();
 
         // Must come AFTER all initializations
         InputManager.Initialize();

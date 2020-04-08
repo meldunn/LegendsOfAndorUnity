@@ -32,6 +32,11 @@ public class BattleInvitation
         return Battle.GetCreature();
     }
 
+    public Battle GetBattle()
+    {
+        return Battle;
+    }
+
     public Hero GetBattleStarter()
     {
         return Battle.GetBattleStarter();
@@ -40,13 +45,18 @@ public class BattleInvitation
     public void Accept()
     {
         Status = InvitationStatus.Accepted;
+        MyHero.SetCurrentBattle(Battle);
         NotifyHero();
+
+        Battle.TestToStart();
     }
 
     public void Decline()
     {
         Status = InvitationStatus.Declined;
         NotifyHero();
+
+        Battle.TestToStart();
     }
 
     public bool IsPending()

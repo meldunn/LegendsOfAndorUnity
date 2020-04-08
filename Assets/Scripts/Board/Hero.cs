@@ -29,8 +29,8 @@ public class Hero : MonoBehaviour, Subject
     // Current battle invitation
     BattleInvitation BattleInvitation;
 
-    // Battle created by this hero
-    Battle OwnedBattle;
+    // Battle which this hero is currently involved in
+    Battle CurrentBattle;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +61,10 @@ public class Hero : MonoBehaviour, Subject
 
         this.Type = Type;
         TypeWasSet = true;
+
+        // Initialize strength and willpower
+        strength = 1;
+        willpower = 7;
     }
 
     // Note: Used for testing and debugging purposes ONLY
@@ -204,14 +208,14 @@ public class Hero : MonoBehaviour, Subject
         return true;
     }
 
-    public void SetOwnedBattle(Battle OwnedBattle)
+    public void SetCurrentBattle(Battle OwnedBattle)
     {
-        this.OwnedBattle = OwnedBattle;
+        this.CurrentBattle = OwnedBattle;
     }
 
-    public Battle GetOwnedBattle()
+    public Battle GetCurrentBattle()
     {
-        return OwnedBattle;
+        return CurrentBattle;
     }
 
     public void SendBattleInvitation(BattleInvitation Invitation)
@@ -251,7 +255,10 @@ public class Hero : MonoBehaviour, Subject
     // Used in Observer design pattern
     public void Notify(string Category)
     {
-        foreach (Observer o in Observers)
+        // Iterate through a copy of the observer list in case observers detach themselves during notify
+        var ObserversCopy = new List<Observer>(Observers);
+
+        foreach (Observer o in ObserversCopy)
         {
             o.UpdateData(Category);
         }

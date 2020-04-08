@@ -17,6 +17,11 @@ public class StartBattleMenu : MonoBehaviour, Observer
     // Icon that launched this menu
     StartBattleIcon StartBattleIcon;
 
+    // Battle menu launched by this menu
+    [SerializeField]
+    GameObject BattleMenuObject = null;
+    BattleMenu BattleMenu = null;
+
     // References to children components
     [SerializeField]
     GameObject WarriorStartBattleIcon = null;
@@ -102,6 +107,9 @@ public class StartBattleMenu : MonoBehaviour, Observer
         HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
 
+        // Initialize reference to BattleMenu
+        BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
+
         // Register as an observer of GameManager
         GameManager.Attach(this);
     }
@@ -114,7 +122,7 @@ public class StartBattleMenu : MonoBehaviour, Observer
         Hero MainHero = GameManager.GetSelfHero();
 
         // If the hero already has a battle being created, use it
-        Battle HeroBattle = MainHero.GetOwnedBattle();
+        Battle HeroBattle = MainHero.GetCurrentBattle();
 
         if (HeroBattle != null)
         {
@@ -129,7 +137,7 @@ public class StartBattleMenu : MonoBehaviour, Observer
             Battle.Attach(this);
 
             // Save the battle in the hero class
-            MainHero.SetOwnedBattle(Battle);
+            MainHero.SetCurrentBattle(Battle);
         }
 
         this.gameObject.SetActive(true);
@@ -166,6 +174,7 @@ public class StartBattleMenu : MonoBehaviour, Observer
         UpdateMainCreature();
         UpdateAvailableOtherHeroes();
         UpdateWaitStatus();
+        UpdateIfStarted();
         UpdateIfCancelled();
     }
 
@@ -187,7 +196,7 @@ public class StartBattleMenu : MonoBehaviour, Observer
         Battle.Detach(this);
 
         // Remove the battle from the hero class
-        MainHero.SetOwnedBattle(null);
+        MainHero.SetCurrentBattle(null);
 
         // Delete the battle that was being created
         Battle = null;
@@ -213,6 +222,10 @@ public class StartBattleMenu : MonoBehaviour, Observer
         {
             UpdateAvailableOtherHeroes();
         }
+        else if (string.Equals(Category, "STARTED"))
+        {
+            UpdateIfStarted();
+        }
         else if (string.Equals(Category, "CANCELLED"))
         {
             UpdateIfCancelled();
@@ -225,9 +238,9 @@ public class StartBattleMenu : MonoBehaviour, Observer
             Hero MainHero = GameManager.GetSelfHero();
 
             // If the hero already has a battle being created, use it
-            Battle HeroBattle = MainHero.GetOwnedBattle();
+            Battle HeroBattle = MainHero.GetCurrentBattle();
 
-            if (HeroBattle != null) this.Show(null, null);
+            if (HeroBattle != null && HeroBattle.IsPending() && MainHero.GetBattleInvitation() == null) this.Show(null, null);
             else this.Hide();
         }
     }
@@ -380,10 +393,6 @@ public class StartBattleMenu : MonoBehaviour, Observer
     // Displays spinners or checkmarks according to which heroes have responded to their invitations
     public void UpdateWaitStatus()
     {
-        int NumPending = 0;
-        int NumAccepted = 0;
-        int NumDeclined = 0;
-
         // Reset all the icons
         WarriorStartBattleInviteSpinner.SetActive(false);
         ArcherStartBattleInviteSpinner.SetActive(false);
@@ -412,7 +421,6 @@ public class StartBattleMenu : MonoBehaviour, Observer
                 if (Type == HeroType.Archer) ArcherStartBattleInviteSpinner.SetActive(true);
                 if (Type == HeroType.Dwarf) DwarfStartBattleInviteSpinner.SetActive(true);
                 if (Type == HeroType.Wizard) WizardStartBattleInviteSpinner.SetActive(true);
-                NumPending += 1;
             }
             else if (Invite.WasAccepted())
             {
@@ -420,7 +428,6 @@ public class StartBattleMenu : MonoBehaviour, Observer
                 if (Type == HeroType.Archer) ArcherStartBattleInviteCheck.SetActive(true);
                 if (Type == HeroType.Dwarf) DwarfStartBattleInviteCheck.SetActive(true);
                 if (Type == HeroType.Wizard) WizardStartBattleInviteCheck.SetActive(true);
-                NumAccepted += 1;
             }
             else if (Invite.WasDeclined())
             {
@@ -428,33 +435,38 @@ public class StartBattleMenu : MonoBehaviour, Observer
                 if (Type == HeroType.Archer) ArcherStartBattleInviteX.SetActive(true);
                 if (Type == HeroType.Dwarf) DwarfStartBattleInviteX.SetActive(true);
                 if (Type == HeroType.Wizard) WizardStartBattleInviteX.SetActive(true);
-                NumDeclined += 1;
             }
         }
+    }
+
+    private void UpdateIfStarted()
+    {
+        int NumInvites = Battle.GetNumInvites();
+        int NumPending = Battle.GetNumInvitesPending();
+        int NumAccepted = Battle.GetNumInvitesAccepted();
 
         if (NumPending > 0)
         {
             SetInfoText("Waiting for invited heroes to respond...");
+            DisableButton(StartBattleStartButton);
         }
-        if (NumDeclined > 0)
+        else if (NumAccepted == NumInvites && Battle.InvitationsWereSent())      // This will become true at the right time even for heroes fighting alone
         {
-            Battle.Cancel();
-        }
-        else if (NumAccepted == Invitations.Count && Battle.InvitationsWereSent())      // This will become true at the right time even for heroes fighting alone
-        {
-            SetInfoText("The battle will start (not implemented yet).");
+            SetInfoText("Starting battle...");
             DisableButton(StartBattleStartButton);
             DisableButton(StartBattleCancelButton);
-            // TODO Start the battle
-        }
 
+            BattleMenu.SetBattle(Battle);
+            this.Hide();
+            BattleMenu.Show();
+        }
     }
 
     private void UpdateIfCancelled()
     {
-        if (Battle.WasCancelled())
+        if (Battle.IsCancelled())
         {
-            if (Battle.DeclinedBySomeone()) SetInfoText("Someone has declined. This battle has been cancelled.");
+            if (Battle.DeclinedBySomeone()) SetInfoText("This battle has been cancelled because an invited hero declined.");
             else SetInfoText("This battle has been cancelled");
             DisableButton(StartBattleStartButton);
             StartBattleStartButton.SetActive(false);

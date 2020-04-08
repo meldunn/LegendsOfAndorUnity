@@ -11,6 +11,13 @@ public class Creature : MonoBehaviour
     // Creature type (Gor, Skral, Wardrak, etc.)
     private CreatureType Type;
 
+    // Willpower
+    int Willpower;
+    int MaxWillpower;
+
+    // Strength
+    int Strength;
+
     // Flag that tracks whether the creature is currently moving
     private bool IsMoving = false;
 
@@ -45,6 +52,31 @@ public class Creature : MonoBehaviour
     public void SetType(CreatureType Type)
     {
         this.Type = Type;
+
+        // Initialize willpower, max willpower and strength
+        switch (Type)
+        {
+            case CreatureType.Gor:
+                MaxWillpower = 4;
+                Strength = 2;
+                break; 
+
+            case CreatureType.Skral:
+                MaxWillpower = 6;
+                Strength = 6;
+                break;
+
+            case CreatureType.Wardrak:
+                MaxWillpower = 7;
+                Strength = 10;
+                break;
+
+            default:
+                Debug.LogError("Cannot initialize willpower for unknown CreatureType.");
+                break;
+        }
+
+        Willpower = MaxWillpower;
     }
 
     // Starts the creature moving towards the target region
@@ -170,5 +202,15 @@ public class Creature : MonoBehaviour
         // Give the creature a margin of error to have reached the target
         float Margin = 0.00001f;
         return ( (X >= XTarget - Margin && X <= XTarget + Margin) && (Y >= YTarget - Margin && Y <= YTarget + Margin));
+    }
+
+    public int GetWillpower()
+    {
+        return Willpower;
+    }
+
+    public int GetStrength()
+    {
+        return Strength;
     }
 }

@@ -9,8 +9,16 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
     // References to managers
     private GameManager GameManager;
 
-    // Observer hero
+    // Observed hero
     Hero MyHero;
+
+    // Observed battle (the battle which this invitation concerns)
+    Battle Battle;
+
+    // Battle menu launched by this menu
+    [SerializeField]
+    GameObject BattleMenuObject = null;
+    BattleMenu BattleMenu = null;
 
     // References to children components
     [SerializeField]
@@ -19,6 +27,8 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
     GameObject BattleInviteDeclineButton = null;
     [SerializeField]
     GameObject BattleInviteAcceptButton = null;
+    [SerializeField]
+    GameObject BattleInviteOkButton = null;
     [SerializeField]
     GameObject BattleInviteSpinner = null;
 
@@ -46,17 +56,28 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
         // Register as an observer of the controlled hero
         MyHero = GameManager.GetSelfHero();
         MyHero.Attach(this);
+
+        // Initialize reference to BattleMenu
+        BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
     }
 
     // Shows this menu
     public void Show()
     {
+        // Register as an observer of the battle attached to the hero's invitation
+        BattleInvitation Invite = MyHero.GetBattleInvitation();
+        Battle = Invite.GetBattle();
+        Battle.Attach(this);
+
         this.gameObject.SetActive(true);
     }
 
     // Hides this menu
     public void Hide()
     {
+        // Unregister as an observer of the battle
+        if (Battle != null) Battle.Detach(this);
+
         this.gameObject.SetActive(false);
     }
 
@@ -67,6 +88,7 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
         SetInfoText("");
         EnableButton(BattleInviteAcceptButton);
         EnableButton(BattleInviteDeclineButton);
+        BattleInviteOkButton.SetActive(false);
         BattleInviteSpinner.SetActive(false);
     }
 
@@ -76,6 +98,14 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
         if (string.Equals(Category, "INVITE_STATUS"))
         {
             UpdateInviteMenu();
+        }
+        else if (string.Equals(Category, "STARTED"))
+        {
+            UpdateIfStarted();
+        }
+        else if (string.Equals(Category, "CANCELLED"))
+        {
+            UpdateIfCancelled();
         }
         else if (string.Equals(Category, "CONTROL"))
         {
@@ -90,6 +120,7 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
 
             // Reset this menu
             UpdateInviteMenu();
+            UpdateIfCancelled();
         }
     }
 
@@ -124,40 +155,84 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
         }
         else
         {
-            if (Invite.IsPending())
+            Battle MyBattle = Invite.GetBattle();
+
+            if (MyBattle.IsPending())
             {
-                // Generate a text string with the battle details
-                HeroType HeroType = Invite.GetBattleStarter().GetHeroType();
-                CreatureType CreatureType = Invite.GetCreature().GetCreatureType();
-                int RegionNum = Invite.GetCreature().GetRegion().GetWaypointNum();
+                if (Invite.IsPending())
+                {
+                    // Generate a text string with the battle details
+                    HeroType HeroType = Invite.GetBattleStarter().GetHeroType();
+                    CreatureType CreatureType = Invite.GetCreature().GetCreatureType();
+                    int RegionNum = Invite.GetCreature().GetRegion().GetWaypointNum();
 
-                string BattleDetails = "The " + HeroType + " has invited you to fight the " + CreatureType + " on region " + RegionNum + ". Do you want to join them?";
+                    string BattleDetails = "The " + HeroType + " has invited you to fight the " + CreatureType + " on region " + RegionNum + ". Do you want to join them?";
 
-                // Set the text contents in the viewer
-                SetInfoText(BattleDetails);
+                    // Set the text contents in the viewer
+                    SetInfoText(BattleDetails);
 
-                // Show this menu
-                this.Show();
+                    // Show this menu
+                    this.Show();
+                }
+                else if (Invite.WasAccepted())
+                {
+                    // Disable the buttons
+                    DisableButton(BattleInviteAcceptButton);
+                    DisableButton(BattleInviteDeclineButton);
+
+                    // Display a screen asking the player to wait for everyone to accept their battle invitations
+                    string PleaseWait = "Please wait for all invited players to accept their invitations...";
+                    SetInfoText(PleaseWait);
+
+                    // Show the spinner
+                    BattleInviteSpinner.SetActive(true);
+
+                    // Show this menu
+                    this.Show();
+                }
+                else if (Invite.WasDeclined())
+                {
+                    this.Hide();
+                }
             }
-            else if (Invite.WasAccepted())
-            {
-                // Disable the buttons
-                DisableButton(BattleInviteAcceptButton);
-                DisableButton(BattleInviteDeclineButton);
+        }
+    }
 
-                // Display a screen asking the player to wait for everyone to accept their battle invitations
-                string PleaseWait = "Please wait for all invited players to accept their invitations...";
-                SetInfoText(PleaseWait);
+    private void UpdateIfStarted()
+    {
+        // Get a reference to the battle invitation
+        BattleInvitation Invite = MyHero.GetBattleInvitation();
 
-                // Show the spinner
-                BattleInviteSpinner.SetActive(true);
+        // Check the status of the invitation
+        if (Invite != null)
+        {
+            Battle MyBattle = Invite.GetBattle();
 
-                // Show this menu
-                this.Show();
-            }
-            else if (Invite.WasDeclined())
+            if (MyBattle.IsStarted())
             {
                 this.Hide();
+                BattleMenu.SetBattle(MyBattle);
+                BattleMenu.Show();
+            }
+        }
+    }
+
+    private void UpdateIfCancelled()
+    {
+        // Get a reference to the battle invitation
+        BattleInvitation Invite = MyHero.GetBattleInvitation();
+
+        // Check the status of the invitation
+        if (Invite != null)
+        {
+            Battle MyBattle = Invite.GetBattle();
+
+            if (MyBattle.IsCancelled())
+            {
+                SetInfoText("This battle has been cancelled because an invited hero declined.");
+                BattleInviteOkButton.SetActive(true);
+                BattleInviteAcceptButton.SetActive(false);
+                BattleInviteDeclineButton.SetActive(false);
             }
         }
     }
