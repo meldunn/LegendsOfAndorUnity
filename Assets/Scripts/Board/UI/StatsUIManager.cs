@@ -11,10 +11,10 @@ public class StatsUIManager : MonoBehaviour
     Text strengthText;
     Text goldText;
 
-    String oldFarmerText;
-    String oldWillpowerText;
-    String oldStrengthText;
-    String oldGoldText;
+    //Text oldFarmerText = new Text();
+    //Text oldWillpowerText = new Text();
+    //Text oldStrengthText = new Text();
+    //Text oldGoldText = new Text();
 
     GameManager gameManager;
     // Start is called before the first frame update
@@ -31,26 +31,12 @@ public class StatsUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!string.Equals(oldFarmerText, farmerText.text))
-        {
-            farmerText.text = " Farmers: " + gameManager.GetSelfHero().getNumFarmers();
-            oldFarmerText = farmerText.text;
-        }
-        if (!string.Equals(oldWillpowerText, willpowerText.text))
-        {
-            willpowerText.text = " Willpower: " + gameManager.GetSelfHero().getWillpower();
-            oldWillpowerText = willpowerText.text;
-        }
-        if (!string.Equals(oldStrengthText, strengthText.text))
-        {
-            strengthText.text = " Strength: " + gameManager.GetSelfHero().getStrength();
-            oldStrengthText = strengthText.text;
-        }
-        if (!string.Equals(oldGoldText, goldText.text))
-        {
-            goldText.text = " Gold: " + gameManager.GetSelfHero().getGold();
-            oldGoldText = goldText.text;
-        }
+        //if (!string.Equals(oldFarmerText.text, farmerText.text))
+      
+        farmerText.text = " Farmers: " + gameManager.GetSelfHero().getNumFarmers();
+        willpowerText.text = " Willpower: " + gameManager.GetSelfHero().getWillpower();
+        strengthText.text = " Strength: " + gameManager.GetSelfHero().getStrength();
+        goldText.text = " Gold: " + gameManager.GetSelfHero().getGold();
     }
 
     public void Initialize()
