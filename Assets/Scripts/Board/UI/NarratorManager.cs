@@ -24,7 +24,7 @@ public enum NarratorLetter
 public class NarratorManager : MonoBehaviour
 {
     // Array of waypoints
-    private Waypoint[] waypoints = new Waypoint[16];
+    private NarratorWaypoint[] waypoints = new NarratorWaypoint[16];
 
 
     // Marker placed on narration track
@@ -54,8 +54,7 @@ public class NarratorManager : MonoBehaviour
         {
             NarratorLetter name = (NarratorLetter)i;
             WaypointName = "Waypoint " + name.ToString();
-            waypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
-            waypoints[i].SetWaypointNum(i);
+            waypoints[i] = GameObject.Find(WaypointName).GetComponent<NarratorWaypoint>();
             //Debug.Log(waypoints[i].GetLocation());
             //Debug.Log(i);
         }
