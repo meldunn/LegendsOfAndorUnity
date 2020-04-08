@@ -8,63 +8,31 @@ using Photon.Pun;
 
 public class HeroSelectionManager : MonoBehaviourPun
 {
+    public static HeroSelectionManager Instance;
 
+    public Transform[] heroSelectorPositions;
     [SerializeField]
-    private Transform[] heroSelectorPositions;
-    [SerializeField]
-    private Transform parentCanvas;
-    private bool[] slotStatus = new bool[4]; //true for occupied, false for not occupied
+    private Button readyUp;
 
-    [SerializeField]
-    private GameObject selectorPrefab;
 
     // Start is called before the first frame update
     void Start()
     {
-        //var playerID = PhotonNetwork.PlayerList;
-        print("we got here");
-
-            //by default all objects with photon view are masterclient
-        //each player calls an instantiation
-        photonView.RPC("InstantiateSelector", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber - 1);
-
-
-        //print(id);
-        //InstantiateFlame();
-
-        //heroSelector.transform.SetParent(parentCanvas);
-        //heroSelector.transform.localScale = Vector3.one;
-
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    for (int i = 0; i < slotStatus.Length; i++)
-        //    {
-        //        //if not occupied
-        //        if (!slotStatus[i])
-        //        {
-
-        //            heroSelector.GetComponent<PhotonView>().TransferOwnership
-        //            heroSelector.transform.SetParent(parentCanvas);
-        //            heroSelector.transform.localScale = Vector3.one;
-        //            slotStatus[i] = true; //set as occupied
-        //        }
-        //    }
-        //    PhotonNetwork.LocalPlayer.ActorNumber
-        //}
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
 
 
-        //player_0.selectorOwner = PhotonNetwork.CurrentRoom.Players[0];
+        int id = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        GameObject heroSelectorInstance = PhotonNetwork.Instantiate("HeroSelectionGUI", heroSelectorPositions[id].position, heroSelectorPositions[id].rotation);
 
-
+        readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
     }
 
-    [PunRPC] 
-    void InstantiateSelector(int id)
-    {
-        print("we got here2");
-        GameObject heroSelector = Instantiate(selectorPrefab, heroSelectorPositions[id].position, heroSelectorPositions[id].rotation, heroSelectorPositions[id]);
-        //transfer owner ship from master.
-        heroSelector.GetPhotonView().TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
-        heroSelector.GetComponent<PlayerSelector>().Initialize();
-    }
+   
 }

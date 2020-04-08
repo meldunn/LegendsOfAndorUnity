@@ -8,13 +8,7 @@ public class GameManager : MonoBehaviour, Subject
 {
     public GameManager gameManager;
 
-    public GameManager Instance
-    {
-        get { return gameManager; }
-        private set { gameManager = value; }
-    }
-
-
+    public static GameManager Instance;
 
     // Other managers
     private WaypointManager WaypointManager;
@@ -62,8 +56,16 @@ public class GameManager : MonoBehaviour, Subject
 
 
     void Start()
-    {
-        gameManager = this;
+    { 
+        if(gameManager == null)
+        {
+            gameManager = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+        
 
         
         Initialize();
