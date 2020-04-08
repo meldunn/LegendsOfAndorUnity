@@ -31,5 +31,7 @@ MonoBehaviour:
   RpcList:
   - ClickRpc
   - DestroyRpc
+  - InstantiateFlame
+  - InstantiateSelector
   DisableAutoOpenWizard: 1
   ShowSettings: 1
