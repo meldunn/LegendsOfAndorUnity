@@ -6,6 +6,16 @@ public enum DifficultyLevel { Easy, Normal };
 
 public class GameManager : MonoBehaviour, Subject
 {
+    public GameManager gameManager;
+
+    public GameManager Instance
+    {
+        get { return gameManager; }
+        private set { gameManager = value; }
+    }
+
+
+
     // Other managers
     private WaypointManager WaypointManager;
     private UIManager UIManager;
@@ -34,7 +44,9 @@ public class GameManager : MonoBehaviour, Subject
     private List<AndorPlayer> TurnOrder;
 
     // Game mode
-    private DifficultyLevel Difficulty;
+    //TONETWORK
+    [HideInInspector]
+    public DifficultyLevel Difficulty;
 
     // Initial board element locations
     private int[] InitialGorLocation = { 8, 20, 21, 26, 48 };
@@ -48,8 +60,19 @@ public class GameManager : MonoBehaviour, Subject
     private int InitialWizard = 34;
     private static NarratorLetter curLetter = NarratorLetter.A;
 
-    // Start is called before the first frame update
+
     void Start()
+    {
+        gameManager = this;
+
+        
+        //Initialize();
+    }
+
+
+
+    // Start is called before the first frame update
+    void Initialize()
     {
         // Initialize references to other managers
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
@@ -64,9 +87,13 @@ public class GameManager : MonoBehaviour, Subject
         CreatureManager.Initialize();
         NarratorManager.Initialize();
 
-        // Initialize game difficulty
-        Difficulty = DifficultyLevel.Normal;    // TODO real value
 
+        //TONETWORK
+        // Initialize game difficulty
+        //Difficulty = DifficultyLevel.Normal;    // TODO real value
+
+
+        //TONETWORK
         // Initialize which heroes are playing
         WarriorIsPlaying = true;                // TODO real value
         ArcherIsPlaying = true;                 // TODO real value
@@ -99,11 +126,14 @@ public class GameManager : MonoBehaviour, Subject
             HeroManager.InitializeHero(HeroType.Wizard, InitialWizard);
         }
 
+
+        //TONETWORK
         // Initialize playing character
         MyPlayer = WarriorPlayer;              // TODO real value
 
         // Initialize turns
         TurnOrder = GenerateTurnOrder();
+        //TOMODIFY
         CurrentTurnPlayer = TurnOrder[0];
 
         // Generate initial gors
