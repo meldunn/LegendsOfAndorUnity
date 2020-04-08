@@ -17,9 +17,14 @@ public class HeroInventory : MonoBehaviour
         itemList.Add(item);
     }
 
-    public void containsItem(Item item)
+    public void removeItem(Item item)
     {
-        itemList.Contains(item);
+        itemList.Remove(item);
+    }
+
+    public bool containsItem(Item item)
+    {
+        return itemList.Contains(item);
     }
 
     public List<Item> getInventory()

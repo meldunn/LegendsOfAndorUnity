@@ -112,6 +112,32 @@ public class Hero : MonoBehaviour, Subject
         }
     }
 
+    public void pickupItem(Item item)
+    {
+        if(myRegion.containsItem(item))
+        {
+            heroInventory.addItem(item);
+            myRegion.removeItem(item);
+        }
+        else
+        {
+            Debug.Log("The region does not have this item.");
+        }
+    }
+
+    public void dropItem(Item item)
+    {
+        if (heroInventory.containsItem(item))
+        {
+            heroInventory.removeItem(item);
+            myRegion.addItem(item);
+        }
+        else
+        {
+            Debug.Log("The hero does not have this item.");
+        }
+    }
+
     public void DrinkFromWell(int regionNum)
     {
         // TODO: avoid Teleport and fix null reference to myRegion
