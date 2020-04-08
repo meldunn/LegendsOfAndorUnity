@@ -23,7 +23,11 @@ public class HeroSelectionManager : MonoBehaviourPun
     {
         //var playerID = PhotonNetwork.PlayerList;
         print("we got here");
+
+            //by default all objects with photon view are masterclient
+        //each player calls an instantiation
         photonView.RPC("InstantiateSelector", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber - 1);
+
 
         //print(id);
         //InstantiateFlame();
@@ -59,6 +63,8 @@ public class HeroSelectionManager : MonoBehaviourPun
     {
         print("we got here2");
         GameObject heroSelector = Instantiate(selectorPrefab, heroSelectorPositions[id].position, heroSelectorPositions[id].rotation, heroSelectorPositions[id]);
+        //transfer owner ship from master.
         heroSelector.GetPhotonView().TransferOwnership(PhotonNetwork.LocalPlayer.ActorNumber);
+        heroSelector.GetComponent<PlayerSelector>().Initialize();
     }
 }

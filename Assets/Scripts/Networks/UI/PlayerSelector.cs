@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 //Autor: Vitaly
 
-public class PlayerSelector : MonoBehaviourPun, IPunOwnershipCallbacks
+public class PlayerSelector : MonoBehaviourPun
 {
     [SerializeField]
     private GameObject readyToken;
@@ -27,22 +27,11 @@ public class PlayerSelector : MonoBehaviourPun, IPunOwnershipCallbacks
 
     public bool isReady { get; private set; }
 
-    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+  
+    public void Initialize()
     {
-        //if (targetView.IsMine)
-        //{
-        //    next.gameObject.SetActive(true);
-        //    prev.gameObject.SetActive(true);
-        //}
-    }
-
-    private void Start()
-    {
+        //check if the ownership was transfered
         if (photonView.IsMine)
         {
             next.gameObject.SetActive(true);
