@@ -15,6 +15,7 @@ public class StatsUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //TODO:Runing GameObject.Find everyframe is very expensive, make sure to do it only once in Start()
         Text farmerText = GameObject.Find("FarmersText").GetComponent<UnityEngine.UI.Text>();
         Text willpowerText = GameObject.Find("WillpowerText").GetComponent<UnityEngine.UI.Text>();
         Text strengthText = GameObject.Find("StrengthText").GetComponent<UnityEngine.UI.Text>();
