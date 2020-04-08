@@ -1,6 +1,6 @@
 ﻿// From Alexander Zotov's Unity 2D Board Game Tutorial: https://www.youtube.com/watch?v=W8ielU8iURI
 
-// DO NOT USE; WILL BE REMOVED
+// DO NOT USE THIS FILE DIRECTLY; IT WILL BE REMOVED
 
 using System.Collections;
 using System.Collections.Generic;
