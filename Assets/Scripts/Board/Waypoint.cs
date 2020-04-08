@@ -31,7 +31,10 @@ public class Waypoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gold > 0)
+        {
+
+        }
     }
 
     public void SetWaypointNum(int Number)

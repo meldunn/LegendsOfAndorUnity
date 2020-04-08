@@ -28,7 +28,7 @@ public class NarratorManager : MonoBehaviour
 
 
     // Marker placed on narration track
-    public static NarratorMarker marker = new NarratorMarker();
+    public static NarratorMarker marker;
 
     public static NarratorLetter curLetter = NarratorLetter.A;
 
