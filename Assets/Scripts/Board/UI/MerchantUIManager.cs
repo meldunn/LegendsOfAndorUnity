@@ -6,16 +6,27 @@ public class MerchantUIManager : MonoBehaviour
 {
     // Stored in numerical order { 18, 57, 71 }
     private GameObject MerchantMenu;
+
+    private int[] Purchased = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    // Amount of available tokens for each item
+    private int[] MaxAmount = { 3, 5, 3, 5, 2, 2, 4 };
     
     private List<GameObject> Merchant = new List<GameObject>(3);
     private List<GameObject> MerchantButton = new List<GameObject>(3);
-    int[] Location = { 18, 57, 71 };
+    private int[] Location = { 18, 57, 71 };
+
+
+    private int CurrentUpdate = 0;
+
+    private string[] ArticleNames = {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
+    
 
     public void Initialize()
     {
-        // Initialize data
-        
+        // Initialize Merchant Menu
         MerchantMenu = GameObject.Find("MerchantMenu");
+
+        // Get References to Merchants
 
         string IconName = "";
         string ButtonName = "";
@@ -30,11 +41,14 @@ public class MerchantUIManager : MonoBehaviour
             MerchantButton.Add(GameObject.Find(ButtonName));
         }
 
-        PlaceMerchants();
+        // Merchant View Buttons
         for(int i=0; i<MerchantButton.Count; i++) 
             Visibility(MerchantButton[i], false);
-        
+
+
+        PlaceMerchants();
         // TODO Hide witch at the start
+
     }
 
     // Called once in Initialize() to place the merchants
@@ -90,8 +104,40 @@ public class MerchantUIManager : MonoBehaviour
         // Displays the merchant menu at (0,0,0)
         Vector3 Location = new Vector3(0, 0, 0);
         MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
+        
+        // TODO: check current player's gold, put it in total
     }
-    public void UpdateItemAmount(bool Increase, string ItemName){
+    
+    // Updates current amount shown. Does NOT update the current amount purchased.
+    public void IncreaseItemAmount(int Index)
+    {
 
+        TMPro.TextMeshProUGUI AmountText = GameObject.Find(ArticleNames[Index]+"Amount").GetComponent<TMPro.TextMeshProUGUI>();
+        // Debug.Log(AmountText);
+
+        int CurrentAmount = int.Parse(AmountText.text);
+
+        if(CurrentAmount < MaxAmount[Index] ) CurrentAmount++;
+
+        AmountText.text = CurrentAmount.ToString();
     }
+
+    // Updates current amount shown. Does NOT update the current amount purchased.
+    public void DecreaseItemAmount(int Index)
+    {
+
+        TMPro.TextMeshProUGUI AmountText = GameObject.Find(ArticleNames[Index]+"Amount").GetComponent<TMPro.TextMeshProUGUI>();
+
+        int CurrentAmount = int.Parse(AmountText.text);
+
+        if(CurrentAmount > 0 ) CurrentAmount--;
+
+        AmountText.text = CurrentAmount.ToString();
+    }
+
+    private bool HasEnoughGold()
+    {
+        return true;
+    }
+
 }
