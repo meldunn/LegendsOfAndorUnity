@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour, Subject
         HeroManager.Initialize();
         CreatureManager.Initialize();
         NarratorManager.Initialize();
+    
 
         // Initialize game difficulty
         Difficulty = DifficultyLevel.Normal;    // TODO real value

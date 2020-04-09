@@ -82,7 +82,6 @@ public class Hero : MonoBehaviour, Subject
         //    Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
         //}
         Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
-
         UIManager.onHeroMove(this);
 
     }

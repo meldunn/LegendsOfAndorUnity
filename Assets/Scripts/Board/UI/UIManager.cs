@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     BattleInvitationMenu BattleInvitationMenu;
     StatsUIManager StatsUIManager;
     MerchantUIManager MerchantUIManager;
+    WPMoveButtonUI WPMoveButtonUI;
 
     // Directly linked UI elements
     [SerializeField]
@@ -45,6 +46,7 @@ public class UIManager : MonoBehaviour
         BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
         StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
         MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
+        WPMoveButtonUI = GameObject.Find("WPMoveButtonUI").GetComponent<WPMoveButtonUI>();
 
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -58,6 +60,7 @@ public class UIManager : MonoBehaviour
         BattleInvitationMenu.Initialize();
         StatsUIManager.Initialize();
         MerchantUIManager.Initialize();
+        WPMoveButtonUI.Initialize();
 
         // Must come AFTER all initializations
         InputManager.Initialize();

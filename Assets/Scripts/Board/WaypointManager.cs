@@ -220,6 +220,7 @@ public class WaypointManager : MonoBehaviour
 
             }
         }
+   
     }
 
     public bool IsValidWaypoint(int WaypointNum)
