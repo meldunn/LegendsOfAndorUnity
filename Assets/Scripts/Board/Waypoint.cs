@@ -17,6 +17,8 @@ public class Waypoint : MonoBehaviour
 
     private List<Farmer> farmers = new List<Farmer>();
 
+    private List<Item> items = new List<Item>();
+
     int gold;
     
     private bool ContainsWell = false;
@@ -122,6 +124,21 @@ public class Waypoint : MonoBehaviour
     public void dropOneGold()
     {
         gold++;
+    }
+
+    public void removeItem(Item item)
+    {
+        items.Remove(item);
+    }
+
+    public void addItem(Item item)
+    {
+        items.Add(item);
+    }
+
+    public bool containsItem(Item item)
+    {
+        return items.Contains(item);
     }
 
     public bool containsFullWell()
