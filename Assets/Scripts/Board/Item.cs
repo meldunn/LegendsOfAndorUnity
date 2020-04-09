@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item: MonoBehaviour
 {
-    public ItemType itemType;
-  
-
     public enum ItemType
     {
         Wineskin,
@@ -16,24 +13,7 @@ public class Item : MonoBehaviour
         Shield,
         Bow,
         Falcon
-
     }
+    public ItemType itemType;
 
-    private void OnMouseUp()
-    {
-        // On click, perform action with switch case
-        
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

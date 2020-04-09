@@ -85,6 +85,7 @@ public class MerchantUIManager : MonoBehaviour
         }
         else Debug.Log("Error in MerchantUIManager. Referenced null");
     }
+
     public void UpdateMerchantButton(int RegionNumber)
     {
         // Reset all buttons
@@ -114,6 +115,12 @@ public class MerchantUIManager : MonoBehaviour
         MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
 
         TMPro.TextMeshProUGUI MyGoldText = GameObject.Find("YourGold").GetComponent<TMPro.TextMeshProUGUI>();
+
+        if(MerchantNum == 71 && GameManager.GetSelfPlayer().GetHero().GetHeroType() == HeroType.Dwarf)
+        {
+            // TODO
+            // Change strength points text and value 
+        }
         
         // Get the gold of the player who opens the merchant menu
         int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
@@ -137,6 +144,7 @@ public class MerchantUIManager : MonoBehaviour
         if(CurrentAmount < MaxAmount[Index] )
         {
             CurrentAmount++;
+            Purchased[Index] += 1;
 
             // TODO: Change Special Case for dwarf;
             CurrentCost += 2;
@@ -163,6 +171,8 @@ public class MerchantUIManager : MonoBehaviour
         {
             CurrentAmount--;
 
+            Purchased[Index] -= 1;
+
             // TODO: Change Special Case for dwarf;
             CurrentCost -= 2;
         }
@@ -173,19 +183,82 @@ public class MerchantUIManager : MonoBehaviour
         CostOfPurchase = CurrentCost;
     }
 
+    public void CloseMerchantMenu()
+    {
+        // Hide the menu
+        Vector3 Location = new Vector3(200, 0, 0);
+        MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
+
+        // Reset purchased to 0.
+        for(int i=0; i<Purchased.Length; i++) Purchased[i] = 0;
+
+        // MerchantManager.Purchase(<Item, Amount>)
+        GoldError.SetActive(false);
+    }
+
     public void RequestPurchase()
     {
         int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
-        Debug.Log(PlayerGold);
 
         // Called when Player has enough gold, and purchases the items
         if(CostOfPurchase <= PlayerGold)
         {
-            Debug.Log("Has enough gold");
+            ConfirmPurchase();
+            CloseMerchantMenu();
         }
         else
         {
             GoldError.SetActive(true);
+        }
+    }
+
+    private void ConfirmPurchase()
+    {
+        Hero MyHero = GameManager.GetSelfPlayer().GetHero();
+
+        // TODO: Instantiate Items (somehow)...
+        for(int i=0; i<Purchased.Length; i++)
+        {
+            // For each item, purchased, create an item and send it
+            // {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
+            for(int j=0; j<Purchased[i]; j++)
+            {
+                switch(i)
+                {
+                    case 0:     // Helm
+                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       Debug.Log("Bought Helm");
+                       break;
+                    case 1:     // Helm
+                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       Debug.Log("Bought Wineskin");
+                       break;
+                    case 2:     // Helm
+                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       Debug.Log("Bought Bow");
+                       break;
+                    case 3:     // Helm
+                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       Debug.Log("Bought WitchBrew");
+                       break;
+                    case 4:     // Helm
+                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       Debug.Log("Bought Falcon");
+                       break;
+                    case 5:     // Helm
+                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       Debug.Log("Bought Telescope");
+                       break;
+
+                    case 6:     // Helm
+                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       Debug.Log("Bought Shield");
+                       break;
+                    default:
+                       Debug.Log("Error in MerchantUIManager Buy from Merchant.");
+                       break;
+                }
+            }
         }
     }
 

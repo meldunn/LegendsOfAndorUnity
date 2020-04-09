@@ -15,6 +15,7 @@ public class HeroInventory : MonoBehaviour
     public void addItem(Item item)
     {
         itemList.Add(item);
+        Debug.Log("Added Item");
     }
 
     public void removeItem(Item item)

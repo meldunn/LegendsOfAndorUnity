@@ -139,6 +139,13 @@ public class Hero : MonoBehaviour, Subject
         }
     }
 
+    // Called from MerchantUIManager when items are purchased and hero has enough gold.
+    public void BuyFromMerchant(Item item)
+    {
+        Debug.Log(item);
+        heroInventory.addItem(item);
+    }
+
     public void DrinkFromWell(int regionNum)
     {
         // TODO: avoid Teleport and fix null reference to myRegion
