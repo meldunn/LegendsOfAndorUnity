@@ -6,6 +6,8 @@ public class MerchantUIManager : MonoBehaviour
 {
     // Stored in numerical order { 18, 57, 71 }
     private GameObject MerchantMenu;
+    private GameManager GameManager;
+    private GameObject GoldError;
 
     private int[] Purchased = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     // Amount of available tokens for each item
@@ -15,7 +17,7 @@ public class MerchantUIManager : MonoBehaviour
     private List<GameObject> MerchantButton = new List<GameObject>(3);
     private int[] Location = { 18, 57, 71 };
 
-
+    private int CostOfPurchase = 0;
     private int CurrentUpdate = 0;
 
     private string[] ArticleNames = {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
@@ -23,8 +25,14 @@ public class MerchantUIManager : MonoBehaviour
 
     public void Initialize()
     {
+
         // Initialize Merchant Menu
         MerchantMenu = GameObject.Find("MerchantMenu");
+        Debug.Log("MerchantMenu");
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        GoldError = GameObject.Find("NotEnough");
+        GoldError.SetActive(false);
 
         // Get References to Merchants
 
@@ -101,11 +109,18 @@ public class MerchantUIManager : MonoBehaviour
 
     public void ShowMerchantMenu(int MerchantNum)
     {
-        // Displays the merchant menu at (0,0,0)
+
         Vector3 Location = new Vector3(0, 0, 0);
         MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
+
+        TMPro.TextMeshProUGUI MyGoldText = GameObject.Find("YourGold").GetComponent<TMPro.TextMeshProUGUI>();
         
-        // TODO: check current player's gold, put it in total
+        // Get the gold of the player who opens the merchant menu
+        int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
+
+        Debug.Log(PlayerGold);
+
+        MyGoldText.text = "Your Gold: "+PlayerGold+"g";
     }
     
     // Updates current amount shown. Does NOT update the current amount purchased.
@@ -114,12 +129,23 @@ public class MerchantUIManager : MonoBehaviour
 
         TMPro.TextMeshProUGUI AmountText = GameObject.Find(ArticleNames[Index]+"Amount").GetComponent<TMPro.TextMeshProUGUI>();
         // Debug.Log(AmountText);
+        TMPro.TextMeshProUGUI CostText = GameObject.Find("Cost").GetComponent<TMPro.TextMeshProUGUI>();
 
         int CurrentAmount = int.Parse(AmountText.text);
+        int CurrentCost = int.Parse(CostText.text);
 
-        if(CurrentAmount < MaxAmount[Index] ) CurrentAmount++;
+        if(CurrentAmount < MaxAmount[Index] )
+        {
+            CurrentAmount++;
+
+            // TODO: Change Special Case for dwarf;
+            CurrentCost += 2;
+        }
 
         AmountText.text = CurrentAmount.ToString();
+        CostText.text = CurrentCost.ToString();
+
+        CostOfPurchase = CurrentCost;
     }
 
     // Updates current amount shown. Does NOT update the current amount purchased.
@@ -128,16 +154,39 @@ public class MerchantUIManager : MonoBehaviour
 
         TMPro.TextMeshProUGUI AmountText = GameObject.Find(ArticleNames[Index]+"Amount").GetComponent<TMPro.TextMeshProUGUI>();
 
-        int CurrentAmount = int.Parse(AmountText.text);
+        TMPro.TextMeshProUGUI CostText = GameObject.Find("Cost").GetComponent<TMPro.TextMeshProUGUI>();
 
-        if(CurrentAmount > 0 ) CurrentAmount--;
+        int CurrentAmount = int.Parse(AmountText.text);
+        int CurrentCost = int.Parse(CostText.text);
+
+        if(CurrentAmount > 0 )
+        {
+            CurrentAmount--;
+
+            // TODO: Change Special Case for dwarf;
+            CurrentCost -= 2;
+        }
 
         AmountText.text = CurrentAmount.ToString();
+        CostText.text = CurrentCost.ToString();
+
+        CostOfPurchase = CurrentCost;
     }
 
-    private bool HasEnoughGold()
+    public void RequestPurchase()
     {
-        return true;
+        int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
+        Debug.Log(PlayerGold);
+
+        // Called when Player has enough gold, and purchases the items
+        if(CostOfPurchase <= PlayerGold)
+        {
+            Debug.Log("Has enough gold");
+        }
+        else
+        {
+            GoldError.SetActive(true);
+        }
     }
 
 }

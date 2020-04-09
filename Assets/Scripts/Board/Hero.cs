@@ -65,6 +65,7 @@ public class Hero : MonoBehaviour, Subject
         // Initialize strength and willpower
         strength = 1;
         willpower = 7;
+        myGold = 4;
     }
 
     // Note: Used for testing and debugging purposes ONLY
