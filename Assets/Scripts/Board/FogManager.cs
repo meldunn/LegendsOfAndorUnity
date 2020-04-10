@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FogManager : MonoBehaviour
 {
+
+    public enum FogType = {EventCard, Strength, Willpower, Gold, Wineskin, Gor }
+    
     // Start is called before the first frame update
     void Start()
     {
