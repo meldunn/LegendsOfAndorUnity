@@ -27,7 +27,8 @@ public class Waypoint : MonoBehaviour
     private List<Item> items = new List<Item>();
 
     int gold;
-    GoldIcon goldIcon = new GoldIcon();
+    // Commented out due to an error that caused the game not to run. MonoBehaviors can't be instantiated using the new keyword.
+    // GoldIcon goldIcon = new GoldIcon();
     Text goldText;
 
     private bool ContainsWell = false;
@@ -42,12 +43,13 @@ public class Waypoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gold >= 0)
-        {
-            goldText = goldIcon.GetComponent<UnityEngine.UI.Text>();
-            goldText.text = "" + gold;
-            goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-        }
+        // Commented out due to an error that caused the game not to run
+        //if (gold >= 0)
+        //{
+        //    goldText = goldIcon.GetComponent<UnityEngine.UI.Text>();
+        //    goldText.text = "" + gold;
+        //    goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+        //}
     }
 
     public void SetWPAdjList(int[] list)
