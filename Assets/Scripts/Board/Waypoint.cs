@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
+    // Reference to WaypointManager
+    private WaypointManager WaypointManager;
+    private WPButtonMoveUI WPButtonMoveUI;
+
+
     // Board tile number
     private int WaypointNum = -1;
+    private int[] WPadjList;
 
     // Creature on this waypoint
     private Creature Creature;
@@ -27,7 +33,7 @@ public class Waypoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
     }
 
     // Update is called once per frame
@@ -37,6 +43,18 @@ public class Waypoint : MonoBehaviour
         {
 
         }
+    }
+
+    public void SetWPAdjList(int[] list)
+    {
+        WPadjList = new int[list.Length];
+
+        //copy the elements
+        for (int i = 0; i < list.Length; i++)
+        {
+            WPadjList[i] = list[i];
+        }
+
     }
 
     public void SetWaypointNum(int Number)
@@ -170,5 +188,17 @@ public class Waypoint : MonoBehaviour
     {
         RuneStones.Add(new RuneStone(ID));
     }
+
+    public void ShowAdjWP()
+    {
+        Debug.Log("in ShowAdjWP in Waypoint class");
+
+        //int[] adjList = WaypointManager.GetWPAdjList(this.WaypointNum);
+
+        WPButtonMoveUI.toMakeVisible(WPadjList);
+
+
+    }
+
 
 }

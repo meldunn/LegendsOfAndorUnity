@@ -217,11 +217,39 @@ public class WaypointManager : MonoBehaviour
                 WaypointName = "Waypoint (" + i + ")";
                 Waypoint[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
                 Waypoint[i].SetWaypointNum(i);  // Set the waypoint's number
+                Waypoint[i].SetWPAdjList(GetWPAdjList(i));
 
             }
         }
     }
 
+    public int[] GetWPAdjList(int WaypointNum)
+    {
+        int[] list = new int[AdjListHero[WaypointNum].Length];
+
+        //Debug.Log("length of AdjListHero[WaypointNum] is " + AdjListHero[WaypointNum].Length);
+        //Debug.Log("WP num is " + WaypointNum);
+        ////Debug.Log("AdjListHero[WaypointNum][0] " + AdjListHero[WaypointNum][0]);
+
+        //Debug.Log("in WPManager GetWPAdjList fn");
+        //int i = 0;
+        //while (AdjListHero[WaypointNum][i] != null)
+        //{
+        //    Debug.Log("index is " + i);
+        //    list[i] = AdjListHero[WaypointNum][i];
+        //    i++;
+        //}
+        for (int i =0; i< AdjListHero[WaypointNum].Length; i++)
+        {
+            //Debug.Log("index is " + i);
+            list[i] = AdjListHero[WaypointNum][i];
+        }
+
+       // Debug.Log("length of adj list is "+ list.Length);
+        return list;
+
+        
+    }
     public bool IsValidWaypoint(int WaypointNum)
     {
         return ( (WaypointNum >= 0 && WaypointNum <= 72) || (WaypointNum >= 80 && WaypointNum <= 84) );
@@ -271,5 +299,12 @@ public class WaypointManager : MonoBehaviour
         // Waypoints[55].ReplenishWell();
         Debug.Log("Request to Replenish All Wells");
     }
+
+    //public int[] GetRow(int[,] matrix, int rowNumber)
+    //{
+    //    return Enumerable.Range(0, matrix.GetLength(1))
+    //            .Select(x => matrix[rowNumber, x])
+    //            .ToArray();
+    //}
     
 }
