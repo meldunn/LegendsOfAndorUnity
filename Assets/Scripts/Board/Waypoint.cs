@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Waypoint : MonoBehaviour
 {
@@ -26,7 +27,9 @@ public class Waypoint : MonoBehaviour
     private List<Item> items = new List<Item>();
 
     int gold;
-    
+    GoldIcon goldIcon = new GoldIcon();
+    Text goldText;
+
     private bool ContainsWell = false;
     Well well;
 
@@ -39,9 +42,11 @@ public class Waypoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gold > 0)
+        if (gold >= 0)
         {
-
+            goldText = goldIcon.GetComponent<UnityEngine.UI.Text>();
+            goldText.text = "" + gold;
+            goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
         }
     }
 
