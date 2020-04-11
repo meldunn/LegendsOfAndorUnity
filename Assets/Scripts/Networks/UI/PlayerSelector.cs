@@ -25,6 +25,8 @@ public class PlayerSelector : MonoBehaviourPun
     private int currentHero;
 
 
+    private HeroType heroSelectedType;
+
     public bool isReady { get; private set; }
 
 
@@ -33,8 +35,12 @@ public class PlayerSelector : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
+            isReady = false;
+
+
             next.gameObject.SetActive(true);
             prev.gameObject.SetActive(true);
+            heroSelectedType = HeroType.Warrior;
             photonView.RPC("InstantiateSelector", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber - 1);
         }
     }
@@ -71,6 +77,7 @@ public class PlayerSelector : MonoBehaviourPun
             currentHero = 0;
         }
         hero.sprite = heroSprites[currentHero];
+        heroSelectedType = (HeroType)currentHero;
     }
 
 
@@ -92,21 +99,51 @@ public class PlayerSelector : MonoBehaviourPun
             currentHero = 3;
         }
         hero.sprite = heroSprites[currentHero];
+        heroSelectedType = (HeroType)currentHero;
     }
 
     public void OnClick_Ready()
     {
         if (photonView.IsMine)
         {
+            isReady = !isReady;
+
+            //set next & previous buttons inactive
+            next.gameObject.SetActive(!next.gameObject.activeSelf);
+            prev.gameObject.SetActive(!prev.gameObject.activeSelf);
+
+
             photonView.RPC("ReadyUp", RpcTarget.All);
+
+
+            //sends an rpc only for master client to avoid cloging the network
+            if (PhotonNetwork.IsMasterClient)
+            {
+                //PhotonNetwork.LocalPlayer.ActorNumber
+                //HeroType
+                HeroSelectionManager.Instance.OnPlayerReady(PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
+            }
+            else
+            {
+                photonView.RPC("ReadyUpMaster", RpcTarget.MasterClient);
+            }
         }
     }
 
     [PunRPC]
     void ReadyUp()
     {
+        //TODO: Non critical error of some prefab not being assigned a ViewID
+
         bool isEnabled = readyToken.activeSelf;
         readyToken.SetActive(!isEnabled);
+    }
+
+    [PunRPC]
+    void ReadyUpMaster()
+    {
+        //checks for all the players being ready
+        HeroSelectionManager.Instance.OnPlayerReady(PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
     }
 
 }

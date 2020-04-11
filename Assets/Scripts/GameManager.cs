@@ -6,8 +6,6 @@ public enum DifficultyLevel { Easy, Normal };
 
 public class GameManager : MonoBehaviour, Subject
 {
-    public GameManager gameManager;
-
     public static GameManager Instance;
 
     // Other managers
@@ -57,9 +55,9 @@ public class GameManager : MonoBehaviour, Subject
 
     void Start()
     { 
-        if(gameManager == null)
+        if(Instance == null)
         {
-            gameManager = this;
+            Instance = this;
         }
         else
         {

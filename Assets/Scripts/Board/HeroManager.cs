@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//!!!DISCLAMER: DO NOT CHANGE THE ORDER OF THIS ENUM!!!
 public enum HeroType { Warrior, Archer, Dwarf, Wizard };
 
 public class HeroManager : MonoBehaviour
