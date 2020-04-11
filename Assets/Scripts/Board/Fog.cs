@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Fog : MonoBehaviour
 {
+    private FogType FogType;
+    public Waypoint waypointnum;
+    
     // Start is called before the first frame update
     void Start()
     {
