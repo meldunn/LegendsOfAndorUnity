@@ -23,7 +23,7 @@ public class Hero : MonoBehaviour, Subject
     int myGold;
     int numFarmers;
     bool moveCompleted;
-    HeroInventory heroInventory; //need to initialize somewhere
+    HeroInventory heroInventory;
     Waypoint myRegion;
 
     // Current battle invitation
@@ -43,7 +43,7 @@ public class Hero : MonoBehaviour, Subject
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public HeroType GetHeroType()
@@ -95,10 +95,11 @@ public class Hero : MonoBehaviour, Subject
 
     public void pickupGold()
     {
-        if (myRegion.pickupOneGold() == 1) 
+        if (myRegion.pickupOneGold() == 1)
         {
             myGold++;
-        } else
+        }
+        else
         {
             // Can't pick up gold
         }
@@ -110,7 +111,8 @@ public class Hero : MonoBehaviour, Subject
         {
             myGold--;
             myRegion.dropOneGold();
-        } else
+        }
+        else
         {
             //No Gold to drop
         }
@@ -118,7 +120,7 @@ public class Hero : MonoBehaviour, Subject
 
     public void pickupItem(Item item)
     {
-        if(myRegion.containsItem(item))
+        if (myRegion.containsItem(item))
         {
             heroInventory.addItem(item);
             myRegion.removeItem(item);
@@ -142,6 +144,15 @@ public class Hero : MonoBehaviour, Subject
         }
     }
 
+    public void useItem(Item item)
+    {
+        switch (item)
+        {
+            //case, bow then ...
+            //case, .... then
+        }
+    }
+
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
     public void BuyFromMerchant(Item item)
     {
@@ -154,20 +165,20 @@ public class Hero : MonoBehaviour, Subject
         // TODO: avoid Teleport and fix null reference to myRegion
         Teleport(regionNum);
 
-        if(myRegion != null)
+        if (myRegion != null)
         {
-            if(myRegion.containsFullWell())
+            if (myRegion.containsFullWell())
             {
                 myRegion.EmptyWell();
 
                 // Warrior special ability
-                if(Type == HeroType.Warrior && willpower <= maxWillpower - 5) willpower += 5;
-                
-                if(willpower <= maxWillpower - 3) willpower += 3;
+                if (Type == HeroType.Warrior && willpower <= maxWillpower - 5) willpower += 5;
+
+                if (willpower <= maxWillpower - 3) willpower += 3;
 
                 else willpower = maxWillpower;
             }
-            Debug.Log(Type + " now has will power "+willpower);
+            Debug.Log(Type + " now has will power " + willpower);
         }
         else
         {
@@ -212,7 +223,17 @@ public class Hero : MonoBehaviour, Subject
     // Returns whether the hero has a bow object
     private bool HasBow()
     {
-        return false;       // after initialized: return myInventory.containItem(Bow);
+        bool hasBow = false;
+        /*
+        foreach (item i in heroInventory)
+        {
+            if (i.itemType.CompareTo("Bow") == 0)
+            {
+                hasBow = true;
+            }
+        }
+        */
+        return hasBow;
     }
 
     // Tries to advance the time marker and returns whether or not the operation succeeded
