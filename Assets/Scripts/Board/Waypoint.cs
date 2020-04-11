@@ -17,6 +17,9 @@ public class Waypoint : MonoBehaviour
     // Creature on this waypoint
     private Creature Creature;
 
+    //fog on this waypoint
+    private Fog Fog;
+
     // Heroes on this waypoint
     private List<Hero> Heroes = new List<Hero>(4);
 
@@ -50,6 +53,11 @@ public class Waypoint : MonoBehaviour
         //    goldText.text = "" + gold;
         //    goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
         //}
+    }
+
+    public void SetFog(Fog Fog)
+    {
+        this.Fog = Fog;
     }
 
     public void SetWPAdjList(int[] list)

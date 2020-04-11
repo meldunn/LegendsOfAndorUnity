@@ -5,17 +5,33 @@ using UnityEngine;
 public class Fog : MonoBehaviour
 {
     private FogType FogType;
-    public Waypoint waypointnum;
-    
-    // Start is called before the first frame update
-    void Start()
+    public int waypointnum; //number on the board
+    public GameObject FogFrontCard;
+    public GameObject FogBackCard;
+
+    public void Visibility(GameObject card, bool visible)
     {
-        
+        if (visible == true)
+        {
+            card.SetActive(true);
+        }
+        else
+        {
+            card.SetActive(false);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetWPNum(int WPNum)
     {
-        
+        this.waypointnum = WPNum;
     }
+    public void SetFrontCard(GameObject FogFrontCard)
+    {
+        this.FogFrontCard = FogFrontCard;
+    }
+    public void SetBackCard(GameObject FogBackCard)
+    {
+        this.FogBackCard = FogBackCard;
+    }
+   
 }

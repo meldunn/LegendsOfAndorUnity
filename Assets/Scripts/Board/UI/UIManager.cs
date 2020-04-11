@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     MerchantUIManager MerchantUIManager;
     BattleMenu BattleMenu;
     WPButtonMoveUI WPButtonMoveUI;
+    FogManager FogManager;
+
 
     // Directly linked UI elements
     [SerializeField]
@@ -51,6 +53,7 @@ public class UIManager : MonoBehaviour
         MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
         BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
+        FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
 
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -66,6 +69,7 @@ public class UIManager : MonoBehaviour
         MerchantUIManager.Initialize();
         BattleMenu.Initialize();
         WPButtonMoveUI.Initialize();
+        FogManager.Initialize();
 
         // Must come AFTER all initializations
         InputManager.Initialize();
