@@ -9,6 +9,8 @@ public class Waypoint : MonoBehaviour
     private WaypointManager WaypointManager;
     private WPButtonMoveUI WPButtonMoveUI;
 
+    public GameObject prefab;
+    public GameObject goldIcon;
 
     // Board tile number
     private int WaypointNum = -1;
@@ -36,20 +38,19 @@ public class Waypoint : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         // Commented out due to an error that caused the game not to run
-        //if (gold >= 0)
-        //{
-        //    goldText = goldIcon.GetComponent<UnityEngine.UI.Text>();
-        //    goldText.text = "" + gold;
-        //    goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
-        //}
+        
+
+
+
     }
 
     public void SetWPAdjList(int[] list)
@@ -80,7 +81,9 @@ public class Waypoint : MonoBehaviour
             well = new Well();
             ContainsWell = true;
         }
-
+        //string IconName = "GoldIcon (" + Number + ")";
+        //goldIcon = GameObject.Find(IconName);
+        //goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
     }
 
     public int GetWaypointNum()
@@ -140,6 +143,10 @@ public class Waypoint : MonoBehaviour
         if(gold > 0)
         {
             gold--;
+            if (gold == 0)
+            {
+                goldIcon.SetActive(false);
+            }
             return 1;
         } else {
             return -1;
@@ -149,6 +156,8 @@ public class Waypoint : MonoBehaviour
     public void dropOneGold()
     {
         gold++;
+        goldIcon.SetActive(true);
+        goldText.text = "" + gold;
     }
 
     public void removeItem(Item item)
@@ -207,5 +216,14 @@ public class Waypoint : MonoBehaviour
 
     }
 
+    public void SetIcon()
+    {
+        string name = "GoldIcon (" + WaypointNum + ")";
+        goldIcon = GameObject.Find(name);
+        goldIcon.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
+        goldText = goldIcon.transform.Find("Text").GetComponent<Text>();
+        goldText.text = "" + gold;
+        goldIcon.SetActive(false);
+    }
 
 }

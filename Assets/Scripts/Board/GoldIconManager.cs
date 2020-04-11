@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldIcon : MonoBehaviour
+public class GoldIconManager : MonoBehaviour
 {
+    public GameObject prefab;
     // Start is called before the first frame update
     void Start()
     {
