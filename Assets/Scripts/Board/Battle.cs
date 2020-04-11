@@ -6,6 +6,10 @@ public enum BattleStatus { Pending, Started, Finished, Cancelled }
 
 public class Battle : Subject
 {
+    // Managers
+    private GameManager GameManager;
+    private CreatureManager CreatureManager;
+
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
 
@@ -27,14 +31,24 @@ public class Battle : Subject
     // Whether the invitations have been sent. This value will become true after sending was triggered (even if the hero is fighting alone and there were none to send).
     bool InvitationsSent = false;
     
+    // List of rounds in the battle
+    List<BattleRound> Rounds = new List<BattleRound>();
+
     // Status of this battle
     BattleStatus Status = BattleStatus.Pending;
+
+    // Hero whose turn it is within the battle
+    Hero TurnHolder;
 
     // Constructor
     public Battle(Hero BattleStarter, Creature Creature)        // Initialize a battle without any other participants
     {
         this.BattleStarter = BattleStarter;
         this.Creature = Creature;
+
+        // Managers
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
 
         // Add the battle starter as a participant
         Participants.Add(BattleStarter);
@@ -155,7 +169,80 @@ public class Battle : Subject
             if (Invite.WasAccepted()) Participants.Add(InvitedHero);
         }
 
+        // Create the first battle round
+        GoToNextRound();
+
+        // Initialize the battle starter as the first turn holder
+        TurnHolder = BattleStarter;
+
+        // Register this as the current battle in progress in CreatureManager
+        CreatureManager.SetCurrentBattle(this);
+        
         Notify("STARTED");
+        Notify("BATTLE_TURN");
+    }
+
+    // Ends the battle
+    public void End()
+    {
+        // Set the status as finished
+        Status = BattleStatus.Finished;
+
+        // Un-register this as the current battle in progress in CreatureManager
+        CreatureManager.SetCurrentBattle(null);
+
+        Notify("ENDED");
+    }
+
+    // Launches the roll for specified hero
+    public void Roll(Hero Hero)
+    {
+        GetCurrentRound().RollHeroDice(Hero);
+
+        Notify("ROLL");
+    }
+
+    // Advances the turn in the battle (either within a round, or by moving to the next round)
+    public void Next()
+    {
+        // Finalize the hero roll (useful for the archer)
+        GetCurrentRound().FinalizeRoll(TurnHolder);
+
+        // If the round is done, let the creature roll and go to the next round
+        if (GetCurrentRound().IsDone())
+        {
+            // CreatureRoll();      // TODO
+            GoToNextRound();
+        }
+        
+        GoToNextTurn();
+    }
+
+    // Moves this battle to the next round
+    private void GoToNextRound()
+    {
+        Rounds.Add(new BattleRound(Creature, Participants));
+    }
+
+    // Passes the roll turn to the next hero in the order
+    private void GoToNextTurn()
+    {
+        Hero NewTurnHolder = TurnHolder;
+
+        do
+        {
+            NewTurnHolder = GameManager.GetTurnHeroAfter(NewTurnHolder);
+        }
+        while (Participants.IndexOf(NewTurnHolder) == -1);
+
+        TurnHolder = NewTurnHolder;
+
+        Notify("BATTLE_TURN");
+    }
+
+    public Roll GetRoll(Hero Hero)
+    {
+        return GetCurrentRound().GetRoll(Hero);
     }
 
     public List<Hero> GetParticipants()
@@ -172,7 +259,12 @@ public class Battle : Subject
     {
         return BattleStarter;
     }
-    
+
+    public Hero GetTurnHolder()
+    {
+        return TurnHolder;
+    }
+
     // Returns whether the battle was declined by someone
     public bool DeclinedBySomeone()
     {
@@ -201,6 +293,95 @@ public class Battle : Subject
     public bool IsCancelled()
     {
         return Status == BattleStatus.Cancelled;
+    }
+
+    // Returns the battle round currently in progress
+    private BattleRound GetCurrentRound()
+    {
+        return Rounds[Rounds.Count - 1];        // The current round is the last one in the list
+    }
+
+    public bool RoundIsDone()
+    {
+        return GetCurrentRound().IsDone();
+    }
+
+    public bool HasStartedRoll(Hero Hero)
+    {
+        return GetCurrentRound().HasStartedRoll(Hero);
+    }
+
+    public bool HasFinishedRoll(Hero Hero)
+    {
+        return GetCurrentRound().HasFinishedRoll(Hero);
+    }
+
+    public bool WizardCanFlipDie()
+    {
+        return !GetCurrentRound().WizardHasFlippedDie();
+    }
+
+    public int GetLatestRollValue(Hero Hero)
+    {
+        return GetCurrentRound().GetRollValue(Hero);
+    }
+
+    public int GetLatestCreatureRollValue()
+    {
+        return GetCurrentRound().GetCreatureRollValue();
+    }
+
+    public Roll GetLatestHeroRoll()
+    {
+        if (TurnHolder == null) return null;
+        return GetCurrentRound().GetRoll(TurnHolder);
+    }
+
+    public Roll GetLatestCreatureRoll()
+    {
+        return GetCurrentRound().GetCreatureRoll();
+    }
+
+    public int[] GetLatestHeroRollValues()
+    {
+        if (TurnHolder == null) return new int[0];
+        return GetCurrentRound().GetHeroRollValues(TurnHolder);
+    }
+
+    public int[] GetLatestCreatureRollValues()
+    {
+        return GetCurrentRound().GetCreatureRollValues();
+    }
+
+    public DiceType GetLatestHeroRollDiceType()
+    {
+        if (TurnHolder == null) return DiceType.Regular;
+        return GetCurrentRound().GetRollDiceType(TurnHolder);
+    }
+
+    public DiceType GetLatestCreatureRollDiceType()
+    {
+        return GetCurrentRound().GetCreatureRollDiceType();
+    }
+
+    public int GetLatestHeroBattleValue()
+    {
+        return GetCurrentRound().GetHeroBattleValue();
+    }
+
+    public int GetLatestCreatureBattleValue()
+    {
+        return GetCurrentRound().GetCreatureBattleValue();
+    }
+
+    public int GetHeroLostWillpower()
+    {
+        return GetCurrentRound().GetHeroLostWillpower();
+    }
+
+    public int GetCreatureLostWillpower()
+    {
+        return GetCurrentRound().GetCreatureLostWillpower();
     }
 
     // Used in Observer design pattern
