@@ -44,5 +44,31 @@ public class InventoryUIManager : MonoBehaviour//, Observer
     void Update()
     {
         
+
+
+    }
+
+    public void showWarriorItems()
+    {
+        
+
+    }
+
+    public void showArcherItems()
+    {
+
+
+    }
+
+    public void showDwarfItems()
+    {
+
+
+    }
+
+    public void showWizardItems()
+    {
+
+
     }
 }
