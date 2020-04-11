@@ -7,6 +7,7 @@ public class WaypointManager : MonoBehaviour
 {
     // Array of waypoints
     private Waypoint[] Waypoint;
+    GameObject goldIcon;
 
     // Adjacency list of tiles for hero move
     int[][] AdjListHero = new int[][]
@@ -207,7 +208,7 @@ public class WaypointManager : MonoBehaviour
     {
         // Initialize references to the waypoints and set their numbers
         Waypoint = new Waypoint[85];
-
+        
         string WaypointName;
 
         for (int i = 0; i <= 84; i++)
@@ -217,8 +218,22 @@ public class WaypointManager : MonoBehaviour
                 WaypointName = "Waypoint (" + i + ")";
                 Waypoint[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
                 Waypoint[i].SetWaypointNum(i);  // Set the waypoint's number
+<<<<<<< Updated upstream
+=======
+                Waypoint[i].SetWPAdjList(GetWPAdjList(i));
+                //GoldIcon clone = Instantiate(goldIcon, Waypoint[i].GetLocation(), Quaternion.identity);
+                //clone.transform.SetPositionAndRotation(Waypoint[i].GetLocation(), Quaternion.identity);
+                //Waypoint[i].SetGoldIcon(clone);
+>>>>>>> Stashed changes
             }
         }
+        //goldIcon = GameObject.Find("GoldIcon").GetComponent<GoldIcon>();
+        //goldIcon = GameObject.Find("GoldIcon");
+        //goldIcon.transform.SetPositionAndRotation(Waypoint[29].GetLocation(), Quaternion.identity);
+        //GameObject clone = Instantiate(goldIcon, Waypoint[30].GetLocation(), Quaternion.identity);
+        //clone.transform.SetPositionAndRotation(Waypoint[30].GetLocation(), Quaternion.identity);
+        GoldIconManager gim = GameObject.Find("GoldOverlay").GetComponent<GoldIconManager>();
+        gim.Initialize();
     }
 
     public bool IsValidWaypoint(int WaypointNum)
@@ -235,6 +250,11 @@ public class WaypointManager : MonoBehaviour
             Debug.LogError("Cannot get waypoint #" + RegionNum + ", invalid region number.");
             return null;
         }
+    }
+
+    public Waypoint[] GetWaypoints()
+    {
+        return Waypoint;
     }
 
     // Returns a reference to the waypoint after the specified one when following the monster advancement arrows

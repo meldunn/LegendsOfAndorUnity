@@ -16,20 +16,57 @@ public class Waypoint : MonoBehaviour
     private List<Farmer> farmers = new List<Farmer>();
 
     int gold;
+<<<<<<< Updated upstream
     
+=======
+    GoldIcon goldIcon;
+    GameObject clone;
+    Text goldText;
+
+>>>>>>> Stashed changes
     private bool ContainsWell = false;
     Well well;
 
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< Updated upstream
         
+=======
+        WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
+        //goldIcon = GameObject.Find("GoldIcon").GetComponent<GoldIcon>();
+        //clone = Instantiate(GameObject.Find("GoldIcon"), this.GetLocation(), Quaternion.identity);
+        //Debug.Log("GoldIcon Location: " + goldIcon.transform.position);
+        //Debug.Log("Waypoint Location: " + this.GetLocation());
+        //goldText = goldIcon.GetComponent<UnityEngine.UI.Text>();
+        //clone.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
     void Update()
     {
+<<<<<<< Updated upstream
         
+=======
+        if (gold >= 0)
+        {
+            //goldText.text = "" + gold;
+            
+        }
+    }
+
+    public void SetWPAdjList(int[] list)
+    {
+        WPadjList = new int[list.Length];
+
+        //copy the elements
+        for (int i = 0; i < list.Length; i++)
+        {
+            WPadjList[i] = list[i];
+        }
+
+>>>>>>> Stashed changes
     }
 
     public void SetWaypointNum(int Number)
@@ -143,4 +180,29 @@ public class Waypoint : MonoBehaviour
         return (Other != null && this.GetWaypointNum() == Other.GetWaypointNum());
     }
 
+<<<<<<< Updated upstream
+=======
+    public void InitializeRuneStone(int ID)
+    {
+        RuneStones.Add(new RuneStone(ID));
+    }
+
+    public void ShowAdjWP()
+    {
+        Debug.Log("in ShowAdjWP in Waypoint class");
+
+        //int[] adjList = WaypointManager.GetWPAdjList(this.WaypointNum);
+
+        WPButtonMoveUI.toMakeVisible(WPadjList);
+
+
+    }
+
+    public void SetGoldIcon(GoldIcon g)
+    {
+        goldIcon = g;
+    }
+
+
+>>>>>>> Stashed changes
 }
