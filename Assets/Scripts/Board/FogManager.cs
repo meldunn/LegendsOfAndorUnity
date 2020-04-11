@@ -18,7 +18,7 @@ public class FogManager : MonoBehaviour
         for (int i = 0; i < 15; i++)
         {
             WaypointName = "FogWaypoint(" + i + ")";
-            Waypoint[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
+            possibleWaypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
         }
     }
 }
