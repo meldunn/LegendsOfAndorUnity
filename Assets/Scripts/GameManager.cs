@@ -276,6 +276,16 @@ public class GameManager : MonoBehaviour, Subject
         Notify("TURN");
     }
 
+    // Used to follow the turn order during a battle. Returns whose turn it is in the order after the specified Hero.
+    public Hero GetTurnHeroAfter(Hero Hero)
+    {
+        for (int i = 0; i < TurnOrder.Count; i++)
+        {
+            if (TurnOrder[i].GetHero() == Hero) return TurnOrder[(i + 1) % TurnOrder.Count].GetHero();
+        }
+        return null;
+    }
+
     // Changes control of the current game session to a different player.
     // Note: this is used to simulate local multiplayer (for testing and demonstration purposes) and will NOT be used in the real networked game
     public void SetSelfPlayer(HeroType NewControlledPlayersHero)

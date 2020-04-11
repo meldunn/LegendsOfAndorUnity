@@ -65,6 +65,7 @@ public class Hero : MonoBehaviour, Subject
         // Initialize strength and willpower
         strength = 1;
         willpower = 7;
+        maxWillpower = 20;
         myGold = 4;
     }
 
@@ -270,6 +271,54 @@ public class Hero : MonoBehaviour, Subject
         Notify("HERO_WILLPOWER");
 
         return true;
+    }
+
+    // Returns whether the hero has the black die (if they have 3 different rune stones)
+    private bool HasBlackDie()
+    {
+        return false;            // TODO real value
+    }
+
+    // Returns the type of dice used by this hero
+    public DiceType GetDiceType()
+    {
+        // If the hero has a black die, return it. Otherise, return regular.
+        if (HasBlackDie()) return DiceType.Black;
+        else return DiceType.Regular;
+    }
+
+    // Returns the number of dice used by this hero
+    public int GetNumOfDice()
+    {
+        if (HasBlackDie()) return 1;     // A hero can only have one black die
+        else
+        {
+            // If the hero has normal dice, find out how many
+            switch (Type)
+            {
+                case HeroType.Warrior:
+                    if (willpower <= 6) return 2;
+                    else if (willpower <= 13) return 3;
+                    else return 4;
+
+                case HeroType.Archer:
+                    if (willpower <= 6) return 3;
+                    else if (willpower <= 13) return 4;
+                    else return 5;
+
+                case HeroType.Dwarf:
+                    if (willpower <= 6) return 1;
+                    else if (willpower <= 13) return 2;
+                    else return 3;
+
+                case HeroType.Wizard:
+                    return 1;
+
+                default:
+                    Debug.LogError("Cannot get number of dice for unknown HeroType.");
+                    return -1;
+            }
+        }
     }
 
     public void SetCurrentBattle(Battle OwnedBattle)

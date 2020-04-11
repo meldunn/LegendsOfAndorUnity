@@ -204,6 +204,43 @@ public class Creature : MonoBehaviour
         return ( (X >= XTarget - Margin && X <= XTarget + Margin) && (Y >= YTarget - Margin && Y <= YTarget + Margin));
     }
 
+    // Returns the type of dice used by this creature
+    public DiceType GetDiceType()
+    {
+        switch (Type)
+        {
+            case CreatureType.Gor:
+            case CreatureType.Skral:
+                return DiceType.Regular;
+
+            case CreatureType.Wardrak:
+                return DiceType.Black;
+
+            default:
+                Debug.LogError("Cannot get dice type for unknown CreatureType.");
+                return DiceType.Regular;
+        }
+    }
+
+    // Returns the number of dice used by this creature
+    public int GetNumOfDice()
+    {
+        switch (Type)
+        {
+            case CreatureType.Gor:
+            case CreatureType.Skral:
+                return 2;
+
+            case CreatureType.Wardrak:
+                if (Willpower <= 6) return 1;
+                else return 2;
+
+            default:
+                Debug.LogError("Cannot get number of dice for unknown CreatureType.");
+                return -1;
+        }
+    }
+
     public int GetWillpower()
     {
         return Willpower;

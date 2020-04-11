@@ -26,6 +26,9 @@ public class CreatureManager : MonoBehaviour
     private int CurrentAdvancingIndex;
     private CreatureType[] Waves = { CreatureType.Gor, CreatureType.Skral, CreatureType.Wardrak, CreatureType.Wardrak };
 
+    // Current battle in progress
+    Battle CurrentBattle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -175,5 +178,15 @@ public class CreatureManager : MonoBehaviour
     {
         IsAdvancing = false;
         // Debug.Log("Advancing done.");
+    }
+
+    public void SetCurrentBattle(Battle Battle)
+    {
+        this.CurrentBattle = Battle;
+    }
+
+    public Battle GetCurrentBattle()
+    {
+        return CurrentBattle;
     }
 }
