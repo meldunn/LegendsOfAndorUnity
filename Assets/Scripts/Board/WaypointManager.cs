@@ -82,8 +82,8 @@ public class WaypointManager : MonoBehaviour
         new int[] {69, 67},
         new int[] {70, 68},
         new int[] {81, 69}, // waypoint 70
-        new int[] {-2},
-        new int[] { -2},
+        new int[] { 43},
+        new int[] { 19, 23, 34, 29, 28, 18},
         new int[] { -2},
         new int[] { -2},
         new int[] { -2}, // waypoint 75
