@@ -8,7 +8,7 @@ public class Spinner : MonoBehaviour
 
     [SerializeField]
     [Tooltip("A larger number means a slower spin.")]
-    private int SpinSpeed;         
+    private int SpinSpeed = 0;
 
     int SpinIncrement = 0;
 

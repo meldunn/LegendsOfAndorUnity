@@ -50,7 +50,6 @@ public class Waypoint : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        // Commented out due to an error that caused the game not to run
 
     }
 
@@ -223,6 +222,7 @@ public class Waypoint : MonoBehaviourPun
 
     }
 
+    // Should be moved to a UI class
     public void SetIcon()
     {
         string name = "GoldIcon (" + WaypointNum + ")";

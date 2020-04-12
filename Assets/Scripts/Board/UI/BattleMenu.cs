@@ -160,7 +160,7 @@ public class BattleMenu : MonoBehaviour, Observer
         // If the battle hasn't been set, nothing happens
         if (Battle == null)
         {
-            Debug.LogError("The battle menu can't be shown because no battle was set");
+            Debug.LogError("The battle menu can't be shown because no battle was set.");
             return;
         }
 
