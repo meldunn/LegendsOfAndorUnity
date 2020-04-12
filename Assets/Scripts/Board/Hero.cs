@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hero : MonoBehaviour, Subject
 {
-    // Reference to WaypointManager
+    // Reference to WaypointManager, UIManager
     private WaypointManager WaypointManager;
     private UIManager UIManager;
 
@@ -156,10 +156,10 @@ public class Hero : MonoBehaviour, Subject
     }
 
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
-    public void BuyFromMerchant(Item item)
+    public void BuyFromMerchant(Type ItemType)
     {
-        Debug.Log(item);
-        heroInventory.addItem(item);
+        // Debug.Log(ItemType);
+        heroInventory.addItemByType(ItemType);
     }
 
     public void DrinkFromWell(int regionNum)

@@ -86,6 +86,7 @@ public class MerchantUIManager : MonoBehaviour
         else Debug.Log("Error in MerchantUIManager. Referenced null");
     }
 
+    // Called when a hero moves, the UI updates depending on which region the hero lands on
     public void UpdateMerchantButton(int RegionNumber)
     {
         // Reset all buttons
@@ -108,6 +109,7 @@ public class MerchantUIManager : MonoBehaviour
         }
     }
 
+    // Called when the "show merchants" button is clicked. This button is only shown when a hero is on a region with a merchant.
     public void ShowMerchantMenu(int MerchantNum)
     {
 
@@ -125,12 +127,12 @@ public class MerchantUIManager : MonoBehaviour
         // Get the gold of the player who opens the merchant menu
         int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
 
-        Debug.Log(PlayerGold);
+        // Debug.Log("Player has "+PlayerGold);
 
         MyGoldText.text = "Your Gold: "+PlayerGold+"g";
     }
     
-    // Updates current amount shown. Does NOT update the current amount purchased.
+    // Updates current amount shown. 
     public void IncreaseItemAmount(int Index)
     {
 
@@ -156,7 +158,7 @@ public class MerchantUIManager : MonoBehaviour
         CostOfPurchase = CurrentCost;
     }
 
-    // Updates current amount shown. Does NOT update the current amount purchased.
+    // Updates current amount shown. 
     public void DecreaseItemAmount(int Index)
     {
 
@@ -201,6 +203,7 @@ public class MerchantUIManager : MonoBehaviour
         int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
 
         // Called when Player has enough gold, and purchases the items
+        // Debug.Log(PlayerGold);
         if(CostOfPurchase <= PlayerGold)
         {
             ConfirmPurchase();
@@ -226,7 +229,7 @@ public class MerchantUIManager : MonoBehaviour
                 switch(i)
                 {
                     case 0:     // Helm
-                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
+                       MyHero.BuyFromMerchant(Type.Helm);
                        Debug.Log("Bought Helm");
                        break;
                     case 1:     // Helm

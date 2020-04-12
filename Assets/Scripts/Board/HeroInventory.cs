@@ -5,27 +5,50 @@ using UnityEngine;
 public class HeroInventory : MonoBehaviour
 {
 
-    public List<Item> itemList;
+    // Keeps track of item quantity
+    public Dictionary<Item, int> Inventory;
 
     public HeroInventory()
     {
-        itemList = new List<Item>();
+        Inventory = new Dictionary<Item, int>();
     }
 
     public void addItem(Item item)
     {
-        itemList.Add(item);
+        Inventory[item] += 1;
         Debug.Log("Added Item");
+    }
+
+    // Called from Hero in BuyFromMerchant
+    public void addItemByType(Type ItemType)
+    {
+        foreach(KeyValuePair<Item, int> entry in Inventory)
+        {
+            if(string.Compare(entry.Key.GetType().ToString(), ItemType.ToString())== 0)
+            {
+                Inventory[entry.Key] += 1;
+            }
+        }
+        Debug.Log(Inventory);
     }
 
     public void removeItem(Item item)
     {
-        itemList.Remove(item);
+        if(Inventory[item] > 0)
+        {
+            Inventory[item] -= 1;
+        }
+        else
+        {
+            Debug.Log("You have no "+item.GetType().ToString()+ " to remove.");
+        }
     }
 
     public bool containsItem(Item item)
     {
-        return itemList.Contains(item);
+        if(Inventory[item] > 0) return true;
+
+        return false;
     }
 
     public bool containsItem(string item)
@@ -42,9 +65,9 @@ public class HeroInventory : MonoBehaviour
         return false;
     }
 
-    public List<Item> getInventory()
+    public Dictionary<Item, int> getInventory()
     {
-        return itemList;
+        return Inventory;
     }
     // Start is called before the first frame update
     void Start()
