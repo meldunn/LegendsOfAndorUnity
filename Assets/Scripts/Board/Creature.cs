@@ -145,10 +145,22 @@ public class Creature : MonoBehaviour
         {
             // Debug.Log("Has reached location");
 
-            // Check whether this region was already occupied (if it isn't the castle). If so, keep moving.
+            WaypointCastle Castle = WaypointManager.GetCastle();
             Creature OtherRegionCreature = Region.GetCreature();
 
-            if (Region.GetWaypointNum() != 0 && OtherRegionCreature != null) // Don't check this condition for the castle
+            // Check whether the creature has entered the castle
+            if (Region.Equals(Castle))
+            {
+                // Hide the creature icon
+                this.gameObject.SetActive(false);
+
+                Castle.CreatureEnterCastle(this);
+
+                IsMoving = false;
+                if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance.
+            }
+            // Check whether this region was already occupied (if it isn't the castle). If so, keep moving.
+            else if (OtherRegionCreature != null)
             {
                 // Debug.Log("This creature will move again because there is already a creature on " + Region.GetWaypointNum());
                 IsMoving = false;   // To allow the creature to move again
@@ -159,7 +171,6 @@ public class Creature : MonoBehaviour
                 // Debug.Log("This creature will not move again because " + Region.GetWaypointNum() + " is free");
                 
                 
-                // TODO handle creatures entering the castle when done moving
                 // TODO handle creatures killing farmers when done moving
 
 

@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class WaypointManager : MonoBehaviour
 {
-    // Array of waypoints
+    // Array of waypoints (including the castle)
     private Waypoint[] Waypoint;
+
+    // The castle
+    private WaypointCastle Castle;
 
     // Adjacency list of tiles for hero move
     int[][] AdjListHero = new int[][]
@@ -227,6 +230,9 @@ public class WaypointManager : MonoBehaviour
 
             }
         }
+
+        // Initialize reference to the castle
+        Castle = (WaypointCastle)Waypoint[0];
     }
 
     public int[] GetWPAdjList(int WaypointNum)
@@ -270,6 +276,11 @@ public class WaypointManager : MonoBehaviour
             Debug.LogError("Cannot get waypoint #" + RegionNum + ", invalid region number.");
             return null;
         }
+    }
+
+    public WaypointCastle GetCastle()
+    {
+        return Castle;
     }
 
     // Returns a reference to the waypoint after the specified one when following the monster advancement arrows

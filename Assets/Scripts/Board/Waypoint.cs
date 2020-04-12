@@ -134,13 +134,11 @@ public class Waypoint : MonoBehaviourPun
         }
     }
 
-    public void dropOneFarmer()
+    public virtual void dropOneFarmer()
     {
         farmers.Add(new Farmer());
-        if (WaypointNum == 78)
-        {
-            // Add shield
-        }
+        
+        // Dropping a farmer at the castle is handled by overriding this method in WaypointCastle.cs
     }
 
     public int pickupOneGold()
