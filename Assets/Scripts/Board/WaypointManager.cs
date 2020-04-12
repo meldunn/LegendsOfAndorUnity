@@ -218,6 +218,13 @@ public class WaypointManager : MonoBehaviour
                 Waypoint[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
                 Waypoint[i].SetWaypointNum(i);  // Set the waypoint's number
                 Waypoint[i].SetIcon();
+
+            // Initialize wells
+            if(i == 5 || i == 35 || i == 45 || i == 55)
+            {
+                GameObject.Find(WaypointName).AddComponent<Well>();
+            }
+
             }
         }
     }
@@ -290,8 +297,6 @@ public class WaypointManager : MonoBehaviour
 
     public void ReplenishAllWells()
     {
-        // TODO: Fix Null pointer exception for wells array
-        //
         // Waypoints[5].ReplenishWell();
         // Waypoints[35].ReplenishWell();
         // Waypoints[45].ReplenishWell();

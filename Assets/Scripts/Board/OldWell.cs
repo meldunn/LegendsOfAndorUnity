@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Well
+public class OldWell
 {
     private bool Full = false; 
 
-    public Well() {
+    public OldWell() {
         Full = true;
     }
 
