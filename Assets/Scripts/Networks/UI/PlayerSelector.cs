@@ -37,11 +37,18 @@ public class PlayerSelector : MonoBehaviourPun
         {
             isReady = false;
 
+            currentHero = 0;
+            hero.sprite = heroSprites[currentHero];
 
             next.gameObject.SetActive(true);
             prev.gameObject.SetActive(true);
+
+
             heroSelectedType = HeroType.Warrior;
             photonView.RPC("InstantiateSelector", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber - 1);
+
+
+
         }
     }
 
@@ -50,8 +57,6 @@ public class PlayerSelector : MonoBehaviourPun
     [PunRPC]
     void InstantiateSelector(int id)
     {
-        currentHero = 0;
-        hero.sprite = heroSprites[currentHero];
         nickName.text = photonView.Owner.NickName;
 
         gameObject.transform.SetParent(HeroSelectionManager.Instance.heroSelectorPositions[id]);
@@ -83,6 +88,7 @@ public class PlayerSelector : MonoBehaviourPun
 
     public void OnClick_PrevHero()
     {
+        
         //executes only if the owner of the button clicked
         if (photonView.IsMine && !readyToken.activeSelf)
         {
@@ -98,35 +104,34 @@ public class PlayerSelector : MonoBehaviourPun
         {
             currentHero = 3;
         }
+
+
         hero.sprite = heroSprites[currentHero];
         heroSelectedType = (HeroType)currentHero;
     }
 
     public void OnClick_Ready()
     {
-        if (photonView.IsMine)
+        isReady = !isReady;
+
+        //set next & previous buttons inactive
+        next.gameObject.SetActive(!next.gameObject.activeSelf);
+        prev.gameObject.SetActive(!prev.gameObject.activeSelf);
+
+
+        photonView.RPC("ReadyUp", RpcTarget.All);
+
+
+        //sends an rpc only for master client to avoid cloging the network
+        if (PhotonNetwork.IsMasterClient)
         {
-            isReady = !isReady;
-
-            //set next & previous buttons inactive
-            next.gameObject.SetActive(!next.gameObject.activeSelf);
-            prev.gameObject.SetActive(!prev.gameObject.activeSelf);
-
-
-            photonView.RPC("ReadyUp", RpcTarget.All);
-
-
-            //sends an rpc only for master client to avoid cloging the network
-            if (PhotonNetwork.IsMasterClient)
-            {
-                //PhotonNetwork.LocalPlayer.ActorNumber
-                //HeroType
-                HeroSelectionManager.Instance.OnPlayerReady(PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
-            }
-            else
-            {
-                photonView.RPC("ReadyUpMaster", RpcTarget.MasterClient);
-            }
+            //PhotonNetwork.LocalPlayer.ActorNumber
+            //HeroType
+            HeroSelectionManager.Instance.OnPlayerReady(PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
+        }
+        else
+        {
+            photonView.RPC("ReadyUpMaster", RpcTarget.MasterClient);
         }
     }
 
@@ -134,7 +139,7 @@ public class PlayerSelector : MonoBehaviourPun
     void ReadyUp()
     {
         //TODO: Non critical error of some prefab not being assigned a ViewID
-
+        
         bool isEnabled = readyToken.activeSelf;
         readyToken.SetActive(!isEnabled);
     }

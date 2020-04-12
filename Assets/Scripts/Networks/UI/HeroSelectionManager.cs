@@ -43,11 +43,14 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
 
         //at run time subsribes the ready up logic. (done on run time because we are dealing with a prefab)
+
         readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
+       
     }
 
     public void OnPlayerReady(int playerID, HeroType type, bool status)
     {
+        print("INVOKED");
         if (status)
         {
             readyPlayers++;
@@ -61,18 +64,13 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
         if (readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         {
-            bool allDifferent = true;
-
-            foreach (HeroType val in Enum.GetValues(typeof(HeroType)))
+            if (areDifferentHeroes())
             {
-                allDifferent = allDifferent && selectedHeroes.ContainsValue(val);
-            }
-
-            if (allDifferent)
-            {
-                print("DONT BREAK THE CAR SAMIR");
+                print("CAN START THE GAME");
             }
         }
+
+
     }
 
 
@@ -81,6 +79,22 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     {
         readyPlayers--;
         selectedHeroes.Remove(otherPlayer.ActorNumber);
+    }
+
+    bool areDifferentHeroes()
+    {
+        for (int i = 0; i < selectedHeroes.Count - 1; i++)
+        {
+            for (int j = i + 1; j < selectedHeroes.Count; j++)
+            {
+                if (selectedHeroes[i] == selectedHeroes[j])
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }
