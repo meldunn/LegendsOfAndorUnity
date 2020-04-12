@@ -157,28 +157,31 @@ public class Creature : MonoBehaviour
                 Castle.CreatureEnterCastle(this);
 
                 IsMoving = false;
-                if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance.
-            }
-            // Check whether this region was already occupied (if it isn't the castle). If so, keep moving.
-            else if (OtherRegionCreature != null)
-            {
-                // Debug.Log("This creature will move again because there is already a creature on " + Region.GetWaypointNum());
-                IsMoving = false;   // To allow the creature to move again
-                ContinueAdvancing();
+                if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance
             }
             else
             {
-                // Debug.Log("This creature will not move again because " + Region.GetWaypointNum() + " is free");
-                
-                
-                // TODO handle creatures killing farmers when done moving
+                // If the creature has entered a regular region, destroy all farmers standing on it, or carried by heroes on it
+                Region.DestroyFarmers();
+                Region.DestroyAllFarmersCarriedByHeroes();
 
+                // Check whether this region was already occupied (if it isn't the castle). If so, keep moving.
+                if (OtherRegionCreature != null)
+                {
+                    // Debug.Log("This creature will move again because there is already a creature on " + Region.GetWaypointNum());
+                    IsMoving = false;   // To allow the creature to move again
+                    ContinueAdvancing();
+                }
+                else
+                {
+                    // Debug.Log("This creature will not move again because " + Region.GetWaypointNum() + " is free");
 
-                // Set the region's creature reference now that the creature has arrived there
-                Region.SetCreature(this);
+                    // Set the region's creature reference now that the creature has arrived there
+                    Region.SetCreature(this);
 
-                IsMoving = false;
-                if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance.
+                    IsMoving = false;
+                    if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance
+                }
             }
         }
     }

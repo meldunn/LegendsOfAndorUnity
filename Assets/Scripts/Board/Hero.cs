@@ -380,6 +380,13 @@ public class Hero : MonoBehaviour, Subject
         return numFarmers;
     }
 
+    // Destroys all farmers carried by this hero. Called when a creature steps onto the same region as a hero.
+    // TODO call this when a hero moves to the same region as a creature.
+    public void DestroyCarriedFarmers()
+    {
+        numFarmers = 0;
+    }
+
     public int getWillpower()
     {
         return willpower;

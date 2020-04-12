@@ -140,6 +140,21 @@ public class Waypoint : MonoBehaviourPun
         // Dropping a farmer at the castle is handled by overriding this method in WaypointCastle.cs
     }
 
+    // Destroys all farmers standing on this region. Used when a creature enters the region.
+    public void DestroyFarmers()
+    {
+        farmers.Clear();
+    }
+
+    // Destroys all farmers carried by heroes on this region. Used when a creature enters the region.
+    public void DestroyAllFarmersCarriedByHeroes()
+    {
+        foreach(Hero Hero in Heroes)
+        {
+            Hero.DestroyCarriedFarmers();
+        }
+    }
+
     public int pickupOneGold()
     {
         if(gold > 0)
