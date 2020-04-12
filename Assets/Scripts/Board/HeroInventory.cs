@@ -28,6 +28,20 @@ public class HeroInventory : MonoBehaviour
         return itemList.Contains(item);
     }
 
+    public bool containsItem(string item)
+    {
+        /*
+        foreach (Item i in itemList)
+        {
+            if (i.type.TryParse))
+            {
+                return true;
+            }
+        }
+        */
+        return false;
+    }
+
     public List<Item> getInventory()
     {
         return itemList;

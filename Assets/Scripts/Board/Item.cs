@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item: MonoBehaviour
 {
-    public enum ItemType
+    public enum Type
     {
         Wineskin,
         Telescope,
@@ -14,6 +14,10 @@ public class Item: MonoBehaviour
         Bow,
         Falcon
     }
-    public ItemType itemType;
+    public Type type;
 
+    public Type GetType(Item i)
+    {
+        return i.type;
+    }
 }

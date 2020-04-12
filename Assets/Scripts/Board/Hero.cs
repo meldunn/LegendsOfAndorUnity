@@ -67,6 +67,7 @@ public class Hero : MonoBehaviour, Subject
         willpower = 7;
         maxWillpower = 20;
         myGold = 4;
+        heroInventory = new HeroInventory();
     }
 
     // Note: Used for testing and debugging purposes ONLY
@@ -147,7 +148,7 @@ public class Hero : MonoBehaviour, Subject
 
     public void useItem(Item item)
     {
-        switch (item)
+        switch (item.type)
         {
             //case, bow then ...
             //case, .... then
@@ -225,16 +226,8 @@ public class Hero : MonoBehaviour, Subject
     private bool HasBow()
     {
         bool hasBow = false;
-        /*
-        foreach (item i in heroInventory)
-        {
-            if (i.itemType.CompareTo("Bow") == 0)
-            {
-                hasBow = true;
-            }
-        }
-        */
-        return hasBow;
+        return heroInventory.containsItem("Bow");
+        
     }
 
     // Tries to advance the time marker and returns whether or not the operation succeeded
