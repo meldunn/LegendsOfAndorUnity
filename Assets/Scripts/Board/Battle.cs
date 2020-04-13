@@ -202,26 +202,49 @@ public class Battle : Subject
         Notify("ROLL");
     }
 
+    public void CreatureRoll()
+    {
+        GetCurrentRound().RollCreatureDice();
+
+        Notify("ROLL");
+    }
+
     // Advances the turn in the battle (either within a round, or by moving to the next round)
     public void Next()
     {
         // Finalize the hero roll (useful for the archer)
         GetCurrentRound().FinalizeRoll(TurnHolder);
 
-        // If the round is done, let the creature roll and go to the next round
+        // If the round is done (for heroes), check whether the creature is next to roll
         if (GetCurrentRound().IsDone())
         {
-            // CreatureRoll();      // TODO
-            GoToNextRound();
+            // Check whether the creature has rolled
+            if (GetCurrentRound().GetCreatureRollValues().Length == 0)
+            {
+                // If not, let the creature roll
+                CreatureRoll();
+            }
+            else
+            {
+                // TODO take damage
+
+                // If the creature has already rolled, go to the next round
+                GoToNextRound();
+                GoToNextTurn();
+            }
         }
-        
-        GoToNextTurn();
+        else
+        {
+            GoToNextTurn();
+        }
     }
 
     // Moves this battle to the next round
     private void GoToNextRound()
     {
         Rounds.Add(new BattleRound(Creature, Participants));
+
+        // TODO advance time marker
     }
 
     // Passes the roll turn to the next hero in the order

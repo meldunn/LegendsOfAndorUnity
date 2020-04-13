@@ -543,8 +543,8 @@ public class BattleMenu : MonoBehaviour, Observer
             int HeroLostWP = Battle.GetHeroLostWillpower();
             int CreatureLostWP = Battle.GetCreatureLostWillpower();
 
-            if (HeroLostWP > 0) SetText(HeroWillpowerLoss, "-" + HeroLostWP.ToString());
-            if (CreatureLostWP > 0) SetText(CreatureWillpowerLoss, "-" + CreatureLostWP.ToString());
+            if (HeroLostWP > 0) SetText(HeroWillpowerLoss, "[-" + HeroLostWP.ToString() + "]");
+            if (CreatureLostWP > 0) SetText(CreatureWillpowerLoss, "[-" + CreatureLostWP.ToString() + "]");
         }
     }
 
