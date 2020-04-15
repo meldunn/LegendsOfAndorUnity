@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -346,6 +347,28 @@ public class Hero : MonoBehaviour, Subject
         return myRegion;
     }
 
+    // Increases the hero's willpower by the indicated positive amount, to a maximum of maxWillpower.
+    public void IncreaseWillpower(int Amount)
+    {
+        if (Amount > 0)
+        {
+            willpower = Math.Min(willpower + Amount, maxWillpower);
+
+            Notify("HERO_WILLPOWER");
+        }
+    }
+
+    // Decreases the hero's willpower by the indicated positive amount, to a minimum of 0.
+    public void DecreaseWillpower(int Amount)
+    {
+        if (Amount > 0)
+        {
+            willpower = Math.Max(willpower - Amount, 0);
+
+            Notify("HERO_WILLPOWER");
+        }
+    }
+
     // Used in Observer design pattern
     public void Attach(Observer o)
     {
@@ -373,6 +396,17 @@ public class Hero : MonoBehaviour, Subject
     public int getStrength()
     {
         return strength;
+    }
+
+    // Decreases the hero's strength by the indicated positive amount, to a minimum of 1.
+    public void DecreaseStrength(int Amount)
+    {
+        if (Amount > 0)
+        {
+            strength = Math.Max(strength - Amount, 1);
+
+            Notify("HERO_STRENGTH");
+        }
     }
 
     public int getNumFarmers()

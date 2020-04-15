@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
-    // Reference to WaypointManager
+    // Reference to managers
     private WaypointManager WaypointManager;
+    private CreatureManager CreatureManager;
 
     // Creature type (Gor, Skral, Wardrak, etc.)
     private CreatureType Type;
@@ -30,11 +31,15 @@ public class Creature : MonoBehaviour
     // Callback to be called after moving
     private Action Callback;
 
+    // Whether the creature was defeated
+    private bool Defeated = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        // Initialize reference to WaypointManager
+        // Initialize reference to managers
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
     }
 
     // Update is called once per frame
@@ -260,8 +265,43 @@ public class Creature : MonoBehaviour
         return Willpower;
     }
 
+    public void ResetWillpower()
+    {
+        Willpower = MaxWillpower;
+    }
+
     public int GetStrength()
     {
         return Strength;
+    }
+
+    // Decreases the creature's willpower by the indicated positive amount, to a minimum of 0.
+    public void DecreaseWillpower(int Amount)
+    {
+        if (Amount > 0) Willpower = Math.Max(Willpower - Amount, 0);
+    }
+
+    // Marks this creature as defeated and sends it to region 80
+    public void Defeat()
+    {
+        Defeated = true;
+
+        // Unlink the creature from its region
+        if (Region.GetCreature() == this) Region.SetCreature(null);
+        Region = null;
+
+        // Decrease the number of creatures in GameManager
+        CreatureManager.DecreaseNumCreatures();
+
+        // Send the creature to region 80
+        Waypoint Region80 = WaypointManager.GetWaypoint(80);
+        transform.SetPositionAndRotation(Region80.GetLocation(),     // Destination
+            Quaternion.identity);                                    // No rotation
+        Region = Region80;
+    }
+
+    public bool IsDefeated()
+    {
+        return Defeated;
     }
 }

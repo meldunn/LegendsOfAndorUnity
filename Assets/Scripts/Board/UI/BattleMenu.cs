@@ -121,6 +121,8 @@ public class BattleMenu : MonoBehaviour, Observer
     GameObject BattleNextButton = null;
     [SerializeField]
     GameObject BattleFlipDieButton = null;
+    [SerializeField]
+    GameObject BattleOkButton = null;
 
     // Dice images
     Sprite[] DiceSides;
@@ -190,6 +192,23 @@ public class BattleMenu : MonoBehaviour, Observer
         {
             UpdateBattleRoll();
         }
+        else if (string.Equals(Category, "WILLPOWER"))
+        {
+            UpdateHeroInfo();
+            UpdateCreatureInfo();
+        }
+        else if (string.Equals(Category, "BATTLE_WON"))
+        {
+            UpdateWon();
+        }
+        else if (string.Equals(Category, "BATTLE_LOST"))
+        {
+            UpdateLost();
+        }
+        else if (string.Equals(Category, "BATTLE_PARTICIPANTS"))
+        {
+            UpdateHeroBoxes();
+        }
         else if (string.Equals(Category, "CANCELLED"))
         {
             
@@ -226,10 +245,7 @@ public class BattleMenu : MonoBehaviour, Observer
         // Initialize UI
         SetInfoText("");
 
-        EnableButton(BattleRollButton);
-        EnableButton(BattleNextButton);
-        BattleRollButton.SetActive(true);
-        BattleNextButton.SetActive(true);
+        BattleOkButton.SetActive(false);
 
         UpdateHeroBoxes();
         UpdateMainCreature();
@@ -237,6 +253,8 @@ public class BattleMenu : MonoBehaviour, Observer
         UpdateCreatureInfo();
         UpdateBattleTurn();
         UpdateBattleRoll();
+        UpdateWon();
+        UpdateLost();
     }
 
     private Color32 GetDiceColour(HeroType Type)
@@ -545,6 +563,36 @@ public class BattleMenu : MonoBehaviour, Observer
 
             if (HeroLostWP > 0) SetText(HeroWillpowerLoss, "[-" + HeroLostWP.ToString() + "]");
             if (CreatureLostWP > 0) SetText(CreatureWillpowerLoss, "[-" + CreatureLostWP.ToString() + "]");
+        }
+    }
+
+    private void UpdateWon()
+    {
+        if (Battle.IsWon())
+        {
+            BattleRollButton.SetActive(false);
+            BattleNextButton.SetActive(false);
+            BattleFlipDieButton.SetActive(false);
+            DisableButton(BattleRollButton);
+            DisableButton(BattleNextButton);
+            DisableButton(BattleFlipDieButton);
+            SetInfoText("The battle has been won!");
+            BattleOkButton.SetActive(true);
+        }
+    }
+    
+    private void UpdateLost()
+    {
+        if (Battle.IsLost())
+        {
+            BattleRollButton.SetActive(false);
+            BattleNextButton.SetActive(false);
+            BattleFlipDieButton.SetActive(false);
+            DisableButton(BattleRollButton);
+            DisableButton(BattleNextButton);
+            DisableButton(BattleFlipDieButton);
+            SetInfoText("The battle has been lost.");
+            BattleOkButton.SetActive(true);
         }
     }
 

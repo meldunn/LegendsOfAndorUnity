@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -188,5 +189,11 @@ public class CreatureManager : MonoBehaviour
     public Battle GetCurrentBattle()
     {
         return CurrentBattle;
+    }
+
+    public void DecreaseNumCreatures()
+    {
+        if (NumOfCreatures - 1 < 0) Debug.LogWarning("Warning: tried to decrease the number of creatures below 0.");
+        NumOfCreatures = Math.Max(NumOfCreatures - 1, 0);
     }
 }
