@@ -11,7 +11,8 @@ public enum Type
     Helm,
     Shield,
     Bow,
-    Falcon
+    Falcon,
+    MedicinalHerb
 }
 public class Item: MonoBehaviour
 {

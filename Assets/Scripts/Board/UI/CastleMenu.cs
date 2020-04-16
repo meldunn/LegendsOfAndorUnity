@@ -41,7 +41,11 @@ public class CastleMenu : MonoBehaviour, Observer
     [SerializeField]
     Sprite GorSprite = null;
     [SerializeField]
+    Sprite HerbGorSprite = null;
+    [SerializeField]
     Sprite SkralSprite = null;
+    [SerializeField]
+    Sprite TowerSkralSprite = null;
     [SerializeField]
     Sprite WardrakSprite = null;
 
@@ -177,7 +181,9 @@ public class CastleMenu : MonoBehaviour, Observer
                     CreatureType Type = Creature.GetCreatureType();
 
                     if (Type == CreatureType.Gor) CreatureSprite = GorSprite;
+                    else if (Type == CreatureType.HerbGor) CreatureSprite = HerbGorSprite;
                     else if (Type == CreatureType.Skral) CreatureSprite = SkralSprite;
+                    else if (Type == CreatureType.TowerSkral) CreatureSprite = TowerSkralSprite;
                     else if (Type == CreatureType.Wardrak) CreatureSprite = WardrakSprite;
                     else CreatureSprite = null;
 

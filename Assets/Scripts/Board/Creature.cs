@@ -8,6 +8,8 @@ public class Creature : MonoBehaviour
     // Reference to managers
     private WaypointManager WaypointManager;
     private CreatureManager CreatureManager;
+    private GameManager GameManager;
+    private NarratorManager NarratorManager;
 
     // Creature type (Gor, Skral, Wardrak, etc.)
     private CreatureType Type;
@@ -37,9 +39,8 @@ public class Creature : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Initialize reference to managers
-        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
-        CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        // Not used to ensure all references are available in the right order.
+        // CreatureManager calls Initialize instead.
     }
 
     // Update is called once per frame
@@ -49,6 +50,15 @@ public class Creature : MonoBehaviour
         if (IsMoving) Move();
     }
     
+    public void Initialize()
+    {
+        // Initialize reference to managers
+        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
+    }
+
     public CreatureType GetCreatureType()
     {
         return Type;
@@ -62,6 +72,7 @@ public class Creature : MonoBehaviour
         switch (Type)
         {
             case CreatureType.Gor:
+            case CreatureType.HerbGor:
                 MaxWillpower = 4;
                 Strength = 2;
                 break; 
@@ -74,6 +85,29 @@ public class Creature : MonoBehaviour
             case CreatureType.Wardrak:
                 MaxWillpower = 7;
                 Strength = 10;
+                break;
+
+            case CreatureType.TowerSkral:
+
+                MaxWillpower = 6;
+
+                int NumPlayers = GameManager.GetNumOfPlayers();
+                DifficultyLevel Difficulty = GameManager.GetDifficulty();
+
+                if (Difficulty == DifficultyLevel.Easy)
+                {
+                    if (NumPlayers == 2) Strength = 10;
+                    else if (NumPlayers == 3) Strength = 20;
+                    else if (NumPlayers == 4) Strength = 30;
+                }
+                else if (Difficulty == DifficultyLevel.Normal)
+                {
+                    if (NumPlayers == 2) Strength = 20;
+                    else if (NumPlayers == 3) Strength = 30;
+                    else if (NumPlayers == 4) Strength = 40;
+                }
+                else Debug.LogError("Could not initialize tower skral for " + NumPlayers + " players with difficulty level " + Difficulty + ".");
+                
                 break;
 
             default:
@@ -97,7 +131,7 @@ public class Creature : MonoBehaviour
         }
 
         // Remove the old region's reference to this creature
-        Region.SetCreature(null);             // Important: putting this in ContinueAdvancing causes errors (makes some creatures partially vanish from recognition)
+        if (Region.GetCreature() == this) Region.SetCreature(null);             // Important: putting this in ContinueAdvancing causes errors (makes some creatures partially vanish from recognition)
 
         // Store the callback to be called when the creature is done moving
         this.Callback = Callback;
@@ -229,7 +263,9 @@ public class Creature : MonoBehaviour
         switch (Type)
         {
             case CreatureType.Gor:
+            case CreatureType.HerbGor:
             case CreatureType.Skral:
+            case CreatureType.TowerSkral:
                 return DiceType.Regular;
 
             case CreatureType.Wardrak:
@@ -247,7 +283,9 @@ public class Creature : MonoBehaviour
         switch (Type)
         {
             case CreatureType.Gor:
+            case CreatureType.HerbGor:
             case CreatureType.Skral:
+            case CreatureType.TowerSkral:
                 return 2;
 
             case CreatureType.Wardrak:
@@ -286,6 +324,15 @@ public class Creature : MonoBehaviour
     {
         Defeated = true;
 
+        // If the defeated creature is a medicinal herb-carrying gor, instantiate an herb on the creature's region
+        if (Type == CreatureType.HerbGor)
+        {
+            // TODO
+            // Item MedicinalHerb = new Item();
+            // MedicinalHerb.type = Type.MedicinalHerb;
+            // Region.addItem(MedicinalHerb);
+        }
+
         // Unlink the creature from its region
         if (Region.GetCreature() == this) Region.SetCreature(null);
         Region = null;
@@ -298,6 +345,17 @@ public class Creature : MonoBehaviour
         transform.SetPositionAndRotation(Region80.GetLocation(),     // Destination
             Quaternion.identity);                                    // No rotation
         Region = Region80;
+
+        // If the defeated creature was the tower skral, advance the narrator to 'N'
+        if (Type == CreatureType.TowerSkral)
+        {
+            NarratorManager.advanceToN();
+        }
+        // Otherwise, advance the narrator by one space
+        else
+        {
+            NarratorManager.advance();
+        }
     }
 
     public bool IsDefeated()

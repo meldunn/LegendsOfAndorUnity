@@ -114,4 +114,10 @@ public class NarratorManager : MonoBehaviour
                 return;
         }
     }
+
+    public void advanceToN()
+    {
+        curLetter = NarratorLetter.N;
+        marker.transform.SetPositionAndRotation(waypoints[14].GetLocation(), Quaternion.identity);
+    }
 }

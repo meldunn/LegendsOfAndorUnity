@@ -52,7 +52,11 @@ public class BattleMenu : MonoBehaviour, Observer
     [SerializeField]
     GameObject GorBattleIcon = null;
     [SerializeField]
+    GameObject HerbGorBattleIcon = null;
+    [SerializeField]
     GameObject SkralBattleIcon = null;
+    [SerializeField]
+    GameObject TowerSkralBattleIcon = null;
     [SerializeField]
     GameObject WardrakBattleIcon = null;
 
@@ -315,7 +319,9 @@ public class BattleMenu : MonoBehaviour, Observer
 
         // Hide all icons by default
         GorBattleIcon.SetActive(false);
+        HerbGorBattleIcon.SetActive(false);
         SkralBattleIcon.SetActive(false);
+        TowerSkralBattleIcon.SetActive(false);
         WardrakBattleIcon.SetActive(false);
 
         if (MainCreature != null)
@@ -323,7 +329,9 @@ public class BattleMenu : MonoBehaviour, Observer
             CreatureType Type = MainCreature.GetCreatureType();
 
             if      (Type == CreatureType.Gor) GorBattleIcon.SetActive(true);
+            else if (Type == CreatureType.HerbGor) HerbGorBattleIcon.SetActive(true);
             else if (Type == CreatureType.Skral) SkralBattleIcon.SetActive(true);
+            else if (Type == CreatureType.TowerSkral) TowerSkralBattleIcon.SetActive(true);
             else if (Type == CreatureType.Wardrak) WardrakBattleIcon.SetActive(true);
         }
     }

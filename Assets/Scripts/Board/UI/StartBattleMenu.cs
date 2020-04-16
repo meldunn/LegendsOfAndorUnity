@@ -34,7 +34,11 @@ public class StartBattleMenu : MonoBehaviour, Observer
     [SerializeField]
     GameObject GorStartBattleIcon = null;
     [SerializeField]
+    GameObject HerbGorStartBattleIcon = null;
+    [SerializeField]
     GameObject SkralStartBattleIcon = null;
+    [SerializeField]
+    GameObject TowerSkralStartBattleIcon = null;
     [SerializeField]
     GameObject WardrakStartBattleIcon = null;
 
@@ -308,36 +312,25 @@ public class StartBattleMenu : MonoBehaviour, Observer
     
     public void UpdateMainCreature()
     {
+        // Default
+        GorStartBattleIcon.SetActive(false);
+        HerbGorStartBattleIcon.SetActive(false);
+        SkralStartBattleIcon.SetActive(false);
+        TowerSkralStartBattleIcon.SetActive(false);
+        WardrakStartBattleIcon.SetActive(false);
+
         Creature MainCreature = Battle.GetCreature();
 
         if (MainCreature != null)
         {
             CreatureType Type = MainCreature.GetCreatureType();
 
-            switch (Type)
-            {
-                case CreatureType.Gor:
-                    GorStartBattleIcon.SetActive(true);
-                    SkralStartBattleIcon.SetActive(false);
-                    WardrakStartBattleIcon.SetActive(false);
-                    break;
-
-                case CreatureType.Skral:
-                    GorStartBattleIcon.SetActive(false);
-                    SkralStartBattleIcon.SetActive(true);
-                    WardrakStartBattleIcon.SetActive(false);
-                    break;
-
-                case CreatureType.Wardrak:
-                    GorStartBattleIcon.SetActive(false);
-                    SkralStartBattleIcon.SetActive(false);
-                    WardrakStartBattleIcon.SetActive(true);
-                    break;
-
-                default:
-                    Debug.LogError("Cannot update opponent icons in StartBattleMenu; invalid creature type: " + Type);
-                    break;
-            }
+            if      (Type == CreatureType.Gor) GorStartBattleIcon.SetActive(true);
+            else if (Type == CreatureType.HerbGor) HerbGorStartBattleIcon.SetActive(true);
+            else if (Type == CreatureType.Skral) SkralStartBattleIcon.SetActive(true);
+            else if (Type == CreatureType.TowerSkral) TowerSkralStartBattleIcon.SetActive(true);
+            else if (Type == CreatureType.Wardrak) WardrakStartBattleIcon.SetActive(true);
+            else Debug.LogError("Cannot update opponent icons in StartBattleMenu; invalid creature type: " + Type);
         }
     }
 

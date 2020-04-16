@@ -988,7 +988,9 @@ MonoBehaviour:
   - {fileID: 4946516998377302574}
   - {fileID: 219366891949522143}
   GorSprite: {fileID: 21300000, guid: 440162db91e8ad6459c0012c807e5cb6, type: 3}
+  HerbGorSprite: {fileID: 21300000, guid: 070f5659607fc80479c80764623c2e26, type: 3}
   SkralSprite: {fileID: 21300000, guid: 4eb6344fe52359249989d12ed1aea1a7, type: 3}
+  TowerSkralSprite: {fileID: 21300000, guid: 83e5ac37774fd2746954c473a8c25e7c, type: 3}
   WardrakSprite: {fileID: 21300000, guid: e1523cd0bc1593749a902fc8b239db93, type: 3}
 --- !u!1 &5124086567202707560
 GameObject:

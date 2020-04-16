@@ -334,6 +334,11 @@ public class GameManager : MonoBehaviour, Subject
         Notify("LOSE");
     }
 
+    public DifficultyLevel GetDifficulty()
+    {
+        return Difficulty;
+    }
+
     // Used in Observer design pattern
     public void Attach(Observer o)
     {
