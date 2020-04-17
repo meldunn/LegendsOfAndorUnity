@@ -65,8 +65,6 @@ public class GameManager : MonoBehaviour, Subject
             Destroy(this);
         }
         
-
-        
         Initialize();
     }
 

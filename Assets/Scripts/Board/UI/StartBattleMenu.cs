@@ -208,13 +208,6 @@ public class StartBattleMenu : MonoBehaviour, Observer
         this.Hide();
     }
 
-    public void StartBattle()
-    {
-        // Send inviations to any heroes that are invited (or none if fighting alone)
-        Battle.SendInvitations();
-        UpdateWaitStatus();
-    }
-
     // Used in Observer design pattern
     public void UpdateData(string Category)
     {
@@ -482,5 +475,13 @@ public class StartBattleMenu : MonoBehaviour, Observer
     {
         Hero TargetHero = HeroManager.GetHero(Type);
         Battle.RemoveHeroToInvite(TargetHero);
+    }
+
+    // Player-triggered action
+    public void StartBattle()
+    {
+        // Send inviations to any heroes that are invited (or none if fighting alone)
+        Battle.SendInvitations();
+        UpdateWaitStatus();
     }
 }
