@@ -9019,6 +9019,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129fbecbc09e5bb4aab3f673c1b5659c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WarriorTurnBox: {fileID: 240276891}
+  ArcherTurnBox: {fileID: 116375225}
+  DwarfTurnBox: {fileID: 196767285}
+  WizardTurnBox: {fileID: 1153390094}
 --- !u!1 &326154835
 GameObject:
   m_ObjectHideFlags: 0

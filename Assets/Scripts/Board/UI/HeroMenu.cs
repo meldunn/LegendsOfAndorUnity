@@ -8,10 +8,14 @@ public class HeroMenu : MonoBehaviour, Observer
     private GameManager GameManager;
 
     // References to children components
-    GameObject WarriorTurnText;
-    GameObject ArcherTurnText;
-    GameObject DwarfTurnText;
-    GameObject WizardTurnText;
+    [SerializeField]
+    GameObject WarriorTurnBox = null;
+    [SerializeField]
+    GameObject ArcherTurnBox = null;
+    [SerializeField]
+    GameObject DwarfTurnBox = null;
+    [SerializeField]
+    GameObject WizardTurnBox = null;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +38,6 @@ public class HeroMenu : MonoBehaviour, Observer
         // Register as an observer of GameManager
         GameManager.Attach(this);
 
-        // Initialize references to children components
-        WarriorTurnText = GameObject.Find("WarriorTurnText");
-        ArcherTurnText = GameObject.Find("ArcherTurnText");
-        DwarfTurnText = GameObject.Find("DwarfTurnText");
-        WizardTurnText = GameObject.Find("WizardTurnText");
-
         // Initialize UI
         UpdateTurn();
     }
@@ -55,46 +53,23 @@ public class HeroMenu : MonoBehaviour, Observer
 
     private void UpdateTurn()
     {
+        // Defaults
+        WarriorTurnBox.SetActive(false);
+        ArcherTurnBox.SetActive(false);
+        DwarfTurnBox.SetActive(false);
+        WizardTurnBox.SetActive(false);
+
         Hero CurrentTurnHero = GameManager.GetCurrentTurnHero();
 
         if (CurrentTurnHero != null)
         {
             HeroType Type = CurrentTurnHero.GetHeroType();
 
-            switch (Type)
-            {
-                case HeroType.Warrior:
-                    WarriorTurnText.SetActive(true);
-                    ArcherTurnText.SetActive(false);
-                    DwarfTurnText.SetActive(false);
-                    WizardTurnText.SetActive(false);
-                    break;
-
-                case HeroType.Archer:
-                    WarriorTurnText.SetActive(false);
-                    ArcherTurnText.SetActive(true);
-                    DwarfTurnText.SetActive(false);
-                    WizardTurnText.SetActive(false);
-                    break;
-
-                case HeroType.Dwarf:
-                    WarriorTurnText.SetActive(false);
-                    ArcherTurnText.SetActive(false);
-                    DwarfTurnText.SetActive(true);
-                    WizardTurnText.SetActive(false);
-                    break;
-
-                case HeroType.Wizard:
-                    WarriorTurnText.SetActive(false);
-                    ArcherTurnText.SetActive(false);
-                    DwarfTurnText.SetActive(false);
-                    WizardTurnText.SetActive(true);
-                    break;
-
-                default:
-                    Debug.LogError("Cannot update turn labels in HeroMenu; invalid hero type: " + Type);
-                    break;
-            }
+            if      (Type == HeroType.Warrior) WarriorTurnBox.SetActive(true);
+            else if (Type == HeroType.Archer) ArcherTurnBox.SetActive(true);
+            else if (Type == HeroType.Dwarf) DwarfTurnBox.SetActive(true);
+            else if (Type == HeroType.Wizard) WizardTurnBox.SetActive(true);
+            else Debug.LogError("Cannot update turn labels in HeroMenu; invalid hero type: " + Type);
         }
     }
 }
