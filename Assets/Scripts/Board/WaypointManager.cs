@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class WaypointManager : MonoBehaviour
 {
-    // Array of waypoints
+    // Array of waypoints (including the castle)
     private Waypoint[] Waypoint;
+
+    // The castle
+    private WaypointCastle Castle;
 
     // Adjacency list of tiles for hero move
     int[][] AdjListHero = new int[][]
@@ -218,8 +221,18 @@ public class WaypointManager : MonoBehaviour
                 Waypoint[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
                 Waypoint[i].SetWaypointNum(i);  // Set the waypoint's number
                 Waypoint[i].SetIcon();
+
+            // Initialize wells
+            if(i == 5 || i == 35 || i == 45 || i == 55)
+            {
+                GameObject.Find(WaypointName).AddComponent<Well>();
+            }
+
             }
         }
+
+        // Initialize reference to the castle
+        Castle = (WaypointCastle)Waypoint[0];
     }
 
     public int[] GetWPAdjList(int WaypointNum)
@@ -265,6 +278,11 @@ public class WaypointManager : MonoBehaviour
         }
     }
 
+    public WaypointCastle GetCastle()
+    {
+        return Castle;
+    }
+
     // Returns a reference to the waypoint after the specified one when following the monster advancement arrows
     public Waypoint GetNext(Waypoint Region)
     {
@@ -290,8 +308,6 @@ public class WaypointManager : MonoBehaviour
 
     public void ReplenishAllWells()
     {
-        // TODO: Fix Null pointer exception for wells array
-        //
         // Waypoints[5].ReplenishWell();
         // Waypoints[35].ReplenishWell();
         // Waypoints[45].ReplenishWell();

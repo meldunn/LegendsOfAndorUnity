@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum DifficultyLevel { Easy, Normal };
+public enum LoseReason { Castle };
 
 public class GameManager : MonoBehaviour, Subject
 {
@@ -63,8 +64,6 @@ public class GameManager : MonoBehaviour, Subject
         {
             Destroy(this);
         }
-        
-
         
         Initialize();
     }
@@ -135,6 +134,9 @@ public class GameManager : MonoBehaviour, Subject
         TurnOrder = GenerateTurnOrder();
         //TOMODIFY
         CurrentTurnPlayer = TurnOrder[0];
+
+        // Initialize the castle
+        WaypointManager.GetCastle().Initialize(GetNumOfPlayers());
 
         // Generate initial gors
         for (int i = 0; i < InitialGorLocation.Length; i++)
@@ -313,6 +315,26 @@ public class GameManager : MonoBehaviour, Subject
 
         // Notify observers to update UI
         Notify("CONTROL");
+    }
+
+    public void LoseGame(LoseReason Reason)
+    {
+        if (Reason == LoseReason.Castle)
+        {
+            Debug.LogWarning("The game has been lost because too many creatures entered the castle.");
+        }
+        else
+        {
+            Debug.LogWarning("The game has been lost.");
+        }
+
+        // TODO connect this notification to UI
+        Notify("LOSE");
+    }
+
+    public DifficultyLevel GetDifficulty()
+    {
+        return Difficulty;
     }
 
     // Used in Observer design pattern

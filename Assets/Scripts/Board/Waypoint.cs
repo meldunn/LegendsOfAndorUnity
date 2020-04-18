@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class Waypoint : MonoBehaviour
+public class Waypoint : MonoBehaviourPun
 {
     // Reference to WaypointManager
     private WaypointManager WaypointManager;
@@ -49,10 +50,6 @@ public class Waypoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Commented out due to an error that caused the game not to run
-        
-
-
 
     }
 
@@ -86,7 +83,6 @@ public class Waypoint : MonoBehaviour
         // Initialize wells
         if(Number == 5 || Number == 35 || Number == 45 || Number == 55)
         {
-            well = new Well();
             ContainsWell = true;
         }
         //string IconName = "GoldIcon (" + Number + ")";
@@ -137,12 +133,25 @@ public class Waypoint : MonoBehaviour
         }
     }
 
-    public void dropOneFarmer()
+    public virtual void dropOneFarmer()
     {
         farmers.Add(new Farmer());
-        if (WaypointNum == 78)
+        
+        // Dropping a farmer at the castle is handled by overriding this method in WaypointCastle.cs
+    }
+
+    // Destroys all farmers standing on this region. Used when a creature enters the region.
+    public void DestroyFarmers()
+    {
+        farmers.Clear();
+    }
+
+    // Destroys all farmers carried by heroes on this region. Used when a creature enters the region.
+    public void DestroyAllFarmersCarriedByHeroes()
+    {
+        foreach(Hero Hero in Heroes)
         {
-            // Add shield
+            Hero.DestroyCarriedFarmers();
         }
     }
 
@@ -192,11 +201,15 @@ public class Waypoint : MonoBehaviour
 
         return false;
     }
+
+    // All clients have an empty well at this waypoint.
     public void EmptyWell()
     {
         well.EmptyWell();
         Debug.Log("Well has been empited and is now " + well.IsFull());
     }
+
+    // All clients replenish the well at this waypoint.
     public void ReplenishWell()
     {
         Debug.Log("Region " + this.GetWaypointNum() + " gets well replenished.");
@@ -224,6 +237,7 @@ public class Waypoint : MonoBehaviour
 
     }
 
+    // Should be moved to a UI class
     public void SetIcon()
     {
         string name = "GoldIcon (" + WaypointNum + ")";

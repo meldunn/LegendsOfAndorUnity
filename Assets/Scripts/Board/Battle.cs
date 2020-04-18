@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BattleStatus { Pending, Started, Finished, Cancelled }
+public enum BattleStatus { Pending, Started, Won, Lost, Cancelled }
 
 public class Battle : Subject
 {
@@ -185,13 +185,92 @@ public class Battle : Subject
     // Ends the battle
     public void End()
     {
-        // Set the status as finished
-        Status = BattleStatus.Finished;
-
         // Un-register this as the current battle in progress in CreatureManager
         CreatureManager.SetCurrentBattle(null);
 
-        Notify("ENDED");
+        // Remove this battle from all participants as their battle in progress
+        foreach (Hero Participant in Participants)
+        {
+            Participant.SetCurrentBattle(null);
+        }
+
+        // Go to the next hero turn in the main game
+        GameManager.GoToNextHeroTurn();
+    }
+
+    // Tests whether the battle has been won, and if so, triggers winning
+    private void TestWon()
+    {
+        // A battle is won when the creature has 0 willpower
+        if (Creature.GetWillpower() == 0) Win();
+    }
+
+    // Wins the battle
+    private void Win()
+    {
+        // Set the status as won
+        Status = BattleStatus.Won;
+
+        // Mark the creature as defeated and move it to region 80
+        Creature.Defeat();
+
+        this.End();
+
+        Notify("BATTLE_WON");
+    }
+
+    // Tests whether the battle has been lost, and if so, triggers losing
+    private void TestLost()
+    {
+        bool Lost = true;
+
+        // A battle is lost when all participants have 0 willpower
+        foreach (Hero Participant in Participants)
+        {
+            if (Participant.getWillpower() > 0) Lost = false;
+        }
+
+        if (Lost) Lose();
+    }
+
+    // Loses the battle
+    private void Lose()
+    {
+        // Set the status as lost
+        Status = BattleStatus.Lost;
+
+        // Deduct one strength point and award 3 willpower to all remaining heroes
+        foreach (Hero Participant in Participants)
+        {
+            Participant.DecreaseStrength(1);
+            Participant.IncreaseWillpower(3);
+        }
+
+        // Reset the creature's willpower
+        Creature.ResetWillpower();
+
+        this.End();
+
+        Notify("BATTLE_LOST");
+    }
+
+    // Tests whether a hero should be removed from the battle and if so, kicks them out
+    private void TestKickOutHero(Hero Hero)
+    {
+        if (Hero.getWillpower() == 0) KickOutHero(Hero);
+    }
+
+    // Removes a hero from the battle
+    private void KickOutHero(Hero Hero)
+    {
+        Participants.Remove(Hero);
+        Hero.SetCurrentBattle(null);
+
+        // Deduct one strength point and award 3 willpower to the kicked out hero
+        Hero.DecreaseStrength(1);
+        Hero.IncreaseWillpower(3);
+
+        Notify("BATTLE_PARTICIPANTS");
     }
 
     // Launches the roll for specified hero
@@ -202,31 +281,85 @@ public class Battle : Subject
         Notify("ROLL");
     }
 
+    public void CreatureRoll()
+    {
+        GetCurrentRound().RollCreatureDice();
+
+        Notify("ROLL");
+    }
+
     // Advances the turn in the battle (either within a round, or by moving to the next round)
     public void Next()
     {
         // Finalize the hero roll (useful for the archer)
         GetCurrentRound().FinalizeRoll(TurnHolder);
 
-        // If the round is done, let the creature roll and go to the next round
-        if (GetCurrentRound().IsDone())
+        // If the round is done (for heroes), but the battle is not finished, check whether the creature is next to roll
+        if (GetCurrentRound().IsDone() && !this.IsFinished())
         {
-            // CreatureRoll();      // TODO
-            GoToNextRound();
+            // Check whether the creature has rolled
+            if (GetCurrentRound().GetCreatureRollValues().Length == 0)
+            {
+                // If not, let the creature roll
+                CreatureRoll();
+
+                // Determine who will take damage
+                int HeroLostWP = GetCurrentRound().GetHeroLostWillpower();
+                int CreatureLostWP = GetCurrentRound().GetCreatureLostWillpower();
+
+                // Take damage
+                foreach (Hero Participant in Participants)
+                {
+                    if (HeroLostWP > 0) Participant.DecreaseWillpower(HeroLostWP);
+                }
+                if (CreatureLostWP > 0) Creature.DecreaseWillpower(CreatureLostWP);
+
+                // Update UI
+                Notify("WILLPOWER");
+
+                TestWon();
+                TestLost();
+            }
+            // If the creature has already rolled, go to the next round
+            else
+            {   
+                // Go to the next round
+                GoToNextRound();
+                GoToNextTurn();
+            }
         }
-        
-        GoToNextTurn();
+        // If the round is not done (for heroes), go to the next turn
+        else
+        {
+            GoToNextTurn();
+        }
     }
 
     // Moves this battle to the next round
     private void GoToNextRound()
     {
+        // Kick out any participants who reached 0 willpower
+        var ParticipantsCopy = new List<Hero>(Participants);        // Use a copy to prevent errors removing elements while iterating
+        foreach (Hero Participant in ParticipantsCopy)
+        {
+            TestKickOutHero(Participant);
+        }
+
+        // Create a new round with the remaining participants
         Rounds.Add(new BattleRound(Creature, Participants));
+
+        // TODO advance time marker
     }
 
     // Passes the roll turn to the next hero in the order
     private void GoToNextTurn()
     {
+        if (Participants.Count == 0)
+        {
+            TurnHolder = null;
+            return;
+        }
+
         Hero NewTurnHolder = TurnHolder;
 
         do
@@ -287,12 +420,22 @@ public class Battle : Subject
 
     public bool IsFinished()
     {
-        return Status == BattleStatus.Finished;
+        return Status == BattleStatus.Won || Status == BattleStatus.Lost;
     }
 
     public bool IsCancelled()
     {
         return Status == BattleStatus.Cancelled;
+    }
+
+    public bool IsWon()
+    {
+        return Status == BattleStatus.Won;
+    }
+
+    public bool IsLost()
+    {
+        return Status == BattleStatus.Lost;
     }
 
     // Returns the battle round currently in progress

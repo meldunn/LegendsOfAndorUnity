@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
-    // Reference to WaypointManager
+    // Reference to managers
     private WaypointManager WaypointManager;
+    private CreatureManager CreatureManager;
+    private GameManager GameManager;
+    private NarratorManager NarratorManager;
 
     // Creature type (Gor, Skral, Wardrak, etc.)
     private CreatureType Type;
@@ -30,11 +33,14 @@ public class Creature : MonoBehaviour
     // Callback to be called after moving
     private Action Callback;
 
+    // Whether the creature was defeated
+    private bool Defeated = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        // Initialize reference to WaypointManager
-        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        // Not used to ensure all references are available in the right order.
+        // CreatureManager calls Initialize instead.
     }
 
     // Update is called once per frame
@@ -44,6 +50,15 @@ public class Creature : MonoBehaviour
         if (IsMoving) Move();
     }
     
+    public void Initialize()
+    {
+        // Initialize reference to managers
+        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
+    }
+
     public CreatureType GetCreatureType()
     {
         return Type;
@@ -57,6 +72,7 @@ public class Creature : MonoBehaviour
         switch (Type)
         {
             case CreatureType.Gor:
+            case CreatureType.HerbGor:
                 MaxWillpower = 4;
                 Strength = 2;
                 break; 
@@ -69,6 +85,29 @@ public class Creature : MonoBehaviour
             case CreatureType.Wardrak:
                 MaxWillpower = 7;
                 Strength = 10;
+                break;
+
+            case CreatureType.TowerSkral:
+
+                MaxWillpower = 6;
+
+                int NumPlayers = GameManager.GetNumOfPlayers();
+                DifficultyLevel Difficulty = GameManager.GetDifficulty();
+
+                if (Difficulty == DifficultyLevel.Easy)
+                {
+                    if (NumPlayers == 2) Strength = 10;
+                    else if (NumPlayers == 3) Strength = 20;
+                    else if (NumPlayers == 4) Strength = 30;
+                }
+                else if (Difficulty == DifficultyLevel.Normal)
+                {
+                    if (NumPlayers == 2) Strength = 20;
+                    else if (NumPlayers == 3) Strength = 30;
+                    else if (NumPlayers == 4) Strength = 40;
+                }
+                else Debug.LogError("Could not initialize tower skral for " + NumPlayers + " players with difficulty level " + Difficulty + ".");
+                
                 break;
 
             default:
@@ -92,7 +131,7 @@ public class Creature : MonoBehaviour
         }
 
         // Remove the old region's reference to this creature
-        Region.SetCreature(null);             // Important: putting this in ContinueAdvancing causes errors (makes some creatures partially vanish from recognition)
+        if (Region.GetCreature() == this) Region.SetCreature(null);             // Important: putting this in ContinueAdvancing causes errors (makes some creatures partially vanish from recognition)
 
         // Store the callback to be called when the creature is done moving
         this.Callback = Callback;
@@ -145,29 +184,43 @@ public class Creature : MonoBehaviour
         {
             // Debug.Log("Has reached location");
 
-            // Check whether this region was already occupied (if it isn't the castle). If so, keep moving.
+            WaypointCastle Castle = WaypointManager.GetCastle();
             Creature OtherRegionCreature = Region.GetCreature();
 
-            if (Region.GetWaypointNum() != 0 && OtherRegionCreature != null) // Don't check this condition for the castle
+            // Check whether the creature has entered the castle
+            if (Region.Equals(Castle))
             {
-                // Debug.Log("This creature will move again because there is already a creature on " + Region.GetWaypointNum());
-                IsMoving = false;   // To allow the creature to move again
-                ContinueAdvancing();
+                // Hide the creature icon
+                this.gameObject.SetActive(false);
+
+                Castle.CreatureEnterCastle(this);
+
+                IsMoving = false;
+                if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance
             }
             else
             {
-                // Debug.Log("This creature will not move again because " + Region.GetWaypointNum() + " is free");
-                
-                
-                // TODO handle creatures entering the castle when done moving
-                // TODO handle creatures killing farmers when done moving
+                // If the creature has entered a regular region, destroy all farmers standing on it, or carried by heroes on it
+                Region.DestroyFarmers();
+                Region.DestroyAllFarmersCarriedByHeroes();
 
+                // Check whether this region was already occupied (if it isn't the castle). If so, keep moving.
+                if (OtherRegionCreature != null)
+                {
+                    // Debug.Log("This creature will move again because there is already a creature on " + Region.GetWaypointNum());
+                    IsMoving = false;   // To allow the creature to move again
+                    ContinueAdvancing();
+                }
+                else
+                {
+                    // Debug.Log("This creature will not move again because " + Region.GetWaypointNum() + " is free");
 
-                // Set the region's creature reference now that the creature has arrived there
-                Region.SetCreature(this);
+                    // Set the region's creature reference now that the creature has arrived there
+                    Region.SetCreature(this);
 
-                IsMoving = false;
-                if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance.
+                    IsMoving = false;
+                    if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance
+                }
             }
         }
     }
@@ -210,7 +263,9 @@ public class Creature : MonoBehaviour
         switch (Type)
         {
             case CreatureType.Gor:
+            case CreatureType.HerbGor:
             case CreatureType.Skral:
+            case CreatureType.TowerSkral:
                 return DiceType.Regular;
 
             case CreatureType.Wardrak:
@@ -228,7 +283,9 @@ public class Creature : MonoBehaviour
         switch (Type)
         {
             case CreatureType.Gor:
+            case CreatureType.HerbGor:
             case CreatureType.Skral:
+            case CreatureType.TowerSkral:
                 return 2;
 
             case CreatureType.Wardrak:
@@ -246,8 +303,63 @@ public class Creature : MonoBehaviour
         return Willpower;
     }
 
+    public void ResetWillpower()
+    {
+        Willpower = MaxWillpower;
+    }
+
     public int GetStrength()
     {
         return Strength;
+    }
+
+    // Decreases the creature's willpower by the indicated positive amount, to a minimum of 0.
+    public void DecreaseWillpower(int Amount)
+    {
+        if (Amount > 0) Willpower = Math.Max(Willpower - Amount, 0);
+    }
+
+    // Marks this creature as defeated and sends it to region 80
+    public void Defeat()
+    {
+        Defeated = true;
+
+        // If the defeated creature is a medicinal herb-carrying gor, instantiate an herb on the creature's region
+        if (Type == CreatureType.HerbGor)
+        {
+            // TODO
+            // Item MedicinalHerb = new Item();
+            // MedicinalHerb.type = Type.MedicinalHerb;
+            // Region.addItem(MedicinalHerb);
+        }
+
+        // Unlink the creature from its region
+        if (Region.GetCreature() == this) Region.SetCreature(null);
+        Region = null;
+
+        // Decrease the number of creatures in GameManager
+        CreatureManager.DecreaseNumCreatures();
+
+        // Send the creature to region 80
+        Waypoint Region80 = WaypointManager.GetWaypoint(80);
+        transform.SetPositionAndRotation(Region80.GetLocation(),     // Destination
+            Quaternion.identity);                                    // No rotation
+        Region = Region80;
+
+        // If the defeated creature was the tower skral, advance the narrator to 'N'
+        if (Type == CreatureType.TowerSkral)
+        {
+            NarratorManager.advanceToN();
+        }
+        // Otherwise, advance the narrator by one space
+        else
+        {
+            NarratorManager.advance();
+        }
+    }
+
+    public bool IsDefeated()
+    {
+        return Defeated;
     }
 }

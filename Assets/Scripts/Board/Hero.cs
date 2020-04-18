@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Hero : MonoBehaviour, Subject
 {
-    // Reference to WaypointManager
+    // Reference to WaypointManager, UIManager
     private WaypointManager WaypointManager;
     private UIManager UIManager;
 
@@ -89,7 +90,7 @@ public class Hero : MonoBehaviour, Subject
         Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
 
         //show the adjacent waypoints
-        this.GetWaypoint().ShowAdjWP();
+        // this.GetWaypoint().ShowAdjWP();
 
         UIManager.onHeroMove(this);
 
@@ -156,10 +157,10 @@ public class Hero : MonoBehaviour, Subject
     }
 
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
-    public void BuyFromMerchant(Item item)
+    public void BuyFromMerchant(Type ItemType)
     {
-        Debug.Log(item);
-        heroInventory.addItem(item);
+        // Debug.Log(ItemType);
+        heroInventory.addItemByType(ItemType);
     }
 
     public void DrinkFromWell(int regionNum)
@@ -346,6 +347,28 @@ public class Hero : MonoBehaviour, Subject
         return myRegion;
     }
 
+    // Increases the hero's willpower by the indicated positive amount, to a maximum of maxWillpower.
+    public void IncreaseWillpower(int Amount)
+    {
+        if (Amount > 0)
+        {
+            willpower = Math.Min(willpower + Amount, maxWillpower);
+
+            Notify("HERO_WILLPOWER");
+        }
+    }
+
+    // Decreases the hero's willpower by the indicated positive amount, to a minimum of 0.
+    public void DecreaseWillpower(int Amount)
+    {
+        if (Amount > 0)
+        {
+            willpower = Math.Max(willpower - Amount, 0);
+
+            Notify("HERO_WILLPOWER");
+        }
+    }
+
     // Used in Observer design pattern
     public void Attach(Observer o)
     {
@@ -375,9 +398,27 @@ public class Hero : MonoBehaviour, Subject
         return strength;
     }
 
+    // Decreases the hero's strength by the indicated positive amount, to a minimum of 1.
+    public void DecreaseStrength(int Amount)
+    {
+        if (Amount > 0)
+        {
+            strength = Math.Max(strength - Amount, 1);
+
+            Notify("HERO_STRENGTH");
+        }
+    }
+
     public int getNumFarmers()
     {
         return numFarmers;
+    }
+
+    // Destroys all farmers carried by this hero. Called when a creature steps onto the same region as a hero.
+    // TODO call this when a hero moves to the same region as a creature.
+    public void DestroyCarriedFarmers()
+    {
+        numFarmers = 0;
     }
 
     public int getWillpower()

@@ -52,7 +52,11 @@ public class BattleMenu : MonoBehaviour, Observer
     [SerializeField]
     GameObject GorBattleIcon = null;
     [SerializeField]
+    GameObject HerbGorBattleIcon = null;
+    [SerializeField]
     GameObject SkralBattleIcon = null;
+    [SerializeField]
+    GameObject TowerSkralBattleIcon = null;
     [SerializeField]
     GameObject WardrakBattleIcon = null;
 
@@ -121,6 +125,8 @@ public class BattleMenu : MonoBehaviour, Observer
     GameObject BattleNextButton = null;
     [SerializeField]
     GameObject BattleFlipDieButton = null;
+    [SerializeField]
+    GameObject BattleOkButton = null;
 
     // Dice images
     Sprite[] DiceSides;
@@ -160,7 +166,7 @@ public class BattleMenu : MonoBehaviour, Observer
         // If the battle hasn't been set, nothing happens
         if (Battle == null)
         {
-            Debug.LogError("The battle menu can't be shown because no battle was set");
+            Debug.LogError("The battle menu can't be shown because no battle was set.");
             return;
         }
 
@@ -189,6 +195,23 @@ public class BattleMenu : MonoBehaviour, Observer
         else if (string.Equals(Category, "ROLL"))
         {
             UpdateBattleRoll();
+        }
+        else if (string.Equals(Category, "WILLPOWER"))
+        {
+            UpdateHeroInfo();
+            UpdateCreatureInfo();
+        }
+        else if (string.Equals(Category, "BATTLE_WON"))
+        {
+            UpdateWon();
+        }
+        else if (string.Equals(Category, "BATTLE_LOST"))
+        {
+            UpdateLost();
+        }
+        else if (string.Equals(Category, "BATTLE_PARTICIPANTS"))
+        {
+            UpdateHeroBoxes();
         }
         else if (string.Equals(Category, "CANCELLED"))
         {
@@ -226,10 +249,7 @@ public class BattleMenu : MonoBehaviour, Observer
         // Initialize UI
         SetInfoText("");
 
-        EnableButton(BattleRollButton);
-        EnableButton(BattleNextButton);
-        BattleRollButton.SetActive(true);
-        BattleNextButton.SetActive(true);
+        BattleOkButton.SetActive(false);
 
         UpdateHeroBoxes();
         UpdateMainCreature();
@@ -237,6 +257,8 @@ public class BattleMenu : MonoBehaviour, Observer
         UpdateCreatureInfo();
         UpdateBattleTurn();
         UpdateBattleRoll();
+        UpdateWon();
+        UpdateLost();
     }
 
     private Color32 GetDiceColour(HeroType Type)
@@ -297,7 +319,9 @@ public class BattleMenu : MonoBehaviour, Observer
 
         // Hide all icons by default
         GorBattleIcon.SetActive(false);
+        HerbGorBattleIcon.SetActive(false);
         SkralBattleIcon.SetActive(false);
+        TowerSkralBattleIcon.SetActive(false);
         WardrakBattleIcon.SetActive(false);
 
         if (MainCreature != null)
@@ -305,7 +329,9 @@ public class BattleMenu : MonoBehaviour, Observer
             CreatureType Type = MainCreature.GetCreatureType();
 
             if      (Type == CreatureType.Gor) GorBattleIcon.SetActive(true);
+            else if (Type == CreatureType.HerbGor) HerbGorBattleIcon.SetActive(true);
             else if (Type == CreatureType.Skral) SkralBattleIcon.SetActive(true);
+            else if (Type == CreatureType.TowerSkral) TowerSkralBattleIcon.SetActive(true);
             else if (Type == CreatureType.Wardrak) WardrakBattleIcon.SetActive(true);
         }
     }
@@ -543,8 +569,38 @@ public class BattleMenu : MonoBehaviour, Observer
             int HeroLostWP = Battle.GetHeroLostWillpower();
             int CreatureLostWP = Battle.GetCreatureLostWillpower();
 
-            if (HeroLostWP > 0) SetText(HeroWillpowerLoss, "-" + HeroLostWP.ToString());
-            if (CreatureLostWP > 0) SetText(CreatureWillpowerLoss, "-" + CreatureLostWP.ToString());
+            if (HeroLostWP > 0) SetText(HeroWillpowerLoss, "[-" + HeroLostWP.ToString() + "]");
+            if (CreatureLostWP > 0) SetText(CreatureWillpowerLoss, "[-" + CreatureLostWP.ToString() + "]");
+        }
+    }
+
+    private void UpdateWon()
+    {
+        if (Battle.IsWon())
+        {
+            BattleRollButton.SetActive(false);
+            BattleNextButton.SetActive(false);
+            BattleFlipDieButton.SetActive(false);
+            DisableButton(BattleRollButton);
+            DisableButton(BattleNextButton);
+            DisableButton(BattleFlipDieButton);
+            SetInfoText("The battle has been won!");
+            BattleOkButton.SetActive(true);
+        }
+    }
+    
+    private void UpdateLost()
+    {
+        if (Battle.IsLost())
+        {
+            BattleRollButton.SetActive(false);
+            BattleNextButton.SetActive(false);
+            BattleFlipDieButton.SetActive(false);
+            DisableButton(BattleRollButton);
+            DisableButton(BattleNextButton);
+            DisableButton(BattleFlipDieButton);
+            SetInfoText("The battle has been lost.");
+            BattleOkButton.SetActive(true);
         }
     }
 

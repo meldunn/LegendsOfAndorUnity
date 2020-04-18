@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     BattleMenu BattleMenu;
     WPButtonMoveUI WPButtonMoveUI;
     FogManager FogManager;
-
+    CastleMenu CastleMenu;
 
     // Directly linked UI elements
     [SerializeField]
@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     GameObject BattleInvitationMenuObject = null;
     [SerializeField]
     GameObject BattleMenuObject = null;
+    [SerializeField]
+    GameObject CastleMenuObject = null;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +56,7 @@ public class UIManager : MonoBehaviour
         BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
+        CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
 
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -70,10 +73,10 @@ public class UIManager : MonoBehaviour
         BattleMenu.Initialize();
         WPButtonMoveUI.Initialize();
         FogManager.Initialize();
+        CastleMenu.Initialize();
 
         // Must come AFTER all initializations
         InputManager.Initialize();
-
     }
     
     public void onHeroMove(Hero Hero)

@@ -1,5 +1,151 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &698017093372018099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8687630618199439808}
+  - component: {fileID: 6817261509798183484}
+  - component: {fileID: 3876334549568087420}
+  m_Layer: 5
+  m_Name: TowerSkralStartBattleIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8687630618199439808
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698017093372018099}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99987686, y: 0.99987686, z: 0.99987686}
+  m_Children: []
+  m_Father: {fileID: 2824355935944362472}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6817261509798183484
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698017093372018099}
+  m_CullTransparentMesh: 0
+--- !u!114 &3876334549568087420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 698017093372018099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 83e5ac37774fd2746954c473a8c25e7c, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2447047523681255587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5795395314351725414}
+  - component: {fileID: 5213691293255668075}
+  - component: {fileID: 2617062072424688913}
+  m_Layer: 5
+  m_Name: HerbGorStartBattleIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5795395314351725414
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447047523681255587}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99987686, y: 0.99987686, z: 0.99987686}
+  m_Children: []
+  m_Father: {fileID: 2824355935944362472}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5213691293255668075
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447047523681255587}
+  m_CullTransparentMesh: 0
+--- !u!114 &2617062072424688913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447047523681255587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 070f5659607fc80479c80764623c2e26, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2824355933973583939
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +1070,7 @@ RectTransform:
   m_LocalScale: {x: 0.99987686, y: 0.99987686, z: 0.99987686}
   m_Children: []
   m_Father: {fileID: 2824355935944362472}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2360,7 +2506,7 @@ RectTransform:
   m_LocalScale: {x: 0.99987686, y: 0.99987686, z: 0.99987686}
   m_Children: []
   m_Father: {fileID: 2824355935944362472}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3746,7 +3892,9 @@ MonoBehaviour:
   DwarfStartBattleIcon: {fileID: 2824355936004579166}
   WizardStartBattleIcon: {fileID: 2824355936033565905}
   GorStartBattleIcon: {fileID: 2824355935132215371}
+  HerbGorStartBattleIcon: {fileID: 2447047523681255587}
   SkralStartBattleIcon: {fileID: 2824355934932215424}
+  TowerSkralStartBattleIcon: {fileID: 698017093372018099}
   WardrakStartBattleIcon: {fileID: 2824355934183272538}
   WarriorStartBattleInviteIcon: {fileID: 2824355936014243503}
   ArcherStartBattleInviteIcon: {fileID: 2824355934158261025}
@@ -4139,7 +4287,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2824355935132215364}
+  - {fileID: 5795395314351725414}
   - {fileID: 2824355934932215425}
+  - {fileID: 8687630618199439808}
   - {fileID: 2824355934183272539}
   m_Father: {fileID: 2824355935179434961}
   m_RootOrder: 2
@@ -4569,15 +4719,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c231cef0882acc247b0872fd66c7aba4, type: 3}
---- !u!1 &2514613307541598473 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 674777079746113495, guid: c231cef0882acc247b0872fd66c7aba4,
-    type: 3}
-  m_PrefabInstance: {fileID: 3150542092001550046}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3273923535957834467 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 493048823894352957, guid: c231cef0882acc247b0872fd66c7aba4,
+    type: 3}
+  m_PrefabInstance: {fileID: 3150542092001550046}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2514613307541598473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 674777079746113495, guid: c231cef0882acc247b0872fd66c7aba4,
     type: 3}
   m_PrefabInstance: {fileID: 3150542092001550046}
   m_PrefabAsset: {fileID: 0}

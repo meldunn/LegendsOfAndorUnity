@@ -41,7 +41,8 @@ public class StartBattleIcon : MonoBehaviour
 
     public void Show()
     {
-        this.gameObject.SetActive(true);
+        // Don't show the battle icon for defeated creatures
+        if (!MyCreature.IsDefeated()) this.gameObject.SetActive(true);
     }
 
     public void Hide()

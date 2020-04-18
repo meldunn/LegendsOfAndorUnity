@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CreatureType { Gor, Skral, Wardrak };  // No support for trolls in Legend 2
+public enum CreatureType { Gor, Skral, Wardrak, HerbGor, TowerSkral };  // No support for trolls in Legend 2
 
 public class CreatureManager : MonoBehaviour
 {
@@ -12,10 +13,12 @@ public class CreatureManager : MonoBehaviour
     // Creature prefabs
     [SerializeField]
     private GameObject GorPrefab = null;
-
+    [SerializeField]
+    private GameObject HerbGorPrefab = null;
     [SerializeField]
     private GameObject SkralPrefab = null;
-
+    [SerializeField]
+    private GameObject TowerSkralPrefab = null;
     [SerializeField]
     private GameObject WardrakPrefab = null;
 
@@ -24,6 +27,8 @@ public class CreatureManager : MonoBehaviour
     private bool IsAdvancing = false;
     private List<Creature> AdvancingList;
     private int CurrentAdvancingIndex;
+
+    // A special case is used to include the Herb Gor in the Gor wave. The tower Skral does not advance.
     private CreatureType[] Waves = { CreatureType.Gor, CreatureType.Skral, CreatureType.Wardrak, CreatureType.Wardrak };
 
     // Current battle in progress
@@ -61,11 +66,22 @@ public class CreatureManager : MonoBehaviour
         // Get the target region
         Waypoint TargetRegion = WaypointManager.GetWaypoint(RegionNum);
 
+        bool MustAdvance = false;
+
         // Check that there isn't already a creature on the target region
-        if (TargetRegion.GetCreature() != null)
+        Creature ExistingCreature = TargetRegion.GetCreature();
+        if (ExistingCreature != null)
         {
-            Debug.LogError("Cannot spawn creature on region " + RegionNum + "; there is already a creature there.");
-            return;
+            // The tower skrall immediately removes a creature from its spot
+            if (Type == CreatureType.TowerSkral)
+            {
+                ExistingCreature.Defeat();
+            }
+            // Otherwise, the new creature moves along the arrows
+            else
+            {
+                MustAdvance = true;
+            }
         }
 
         // Select the correct creature prefab based on the input type
@@ -75,8 +91,14 @@ public class CreatureManager : MonoBehaviour
             case CreatureType.Gor:
                 CreaturePrefab = GorPrefab;
                 break;
+            case CreatureType.HerbGor:
+                CreaturePrefab = HerbGorPrefab;
+                break;
             case CreatureType.Skral:
                 CreaturePrefab = SkralPrefab;
+                break;
+            case CreatureType.TowerSkral:
+                CreaturePrefab = TowerSkralPrefab;
                 break;
             case CreatureType.Wardrak:
                 CreaturePrefab = WardrakPrefab;
@@ -88,10 +110,11 @@ public class CreatureManager : MonoBehaviour
 
         // Spawn the creature on the target region
         GameObject CreatureOnBoard = Instantiate(CreaturePrefab, TargetRegion.GetLocation(), Quaternion.identity);   // (Creature, location, no rotation)
-
-        // Set the region's creature reference to the new creature
         Creature Creature = CreatureOnBoard.GetComponent<Creature>();
-        TargetRegion.SetCreature(Creature);
+        Creature.Initialize();
+
+        // Set the region's creature reference to the new creature. If the creature must advance, this is not done to avoid overwriting the existing creature.
+        if (!MustAdvance) TargetRegion.SetCreature(Creature);
 
         // Set the creature's location as the region
         Creature.SetRegion(TargetRegion);
@@ -101,6 +124,31 @@ public class CreatureManager : MonoBehaviour
 
         // Increment the total number of creatures in the game
         NumOfCreatures++;
+
+        // If necessary, let the creature advance to the next free spot
+        if (MustAdvance) Creature.StartAdvancing(null);
+    }
+
+    public void SpawnHerbGor()
+    {
+        // Choose a random region among the following choices: 37, 61 or 67
+        int Index = UnityEngine.Random.Range(0, 3);
+        int RegionNum = 0;
+        if (Index == 0) RegionNum = 37;
+        if (Index == 1) RegionNum = 61;
+        if (Index == 2) RegionNum = 67;
+
+        // Spawn the herb gor there
+        Spawn(CreatureType.HerbGor, RegionNum);
+    }
+
+    public void SpawnTowerSkral()
+    {
+        // Choose a random region between 51 and 56
+        int RegionNum = UnityEngine.Random.Range(51, 57);
+
+        // Spawn the tower skral there
+        Spawn(CreatureType.TowerSkral, RegionNum);
     }
 
     // Starts the process of advancing the creatures one at a time according to the game rules.
@@ -141,7 +189,7 @@ public class CreatureManager : MonoBehaviour
                         CreatureType Type = Creature.GetCreatureType();
 
                         // Proceed with advancing this creature only if it belongs to the current wave
-                        if (Type == Wave)
+                        if (Type == Wave || (Type == CreatureType.HerbGor && Wave == CreatureType.Gor))
                         {
                             // Register this creature as the next to advance
                             AdvancingList.Add(Creature);
@@ -188,5 +236,11 @@ public class CreatureManager : MonoBehaviour
     public Battle GetCurrentBattle()
     {
         return CurrentBattle;
+    }
+
+    public void DecreaseNumCreatures()
+    {
+        if (NumOfCreatures - 1 < 0) Debug.LogWarning("Warning: tried to decrease the number of creatures below 0.");
+        NumOfCreatures = Math.Max(NumOfCreatures - 1, 0);
     }
 }
