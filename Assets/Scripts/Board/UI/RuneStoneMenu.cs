@@ -12,6 +12,7 @@ public class RuneStoneMenu : MonoBehaviour
     private GameObject TextTen;
     private GameObject TextOne;
     private GameObject PlacementText;
+    private GameObject Menu;
 
     private bool TensRolled;
     private bool OnesRolled;
@@ -46,6 +47,8 @@ public class RuneStoneMenu : MonoBehaviour
         OnesRolled = false;
 
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+
+        Menu = GameObject.Find("RuneStoneMenu");
     }
 
     public void FinishedRoll(bool OnesDice, int Value)
@@ -112,11 +115,25 @@ public class RuneStoneMenu : MonoBehaviour
          }
         
     }
-     public void AllRuneStonesPlaced()
-     {
-         GameObject RuneStoneMenu = GameObject.Find("RuneStoneMenu");
-         toggleGameObjectVisibility(RuneStoneMenu);
-     }
+    public void AllRuneStonesPlaced()
+    {
+        Vector3 Origin = new Vector3(200,0,0);
+
+        Debug.Log(Menu);
+        Menu.transform.Translate(Origin -
+                Menu.transform.position 
+                );
+    }
+
+    public void ShowRuneStoneMenu()
+    {
+        Vector3 Origin = new Vector3(0,0,0);
+
+        Debug.Log(Menu);
+        Menu.transform.Translate(Origin -
+                Menu.transform.position 
+                );
+    }
 
     private void UpdatePlacementText(int RegionNum)
     {
