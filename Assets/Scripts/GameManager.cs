@@ -360,4 +360,25 @@ public class GameManager : MonoBehaviour, Subject
             o.UpdateData(Category);
         }
     }
+
+
+    public void pickupFarmer()
+    {
+        GetCurrentTurnHero().pickupFarmer();
+    }
+
+    public void dropFarmer()
+    {
+        GetCurrentTurnHero().dropFarmer();
+    }
+
+    public void pickupGold()
+    {
+        GetCurrentTurnHero().pickupGold();
+    }
+
+    public void dropGold()
+    {
+        GetCurrentTurnHero().dropGold();
+    }
 }
