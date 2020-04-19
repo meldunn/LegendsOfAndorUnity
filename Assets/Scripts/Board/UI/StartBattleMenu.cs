@@ -483,5 +483,6 @@ public class StartBattleMenu : MonoBehaviour, Observer
         // Send inviations to any heroes that are invited (or none if fighting alone)
         Battle.SendInvitations();
         UpdateWaitStatus();
+        UpdateIfStarted();
     }
 }
