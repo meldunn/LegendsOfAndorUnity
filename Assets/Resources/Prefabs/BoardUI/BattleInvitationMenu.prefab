@@ -27,7 +27,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5465435476115538478}
+  - {fileID: 5552526920354817328}
   m_Father: {fileID: 6046333547389139826}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -369,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6046333547441995906}
   - component: {fileID: 6046333547441995907}
+  - component: {fileID: 6085548124857737015}
   m_Layer: 5
   m_Name: BattleInvitationMenu
   m_TagString: Untagged
@@ -413,7 +414,29 @@ MonoBehaviour:
   BattleInviteDeclineButton: {fileID: 6046333547261057995}
   BattleInviteAcceptButton: {fileID: 6046333547490173818}
   BattleInviteOkButton: {fileID: 6046333548574958998}
-  BattleInviteSpinner: {fileID: 4923494309197334980}
+  BattleInviteSpinner: {fileID: 5552526920354817773}
+--- !u!114 &6085548124857737015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6046333547441995904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6046333547490173818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,13 +1731,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c231cef0882acc247b0872fd66c7aba4, type: 3}
---- !u!1 &4923494309197334980 stripped
+--- !u!1 &5552526920354817773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 674777079746113495, guid: c231cef0882acc247b0872fd66c7aba4,
     type: 3}
   m_PrefabInstance: {fileID: 5552526920354817555}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &5465435476115538478 stripped
+--- !u!224 &5552526920354817328 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 493048823894352957, guid: c231cef0882acc247b0872fd66c7aba4,
     type: 3}

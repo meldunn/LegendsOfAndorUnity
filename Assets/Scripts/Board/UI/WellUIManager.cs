@@ -56,9 +56,9 @@ public class WellUIManager : MonoBehaviour
 
         if(GameObject != null)
         {
-            if(ShowRequest) GameObject.SetActive(false);
+            if(ShowRequest) GameObject.SetActive(true);
 
-            else GameObject.SetActive(true);
+            else GameObject.SetActive(false);
         }
         else
         {
@@ -72,22 +72,23 @@ public class WellUIManager : MonoBehaviour
         Vector3 Offset = new Vector3(0,1,0);
         switch (WaypointNum)
         {
-            case(5):
+            case 5:
                 Well5Button.transform.Translate(Well5Image.transform.position - Well5Button.transform.position - Offset);
                 toggleGameObjectVisibility(Well5Image, true);
                 break;
 
-            case(45):
+            case 45:
+                Debug.Log("show called");
                 Well45Button.transform.Translate(Well45Image.transform.position - Well45Button.transform.position + Offset);
                 toggleGameObjectVisibility(Well5Image, true);
                 break;
 
-            case(35):
+            case 35:
                 Well35Button.transform.Translate(Well35Image.transform.position - Well35Button.transform.position + Offset);
                 toggleGameObjectVisibility(Well5Image, true);
                 break;
 
-            case(55):
+            case 55:
                 Well55Button.transform.Translate(Well55Image.transform.position - Well35Button.transform.position - Offset);
                 toggleGameObjectVisibility(Well5Image, true);
                 break;

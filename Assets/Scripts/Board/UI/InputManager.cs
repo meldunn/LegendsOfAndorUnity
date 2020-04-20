@@ -30,9 +30,6 @@ public class InputManager : MonoBehaviour
         WellsOverlay = GameObject.Find("WellsOverlay");
         RuneStoneMenu = GameObject.Find("RuneStoneMenu");
         MerchantsOverlay = GameObject.Find("MerchantsOverlay");
-
-        // Set the default visibility
-        toggleGameObjectVisibility(RuneStoneMenu);
     }
 
     private void toggleGameObjectVisibility(GameObject GameObject)

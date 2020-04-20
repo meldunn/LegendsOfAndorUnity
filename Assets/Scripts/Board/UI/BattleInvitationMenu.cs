@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
-public class BattleInvitationMenu : MonoBehaviour, Observer
+public class BattleInvitationMenu : MonoBehaviourPun, Observer
 {
     // References to managers
     private GameManager GameManager;
+    private HeroManager HeroManager;
 
     // Observed hero
     Hero MyHero;
@@ -47,8 +49,13 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
 
     public void Initialize()
     {
+        // Briefly show this menu to make Photon recognize its PhotonView
+        this.gameObject.SetActive(true);
+        this.gameObject.SetActive(false);
+
         // Initialize references to managers
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
 
         // Register as an observer of GameManager
         GameManager.Attach(this);
@@ -237,18 +244,50 @@ public class BattleInvitationMenu : MonoBehaviour, Observer
         }
     }
 
+    // Player-triggered action
     public void AcceptInvitation()
     {
-        // Get a reference to the battle invitation
-        BattleInvitation Invite = MyHero.GetBattleInvitation();
+        HeroType Acceptor = MyHero.GetHeroType();
+
+        // Accept the invitation
+        // NETWORKED
+        if (PhotonNetwork.IsConnected) photonView.RPC("AcceptBattleInviteRPC", RpcTarget.All, Acceptor);
+        else AcceptBattleInviteRPC(Acceptor);
+    }
+
+    // Player-triggered action
+    public void DeclineInvitation()
+    {
+        HeroType Declinator = MyHero.GetHeroType();
+
+        // Decline the invitation
+        // NETWORKED
+        if (PhotonNetwork.IsConnected) photonView.RPC("DeclineBattleInviteRPC", RpcTarget.All, Declinator);
+        else DeclineBattleInviteRPC(Declinator);
+    }
+
+    // NETWORKED
+    // Accepts the battle invitation sent to the specified hero
+    [PunRPC]
+    public void AcceptBattleInviteRPC(HeroType Acceptor)
+    {
+        Hero AcceptorHero = HeroManager.GetHero(Acceptor);
+
+        // Get a reference to the acceptor's invitation
+        BattleInvitation Invite = AcceptorHero.GetBattleInvitation();
 
         Invite.Accept();
     }
 
-    public void DeclineInvitation()
+    // NETWORKED
+    // Declines the battle invitation sent to the specified hero
+    [PunRPC]
+    public void DeclineBattleInviteRPC(HeroType Declinator)
     {
-        // Get a reference to the battle invitation
-        BattleInvitation Invite = MyHero.GetBattleInvitation();
+        Hero DeclinatorHero = HeroManager.GetHero(Declinator);
+
+        // Get a reference to the acceptor's invitation
+        BattleInvitation Invite = DeclinatorHero.GetBattleInvitation();
 
         Invite.Decline();
     }

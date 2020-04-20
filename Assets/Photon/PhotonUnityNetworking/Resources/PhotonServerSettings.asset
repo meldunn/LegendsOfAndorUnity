@@ -38,6 +38,16 @@ MonoBehaviour:
   - PrevHero
   - ReadyUp
   - ReadyUpMaster
+  - TestDisplayText
+  - TestStoreText
+  - AcceptBattleInviteRPC
+  - AddBattleInviteRPC
+  - CancelHeroBattleRPC
+  - CleanupCancelledHeroBattleRPC
+  - CreateNewHeroBattleRPC
+  - DeclineBattleInviteRPC
+  - RemoveBattleInviteRPC
+  - SendBattleInvitesRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

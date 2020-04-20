@@ -121,6 +121,31 @@ public class Hero : MonoBehaviour, Subject
         }
     }
 
+    public void pickupFarmer()
+    {
+        if (myRegion.pickupOneFarmer() != null)
+        {
+            numFarmers++;
+        }
+        else
+        {
+            // Can't pick up Farmer
+        }
+    }
+
+    public void dropFarmer()
+    {
+        if (numFarmers >= 1)
+        {
+            numFarmers--;
+            myRegion.dropOneFarmer();
+        }
+        else
+        {
+            //No Farmer to drop
+        }
+    }
+
     public void pickupItem(Item item)
     {
         if (myRegion.containsItem(item))
