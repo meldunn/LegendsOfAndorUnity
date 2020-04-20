@@ -173,7 +173,12 @@ public class BattleInvitationMenu : MonoBehaviourPun, Observer
                     CreatureType CreatureType = Invite.GetCreature().GetCreatureType();
                     int RegionNum = Invite.GetCreature().GetRegion().GetWaypointNum();
 
-                    string BattleDetails = "The " + HeroType + " has invited you to fight the " + CreatureType + " on region " + RegionNum + ". Do you want to join them?";
+                    // Format the creature's type string
+                    string CreatureTypeString = CreatureType.ToString();
+                    if (CreatureType == CreatureType.HerbGor) CreatureTypeString = "Gor carrying the medicinal herb";
+                    else if (CreatureType == CreatureType.TowerSkral) CreatureTypeString = "Skral stronghold";
+
+                    string BattleDetails = "The " + HeroType + " has invited you to fight the " + CreatureTypeString + " on region " + RegionNum + ". Do you want to join them?";
 
                     // Set the text contents in the viewer
                     SetInfoText(BattleDetails);
