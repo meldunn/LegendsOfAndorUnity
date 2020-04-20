@@ -43,14 +43,13 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
 
         //at run time subsribes the ready up logic. (done on run time because we are dealing with a prefab)
-
         readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
        
     }
 
     public void OnPlayerReady(int playerID, HeroType type, bool status)
     {
-        print("INVOKED");
+       
         if (status)
         {
             readyPlayers++;
@@ -61,7 +60,8 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
             readyPlayers--;
             selectedHeroes.Remove(playerID);
         }
-
+        print("Hero is : " + type);
+        print("Status Recieved: " + status + " || Number ready: "+ readyPlayers+" || Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount);
         if (readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         {
             if (areDifferentHeroes())
@@ -69,8 +69,6 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
                 print("CAN START THE GAME");
             }
         }
-
-
     }
 
 

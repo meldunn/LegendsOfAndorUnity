@@ -6,6 +6,8 @@ using Photon.Realtime;
 
 
 //followed an online tutorial https://www.youtube.com/watch?v=0eAo4CIpiSw&list=PLkx8oFug638oMagBH2qj1fXOkvBr6nhzt&index=10
+//autor: Vitaly
+//TODO: update the list of rooms even if the rooms are not being created or updated.
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
