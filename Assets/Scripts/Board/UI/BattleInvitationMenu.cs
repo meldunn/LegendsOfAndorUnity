@@ -240,6 +240,7 @@ public class BattleInvitationMenu : MonoBehaviourPun, Observer
                 BattleInviteOkButton.SetActive(true);
                 BattleInviteAcceptButton.SetActive(false);
                 BattleInviteDeclineButton.SetActive(false);
+                BattleInviteSpinner.SetActive(false);
             }
         }
     }

@@ -397,6 +397,8 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     // Displays spinners or checkmarks according to which heroes have responded to their invitations
     public void UpdateWaitStatus()
     {
+        if (GetMyBattle() == null) return;
+
         // Reset all the icons
         WarriorStartBattleInviteSpinner.SetActive(false);
         ArcherStartBattleInviteSpinner.SetActive(false);

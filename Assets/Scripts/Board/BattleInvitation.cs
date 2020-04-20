@@ -46,7 +46,7 @@ public class BattleInvitation
     {
         Status = InvitationStatus.Accepted;
         MyHero.SetCurrentBattle(Battle);
-        NotifyHero();
+        NotifyHeroAndBattle();
 
         Battle.TestToStart();
     }
@@ -54,7 +54,7 @@ public class BattleInvitation
     public void Decline()
     {
         Status = InvitationStatus.Declined;
-        NotifyHero();
+        NotifyHeroAndBattle();
 
         Battle.TestToStart();
     }
@@ -74,8 +74,9 @@ public class BattleInvitation
         return Status == InvitationStatus.Declined;
     }
 
-    public void NotifyHero()
+    public void NotifyHeroAndBattle()
     {
         MyHero.Notify("INVITE_STATUS");
+        Battle.Notify("INVITE_STATUS");
     }
 }
