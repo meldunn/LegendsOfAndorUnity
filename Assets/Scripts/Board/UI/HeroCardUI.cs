@@ -10,6 +10,11 @@ public class HeroCardUI : MonoBehaviour
     GameObject DwarfHeroCard;
     GameObject WizardHeroCard;
 
+    GameObject warriorStatsPanel;
+    GameObject archerStatsPanel;
+    GameObject dwarfStatsPanel;
+    GameObject wizardStatsPanel;
+
     public void Initialize()
     {
 
@@ -18,14 +23,21 @@ public class HeroCardUI : MonoBehaviour
         GameObject DwarfHeroCard = GameObject.Find("DwarfHeroCard");
         GameObject WizardHeroCard = GameObject.Find("WizardHeroCard");
 
+        warriorStatsPanel = GameObject.Find("WarriorStatsPanel");
+        archerStatsPanel = GameObject.Find("ArcherStatsPanel");
+        dwarfStatsPanel = GameObject.Find("DwarfStatsPanel");
+        wizardStatsPanel = GameObject.Find("WizardStatsPanel");
+
     }
 
     public void displayWarriorHeroCard()
     {
         if (WarriorHeroCard.activeSelf){
             WarriorHeroCard.SetActive(false);
+            warriorStatsPanel.SetActive(false);
         } else{
             WarriorHeroCard.SetActive(true);
+            warriorStatsPanel.SetActive(true);
         }   
     }
 
