@@ -16,6 +16,8 @@ public class Hero : MonoBehaviour, Subject
     HeroType Type;
     bool TypeWasSet = false;
 
+    int Rank = 0;
+
     int maxStrength;
     int strength;
     int maxWillpower;
@@ -69,6 +71,12 @@ public class Hero : MonoBehaviour, Subject
         maxWillpower = 20;
         myGold = 4;
         heroInventory = new HeroInventory();
+
+        // Initialize rank
+        if (Type == HeroType.Warrior) Rank = 14;
+        else if (Type == HeroType.Archer) Rank = 25;
+        else if (Type == HeroType.Dwarf) Rank = 7;
+        else if (Type == HeroType.Wizard) Rank = 34;
     }
 
     // Note: Used for testing and debugging purposes ONLY
@@ -454,5 +462,10 @@ public class Hero : MonoBehaviour, Subject
     public int getGold()
     {
         return myGold;
+    }
+
+    public int GetRank()
+    {
+        return Rank;
     }
 }
