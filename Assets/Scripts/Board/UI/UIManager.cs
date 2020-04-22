@@ -82,14 +82,14 @@ public class UIManager : MonoBehaviour
     public void onHeroMove(Hero Hero)
     {
         // Makes all the nevessary UI changes AFTER a Hero has moved to the new Waypoint
-
         Waypoint HeroRegion = Hero.GetWaypoint();
 
-
         // Update UI position-based buttons.
-        WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
+        if (HeroRegion.containsFullWell())
+        {
+            WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
+        }
         MerchantUIManager.UpdateMerchantButton(HeroRegion.GetWaypointNum());
-
     }
 
     public StartBattleMenu GetStartBattleMenu()
