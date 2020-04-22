@@ -42,6 +42,7 @@ public class Hero : MonoBehaviour, Subject
         // Initialize reference to WaypointManager
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
         UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+
     }
 
     // Update is called once per frame
@@ -159,7 +160,7 @@ public class Hero : MonoBehaviour, Subject
     {
         if (myRegion.containsItem(item))
         {
-            heroInventory.addItem(item);
+            heroInventory.addItem(item.GetType());
             myRegion.removeItem(item);
         }
         else
@@ -170,9 +171,9 @@ public class Hero : MonoBehaviour, Subject
 
     public void dropItem(Item item)
     {
-        if (heroInventory.containsItem(item))
+        if (heroInventory.containsItem(item.GetType()))
         {
-            heroInventory.removeItem(item);
+            heroInventory.removeItem(item.GetType());
             myRegion.addItem(item);
         }
         else
@@ -191,10 +192,10 @@ public class Hero : MonoBehaviour, Subject
     }
 
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
-    public void BuyFromMerchant(Type ItemType)
+    public void BuyFromMerchant(ItemType ItemType)
     {
         // Debug.Log(ItemType);
-        heroInventory.addItemByType(ItemType);
+        heroInventory.addItem(ItemType);
     }
 
     public void DrinkFromWell(int regionNum)

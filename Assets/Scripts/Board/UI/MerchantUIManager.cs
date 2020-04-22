@@ -250,34 +250,35 @@ public class MerchantUIManager : MonoBehaviourPun
                 switch(i)
                 {
                     case 0:     // Helm
-                       MyHero.BuyFromMerchant(Type.Helm);
-                       Debug.Log("Bought Helm");
+                       MyHero.BuyFromMerchant(ItemType.Helm);
+                       // Debug.Log("Bought Helm");
                        break;
-                    case 1:     // Helm
-                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
-                       Debug.Log("Bought Wineskin");
+                    case 1:
+                       MyHero.BuyFromMerchant(ItemType.Wineskin);
+                       // Debug.Log("Bought Wineskin");
                        break;
-                    case 2:     // Helm
-                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
-                       Debug.Log("Bought Bow");
+                    case 2:
+                       MyHero.BuyFromMerchant(ItemType.Bow);
+                       // Debug.Log("Bought Bow");
                        break;
-                    case 3:     // Helm
-                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
-                       Debug.Log("Bought WitchBrew");
+                    case 3:
+                       MyHero.BuyFromMerchant(ItemType.Witchbrew);
+                       // Debug.Log("Bought WitchBrew");
                        break;
-                    case 4:     // Helm
-                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
-                       Debug.Log("Bought Falcon");
+                    case 4:
+                       MyHero.BuyFromMerchant(ItemType.Falcon);
+                       // Debug.Log("Bought Falcon");
                        break;
-                    case 5:     // Helm
-                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
-                       Debug.Log("Bought Telescope");
+                    case 5:
+                       MyHero.BuyFromMerchant(ItemType.Telescope);
+                       // Debug.Log("Bought Telescope");
                        break;
 
-                    case 6:     // Helm
-                       // MyHero.BuyFromMerchant(new Item(ItemType.Helm));
-                       Debug.Log("Bought Shield");
+                    case 6:
+                       MyHero.BuyFromMerchant(ItemType.Shield);
+                       // Debug.Log("Bought Shield");
                        break;
+
                     default:
                        Debug.Log("Error in MerchantUIManager Buy from Merchant.");
                        break;

@@ -6,33 +6,29 @@ public class HeroInventory : MonoBehaviour
 {
 
     // Keeps track of item quantity
-    public Dictionary<Item, int> Inventory;
+    private Dictionary<ItemType, int> Inventory = new Dictionary<ItemType, int>();
 
     public HeroInventory()
     {
-        Inventory = new Dictionary<Item, int>();
+        Inventory = new Dictionary<ItemType, int>();
+        
+        Inventory[ItemType.Helm] = 0;
+        Inventory[ItemType.Wineskin] = 0;
+        Inventory[ItemType.Bow] = 0;
+        Inventory[ItemType.Telescope] = 0;
+        Inventory[ItemType.Falcon] = 0;
+        Inventory[ItemType.MedicinalHerb] = 0;
+        Inventory[ItemType.Witchbrew] = 0;
+        Inventory[ItemType.Shield] = 0;
     }
 
-    public void addItem(Item item)
+    public void addItem(ItemType item)
     {
         Inventory[item] += 1;
-        Debug.Log("Added Item");
+        Debug.Log("Added Item"+ item);
     }
 
-    // Called from Hero in BuyFromMerchant
-    public void addItemByType(Type ItemType)
-    {
-        foreach(KeyValuePair<Item, int> entry in Inventory)
-        {
-            if(string.Compare(entry.Key.GetType().ToString(), ItemType.ToString())== 0)
-            {
-                Inventory[entry.Key] += 1;
-            }
-        }
-        Debug.Log(Inventory);
-    }
-
-    public void removeItem(Item item)
+    public void removeItem(ItemType item)
     {
         if(Inventory[item] > 0)
         {
@@ -40,11 +36,11 @@ public class HeroInventory : MonoBehaviour
         }
         else
         {
-            Debug.Log("You have no "+item.GetType().ToString()+ " to remove.");
+            Debug.Log("You have no "+item.ToString()+ " to remove.");
         }
     }
 
-    public bool containsItem(Item item)
+    public bool containsItem(ItemType item)
     {
         if(Inventory[item] > 0) return true;
 
@@ -65,7 +61,7 @@ public class HeroInventory : MonoBehaviour
         return false;
     }
 
-    public Dictionary<Item, int> getInventory()
+    public Dictionary<ItemType, int> getInventory()
     {
         return Inventory;
     }

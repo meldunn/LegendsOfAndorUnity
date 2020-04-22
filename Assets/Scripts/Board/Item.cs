@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Placed outside of Item in order to access enum Type in other classes
-public enum Type
+public enum ItemType
 {
     Wineskin,
     Telescope,
@@ -28,10 +28,10 @@ public class Item: MonoBehaviour
         Falcon
     }
     */
-    public Type type;
+    public ItemType type;
 
-    public Type GetType(Item i)
+    public ItemType GetType()
     {
-        return i.type;
+        return type;
     }
 }
