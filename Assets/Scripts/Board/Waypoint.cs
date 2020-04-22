@@ -205,8 +205,18 @@ public class Waypoint : MonoBehaviourPun
     // All clients have an empty well at this waypoint.
     public void EmptyWell()
     {
-        well.EmptyWell();
+        if( photonView.IsMine )
+        {
+            Debug.Log("Emptied");
+            photonView.RPC("EmptyWellForAll", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
+    void EmptyWellForAll()
+    {
         Debug.Log("Well has been empited and is now " + well.IsFull());
+        well.EmptyWell();
     }
 
     // All clients replenish the well at this waypoint.

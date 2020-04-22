@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class WellUIManager : MonoBehaviour
+public class WellUIManager : MonoBehaviourPun
 {
 
     private GameManager GameManager;
@@ -99,9 +101,21 @@ public class WellUIManager : MonoBehaviour
         }
     }
     
+    // Triggered by a click event when a well is emptied
+    public void HideWellButtonRequest(int WaypointNum)
+    {   
+        if(photonView.IsMine)
+        {
+            // Debug.Log("Message Sent");
+            photonView.RPC("HideWellButton", RpcTarget.All, WaypointNum);
+        }
+    }
+
+    [PunRPC]
     // Allows well button to be clicked with a new day
-    public void HideWellButton(int WaypointNum)
+    void HideWellButton(int WaypointNum)
     {
+        // Debug.Log("Message received to all");
         switch (WaypointNum)
         {
             case(5):
@@ -126,9 +140,10 @@ public class WellUIManager : MonoBehaviour
         }
     }
 
+
     public void WellsReplenished()
     {
-        // Resiet
+        // Reset
     }
     
 }
