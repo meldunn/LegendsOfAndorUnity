@@ -223,11 +223,6 @@ public class WaypointManager : MonoBehaviourPun
                 Waypoint[i].SetWaypointNum(i);  // Set the waypoint's number
                 Waypoint[i].SetIcon();
 
-                // Initialize wells
-                if(i == 5 || i == 35 || i == 45 || i == 55)
-                {
-                    GameObject.Find(WaypointName).AddComponent<Well>();
-                }
             }
         }
 
