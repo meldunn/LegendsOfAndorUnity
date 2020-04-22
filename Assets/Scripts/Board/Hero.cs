@@ -71,7 +71,7 @@ public class Hero : MonoBehaviour, Subject
         strength = 1;
         willpower = 7;
         maxWillpower = 20;
-        myGold = 200; // test
+        myGold = 0;
         heroInventory = new HeroInventory();
 
         // Initialize rank
