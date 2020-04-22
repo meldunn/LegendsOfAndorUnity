@@ -60,7 +60,6 @@ public class PlayerSelector : MonoBehaviourPun
 
     public void OnClick_NextHero()
     {
-        print("FIRED NEXT HERO");
         //executes only if the owner of the button clicked
        if (photonView.IsMine && !readyToken.activeSelf)
        {
@@ -109,7 +108,6 @@ public class PlayerSelector : MonoBehaviourPun
     {
         //TODO: isReady not  updated onother clients than master
         isReady = !isReady;
-        print(isReady);
 
         //set next & previous buttons inactive
         next.gameObject.SetActive(!next.gameObject.activeSelf);
@@ -130,7 +128,7 @@ public class PlayerSelector : MonoBehaviourPun
 
             //TODO: the RPC has to include isReady
             //google rpc parameters sending local variables.
-            photonView.RPC("ReadyUpMaster", RpcTarget.MasterClient, isReady);
+            photonView.RPC("ReadyUpMaster", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
         }
     }
 
@@ -142,10 +140,10 @@ public class PlayerSelector : MonoBehaviourPun
     }
 
     [PunRPC]
-    void ReadyUpMaster(bool isReady)
+    void ReadyUpMaster(int playerID, HeroType hero, bool isReady)
     {
         //checks for all the players being ready
-        HeroSelectionManager.Instance.OnPlayerReady(PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
+        HeroSelectionManager.Instance.OnPlayerReady(playerID, hero, isReady);
     }
 
 }

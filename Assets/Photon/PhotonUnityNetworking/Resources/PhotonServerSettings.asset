@@ -33,12 +33,16 @@ MonoBehaviour:
   RpcList:
   - AcceptBattleInviteRPC
   - AddBattleInviteRPC
+  - AdvanceTurnRPC
   - CancelHeroBattleRPC
   - CleanupCancelledHeroBattleRPC
   - ClickRpc
   - CreateNewHeroBattleRPC
   - DeclineBattleInviteRPC
   - DestroyRpc
+  - FinalizeRollRPC
+  - GoToNextRoundRPC
+  - GoToNextTurnRPC
   - InstantiateSelector
   - NextHero
   - PrevHero
@@ -46,19 +50,13 @@ MonoBehaviour:
   - ReadyUpMaster
   - RemoveBattleInviteRPC
   - SendBattleInvitesRPC
-  - TestDisplayText
-  - TestStoreText
-  - SendNewRollRPC
-  - SendRollValuesRPC
-  - FinalizeRollRPC
-  - GoToNextRoundRPC
-  - GoToNextTurnRPC
   - SendHeroRollValuesRPC
   - SendNewCreatureRollRPC
   - SendNewHeroRollRPC
-  - TakeDamageRPC
   - SetTurnOrderRPC
-  - AdvanceTurnRPC
+  - TakeDamageRPC
+  - TestDisplayText
+  - TestStoreText
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
