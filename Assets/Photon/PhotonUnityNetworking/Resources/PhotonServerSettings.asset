@@ -57,8 +57,11 @@ MonoBehaviour:
   - TakeDamageRPC
   - TestDisplayText
   - TestStoreText
+<<<<<<< HEAD
   - EmptyWellForAll
   - HideWellButton
+=======
+>>>>>>> ba502d110c9ddc104bd778ffd983f5bfe1472184
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

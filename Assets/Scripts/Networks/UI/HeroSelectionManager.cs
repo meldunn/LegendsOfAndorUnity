@@ -81,13 +81,13 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
     bool areDifferentHeroes()
     {
-        for (int i = 0; i < selectedHeroes.Count - 1; i++)
+        foreach(var player1 in selectedHeroes)
         {
-            for (int j = i + 1; j < selectedHeroes.Count; j++)
+            foreach(var player2 in selectedHeroes)
             {
-                if (selectedHeroes[i] == selectedHeroes[j])
+                if(player1.Key != player2.Key)
                 {
-                    return false;
+                    if (player1.Value == player2.Value) return false;
                 }
             }
         }
