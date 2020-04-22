@@ -112,8 +112,8 @@ public class WellUIManager : MonoBehaviourPun
         PV.RPC("HideWellButton", RpcTarget.All, WaypointNum);
     }
 
-    [PunRPC]
     // Allows well button to be clicked with a new day
+    [PunRPC]
     void HideWellButton(int WaypointNum)
     {
         // Debug.Log("Message received to all");

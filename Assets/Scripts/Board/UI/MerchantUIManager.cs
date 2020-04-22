@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class MerchantUIManager : MonoBehaviour
+public class MerchantUIManager : MonoBehaviourPun
 {
     // Stored in numerical order { 18, 57, 71 }
     private GameObject MerchantMenu;
     private GameManager GameManager;
     private GameObject GoldError;
 
-    private int[] Purchased = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    // Amount of available tokens for each item
+    // Total amount in a client's "cart". Updated each time merchant menu is opened
+    private int[] Purchased = {0, 0, 0, 0, 0, 0, 0};
+    // Amount of available tokens for each item in the entire game.
     private int[] MaxAmount = { 3, 5, 3, 5, 2, 2, 4 };
     
     private List<GameObject> Merchant = new List<GameObject>(3);
@@ -19,6 +21,9 @@ public class MerchantUIManager : MonoBehaviour
 
     private int CostOfPurchase = 0;
     private int CurrentUpdate = 0;
+
+
+    private PhotonView PV;
 
     private string[] ArticleNames = {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
     
@@ -56,7 +61,8 @@ public class MerchantUIManager : MonoBehaviour
 
         PlaceMerchants();
         // TODO Hide witch at the start
-
+        
+        PV = GetComponent<PhotonView>();
     }
 
     // Called once in Initialize() to place the merchants
@@ -202,12 +208,24 @@ public class MerchantUIManager : MonoBehaviour
     {
         int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
 
+        bool Error = false;
         // Called when Player has enough gold, and purchases the items
         // Debug.Log(PlayerGold);
         if(CostOfPurchase <= PlayerGold)
         {
-            ConfirmPurchase();
-            CloseMerchantMenu();
+            // Confirm the request does not exceed the total
+            for(int i=0; i<Purchased.Length; i++)
+            {
+                if(Purchased[i] > MaxAmount[i])
+                {
+                    Error = true;
+                }
+            }
+            if( !Error ){
+                ConfirmPurchase();
+                CloseMerchantMenu();
+            }
+            // TODO: display error message if someone bought the item before you did
         }
         else
         {
@@ -224,6 +242,9 @@ public class MerchantUIManager : MonoBehaviour
         {
             // For each item, purchased, create an item and send it
             // {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
+
+            if(Purchased[i] > 0) PV.RPC("UpdateMaxAmountRPC", RpcTarget.All, i, Purchased[i]);
+
             for(int j=0; j<Purchased[i]; j++)
             {
                 switch(i)
@@ -263,6 +284,13 @@ public class MerchantUIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    [PunRPC]
+    public void UpdateMaxAmountRPC(int ind, int amount)
+    {
+        MaxAmount[ind] -= amount;
+        Debug.Log(ArticleNames[ind]+" now has "+MaxAmount[ind]+" left");
     }
 
 }

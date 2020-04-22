@@ -58004,7 +58004,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 45
+          m_IntArgument: 71
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -59408,6 +59408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2040862575}
   - component: {fileID: 2040862576}
+  - component: {fileID: 2040862577}
   m_Layer: 0
   m_Name: MerchantUIManager
   m_TagString: Untagged
@@ -59441,6 +59442,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbfd31582a178aa7587b7301ebc428e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2040862577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040862574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 84
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2044352563
 GameObject:
   m_ObjectHideFlags: 0
