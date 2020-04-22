@@ -273,10 +273,40 @@ public class Battle : Subject
         Notify("BATTLE_PARTICIPANTS");
     }
 
-    // Launches the roll for specified hero
-    public void Roll(Hero Hero)
+    // Launches the roll for the specified hero. Returns true if the roll is new; false if it is continued (for archer / bow user).
+    public bool Roll(Hero Hero)
     {
-        GetCurrentRound().RollHeroDice(Hero);
+        bool IsNewRoll = GetCurrentRound().RollHeroDice(Hero);
+
+        Notify("ROLL");
+
+        return IsNewRoll;
+    }
+
+    // Sets the roll for the specified hero (used to set a copy of a roll made on another machine)
+    public void SetHeroRoll(Hero Hero, Roll Roll)
+    {
+        GetCurrentRound().SetHeroRoll(Hero, Roll);
+
+        Notify("ROLL");
+    }
+
+    // Sets the roll for the creature (used to set a copy of a roll made on another machine)
+    public void SetCreatureRoll(Roll Roll)
+    {
+        GetCurrentRound().SetCreatureRoll(Roll);
+
+        Notify("ROLL");
+    }
+
+    // Updates the values of the roll for the specified hero (used to update a copy of a roll made on another machine)
+    public void UpdateRollValues(Hero Hero, int[] RollValues)
+    {
+        // Get a reference to the hero roll
+        Roll CurrentRoll = GetRoll(Hero);
+
+        // Update the roll values
+        CurrentRoll.SetValues(RollValues);
 
         Notify("ROLL");
     }
@@ -288,55 +318,47 @@ public class Battle : Subject
         Notify("ROLL");
     }
 
-    // Advances the turn in the battle (either within a round, or by moving to the next round)
-    public void Next()
+    // Triggers taking damage after a creature roll
+    public void TakeDamage()
     {
-        // Finalize the hero roll (useful for the archer)
-        GetCurrentRound().FinalizeRoll(TurnHolder);
+        // Determine who will take damage
+        int HeroLostWP = GetCurrentRound().GetHeroLostWillpower();
+        int CreatureLostWP = GetCurrentRound().GetCreatureLostWillpower();
 
-        // If the round is done (for heroes), but the battle is not finished, check whether the creature is next to roll
-        if (GetCurrentRound().IsDone() && !this.IsFinished())
+        // Take damage
+        foreach (Hero Participant in Participants)
         {
-            // Check whether the creature has rolled
-            if (GetCurrentRound().GetCreatureRollValues().Length == 0)
-            {
-                // If not, let the creature roll
-                CreatureRoll();
-
-                // Determine who will take damage
-                int HeroLostWP = GetCurrentRound().GetHeroLostWillpower();
-                int CreatureLostWP = GetCurrentRound().GetCreatureLostWillpower();
-
-                // Take damage
-                foreach (Hero Participant in Participants)
-                {
-                    if (HeroLostWP > 0) Participant.DecreaseWillpower(HeroLostWP);
-                }
-                if (CreatureLostWP > 0) Creature.DecreaseWillpower(CreatureLostWP);
-
-                // Update UI
-                Notify("WILLPOWER");
-
-                TestWon();
-                TestLost();
-            }
-            // If the creature has already rolled, go to the next round
-            else
-            {   
-                // Go to the next round
-                GoToNextRound();
-                GoToNextTurn();
-            }
+            if (HeroLostWP > 0) Participant.DecreaseWillpower(HeroLostWP);
         }
-        // If the round is not done (for heroes), go to the next turn
-        else
-        {
-            GoToNextTurn();
-        }
+        if (CreatureLostWP > 0) Creature.DecreaseWillpower(CreatureLostWP);
+
+        // Update UI
+        Notify("WILLPOWER");
+
+        TestWon();
+        TestLost();
+    }
+    
+    // Finalizes the specified hero's roll
+    public void FinalizeRoll(Hero Hero)
+    {
+        GetCurrentRound().FinalizeRoll(Hero);
+    }
+
+    // Returns whether the round is done (for heroes)
+    public bool RoundIsDoneForHeroes()
+    {
+        return GetCurrentRound().IsDone();
+    }
+
+    // Returns whether the creature has rolled
+    public bool CreatureHasRolled()
+    {
+        return GetCurrentRound().GetCreatureRollValues().Length != 0;
     }
 
     // Moves this battle to the next round
-    private void GoToNextRound()
+    public void GoToNextRound()
     {
         // Kick out any participants who reached 0 willpower
         var ParticipantsCopy = new List<Hero>(Participants);        // Use a copy to prevent errors removing elements while iterating
@@ -352,7 +374,7 @@ public class Battle : Subject
     }
 
     // Passes the roll turn to the next hero in the order
-    private void GoToNextTurn()
+    public void GoToNextTurn()
     {
         if (Participants.Count == 0)
         {

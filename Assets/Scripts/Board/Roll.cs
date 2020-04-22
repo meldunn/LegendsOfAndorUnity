@@ -34,6 +34,16 @@ public class Roll
         RollValues = new int[NumOfDice];
     }
 
+    // Factory method that returns a new roll that mimics an existing one (based on the input parameters extracted from the existing roll)
+    public static Roll NewMimicRoll(DiceType Type, int NumOfDice, bool BowOrArcherRoll, int[] RollValues) // , bool Finalized)
+    {
+        Roll NewRoll = new Roll(Type, NumOfDice, BowOrArcherRoll);
+
+        NewRoll.SetValues(RollValues);
+
+        return NewRoll;
+    }
+
     // Picks a random value for each die based on the allowed sides
     public void RollAllDice()
     {
@@ -146,14 +156,29 @@ public class Roll
         // TODO Helm
     }
 
+    public DiceType GetDiceType()
+    {
+        return Type;
+    }
+
+    public int GetNumOfDice()
+    {
+        return NumOfDice;
+    }
+
+    public bool GetBowOrArcherRoll()
+    {
+        return BowOrArcherRoll;
+    }
+
     public int[] GetValues()
     {
         return RollValues;
     }
 
-    public DiceType GetDiceType()
+    public void SetValues(int[] Values)
     {
-        return Type;
+        this.RollValues = Values;
     }
 
     // Returns the correct array of die sides to use

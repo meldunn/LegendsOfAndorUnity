@@ -48,6 +48,17 @@ MonoBehaviour:
   - SendBattleInvitesRPC
   - TestDisplayText
   - TestStoreText
+  - SendNewRollRPC
+  - SendRollValuesRPC
+  - FinalizeRollRPC
+  - GoToNextRoundRPC
+  - GoToNextTurnRPC
+  - SendHeroRollValuesRPC
+  - SendNewCreatureRollRPC
+  - SendNewHeroRollRPC
+  - TakeDamageRPC
+  - SetTurnOrderRPC
+  - AdvanceTurnRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public enum DifficultyLevel { Easy, Normal };
 public enum LoseReason { Castle };
 
-public class GameManager : MonoBehaviour, Subject
+public class GameManager : MonoBehaviourPun, Subject
 {
     public static GameManager Instance;
 
@@ -26,15 +28,15 @@ public class GameManager : MonoBehaviour, Subject
     private bool WizardIsPlaying;
 
     // Game players
-    private AndorPlayer MyPlayer;            // The player currently playing in this session (same value as one of the four player variables below)
+    private AndorPlayer MyPlayer;               // The player currently playing in this session (same value as one of the four player variables below)
     private AndorPlayer WarriorPlayer;
     private AndorPlayer ArcherPlayer;
     private AndorPlayer DwarfPlayer;
     private AndorPlayer WizardPlayer;
 
     // Turn management
-    private AndorPlayer CurrentTurnPlayer;   // The player whose turn it is
-    private List<AndorPlayer> TurnOrder;
+    private HeroType CurrentTurnHero;           // The hero whose turn it is
+    private HeroType[] TurnOrder;
 
     // Game mode
     //TONETWORK
@@ -130,10 +132,29 @@ public class GameManager : MonoBehaviour, Subject
         // Initialize playing character
         MyPlayer = WarriorPlayer;              // TODO real value
 
+        // NETWORKED
         // Initialize turns
-        TurnOrder = GenerateTurnOrder();
-        //TOMODIFY
-        CurrentTurnPlayer = TurnOrder[0];
+        if (PhotonNetwork.IsConnected)
+        {
+            HeroType[] NewTurnOrder;
+
+            // Generate the turn order on one player's machine
+            if (photonView.IsMine)
+            {
+                Debug.Log("Machine " + GetSelfHero().GetHeroType() + " generated a turn order.");
+                NewTurnOrder = GenerateTurnOrder();
+
+                // Extract each hero's turn from the order (this is done because a HeroType[] can't be sent in an RPC)
+                int WarriorTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Warrior);
+                int ArcherTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Archer);
+                int DwarfTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Dwarf);
+                int WizardTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Wizard);
+
+                // Send the order to the other players
+                if (PhotonNetwork.IsConnected) photonView.RPC("SetTurnOrderRPC", RpcTarget.All, WarriorTurn, ArcherTurn, DwarfTurn, WizardTurn);
+            }
+        }
+        else TurnOrder = GenerateTurnOrder();
 
         // Initialize the castle
         WaypointManager.GetCastle().Initialize(GetNumOfPlayers());
@@ -198,13 +219,17 @@ public class GameManager : MonoBehaviour, Subject
 
     public AndorPlayer GetCurrentTurnPlayer()
     {
-        return CurrentTurnPlayer;
+        if (CurrentTurnHero == HeroType.Warrior) return WarriorPlayer;
+        else if (CurrentTurnHero == HeroType.Archer) return ArcherPlayer;
+        else if (CurrentTurnHero == HeroType.Dwarf) return DwarfPlayer;
+        else if (CurrentTurnHero == HeroType.Wizard) return WizardPlayer;
+        else return null;
     }
 
     public Hero GetCurrentTurnHero()
     {
-        if (CurrentTurnPlayer == null) return null;
-        else return CurrentTurnPlayer.GetHero();
+        if (CurrentTurnHero == null) return null;
+        else return HeroManager.GetHero(CurrentTurnHero);
     }
 
     // Returns the number of players in this game
@@ -226,17 +251,17 @@ public class GameManager : MonoBehaviour, Subject
     }
 
     // Returns a randomly generated turn order
-    private List<AndorPlayer> GenerateTurnOrder()
+    private HeroType[] GenerateTurnOrder()
     {
         int NumOfPlayers = GetNumOfPlayers();
-        List<AndorPlayer> NewTurnOrder = new List<AndorPlayer>(NumOfPlayers);
+        HeroType[] NewTurnOrder = new HeroType[NumOfPlayers];
 
         // Create a grab bag from which to draw
-        List<AndorPlayer> GrabBag = new List<AndorPlayer>(4);
-        if (WarriorIsPlaying) GrabBag.Add(WarriorPlayer);
-        if (ArcherIsPlaying) GrabBag.Add(ArcherPlayer);
-        if (DwarfIsPlaying) GrabBag.Add(DwarfPlayer);
-        if (WizardIsPlaying) GrabBag.Add(WizardPlayer);
+        List<HeroType> GrabBag = new List<HeroType>(4);
+        if (WarriorIsPlaying) GrabBag.Add(HeroType.Warrior);
+        if (ArcherIsPlaying) GrabBag.Add(HeroType.Archer);
+        if (DwarfIsPlaying) GrabBag.Add(HeroType.Dwarf);
+        if (WizardIsPlaying) GrabBag.Add(HeroType.Wizard);
 
         // Quick validation
         if (NumOfPlayers != GrabBag.Count)
@@ -250,8 +275,8 @@ public class GameManager : MonoBehaviour, Subject
         // While the grab bag isn't empty, draw a random player from it and add the player to the new order
         for (int i = 0; i < NumOfPlayers; i++)
         {
-            RandomIndex = Random.Range(0, GrabBag.Count);
-            NewTurnOrder.Insert(i, GrabBag[RandomIndex]);
+            RandomIndex = UnityEngine.Random.Range(0, GrabBag.Count);
+            NewTurnOrder[i] = GrabBag[RandomIndex];
             GrabBag.RemoveAt(RandomIndex);
         }
 
@@ -261,7 +286,7 @@ public class GameManager : MonoBehaviour, Subject
     // Gives the turn to the next hero in the turn order
     public void GoToNextHeroTurn()
     {
-        int CurrentIndex = TurnOrder.IndexOf(CurrentTurnPlayer);
+        int CurrentIndex = Array.FindIndex(TurnOrder, e => e == CurrentTurnHero);
 
         // Validation
         if (CurrentIndex == -1)
@@ -270,18 +295,27 @@ public class GameManager : MonoBehaviour, Subject
             return;
         }
 
-        CurrentTurnPlayer = TurnOrder[ (CurrentIndex + 1) % TurnOrder.Count ];
+        CurrentTurnHero = TurnOrder[ (CurrentIndex + 1) % TurnOrder.Length ];
 
         // Notify observers to update UI
         Notify("TURN");
     }
 
+    // Used only by the UI button that advances the turn. For all other purposes, call GoToNextHeroTurn() from within an RPC
+    public void GoToNextHeroTurnForAll()
+    {
+        // NETWORKED
+        // Use an RPC to advance the turn on all computers
+        if (PhotonNetwork.IsConnected) photonView.RPC("AdvanceTurnRPC", RpcTarget.All);
+        else AdvanceTurnRPC();
+    }
+
     // Used to follow the turn order during a battle. Returns whose turn it is in the order after the specified Hero.
     public Hero GetTurnHeroAfter(Hero Hero)
     {
-        for (int i = 0; i < TurnOrder.Count; i++)
+        for (int i = 0; i < TurnOrder.Length; i++)
         {
-            if (TurnOrder[i].GetHero() == Hero) return TurnOrder[(i + 1) % TurnOrder.Count].GetHero();
+            if (TurnOrder[i] == Hero.GetHeroType()) return HeroManager.GetHero(TurnOrder[(i + 1) % TurnOrder.Length]);
         }
         return null;
     }
@@ -361,7 +395,6 @@ public class GameManager : MonoBehaviour, Subject
         }
     }
 
-
     public void pickupFarmer()
     {
         GetCurrentTurnHero().pickupFarmer();
@@ -380,5 +413,48 @@ public class GameManager : MonoBehaviour, Subject
     public void dropGold()
     {
         GetCurrentTurnHero().dropGold();
+    }
+
+    // NETWORKED
+    // Sets the turn order on all machines
+    [PunRPC]
+    public void SetTurnOrderRPC(int WarriorTurn, int ArcherTurn, int DwarfTurn, int WizardTurn)
+    {
+        int NumOfPlayers = GetNumOfPlayers();
+        TurnOrder = new HeroType[NumOfPlayers];
+
+        if (WarriorTurn != -1) TurnOrder[WarriorTurn] = HeroType.Warrior;
+        if (ArcherTurn != -1) TurnOrder[ArcherTurn] = HeroType.Archer;
+        if (DwarfTurn != -1) TurnOrder[DwarfTurn] = HeroType.Dwarf;
+        if (WizardTurn != -1) TurnOrder[WizardTurn] = HeroType.Wizard;
+
+        // Initialize the first turn to the hero with lowest rank
+        int LowestRank = 99999;
+        HeroType HeroWithLowestRank = TurnOrder[0];     // Default; will be overwritten
+
+        for (int i = 0; i < TurnOrder.Length; i++)
+        {
+            Hero HeroToCheck = HeroManager.GetHero(TurnOrder[i]);
+
+            if (HeroToCheck.GetRank() < LowestRank)
+            {
+                LowestRank = HeroToCheck.GetRank();
+                HeroWithLowestRank = HeroToCheck.GetHeroType();
+                break;
+            }
+        }
+
+        CurrentTurnHero = HeroWithLowestRank;
+
+        // Notify observers to update UI
+        Notify("TURN");
+    }
+
+    // NETWORKED
+    // Advances the turn order on all machines
+    [PunRPC]
+    public void AdvanceTurnRPC()
+    {
+        GoToNextHeroTurn();
     }
 }

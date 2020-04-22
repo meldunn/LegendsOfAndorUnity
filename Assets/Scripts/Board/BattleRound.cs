@@ -32,8 +32,11 @@ public class BattleRound
         }
     }
 
-    public void RollHeroDice(Hero Hero)
+    // Rolls the dice for the specified hero. Returns true if the roll is new; false if it is continued (for archer / bow user).
+    public bool RollHeroDice(Hero Hero)
     {
+        bool IsNewRoll = false;
+
         // Get the hero's dice
         DiceType HeroDiceType = Hero.GetDiceType();
         int HeroNumDice = Hero.GetNumOfDice();
@@ -44,10 +47,11 @@ public class BattleRound
 
         if (CurrentRoll == null)
         {
+            IsNewRoll = true;
+
             // Check whether the roll is an archer/bow roll (use last die)
-            bool BowOrArcherRoll;
+            bool BowOrArcherRoll = false;
             if (Hero.GetHeroType() == HeroType.Archer) BowOrArcherRoll = true;
-            else BowOrArcherRoll = false;
 
             // Create a new roll for the hero
             CurrentRoll = new Roll(HeroDiceType, HeroNumDice, BowOrArcherRoll);
@@ -64,10 +68,25 @@ public class BattleRound
             if (CurrentRoll.RollIsFinished())
             {
                 Debug.LogError("The " + Hero.GetHeroType() + "cannot roll the dice twice in the same round.");
+                IsNewRoll = false;
             }
 
             CurrentRoll.RollAllDice();
         }
+
+        return IsNewRoll;
+    }
+
+    // Sets the roll for the specified hero (used to set a copy of a roll made on another machine)
+    public void SetHeroRoll(Hero Hero, Roll Roll)
+    {
+        HeroRolls.Add(Hero, Roll);
+    }
+
+    // Sets the roll for the creature (used to set a copy of a roll made on another machine)
+    public void SetCreatureRoll(Roll Roll)
+    {
+        CreatureRoll = Roll;
     }
 
     public void RollCreatureDice()

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Photon.Pun;
 
 // Menu used during a battle against a creature
-public class BattleMenu : MonoBehaviour, Observer
+public class BattleMenu : MonoBehaviourPun, Observer
 {
     // References to managers
     private GameManager GameManager;
@@ -14,9 +15,6 @@ public class BattleMenu : MonoBehaviour, Observer
 
     // Battle object
     Battle Battle;
-
-    // Menu that launched this menu
-    StartBattleMenu StartBattleMenu;
 
     // Colours of the hero dice
     Color32 White = new Color32(255, 255, 255, 255);
@@ -35,8 +33,6 @@ public class BattleMenu : MonoBehaviour, Observer
     GameObject DwarfBox = null;
     [SerializeField]
     GameObject WizardBox = null;
-    //[SerializeField]
-    //GameObject CreatureBox = null;
 
     // Turn markers
     [SerializeField]
@@ -224,7 +220,7 @@ public class BattleMenu : MonoBehaviour, Observer
 
             Hero MainHero = GameManager.GetSelfHero();
 
-            // If the hero already has a battle being created, use it
+            // If the hero already has an ongoing battle, use it
             Battle HeroBattle = MainHero.GetCurrentBattle();
 
             if (HeroBattle != null && HeroBattle.IsStarted()) this.Show();
@@ -605,24 +601,181 @@ public class BattleMenu : MonoBehaviour, Observer
     }
 
     // Player-triggered action
-    public void Roll()
+    public void RollDice()
     {
         // Current hero
         Hero MyHero = GameManager.GetSelfHero();
+        HeroType MyHeroType = MyHero.GetHeroType();
 
         // Launch the roll for the current hero
-        Battle.Roll(MyHero);
+        bool IsNewRoll = Battle.Roll(MyHero);
+
+        // Extract the features of the roll
+        Roll MyRoll = Battle.GetRoll(MyHero);
+        DiceType DiceType = MyRoll.GetDiceType();
+        int NumOfDice = MyRoll.GetNumOfDice();
+        bool BowOrArcherRoll = MyRoll.GetBowOrArcherRoll();
+        int[] RollValues = MyRoll.GetValues();
+
+        // Send the roll to the other players
+        // NETWORKED
+        if(PhotonNetwork.IsConnected)
+        {
+            if (IsNewRoll) photonView.RPC("SendNewHeroRollRPC", RpcTarget.All, MyHeroType, DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+            else photonView.RPC("SendHeroRollValuesRPC", RpcTarget.All, MyHeroType, RollValues);
+        }
     }
 
     // Player-triggered action
+    // Advances the turn in the battle (either within a round, or by moving to the next round)
     public void Next()
     {
-        Battle.Next();
+        // Current hero
+        Hero MyHero = GameManager.GetSelfHero();
+        HeroType MyHeroType = MyHero.GetHeroType();
+
+        // Finalize the hero roll (useful for the archer)
+        // NETWORKED
+        if (PhotonNetwork.IsConnected) photonView.RPC("FinalizeRollRPC", RpcTarget.All, MyHeroType);
+        else FinalizeRollRPC(MyHeroType);
+
+        // If the round is done (for heroes), but the battle is not finished, check whether the creature is next to roll
+        if (Battle.RoundIsDoneForHeroes() && !Battle.IsFinished())
+        {
+            // Check whether the creature has rolled
+            if (!Battle.CreatureHasRolled())
+            {
+                // If not, let the creature roll
+                Battle.CreatureRoll();
+
+                // Extract the features of the roll
+                Roll CreatureRoll = Battle.GetLatestCreatureRoll();
+                DiceType DiceType = CreatureRoll.GetDiceType();
+                int NumOfDice = CreatureRoll.GetNumOfDice();
+                bool BowOrArcherRoll = CreatureRoll.GetBowOrArcherRoll();
+                int[] RollValues = CreatureRoll.GetValues();
+
+                // Send the roll to the other players
+                // NETWORKED
+                if (PhotonNetwork.IsConnected) photonView.RPC("SendNewCreatureRollRPC", RpcTarget.All, MyHeroType, DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+
+                // Trigger taking damage on all machines
+                // NETWORKED
+                if (PhotonNetwork.IsConnected) photonView.RPC("TakeDamageRPC", RpcTarget.All);
+                else TakeDamageRPC();
+            }
+            // If the creature has already rolled, go to the next round
+            else
+            {
+                // Go to the next round
+                // NETWORKED
+                if (PhotonNetwork.IsConnected) photonView.RPC("GoToNextRoundRPC", RpcTarget.All);
+                else GoToNextRoundRPC();
+            }
+        }
+        // If the round is not done (for heroes), go to the next turn
+        else
+        {
+            // Go to the next turn
+            // NETWORKED
+            if (PhotonNetwork.IsConnected) photonView.RPC("GoToNextTurnRPC", RpcTarget.All);
+            else GoToNextTurnRPC();
+        }
     }
     
     // Player-triggered action
     public void FlipDie()
     {
+        // TODO Network
         SetInfoText("Flipping dice has not been implemented yet.");
+    }
+
+    // NETWORKED
+    // Sends parameters to the other machines to replicate a new roll made by a player.
+    [PunRPC]
+    public void SendNewHeroRollRPC(HeroType Roller, DiceType DiceType, int NumOfDice, bool BowOrArcherRoll, int[] RollValues)
+    {
+        // Get a reference to the roller
+        Hero RollerHero = HeroManager.GetHero(Roller);
+
+        // Don't make a copy if this is the source machine
+        if (RollerHero != GameManager.GetSelfHero())
+        {
+            // Create a roll object based on the input parameters (to mimic the original roll on the roller's machine)
+            Roll MimicRoll = Roll.NewMimicRoll(DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+
+            // Set the mimic roll as the hero's roll
+            Battle.SetHeroRoll(RollerHero, MimicRoll);
+        }
+    }
+
+    // NETWORKED
+    // Sends parameters to the other machines to replicate a new roll made by a creature.
+    [PunRPC]
+    public void SendNewCreatureRollRPC(HeroType Sender, DiceType DiceType, int NumOfDice, bool BowOrArcherRoll, int[] RollValues)
+    {
+        // Get a reference to the sender
+        Hero SenderHero = HeroManager.GetHero(Sender);
+
+        // Don't make a copy if this is the source machine
+        if (SenderHero != GameManager.GetSelfHero())
+        {
+            // Create a roll object based on the input parameters (to mimic the original roll on the sender's machine)
+            Roll MimicRoll = Roll.NewMimicRoll(DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+
+            // Set the mimic roll as the creature's roll
+            Battle.SetCreatureRoll(MimicRoll);
+        }
+    }
+
+    // NETWORKED
+    // Instructs all machines to trigger taking damage (this cascades into calculating the battle outcome if necessary)
+    [PunRPC]
+    public void TakeDamageRPC()
+    {
+        Battle.TakeDamage();
+    }
+
+    // NETWORKED
+    [PunRPC]
+    public void SendHeroRollValuesRPC(HeroType Roller, int[] RollValues)
+    {
+        // Get a reference to the roller
+        Hero RollerHero = HeroManager.GetHero(Roller);
+
+        // Don't update the roll if this is the source machine
+        if (RollerHero != GameManager.GetSelfHero())
+        {
+            Battle.UpdateRollValues(RollerHero, RollValues);
+        }
+    }
+
+    // NETWORKED
+    // Finalizes the current roll associated to the given hero
+    [PunRPC]
+    public void FinalizeRollRPC(HeroType Roller)
+    {
+        // Get a reference to the roller
+        Hero RollerHero = HeroManager.GetHero(Roller);
+
+        // Finalize the roll
+        Battle.FinalizeRoll(RollerHero);
+    }
+
+    // NETWORKED
+    // Moves the battle to the next round
+    [PunRPC]
+    public void GoToNextRoundRPC()
+    {
+        Battle.GoToNextRound();
+        Battle.GoToNextTurn();
+    }
+
+    // NETWORKED
+    // Moves the battle to the next turn
+    [PunRPC]
+    public void GoToNextTurnRPC()
+    {
+        Battle.GoToNextTurn();
     }
 }

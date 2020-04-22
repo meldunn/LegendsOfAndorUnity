@@ -458,7 +458,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2469088578846223791}
-        m_MethodName: Roll
+        m_MethodName: RollDice
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2322,6 +2322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4638715435971117089}
   - component: {fileID: 2469088578846223791}
+  - component: {fileID: 5105518350602281330}
   m_Layer: 5
   m_Name: BattleMenu
   m_TagString: Untagged
@@ -2408,6 +2409,28 @@ MonoBehaviour:
   BattleNextButton: {fileID: 7928796221677990905}
   BattleFlipDieButton: {fileID: 3086918816631126353}
   BattleOkButton: {fileID: 4638715437089322312}
+--- !u!114 &5105518350602281330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4638715435971117088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &4638715435983631428
 GameObject:
   m_ObjectHideFlags: 0
