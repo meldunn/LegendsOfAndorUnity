@@ -20,6 +20,8 @@ public class Waypoint : MonoBehaviourPun
     // Creature on this waypoint
     private Creature Creature;
 
+    private PhotonView PV;
+
     //fog on this waypoint
     private Fog Fog;
 
@@ -37,8 +39,7 @@ public class Waypoint : MonoBehaviourPun
     // GoldIcon goldIcon = new GoldIcon();
     Text goldText;
 
-    private bool ContainsWell = false;
-    Well well;
+    private bool ContainsFullWell = false;
 
     // Start is called before the first frame update
     void Start()
@@ -79,11 +80,13 @@ public class Waypoint : MonoBehaviourPun
         }
         
         WaypointNum = Number;
+
+        PV = GetComponent<PhotonView>();
          
         // Initialize wells
         if(Number == 5 || Number == 35 || Number == 45 || Number == 55)
         {
-            ContainsWell = true;
+            ContainsFullWell = true;
         }
         //string IconName = "GoldIcon (" + Number + ")";
         //goldIcon = GameObject.Find(IconName);
@@ -194,37 +197,31 @@ public class Waypoint : MonoBehaviourPun
 
     public bool containsFullWell()
     {
-        if(ContainsWell && well != null)
-        {
-            return true;
-        }
-
-        return false;
+        return ContainsFullWell;
     }
 
     // All clients have an empty well at this waypoint.
     public void EmptyWell()
     {
-        if( photonView.IsMine )
-        {
-            Debug.Log("Emptied");
-            photonView.RPC("EmptyWellForAll", RpcTarget.All);
-        }
-    }
-
-    [PunRPC]
-    void EmptyWellForAll()
-    {
-        Debug.Log("Well has been empited and is now " + well.IsFull());
-        well.EmptyWell();
+        // TODO: PV.IsMine not working for all clients
+        // Debug.Log("Emptied");
+        PV.RPC("UpdateWellRPC", RpcTarget.All, false);
     }
 
     // All clients replenish the well at this waypoint.
     public void ReplenishWell()
     {
-        Debug.Log("Region " + this.GetWaypointNum() + " gets well replenished.");
-        well.ReplenishWell();
+        // Debug.Log("Region " + this.GetWaypointNum() + " gets well replenished.");
+        PV.RPC("UpdateWellRPC", RpcTarget.All, true);
     }
+
+    [PunRPC]
+    void UpdateWellRPC(bool WellStatus)
+    {
+        ContainsFullWell = WellStatus;
+        Debug.Log("Well status: " + ContainsFullWell);
+    }
+
 
     public bool Equals(Waypoint Other)
     {
