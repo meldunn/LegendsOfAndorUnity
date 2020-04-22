@@ -26,13 +26,12 @@ public class NarratorManager : MonoBehaviour
     // Array of waypoints
     private NarratorWaypoint[] waypoints = new NarratorWaypoint[16];
 
-
     // Marker placed on narration track
     public static NarratorMarker marker;
 
     public static NarratorLetter curLetter = NarratorLetter.A;
 
-
+    LegendCardManager legendCardManager;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +47,7 @@ public class NarratorManager : MonoBehaviour
 
     public void Initialize()
     {
+        legendCardManager = GameObject.Find("LegendCardManager").GetComponent<LegendCardManager>();
         marker = GameObject.Find("NarratorMarker").GetComponent<NarratorMarker>();
         string WaypointName;
         for (int i = 1; i <= 15; i++)
@@ -72,6 +72,7 @@ public class NarratorManager : MonoBehaviour
                 return;
             case NarratorLetter.C:
                 marker.transform.SetPositionAndRotation(waypoints[3].GetLocation(), Quaternion.identity);
+                legendCardManager.activateLegendCard_C();
                 return;
             case NarratorLetter.D:
                 marker.transform.SetPositionAndRotation(waypoints[4].GetLocation(), Quaternion.identity);
@@ -84,6 +85,7 @@ public class NarratorManager : MonoBehaviour
                 return;
             case NarratorLetter.G:
                 marker.transform.SetPositionAndRotation(waypoints[7].GetLocation(), Quaternion.identity);
+                legendCardManager.activateLegendCard_G();
                 return;
             case NarratorLetter.H:
                 marker.transform.SetPositionAndRotation(waypoints[8].GetLocation(), Quaternion.identity);
@@ -105,6 +107,7 @@ public class NarratorManager : MonoBehaviour
                 return;
             case NarratorLetter.N:
                 marker.transform.SetPositionAndRotation(waypoints[14].GetLocation(), Quaternion.identity);
+                legendCardManager.activateLegendCard_N();
                 return;
             case NarratorLetter.Z:
                 marker.transform.SetPositionAndRotation(waypoints[15].GetLocation(), Quaternion.identity);
