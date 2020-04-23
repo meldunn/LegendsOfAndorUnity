@@ -150,6 +150,10 @@ public class BattleMenu : MonoBehaviourPun, Observer
 
     public void Initialize()
     {
+        // Briefly show this menu to make Photon recognize its PhotonView
+        this.gameObject.SetActive(true);
+        this.gameObject.SetActive(false);
+
         // Initialize references to managers
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
@@ -169,9 +173,12 @@ public class BattleMenu : MonoBehaviourPun, Observer
         // If the battle hasn't been set, nothing happens
         if (Battle == null)
         {
-            Debug.LogError("The battle menu can't be shown because no battle was set.");
+            Debug.LogWarning("The battle menu can't be shown because no battle was set.");
             return;
         }
+
+        // If the battle hasn't been started, nothing happens
+        if (Battle.IsPending()) return;
 
         this.gameObject.SetActive(true);
 
@@ -181,6 +188,12 @@ public class BattleMenu : MonoBehaviourPun, Observer
     public void Hide()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void Toggle()
+    {
+        if (this.gameObject.activeSelf == false) Show();
+        else Hide();
     }
 
     // Used in Observer design pattern

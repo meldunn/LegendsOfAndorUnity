@@ -223,7 +223,6 @@ public class BattleInvitationMenu : MonoBehaviourPun, Observer
             if (MyBattle.IsStarted())
             {
                 this.Hide();
-                BattleMenu.SetBattle(MyBattle);
                 BattleMenu.Show();
             }
         }

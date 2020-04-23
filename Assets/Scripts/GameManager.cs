@@ -127,37 +127,29 @@ public class GameManager : MonoBehaviourPun, Subject
             HeroManager.InitializeHero(HeroType.Wizard, InitialWizard);
         }
 
-
         //TONETWORK
         // Initialize playing character
         MyPlayer = WarriorPlayer;              // TODO real value
 
         // NETWORKED
         // Initialize turns
-        if (PhotonNetwork.IsConnected)
+        HeroType[] NewTurnOrder;
+
+        // Generate the turn order on one player's machine
+        if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            HeroType[] NewTurnOrder;
+            Debug.Log("Machine " + GetSelfHero().GetHeroType() + " generated a turn order.");
+            NewTurnOrder = GenerateTurnOrder();
 
-            // Generate the turn order on one player's machine
-            if (photonView.IsMine)
-            {
-                Debug.Log("Machine " + GetSelfHero().GetHeroType() + " generated a turn order.");
-                NewTurnOrder = GenerateTurnOrder();
+            // Extract each hero's turn from the order (this is done because a HeroType[] can't be sent in an RPC)
+            int WarriorTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Warrior);
+            int ArcherTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Archer);
+            int DwarfTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Dwarf);
+            int WizardTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Wizard);
 
-                // Extract each hero's turn from the order (this is done because a HeroType[] can't be sent in an RPC)
-                int WarriorTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Warrior);
-                int ArcherTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Archer);
-                int DwarfTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Dwarf);
-                int WizardTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Wizard);
-
-                // Send the order to the other players
-                photonView.RPC("SetTurnOrderRPC", RpcTarget.All, WarriorTurn, ArcherTurn, DwarfTurn, WizardTurn);
-            }
-        }
-        else
-        {
-            TurnOrder = GenerateTurnOrder();
-            CurrentTurnHero = HeroType.Dwarf;       // Default when playing offline (4 players)
+            // Send the order to the other players
+            if (PhotonNetwork.IsConnected) photonView.RPC("SetTurnOrderRPC", RpcTarget.All, WarriorTurn, ArcherTurn, DwarfTurn, WizardTurn);
+            else SetTurnOrderRPC(WarriorTurn, ArcherTurn, DwarfTurn, WizardTurn);
         }
 
         // Initialize the castle
@@ -444,7 +436,6 @@ public class GameManager : MonoBehaviourPun, Subject
             {
                 LowestRank = HeroToCheck.GetRank();
                 HeroWithLowestRank = HeroToCheck.GetHeroType();
-                break;
             }
         }
 

@@ -595,7 +595,11 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         // Get a reference to the inviter's battle
         Battle TargetBattle = InviterHero.GetCurrentBattle();
 
+        // Make the invitations visible to the concerned heroes
         TargetBattle.SendInvitations();
+
+        // Link the battle to the BattleMenu
+        BattleMenu.SetBattle(TargetBattle);
     }
 
     // NETWORKED
