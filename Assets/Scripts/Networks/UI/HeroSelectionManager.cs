@@ -66,20 +66,30 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         {
             if (AreDifferentHeroes())
             {
-                //the executes on master by construction
+                //this executes on master by construction
 
-                SplitResources();
-
-
+                photonView.RPC("InstantiateSplitResources", RpcTarget.All);
             }
         }
     }
 
-    private void SplitResources()
+    [PunRPC]
+    private void InstantiateSplitResources()
     {
+        PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
+
+        foreach(var player in players)
+        {
+            player.TransitionToResourceDivision();
+            
+        }
+
+        //TODO: enable readyUP after resources are split
+        readyUp.gameObject.SetActive(false);
 
     }
 
+   
 
 
 

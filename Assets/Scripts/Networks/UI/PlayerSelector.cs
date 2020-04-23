@@ -11,13 +11,38 @@ public class PlayerSelector : MonoBehaviourPun
     [SerializeField]
     private GameObject readyToken;
     [SerializeField]
+    private Text nickName;
+
+
+    [Header("SpriteControl")]
+    [SerializeField]
     private Button next;
     [SerializeField]
     private Button prev;
     [SerializeField]
     private Image hero;
+
+
+    [Header("CoinControl")]
     [SerializeField]
-    private Text nickName;
+    private GameObject coins;
+    [SerializeField]
+    private Text coinsText;
+    [SerializeField]
+    private Button nextCoin;
+    [SerializeField]
+    private Button prevCoin;
+
+    [Header("WineSkinControl")]
+    [SerializeField]
+    private GameObject wineSkin;
+    [SerializeField]
+    private Text wineSkinText;
+    [SerializeField]
+    private Button nextWine;
+    [SerializeField]
+    private Button prevWine;
+
 
     [Header("HeroSprites")]
     [SerializeField]
@@ -149,6 +174,16 @@ public class PlayerSelector : MonoBehaviourPun
     public void TransitionToResourceDivision()
     {
         readyToken.SetActive(false);
+
+        //enable coins and wine
+        coins.SetActive(true);
+        wineSkin.SetActive(true);
+
+        //enable buttons
+        if (PhotonNetwork.IsMasterClient)
+        {
+            nextWine.gameObject.SetActive(true);
+        }
     }
 
 }
