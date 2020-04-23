@@ -134,18 +134,18 @@ public class BattleRound
     // Gets the roll dice type for the specified hero
     public DiceType GetRollDiceType(Hero Hero)
     {
-        if (Hero == null) return DiceType.Regular;              // Default
+        if (Hero == null) return DiceType.Regular;                  // Default
         Roll CurrentRoll;
         HeroRolls.TryGetValue(Hero, out CurrentRoll);
-        if (CurrentRoll == null) return DiceType.Regular;       // Default
-        return CurrentRoll.GetDiceType();
+        if (CurrentRoll == null) return Hero.GetDiceType();         // Result before rolling
+        else return CurrentRoll.GetDiceType();                      // Result after rolling
     }
 
     // Gets the roll dice type for the creature
     public DiceType GetCreatureRollDiceType()
     {
-        if (CreatureRoll == null) return DiceType.Regular;      // Default
-        return CreatureRoll.GetDiceType();
+        if (CreatureRoll == null) return Creature.GetDiceType();    // Result before rolling
+        else return CreatureRoll.GetDiceType();                     // Result after rolling
     }
     
     public bool HasStartedRoll(Hero Hero)

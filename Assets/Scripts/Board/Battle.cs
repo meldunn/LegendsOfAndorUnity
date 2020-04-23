@@ -529,7 +529,6 @@ public class Battle : Subject
 
     public DiceType GetLatestHeroRollDiceType()
     {
-        if (TurnHolder == null) return DiceType.Regular;
         return GetCurrentRound().GetRollDiceType(TurnHolder);
     }
 

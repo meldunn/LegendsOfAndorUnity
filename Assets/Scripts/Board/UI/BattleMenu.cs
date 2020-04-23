@@ -473,7 +473,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
             if (Type == DiceType.Regular) DieIndex = DiceValues[i];
             else if (Type == DiceType.Black)
             {
-                     if (DiceValues[i] == 6) DieIndex = 1;
+                     if (DiceValues[i] == 0) DieIndex = 0;
+                else if (DiceValues[i] == 6) DieIndex = 1;
                 else if (DiceValues[i] == 8) DieIndex = 2;
                 else if (DiceValues[i] == 10) DieIndex = 3;
                 else if (DiceValues[i] == 12) DieIndex = 4;
@@ -484,7 +485,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
             {
                 HeroDice[i].SetActive(true);
                 Renderer.sprite = MyDiceSides[DieIndex];
-                if (Type == DiceType.Regular) Renderer.color = GetDiceColour(TurnHolder.GetHeroType());
+                Renderer.color = GetDiceColour(TurnHolder.GetHeroType());
             }
         }
 
@@ -497,7 +498,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
             {
                 HeroDice[i].SetActive(true);
                 Renderer.sprite = MyDiceSides[0];
-                if (Type == DiceType.Regular) Renderer.color = GetDiceColour(TurnHolder.GetHeroType());
+                Renderer.color = GetDiceColour(TurnHolder.GetHeroType());
             }
             else HeroDice[i].SetActive(false);
         }
@@ -523,7 +524,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
             if (Type == DiceType.Regular) DieIndex = DiceValues[i];
             else if (Type == DiceType.Black)
             {
-                if (DiceValues[i] == 6) DieIndex = 1;
+                     if (DiceValues[i] == 0) DieIndex = 0;
+                else if (DiceValues[i] == 6) DieIndex = 1;
                 else if (DiceValues[i] == 8) DieIndex = 2;
                 else if (DiceValues[i] == 10) DieIndex = 3;
                 else if (DiceValues[i] == 12) DieIndex = 4;
