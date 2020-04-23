@@ -475,6 +475,11 @@ public class Battle : Subject
         return Rounds[Rounds.Count - 1];        // The current round is the last one in the list
     }
 
+    public int GetRoundNum()
+    {
+        return Rounds.Count;
+    }
+
     public bool RoundIsDone()
     {
         return GetCurrentRound().IsDone();
