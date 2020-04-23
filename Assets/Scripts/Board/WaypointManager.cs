@@ -6,6 +6,8 @@ using Photon.Pun;
 
 public class WaypointManager : MonoBehaviourPun
 {
+    private bool itemsShown = false;
+
     // Array of waypoints (including the castle)
     private Waypoint[] Waypoint;
 
@@ -316,5 +318,33 @@ public class WaypointManager : MonoBehaviourPun
     //            .Select(x => matrix[rowNumber, x])
     //            .ToArray();
     //}
-    
+
+
+    public void showItems()
+    {
+        if (itemsShown)
+        {
+            itemsShown = false;
+            Debug.Log("Hide All Items");
+            for (int i = 0; i <= 84; i++)
+            {
+                if (IsValidWaypoint(i)) // Skip waypoints that don't exist
+                {
+                    Waypoint[i].hideItems();
+                }
+            }
+        } else
+        {
+            itemsShown = true;
+            Debug.Log("Show All Items");
+            for (int i = 0; i <= 84; i++)
+            {
+                if (IsValidWaypoint(i)) // Skip waypoints that don't exist
+                {
+                    Waypoint[i].showItems();
+                }
+            }
+        }
+        
+    }
 }

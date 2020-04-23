@@ -12,6 +12,7 @@ public class Waypoint : MonoBehaviourPun
 
     public GameObject prefab;
     public GameObject goldIcon;
+    public GameObject itemPanel;
 
     // Board tile number
     private int WaypointNum = -1;
@@ -34,10 +35,10 @@ public class Waypoint : MonoBehaviourPun
 
     private List<Item> items = new List<Item>();
 
+    int numItems;
     int gold;
-    // Commented out due to an error that caused the game not to run. MonoBehaviors can't be instantiated using the new keyword.
-    // GoldIcon goldIcon = new GoldIcon();
     Text goldText;
+    Text farmersText;
 
     private bool ContainsFullWell = false;
 
@@ -130,6 +131,7 @@ public class Waypoint : MonoBehaviourPun
     public Farmer pickupOneFarmer()
     {
         if (farmers.Count > 0) {
+            numItems--;
             return new Farmer();
         } else {
             return null;
@@ -139,7 +141,7 @@ public class Waypoint : MonoBehaviourPun
     public virtual void dropOneFarmer()
     {
         farmers.Add(new Farmer());
-        
+        numItems++;
         // Dropping a farmer at the castle is handled by overriding this method in WaypointCastle.cs
     }
 
@@ -163,9 +165,10 @@ public class Waypoint : MonoBehaviourPun
         if(gold > 0)
         {
             gold--;
+            numItems--;
             if (gold == 0)
             {
-                goldIcon.SetActive(false);
+                //goldIcon.SetActive(false);
             }
             return 1;
         } else {
@@ -176,7 +179,8 @@ public class Waypoint : MonoBehaviourPun
     public void dropOneGold()
     {
         gold++;
-        goldIcon.SetActive(true);
+        numItems++;
+        //goldIcon.SetActive(true);
         goldText.text = "" + gold;
     }
 
@@ -247,12 +251,33 @@ public class Waypoint : MonoBehaviourPun
     // Should be moved to a UI class
     public void SetIcon()
     {
-        string name = "GoldIcon (" + WaypointNum + ")";
-        goldIcon = GameObject.Find(name);
-        goldIcon.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
-        goldText = goldIcon.transform.Find("Text").GetComponent<Text>();
-        goldText.text = "" + gold;
-        goldIcon.SetActive(false);
+        //string name = "GoldIcon (" + WaypointNum + ")";
+        //goldIcon = GameObject.Find(name);
+        //goldIcon.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
+        //goldText = goldIcon.transform.Find("Text").GetComponent<Text>();
+        //goldText.text = "" + gold;
+        //goldIcon.SetActive(false);
+
+        string name = "RegionItemsPanel (" + WaypointNum + ")";
+        itemPanel = GameObject.Find(name);
+        itemPanel.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
+        farmersText = itemPanel.transform.Find("NumFarmersText").GetComponent<Text>();
+        farmersText.text = " Farmers: " + farmers.Count;
+        goldText = itemPanel.transform.Find("NumGoldText").GetComponent<Text>();
+        goldText.text = " Gold: " + gold;
+        itemPanel.SetActive(false);
     }
 
+    public void showItems()
+    {
+        //if (numItems > 0)
+        //{
+            itemPanel.SetActive(true);
+        //}
+    }
+
+    public void hideItems()
+    {
+        itemPanel.SetActive(false);
+    }
 }
