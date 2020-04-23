@@ -552,16 +552,18 @@ public class BattleMenu : MonoBehaviourPun, Observer
             else CreatureDice[i].SetActive(false);
         }
 
+        // Display the hero battle value
+        int HeroBV = Battle.GetLatestHeroBattleValue();
+        if (HeroBV != 0) SetText(HeroBattleValue, HeroBV.ToString());
+
+        // Display the creature battle value
+        int CreatureBV = Battle.GetLatestCreatureBattleValue();
+        if (CreatureBV != 0) SetText(CreatureBattleValue, CreatureBV.ToString());
+
         // Check whether the round is done
         if (Battle.RoundIsDone())
         {
-            // If the round is done, display the battle values
-            int HeroBV = Battle.GetLatestHeroBattleValue();
-            int CreatureBV = Battle.GetLatestCreatureBattleValue();
-
-            if (HeroBV != 0) SetText(HeroBattleValue, HeroBV.ToString());
-            if (CreatureBV != 0) SetText(CreatureBattleValue, CreatureBV.ToString());
-
+            // Display the battle value comparator
             string Comparator = "";
             if (HeroBV == CreatureBV) Comparator = "=";
             else if (HeroBV < CreatureBV) Comparator = "<";
