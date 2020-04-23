@@ -15,6 +15,9 @@ public class Roll
     // Whether the roller is an archer or has a bow (roll value is the last die rolled)
     bool BowOrArcherRoll;
 
+    // Whether the roller is a creature or has a helm (roll value is the sum of all identical dice if it is higher than the normal value)
+    bool HelmOrCreatureRoll;
+
     // Results of the roll
     private int[] RollValues;
 
@@ -26,18 +29,19 @@ public class Roll
     static private int[] BlackDieValues = { 6, 6, 8, 10, 10, 12 };
 
     // Constructor
-    public Roll(DiceType Type, int NumOfDice, bool BowOrArcherRoll)
+    public Roll(DiceType Type, int NumOfDice, bool BowOrArcherRoll, bool HelmOrCreatureRoll)
     {
         this.Type = Type;
         this.NumOfDice = NumOfDice;
         this.BowOrArcherRoll = BowOrArcherRoll;
+        this.HelmOrCreatureRoll = HelmOrCreatureRoll;
         RollValues = new int[NumOfDice];
     }
 
     // Factory method that returns a new roll that mimics an existing one (based on the input parameters extracted from the existing roll)
-    public static Roll NewMimicRoll(DiceType Type, int NumOfDice, bool BowOrArcherRoll, int[] RollValues) // , bool Finalized)
+    public static Roll NewMimicRoll(DiceType Type, int NumOfDice, bool BowOrArcherRoll, bool HelmOrCreatureRoll, int[] RollValues)
     {
-        Roll NewRoll = new Roll(Type, NumOfDice, BowOrArcherRoll);
+        Roll NewRoll = new Roll(Type, NumOfDice, BowOrArcherRoll, HelmOrCreatureRoll);
 
         NewRoll.SetValues(RollValues);
 
@@ -144,16 +148,37 @@ public class Roll
         int HighestValue = -1;
         int LastValue = -1;
 
+        // Compute the standard value and archer/bow value
         foreach (int Value in RollValues)
         {
             if (Value > HighestValue) HighestValue = Value;
             if (Value != 0) LastValue = Value;
         }
 
-        if (BowOrArcherRoll) return LastValue;
-        else return HighestValue;
+        // Compute the helm or creature value
+        // Sum each distinct die values. For example, three dice values of 4 gives Sum[4] = 12
+        int[] Sum = new int[13];        // Die values 0 to 12
 
-        // TODO Helm
+        for (int i = 0; i < Sum.Length; i++)
+        {
+            for (int j = 0; j < RollValues.Length; j++)
+            {
+                if (i == RollValues[j]) Sum[i] += i;
+            }
+        }
+
+        // Find the largest sum
+        int HighestSum = 0;
+
+        for (int i = 0; i < Sum.Length; i++)
+        {
+            if (Sum[i] > HighestSum) HighestSum = Sum[i];
+        }
+
+        // Determine which value to return
+        if (BowOrArcherRoll) return LastValue;
+        else if (HelmOrCreatureRoll && HighestSum > HighestValue) return HighestSum;         // Cannot be applied to an archer or bow user
+        else return HighestValue;
     }
 
     public DiceType GetDiceType()
@@ -169,6 +194,11 @@ public class Roll
     public bool GetBowOrArcherRoll()
     {
         return BowOrArcherRoll;
+    }
+
+    public bool GetHelmOrCreatureRoll()
+    {
+        return HelmOrCreatureRoll;
     }
 
     public int[] GetValues()

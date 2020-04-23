@@ -160,7 +160,7 @@ public class Hero : MonoBehaviour, Subject
     {
         if (myRegion.containsItem(item))
         {
-            heroInventory.addItem(item.GetType());
+            heroInventory.addItem(item.GetItemType());
             myRegion.removeItem(item);
         }
         else
@@ -171,9 +171,9 @@ public class Hero : MonoBehaviour, Subject
 
     public void dropItem(Item item)
     {
-        if (heroInventory.containsItem(item.GetType()))
+        if (heroInventory.containsItem(item.GetItemType()))
         {
-            heroInventory.removeItem(item.GetType());
+            heroInventory.removeItem(item.GetItemType());
             myRegion.addItem(item);
         }
         else
@@ -184,11 +184,13 @@ public class Hero : MonoBehaviour, Subject
 
     public void useItem(Item item)
     {
+        /*
         switch (item.type)
         {
             //case, bow then ...
             //case, .... then
         }
+        */
     }
 
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
@@ -259,11 +261,15 @@ public class Hero : MonoBehaviour, Subject
     }
 
     // Returns whether the hero has a bow object
-    private bool HasBow()
+    public bool HasBow()
     {
-        bool hasBow = false;
-        return heroInventory.containsItem("Bow");
-        
+        return heroInventory.containsItem(ItemType.Bow);
+    }
+
+    // Returns whether the hero has a helm object
+    public bool HasHelm()
+    {
+        return heroInventory.containsItem(ItemType.Helm);
     }
 
     // Tries to advance the time marker and returns whether or not the operation succeeded

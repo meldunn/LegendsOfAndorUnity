@@ -624,13 +624,14 @@ public class BattleMenu : MonoBehaviourPun, Observer
         DiceType DiceType = MyRoll.GetDiceType();
         int NumOfDice = MyRoll.GetNumOfDice();
         bool BowOrArcherRoll = MyRoll.GetBowOrArcherRoll();
+        bool HelmOrCreatureRoll = MyRoll.GetHelmOrCreatureRoll();
         int[] RollValues = MyRoll.GetValues();
 
         // Send the roll to the other players
         // NETWORKED
         if(PhotonNetwork.IsConnected)
         {
-            if (IsNewRoll) photonView.RPC("SendNewHeroRollRPC", RpcTarget.All, MyHeroType, DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+            if (IsNewRoll) photonView.RPC("SendNewHeroRollRPC", RpcTarget.All, MyHeroType, DiceType, NumOfDice, BowOrArcherRoll, HelmOrCreatureRoll, RollValues);
             else photonView.RPC("SendHeroRollValuesRPC", RpcTarget.All, MyHeroType, RollValues);
         }
     }
@@ -669,11 +670,12 @@ public class BattleMenu : MonoBehaviourPun, Observer
                 DiceType DiceType = CreatureRoll.GetDiceType();
                 int NumOfDice = CreatureRoll.GetNumOfDice();
                 bool BowOrArcherRoll = CreatureRoll.GetBowOrArcherRoll();
+                bool HelmOrCreatureRoll = CreatureRoll.GetHelmOrCreatureRoll();
                 int[] RollValues = CreatureRoll.GetValues();
 
                 // Send the roll to the other players
                 // NETWORKED
-                if (PhotonNetwork.IsConnected) photonView.RPC("SendNewCreatureRollRPC", RpcTarget.All, MyHeroType, DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+                if (PhotonNetwork.IsConnected) photonView.RPC("SendNewCreatureRollRPC", RpcTarget.All, MyHeroType, DiceType, NumOfDice, BowOrArcherRoll, HelmOrCreatureRoll, RollValues);
 
                 // Trigger taking damage on all machines
                 // NETWORKED
@@ -771,7 +773,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
     // NETWORKED
     // Sends parameters to the other machines to replicate a new roll made by a player.
     [PunRPC]
-    public void SendNewHeroRollRPC(HeroType Roller, DiceType DiceType, int NumOfDice, bool BowOrArcherRoll, int[] RollValues)
+    public void SendNewHeroRollRPC(HeroType Roller, DiceType DiceType, int NumOfDice, bool BowOrArcherRoll, bool HelmOrCreatureRoll, int[] RollValues)
     {
         // Get a reference to the roller
         Hero RollerHero = HeroManager.GetHero(Roller);
@@ -780,7 +782,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
         if (RollerHero != GameManager.GetSelfHero())
         {
             // Create a roll object based on the input parameters (to mimic the original roll on the roller's machine)
-            Roll MimicRoll = Roll.NewMimicRoll(DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+            Roll MimicRoll = Roll.NewMimicRoll(DiceType, NumOfDice, BowOrArcherRoll, HelmOrCreatureRoll, RollValues);
 
             // Set the mimic roll as the hero's roll
             Battle.SetHeroRoll(RollerHero, MimicRoll);
@@ -790,7 +792,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
     // NETWORKED
     // Sends parameters to the other machines to replicate a new roll made by a creature.
     [PunRPC]
-    public void SendNewCreatureRollRPC(HeroType Sender, DiceType DiceType, int NumOfDice, bool BowOrArcherRoll, int[] RollValues)
+    public void SendNewCreatureRollRPC(HeroType Sender, DiceType DiceType, int NumOfDice, bool BowOrArcherRoll, bool HelmOrCreatureRoll, int[] RollValues)
     {
         // Get a reference to the sender
         Hero SenderHero = HeroManager.GetHero(Sender);
@@ -799,7 +801,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
         if (SenderHero != GameManager.GetSelfHero())
         {
             // Create a roll object based on the input parameters (to mimic the original roll on the sender's machine)
-            Roll MimicRoll = Roll.NewMimicRoll(DiceType, NumOfDice, BowOrArcherRoll, RollValues);
+            Roll MimicRoll = Roll.NewMimicRoll(DiceType, NumOfDice, BowOrArcherRoll, HelmOrCreatureRoll, RollValues);
 
             // Set the mimic roll as the creature's roll
             Battle.SetCreatureRoll(MimicRoll);

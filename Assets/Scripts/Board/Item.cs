@@ -30,7 +30,7 @@ public class Item: MonoBehaviour
     */
     public ItemType type;
 
-    public ItemType GetType()
+    public ItemType GetItemType()
     {
         return type;
     }

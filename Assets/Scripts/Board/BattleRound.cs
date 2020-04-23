@@ -50,18 +50,28 @@ public class BattleRound
             IsNewRoll = true;
 
             // Check whether the roll is an archer/bow roll (use last die)
-            bool BowOrArcherRoll = false;
+            bool BowOrArcherRoll;
+
+            // The archer always uses their (built-in) bow
             if (Hero.GetHeroType() == HeroType.Archer) BowOrArcherRoll = true;
 
+            // Non-archers only use the bow if they're not on the same space as the creature
+            else if (Hero.HasBow() && !Hero.GetWaypoint().Equals(Creature.GetRegion())) BowOrArcherRoll = true;
+            else BowOrArcherRoll = false;
+
+            // Check whether the roll is a helm roll (sum identical dice if the value if higher)
+            bool HelmOrCreatureRoll = Hero.HasHelm();
+
             // Create a new roll for the hero
-            CurrentRoll = new Roll(HeroDiceType, HeroNumDice, BowOrArcherRoll);
+            CurrentRoll = new Roll(HeroDiceType, HeroNumDice, BowOrArcherRoll, HelmOrCreatureRoll);
 
             // Add the roll to the mapping
             HeroRolls.Add(Hero, CurrentRoll);
         }
 
-        // Launch (or continue) the roll
-        if (Hero.GetHeroType() == HeroType.Archer) CurrentRoll.RollOneDie();
+        // If the roll is a bow roll, roll one die
+        if (CurrentRoll.GetBowOrArcherRoll()) CurrentRoll.RollOneDie();
+        // Otherwise, roll all dice
         else
         {
             // Validate that the roll has not been made already
@@ -95,8 +105,12 @@ public class BattleRound
         DiceType CreatureDiceType = Creature.GetDiceType();
         int CreatureNumDice = Creature.GetNumOfDice();
 
+        // Prepare the creature's roll parameters
+        bool BowOrArcherRoll = false;
+        bool HelmOrCreatureRoll = true;
+
         // Create a new roll for the creature
-        CreatureRoll = new Roll(CreatureDiceType, CreatureNumDice, false);
+        CreatureRoll = new Roll(CreatureDiceType, CreatureNumDice, BowOrArcherRoll, HelmOrCreatureRoll);
 
         // Launch the roll
         CreatureRoll.RollAllDice();
