@@ -20977,7 +20977,7 @@ RectTransform:
   - {fileID: 1910548326}
   - {fileID: 213344922}
   m_Father: {fileID: 2135194514}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -53598,7 +53598,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 82
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -63375,8 +63376,8 @@ RectTransform:
   - {fileID: 572066170}
   - {fileID: 663842508}
   - {fileID: 419991426}
-  - {fileID: 745834915}
   - {fileID: 163756762}
+  - {fileID: 745834915}
   m_Father: {fileID: 394364280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
