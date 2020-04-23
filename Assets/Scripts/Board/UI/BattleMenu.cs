@@ -123,6 +123,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
     [SerializeField]
     GameObject BattleInfoText = null;
     [SerializeField]
+    GameObject RoundNumText = null;
+    [SerializeField]
     GameObject BattleRollButton = null;
     [SerializeField]
     GameObject BattleNextButton = null;
@@ -412,6 +414,10 @@ public class BattleMenu : MonoBehaviourPun, Observer
         else if (Type == HeroType.Archer) ArcherTurnMarker.SetActive(true);
         else if (Type == HeroType.Dwarf) DwarfTurnMarker.SetActive(true);
         else if (Type == HeroType.Wizard) WizardTurnMarker.SetActive(true);
+
+        // Show the round #
+        int RoundNum = Battle.GetRoundNum();
+        SetText(RoundNumText, "Round #" + RoundNum);
     }
 
     private void UpdateBattleRoll()
