@@ -186,4 +186,14 @@ public class PlayerSelector : MonoBehaviourPun
         }
     }
 
+    public void OnClick_NextCoin()
+    {
+       //TODO: set coins of this player in the Hero class
+       //only master client can select coins so, we can send this info to heroselectionmanager.
+       //which will contain coins/wine/heroes selected
+
+
+
+    }
+
 }
