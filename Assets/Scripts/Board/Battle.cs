@@ -311,9 +311,18 @@ public class Battle : Subject
         Notify("ROLL");
     }
 
+    // Rolls the dice for the creature
     public void CreatureRoll()
     {
         GetCurrentRound().RollCreatureDice();
+
+        Notify("ROLL");
+    }
+
+    // Flips the die at the specified index for the specified hero
+    public void FlipDie(Hero Hero, int DieIndex)
+    {
+        GetCurrentRound().FlipDie(Hero, DieIndex);
 
         Notify("ROLL");
     }

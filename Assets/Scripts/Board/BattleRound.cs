@@ -177,13 +177,6 @@ public class BattleRound
 
     public void FlipDie(Hero Hero, int DieIndex)
     {
-        // Check whether the hero trying to flip the die is the wizard
-        if (Hero.GetHeroType() != HeroType.Wizard)
-        {
-            Debug.LogError("Error: Only the wizard can flip a die.");
-            return;
-        }
-
         // Check that the wizard has not already flipped a die in this round
         if (WizardFlippedDie)
         {

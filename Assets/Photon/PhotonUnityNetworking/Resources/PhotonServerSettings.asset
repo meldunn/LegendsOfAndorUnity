@@ -42,6 +42,7 @@ MonoBehaviour:
   - DestroyRpc
   - EmptyWellForAll
   - FinalizeRollRPC
+  - FlipDieRPC
   - GoToNextRoundRPC
   - GoToNextTurnRPC
   - HideWellButton
