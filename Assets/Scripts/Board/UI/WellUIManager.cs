@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class WellUIManager : MonoBehaviour
+public class WellUIManager : MonoBehaviourPun
 {
 
     private GameManager GameManager;
@@ -20,6 +22,8 @@ public class WellUIManager : MonoBehaviour
 
     private Button Button5;
     private int[] WellPosition = {5, 35, 45, 55};
+
+    private PhotonView PV;
 
     public void Initialize()
     {
@@ -38,6 +42,7 @@ public class WellUIManager : MonoBehaviour
         PlaceWell(Well45Image, 45);
         PlaceWell(Well55Image, 55);
 
+        PV = GetComponent<PhotonView>();
     }
 
     private void PlaceWell(GameObject WellImage, int WaypointNum)
@@ -47,6 +52,7 @@ public class WellUIManager : MonoBehaviour
         Waypoint Waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
 
         WellImage.transform.Translate(Waypoint.GetLocation() - WellImage.transform.position);
+
     }
 
     private void toggleGameObjectVisibility(GameObject GameObject, bool ShowRequest)
@@ -99,9 +105,18 @@ public class WellUIManager : MonoBehaviour
         }
     }
     
+    // Triggered by a click event when a well is emptied
+    public void HideWellButtonRequest(int WaypointNum)
+    {   
+        // TODO: Fix PV.IsMine error
+        PV.RPC("HideWellButton", RpcTarget.All, WaypointNum);
+    }
+
     // Allows well button to be clicked with a new day
-    public void HideWellButton(int WaypointNum)
+    [PunRPC]
+    void HideWellButton(int WaypointNum)
     {
+        // Debug.Log("Message received to all");
         switch (WaypointNum)
         {
             case(5):
@@ -126,9 +141,10 @@ public class WellUIManager : MonoBehaviour
         }
     }
 
+
     public void WellsReplenished()
     {
-        // Resiet
+        // Reset
     }
     
 }

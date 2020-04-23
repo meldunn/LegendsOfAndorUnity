@@ -16,6 +16,9 @@ public class BattleMenu : MonoBehaviourPun, Observer
     // Battle object
     Battle Battle;
 
+    // Controls the UI when the wizard is in the process of flipping a die
+    bool CurrentlyFlippingDie = false;
+
     // Colours of the hero dice
     Color32 White = new Color32(255, 255, 255, 255);
     Color32 WarriorDiceColour = new Color32(71, 170, 217, 255);
@@ -111,6 +114,10 @@ public class BattleMenu : MonoBehaviourPun, Observer
     // Creature dice
     [SerializeField]
     GameObject[] CreatureDice = null;
+
+    // Highlight box around the hero dice that is shown when flipping dice
+    [SerializeField]
+    GameObject FlipDieHighlight = null;
 
     // Info text and buttons
     [SerializeField]
@@ -222,6 +229,9 @@ public class BattleMenu : MonoBehaviourPun, Observer
 
             // If the hero already has an ongoing battle, use it
             Battle HeroBattle = MainHero.GetCurrentBattle();
+
+            // If the wizard had started flipping a die, cancel this process
+            CurrentlyFlippingDie = false;
 
             if (HeroBattle != null && HeroBattle.IsStarted()) this.Show();
             else this.Hide();
@@ -434,12 +444,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
             }
         }
 
-        // Check if the wizard has flipped a die this round
-        if (MyHeroType == HeroType.Wizard)
-        {
-            BattleFlipDieButton.SetActive(true);
-            if (Battle.WizardCanFlipDie()) EnableButton(BattleFlipDieButton);
-        }
+        UpdateWizardFlipDie();
 
         // Display the current hero roll results
         SetText(WarriorRoll, Battle.GetLatestRollValue(HeroManager.GetHero(HeroType.Warrior)).ToString());
@@ -639,6 +644,13 @@ public class BattleMenu : MonoBehaviourPun, Observer
         if (PhotonNetwork.IsConnected) photonView.RPC("FinalizeRollRPC", RpcTarget.All, MyHeroType);
         else FinalizeRollRPC(MyHeroType);
 
+        // Cancel flipping the die (useful for the wizard's UI, does nothing for the other heroes)
+        CurrentlyFlippingDie = false;
+        UpdateWizardFlipDie();
+
+        // Clear the info text
+        SetInfoText("");
+
         // If the round is done (for heroes), but the battle is not finished, check whether the creature is next to roll
         if (Battle.RoundIsDoneForHeroes() && !Battle.IsFinished())
         {
@@ -682,12 +694,74 @@ public class BattleMenu : MonoBehaviourPun, Observer
             else GoToNextTurnRPC();
         }
     }
-    
+
     // Player-triggered action
-    public void FlipDie()
+    public void ExpressIntentToFlipDie()
     {
-        // TODO Network
-        SetInfoText("Flipping dice has not been implemented yet.");
+        // If the hero was about to flip the die, cancel this process
+        if (CurrentlyFlippingDie)
+        {
+            CurrentlyFlippingDie = false;
+            SetInfoText("");
+        }
+        else
+        {
+            CurrentlyFlippingDie = true;
+            SetInfoText("Select a die to flip it, or press the same button again to cancel.");
+        }
+        UpdateWizardFlipDie();
+    }
+
+    // Updates the UI based on whether the wizard is allowed to flip a die
+    private void UpdateWizardFlipDie()
+    {
+        // Current hero
+        Hero MyHero = GameManager.GetSelfHero();
+        HeroType MyHeroType = MyHero.GetHeroType();
+
+        // Check if the wizard has flipped a die this round
+        if (MyHeroType == HeroType.Wizard)
+        {
+            BattleFlipDieButton.SetActive(true);
+            if (Battle.WizardCanFlipDie()) EnableButton(BattleFlipDieButton);
+        }
+
+        // Display or hide the flip die highlight
+        if (CurrentlyFlippingDie) FlipDieHighlight.SetActive(true);
+        else FlipDieHighlight.SetActive(false);
+    }
+
+    // Player-triggered action
+    public void FlipDie(int Index)
+    {
+        // Verify that the hero has begun the process of flipping the die using the flip button
+        if (CurrentlyFlippingDie)
+        {
+            // Identify the hero whose die to flip
+            HeroType HeroFlipTarget = Battle.GetTurnHolder().GetHeroType();
+
+            // Determine if the die can be flipped (has been rolled)
+            int[] DiceValues = Battle.GetLatestHeroRollValues();
+            bool CanFlip = (Index < DiceValues.Length) && (DiceValues[Index] != 0);
+
+            if (CanFlip)
+            {
+                // Flip the chosen die
+                // NETWORKED
+                if (PhotonNetwork.IsConnected) photonView.RPC("FlipDieRPC", RpcTarget.All, HeroFlipTarget, Index);
+                else FlipDieRPC(HeroFlipTarget, Index);
+
+                // Reset the flip UI
+                SetInfoText("");
+            }
+            else
+            {
+                SetInfoText("You cannot flip an unrolled die.");
+            }
+
+            CurrentlyFlippingDie = false;
+            UpdateWizardFlipDie();
+        }
     }
 
     // NETWORKED
@@ -777,5 +851,17 @@ public class BattleMenu : MonoBehaviourPun, Observer
     public void GoToNextTurnRPC()
     {
         Battle.GoToNextTurn();
+    }
+
+    // NETWORKED
+    // Flips the die at the given index for the indicated player's roll
+    [PunRPC]
+    public void FlipDieRPC(HeroType FlipTarget, int DieIndex)
+    {
+        // Get a reference to the hero
+        Hero FlipTargetHero = HeroManager.GetHero(FlipTarget);
+
+        // Flip the die
+        Battle.FlipDie(FlipTargetHero, DieIndex);
     }
 }

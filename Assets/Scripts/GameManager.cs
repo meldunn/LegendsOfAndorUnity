@@ -151,10 +151,14 @@ public class GameManager : MonoBehaviourPun, Subject
                 int WizardTurn = Array.FindIndex(NewTurnOrder, e => e == HeroType.Wizard);
 
                 // Send the order to the other players
-                if (PhotonNetwork.IsConnected) photonView.RPC("SetTurnOrderRPC", RpcTarget.All, WarriorTurn, ArcherTurn, DwarfTurn, WizardTurn);
+                photonView.RPC("SetTurnOrderRPC", RpcTarget.All, WarriorTurn, ArcherTurn, DwarfTurn, WizardTurn);
             }
         }
-        else TurnOrder = GenerateTurnOrder();
+        else
+        {
+            TurnOrder = GenerateTurnOrder();
+            CurrentTurnHero = HeroType.Dwarf;       // Default when playing offline (4 players)
+        }
 
         // Initialize the castle
         WaypointManager.GetCastle().Initialize(GetNumOfPlayers());

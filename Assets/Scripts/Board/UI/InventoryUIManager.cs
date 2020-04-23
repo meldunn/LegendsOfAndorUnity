@@ -8,12 +8,12 @@ public class InventoryUIManager : MonoBehaviour//, Observer
     private GameManager GameManager;
 
     // References to children components
-    GameObject Bow;
-    GameObject Brew;
-    GameObject Falcon;
-    GameObject Telescope;
-    GameObject Wineskin;
-    GameObject Shield;
+    GameObject WarriorHeroCard;
+    GameObject ArcherHeroCard;
+    GameObject DwarfHeroCard;
+    GameObject WizardHeroCard;
+    
+
 
     public void Initialize()
     {
