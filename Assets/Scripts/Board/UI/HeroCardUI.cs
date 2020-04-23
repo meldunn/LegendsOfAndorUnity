@@ -18,10 +18,10 @@ public class HeroCardUI : MonoBehaviour
     public void Initialize()
     {
 
-        GameObject WarriorHeroCard = GameObject.Find("WarriorHeroCard");
-        GameObject ArcherHeroCard = GameObject.Find("ArcherHeroCard");
-        GameObject DwarfHeroCard = GameObject.Find("DwarfHeroCard");
-        GameObject WizardHeroCard = GameObject.Find("WizardHeroCard");
+         WarriorHeroCard = GameObject.Find("WarriorHeroCard");
+         ArcherHeroCard = GameObject.Find("ArcherHeroCard");
+         DwarfHeroCard = GameObject.Find("DwarfHeroCard");
+         WizardHeroCard = GameObject.Find("WizardHeroCard");
 
         warriorStatsPanel = GameObject.Find("WarriorStatsPanel");
         archerStatsPanel = GameObject.Find("ArcherStatsPanel");

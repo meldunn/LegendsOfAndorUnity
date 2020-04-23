@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: d4408bb2-cc46-441f-a12b-33f9f0571f95
+    AppIdRealtime: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -25,7 +25,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: cae
+  DevRegion: 
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -41,9 +41,12 @@ MonoBehaviour:
   - DeclineBattleInviteRPC
   - DestroyRpc
   - FinalizeRollRPC
+  - FlipDieRPC
   - GoToNextRoundRPC
   - GoToNextTurnRPC
+  - HideWellButton
   - InstantiateSelector
+  - InstantiateSplitResources
   - NextHero
   - PrevHero
   - ReadyUp
@@ -57,12 +60,8 @@ MonoBehaviour:
   - TakeDamageRPC
   - TestDisplayText
   - TestStoreText
-  - DisableHeroSelectionUI
-  - FlipDieRPC
-  - HideWellButton
   - UpdateMaxAmountRPC
   - UpdateWellRPC
-  - InstantiateSplitResources
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
-  DevRegionSetOnce: 1
+  ShowSettings: 0
+  DevRegionSetOnce: 0
