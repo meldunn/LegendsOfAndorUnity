@@ -60,16 +60,27 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
             readyPlayers--;
             selectedHeroes.Remove(playerID);
         }
-        print("Hero is : " + type);
-        print("Status Recieved: " + status + " || Number ready: "+ readyPlayers+" || Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        //print("Hero is : " + type);
+        //print("Status Recieved: " + status + " || Number ready: "+ readyPlayers+" || Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount);
         if (readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         {
-            if (areDifferentHeroes())
+            if (AreDifferentHeroes())
             {
-                print("CAN START THE GAME");
+                //the executes on master by construction
+
+                SplitResources();
+
+
             }
         }
     }
+
+    private void SplitResources()
+    {
+
+    }
+
+
 
 
     //TODO: to be tested if works properly
@@ -79,7 +90,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         selectedHeroes.Remove(otherPlayer.ActorNumber);
     }
 
-    bool areDifferentHeroes()
+    bool AreDifferentHeroes()
     {
         foreach(var player1 in selectedHeroes)
         {

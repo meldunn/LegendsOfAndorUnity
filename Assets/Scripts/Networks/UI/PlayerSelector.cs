@@ -146,4 +146,9 @@ public class PlayerSelector : MonoBehaviourPun
         HeroSelectionManager.Instance.OnPlayerReady(playerID, hero, isReady);
     }
 
+    public void TransitionToResourceDivision()
+    {
+        readyToken.SetActive(false);
+    }
+
 }
