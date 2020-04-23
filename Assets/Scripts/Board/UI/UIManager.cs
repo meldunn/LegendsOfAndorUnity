@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     WPButtonMoveUI WPButtonMoveUI;
     FogManager FogManager;
     CastleMenu CastleMenu;
+    HeroCardUI HeroCardUI;
 
     // Directly linked UI elements
     [SerializeField]
@@ -57,6 +58,7 @@ public class UIManager : MonoBehaviour
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
+        HeroCardUI = GameObject.Find("HeroCardUI").GetComponent<HeroCardUI>();
 
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -68,6 +70,7 @@ public class UIManager : MonoBehaviour
         WellUIManager.Initialize();
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
+        HeroCardUI.Initialize();
         // StatsUIManager.Initialize();
         MerchantUIManager.Initialize();
         BattleMenu.Initialize();
