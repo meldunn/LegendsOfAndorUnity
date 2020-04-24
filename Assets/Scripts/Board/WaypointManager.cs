@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using Photon.Pun;
 
 public class WaypointManager : MonoBehaviourPun
@@ -322,10 +324,12 @@ public class WaypointManager : MonoBehaviourPun
 
     public void showItems()
     {
+        TMPro.TextMeshProUGUI buttonText = GameObject.Find("ItemsButtonText").GetComponent<TMPro.TextMeshProUGUI>();
         if (itemsShown)
         {
             itemsShown = false;
-            Debug.Log("Hide All Items");
+            buttonText.text = "Show Region Items";
+            //Debug.Log("Hide All Items");
             for (int i = 0; i <= 84; i++)
             {
                 if (IsValidWaypoint(i)) // Skip waypoints that don't exist
@@ -336,7 +340,8 @@ public class WaypointManager : MonoBehaviourPun
         } else
         {
             itemsShown = true;
-            Debug.Log("Show All Items");
+            buttonText.text = "Hide Region Items";
+            //Debug.Log("Show All Items");
             for (int i = 0; i <= 84; i++)
             {
                 if (IsValidWaypoint(i)) // Skip waypoints that don't exist
