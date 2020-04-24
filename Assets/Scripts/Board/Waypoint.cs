@@ -273,6 +273,8 @@ public class Waypoint : MonoBehaviourPun
         if (numItems > 0)
         {
             itemPanel.SetActive(true);
+            farmersText.text = " Farmers: " + farmers.Count;
+            goldText.text = " Gold: " + gold;
         }
     }
 
