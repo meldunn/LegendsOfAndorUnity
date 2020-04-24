@@ -45,8 +45,10 @@ public class HeroCardUI : MonoBehaviour
     {
         if (ArcherHeroCard.activeSelf){
             ArcherHeroCard.SetActive(false);
+            archerStatsPanel.SetActive(false);
         } else{
             ArcherHeroCard.SetActive(true);
+            archerStatsPanel.SetActive(true);
         }   
     }
 
@@ -54,8 +56,10 @@ public class HeroCardUI : MonoBehaviour
     {
         if (DwarfHeroCard.activeSelf){
             DwarfHeroCard.SetActive(false);
+            dwarfStatsPanel.SetActive(false);
         } else{
             DwarfHeroCard.SetActive(true);
+            dwarfStatsPanel.SetActive(true);
         }   
     }
 
@@ -63,8 +67,10 @@ public class HeroCardUI : MonoBehaviour
     {
         if (WizardHeroCard.activeSelf){
             WizardHeroCard.SetActive(false);
+            wizardStatsPanel.SetActive(false);
         } else{
             WizardHeroCard.SetActive(true);
+            wizardStatsPanel.SetActive(true);
         }   
     }
 
