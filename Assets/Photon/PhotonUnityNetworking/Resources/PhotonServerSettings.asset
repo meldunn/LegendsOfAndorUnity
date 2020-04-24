@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: d4408bb2-cc46-441f-a12b-33f9f0571f95
+    AppIdRealtime: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -30,38 +30,7 @@ MonoBehaviour:
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList:
-  - AcceptBattleInviteRPC
-  - AddBattleInviteRPC
-  - AdvanceTurnRPC
-  - CancelHeroBattleRPC
-  - CleanupCancelledHeroBattleRPC
-  - ClickRpc
-  - CreateNewHeroBattleRPC
-  - DeclineBattleInviteRPC
-  - DestroyRpc
-  - FinalizeRollRPC
-  - FlipDieRPC
-  - GoToNextRoundRPC
-  - GoToNextTurnRPC
-  - HideWellButton
-  - InstantiateSelector
-  - InstantiateSplitResources
-  - NextHero
-  - PrevHero
-  - ReadyUp
-  - ReadyUpMaster
-  - RemoveBattleInviteRPC
-  - SendBattleInvitesRPC
-  - SendHeroRollValuesRPC
-  - SendNewCreatureRollRPC
-  - SendNewHeroRollRPC
-  - SetTurnOrderRPC
-  - TakeDamageRPC
-  - TestDisplayText
-  - TestStoreText
-  - UpdateMaxAmountRPC
-  - UpdateWellRPC
-  DisableAutoOpenWizard: 1
+  RpcList: []
+  DisableAutoOpenWizard: 0
   ShowSettings: 0
   DevRegionSetOnce: 0
