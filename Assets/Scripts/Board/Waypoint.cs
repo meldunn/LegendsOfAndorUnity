@@ -270,10 +270,10 @@ public class Waypoint : MonoBehaviourPun
 
     public void showItems()
     {
-        //if (numItems > 0)
-        //{
+        if (numItems > 0)
+        {
             itemPanel.SetActive(true);
-        //}
+        }
     }
 
     public void hideItems()
