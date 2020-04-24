@@ -5,6 +5,9 @@ using UnityEngine;
 public class HeroCardUI : MonoBehaviour
 {
 
+    [SerializeField]
+    HeroType myHeroType;
+
     GameObject WarriorHeroCard;
     GameObject ArcherHeroCard;
     GameObject DwarfHeroCard;
@@ -18,10 +21,13 @@ public class HeroCardUI : MonoBehaviour
     public void Initialize()
     {
 
-         WarriorHeroCard = GameObject.Find("WarriorHeroCard");
-         ArcherHeroCard = GameObject.Find("ArcherHeroCard");
-         DwarfHeroCard = GameObject.Find("DwarfHeroCard");
-         WizardHeroCard = GameObject.Find("WizardHeroCard");
+        //initialize hero
+        //Hero.Attach(this);
+
+        WarriorHeroCard = GameObject.Find("WarriorHeroCard");
+        ArcherHeroCard = GameObject.Find("ArcherHeroCard");
+        DwarfHeroCard = GameObject.Find("DwarfHeroCard");
+        WizardHeroCard = GameObject.Find("WizardHeroCard");
 
         warriorStatsPanel = GameObject.Find("WarriorStatsPanel");
         archerStatsPanel = GameObject.Find("ArcherStatsPanel");

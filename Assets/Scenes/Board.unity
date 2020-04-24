@@ -10215,6 +10215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab8afe5a8577434a98021a674b487db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myHeroTypeObject: 1
 --- !u!1 &288883984
 GameObject:
   m_ObjectHideFlags: 0
@@ -21628,6 +21629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab8afe5a8577434a98021a674b487db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myHeroTypeObject: 2
 --- !u!224 &667147181 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 262331298216365649, guid: 4c23102c66fbf014ba0361ea9d8c5084,
@@ -23608,9 +23610,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 664347981}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 664347983}
+        m_MethodName: displayDwarfHeroCard
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -40768,6 +40770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab8afe5a8577434a98021a674b487db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myHeroTypeObject: 0
 --- !u!224 &1196840881 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 262331298216365649, guid: 4c23102c66fbf014ba0361ea9d8c5084,
@@ -68755,6 +68758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab8afe5a8577434a98021a674b487db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myHeroTypeObject: 3
 --- !u!1 &1938801128
 GameObject:
   m_ObjectHideFlags: 0
@@ -70727,17 +70731,6 @@ MonoBehaviour:
       - m_Target: {fileID: 287597590}
         m_MethodName: displayArcherHeroCard
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1794163970}
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -75314,9 +75307,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1932112600}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1932112602}
+        m_MethodName: displayWizardHeroCard
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
