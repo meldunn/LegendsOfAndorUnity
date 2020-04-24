@@ -10180,7 +10180,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &287597589
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10567,6 +10567,10 @@ MonoBehaviour:
   BattleInvitationMenuObject: {fileID: 1684455833}
   BattleMenuObject: {fileID: 1180069390}
   CastleMenuObject: {fileID: 432701821}
+  WarriorCardObject: {fileID: 1196721069}
+  DwarfCardObject: {fileID: 664347981}
+  ArcherCardObject: {fileID: 287597588}
+  WizardCardObject: {fileID: 1932112600}
 --- !u!1 &301145027
 GameObject:
   m_ObjectHideFlags: 0
@@ -21589,7 +21593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &664347982
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40729,7 +40733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1196721070
 RectTransform:
   m_ObjectHideFlags: 0
@@ -68716,7 +68720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1932112601
 RectTransform:
   m_ObjectHideFlags: 0

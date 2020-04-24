@@ -18,7 +18,10 @@ public class UIManager : MonoBehaviour
     WPButtonMoveUI WPButtonMoveUI;
     FogManager FogManager;
     CastleMenu CastleMenu;
-    HeroCardUI HeroCardUI;
+    HeroCardUI WarriorHeroCard;
+    HeroCardUI DwarfHeroCard;
+    HeroCardUI ArcherHeroCard;
+    HeroCardUI WizardHeroCard;
 
     // Directly linked UI elements
     [SerializeField]
@@ -29,6 +32,16 @@ public class UIManager : MonoBehaviour
     GameObject BattleMenuObject = null;
     [SerializeField]
     GameObject CastleMenuObject = null;
+
+    [SerializeField]
+    GameObject WarriorCardObject = null;
+    [SerializeField]
+    GameObject DwarfCardObject = null;
+    [SerializeField]
+    GameObject ArcherCardObject = null;
+    [SerializeField]
+    GameObject WizardCardObject = null;
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +71,13 @@ public class UIManager : MonoBehaviour
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
-        HeroCardUI = GameObject.Find("HeroCardUI").GetComponent<HeroCardUI>();
+
+        // Initializing the HeroCards
+        WarriorHeroCard = WarriorCardObject.GetComponent<HeroCardUI>();
+        DwarfHeroCard = DwarfCardObject.GetComponent<HeroCardUI>();
+        ArcherHeroCard = ArcherCardObject.GetComponent<HeroCardUI>();
+        WizardHeroCard = WizardCardObject.GetComponent<HeroCardUI>();
+
 
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -70,7 +89,13 @@ public class UIManager : MonoBehaviour
         WellUIManager.Initialize();
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
-        HeroCardUI.Initialize();
+
+        // Initializing the HeroCards
+        WarriorHeroCard.Initialize();
+        DwarfHeroCard.Initialize();
+        ArcherHeroCard.Initialize();
+        WizardHeroCard.Initialize();
+       
         // StatsUIManager.Initialize();
         MerchantUIManager.Initialize();
         BattleMenu.Initialize();
