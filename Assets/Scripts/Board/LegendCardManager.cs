@@ -26,7 +26,9 @@ public class LegendCardManager : MonoBehaviour
         //C1
         //Skral stronghold - 50 + dice roll is the region num
         //Farmer placed on 28
-
+        Waypoint waypoint28 = GameObject.Find("Waypoint (28)").GetComponent<Waypoint>();
+        waypoint28.dropOneFarmer();
+        creatureManager.SpawnTowerSkral();
 
         //C2
         //Gors placed on 27, 31
