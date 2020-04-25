@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 
-public class Hero : MonoBehaviour, Subject
+public class Hero : MonoBehaviourPun, Subject
 {
     // Reference to WaypointManager, UIManager
     private WaypointManager WaypointManager;
@@ -106,6 +107,7 @@ public class Hero : MonoBehaviour, Subject
 
     }
 
+    [PunRPC]
     public void pickupGold()
     {
         if (myRegion.pickupOneGold() == 1)
@@ -118,6 +120,15 @@ public class Hero : MonoBehaviour, Subject
         }
     }
 
+    //public void pickupGoldNetworked()
+    //{
+    //    if (photonView.IsMine)
+    //    {
+    //        photonView.RPC("pickupGold", RpcTarget.All);
+    //    }
+    //}
+
+    [PunRPC]
     public void dropGold()
     {
         if (myGold >= 1)
@@ -130,6 +141,14 @@ public class Hero : MonoBehaviour, Subject
             //No Gold to drop
         }
     }
+
+    //public void dropGoldNetworked()
+    //{
+    //    if (photonView.IsMine)
+    //    {
+    //        photonView.RPC("dropGold", RpcTarget.All);
+    //    }
+    //}
 
     public void pickupFarmer()
     {

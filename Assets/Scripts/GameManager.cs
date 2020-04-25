@@ -401,14 +401,32 @@ public class GameManager : MonoBehaviourPun, Subject
         GetCurrentTurnHero().dropFarmer();
     }
 
+    [PunRPC]
     public void pickupGold()
     {
         GetCurrentTurnHero().pickupGold();
     }
 
+    public void pickupGoldRPC()
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("pickupGold", RpcTarget.All);
+        }
+    }
+
+    [PunRPC]
     public void dropGold()
     {
         GetCurrentTurnHero().dropGold();
+    }
+    
+    public void dropGoldRPC()
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("dropGold", RpcTarget.All);
+        }
     }
 
     // NETWORKED
