@@ -7,6 +7,7 @@ public class LegendCardManager : MonoBehaviour
 {
     GameManager gameManager;
     CreatureManager creatureManager;
+    HeroManager heroManager;
     GameObject infoPanel;
     Text headerText;
     Text narratorCardText;
@@ -15,6 +16,7 @@ public class LegendCardManager : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        heroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         creatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
         infoPanel = GameObject.Find("NarratorPopup");
         headerText = GameObject.Find("HeaderText").GetComponent<Text>();
@@ -50,6 +52,7 @@ public class LegendCardManager : MonoBehaviour
         //Skral placed on 29
         creatureManager.Spawn(CreatureType.Skral, 29);
         //Prince Thorald placed on 72
+        heroManager.InitializeHero(HeroType.PrinceThorald, 72);
     }
 
     public void activateLegendCard_G()
