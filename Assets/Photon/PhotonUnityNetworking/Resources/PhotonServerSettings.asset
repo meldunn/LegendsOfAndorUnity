@@ -30,7 +30,38 @@ MonoBehaviour:
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList: []
-  DisableAutoOpenWizard: 0
+  RpcList:
+  - AcceptBattleInviteRPC
+  - AddBattleInviteRPC
+  - AdvanceTurnRPC
+  - CancelHeroBattleRPC
+  - CleanupCancelledHeroBattleRPC
+  - ClickRpc
+  - CreateNewHeroBattleRPC
+  - DeclineBattleInviteRPC
+  - DestroyRpc
+  - FinalizeRollRPC
+  - FlipDieRPC
+  - GoToNextRoundRPC
+  - GoToNextTurnRPC
+  - HideWellButton
+  - InstantiateSelector
+  - InstantiateSplitResources
+  - NextHero
+  - PrevHero
+  - ReadyUp
+  - ReadyUpMaster
+  - RemoveBattleInviteRPC
+  - SendBattleInvitesRPC
+  - SendHeroRollValuesRPC
+  - SendNewCreatureRollRPC
+  - SendNewHeroRollRPC
+  - SetTurnOrderRPC
+  - TakeDamageRPC
+  - TestDisplayText
+  - TestStoreText
+  - UpdateMaxAmountRPC
+  - UpdateWellRPC
+  DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

@@ -1,17 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LegendCardManager : MonoBehaviour
 {
     GameManager gameManager;
     CreatureManager creatureManager;
+    GameObject infoPanel;
+    Text headerText;
+    Text narratorCardText;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         creatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        infoPanel = GameObject.Find("NarratorPopup");
+        headerText = GameObject.Find("HeaderText").GetComponent<Text>();
+        narratorCardText = GameObject.Find("NarratorCardText").GetComponent<Text>();
+        infoPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -29,6 +37,11 @@ public class LegendCardManager : MonoBehaviour
         Waypoint waypoint28 = GameObject.Find("Waypoint (28)").GetComponent<Waypoint>();
         waypoint28.dropOneFarmer();
         creatureManager.SpawnTowerSkral();
+        headerText.text = "LEGEND CARD C";
+        narratorCardText.text = "NARRATOR CARD C";
+        infoPanel.SetActive(true);
+        infoPanel.transform.SetPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
+
 
         //C2
         //Gors placed on 27, 31
@@ -46,11 +59,19 @@ public class LegendCardManager : MonoBehaviour
         //Wardraks placed on 26, 27 (10 Strength, 7 Willpower, 2 Black dice)
         creatureManager.Spawn(CreatureType.Wardrak, 26);
         creatureManager.Spawn(CreatureType.Wardrak, 27);
+        headerText.text = "LEGEND CARD G";
+        narratorCardText.text = "NARRATOR CARD G";
+        infoPanel.SetActive(true);
     }
 
     public void activateLegendCard_N()
     {
         Debug.Log("LEGEND CARD N");
         //End game (win/lose)
+    }
+
+    public void closePopup()
+    {
+        infoPanel.SetActive(false);
     }
 }
