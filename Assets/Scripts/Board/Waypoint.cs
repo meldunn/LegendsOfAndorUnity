@@ -37,6 +37,7 @@ public class Waypoint : MonoBehaviourPun
 
     int numItems;
     int gold;
+    int numFarmers;
     Text goldText;
     Text farmersText;
 
@@ -128,19 +129,21 @@ public class Waypoint : MonoBehaviourPun
         Heroes.Remove(Hero);
     }
 
-    public Farmer pickupOneFarmer()
+    public int pickupOneFarmer()
     {
-        if (farmers.Count > 0) {
+        if (numFarmers > 0) {
+            numFarmers--;
             numItems--;
-            return new Farmer();
+            return 1;
         } else {
-            return null;
+            return -1;
         }
     }
 
     public virtual void dropOneFarmer()
     {
-        farmers.Add(new Farmer());
+        //farmers.Add(new Farmer());
+        numFarmers++;
         numItems++;
         // Dropping a farmer at the castle is handled by overriding this method in WaypointCastle.cs
     }
@@ -148,7 +151,8 @@ public class Waypoint : MonoBehaviourPun
     // Destroys all farmers standing on this region. Used when a creature enters the region.
     public void DestroyFarmers()
     {
-        farmers.Clear();
+        //farmers.Clear();
+        numFarmers = 0;
     }
 
     // Destroys all farmers carried by heroes on this region. Used when a creature enters the region.
@@ -262,7 +266,7 @@ public class Waypoint : MonoBehaviourPun
         itemPanel = GameObject.Find(name);
         itemPanel.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
         farmersText = itemPanel.transform.Find("NumFarmersText").GetComponent<Text>();
-        farmersText.text = " Farmers: " + farmers.Count;
+        farmersText.text = " Farmers: " + numFarmers;
         goldText = itemPanel.transform.Find("NumGoldText").GetComponent<Text>();
         goldText.text = " Gold: " + gold;
         itemPanel.SetActive(false);
@@ -273,7 +277,7 @@ public class Waypoint : MonoBehaviourPun
         if (numItems > 0)
         {
             itemPanel.SetActive(true);
-            farmersText.text = " Farmers: " + farmers.Count;
+            farmersText.text = " Farmers: " + numFarmers;
             goldText.text = " Gold: " + gold;
         }
     }
