@@ -392,74 +392,74 @@ public class GameManager : MonoBehaviourPun, Subject
     }
 
     [PunRPC]
-    public void pickupFarmerRPC()
+    public void pickupFarmerRPC(HeroType type)
     {
-        GetCurrentTurnHero().pickupFarmer();
+        HeroManager.GetHero(type).pickupFarmer();
     }
 
     public void pickupFarmer()
     {
         if (PhotonNetwork.IsConnected)
         {
-            photonView.RPC("pickupFarmerRPC", RpcTarget.All);
+            photonView.RPC("pickupFarmerRPC", RpcTarget.All, GetSelfHero().GetHeroType());
         }
         else
         {
-            pickupFarmerRPC();
+            pickupFarmerRPC(GetSelfHero().GetHeroType());
         }
     }
 
     [PunRPC]
-    public void dropFarmerRPC()
+    public void dropFarmerRPC(HeroType type)
     {
-        GetCurrentTurnHero().dropFarmer();
+        HeroManager.GetHero(type).dropFarmer();
     }
     
     public void dropFarmer()
     {
         if (PhotonNetwork.IsConnected)
         {
-            photonView.RPC("dropFarmerRPC", RpcTarget.All);
+            photonView.RPC("dropFarmerRPC", RpcTarget.All, GetSelfHero().GetHeroType());
         }
         else
         {
-            dropFarmerRPC();
+            dropFarmerRPC(GetSelfHero().GetHeroType());
         }
     }
 
     [PunRPC]
-    public void pickupGoldRPC()
+    public void pickupGoldRPC(HeroType type)
     {
-        GetSelfHero().pickupGold();
+        HeroManager.GetHero(type).pickupGold();
     }
 
     public void pickupGold()
     {
         if (PhotonNetwork.IsConnected)
         {
-            photonView.RPC("pickupGoldRPC", RpcTarget.All);
+            photonView.RPC("pickupGoldRPC", RpcTarget.All, GetSelfHero().GetHeroType());
         }
         else
         {
-            pickupGoldRPC();
+            pickupGoldRPC(GetSelfHero().GetHeroType());
         }
     }
 
     [PunRPC]
-    public void dropGoldPRC()
+    public void dropGoldPRC(HeroType type)
     {
-        GetCurrentTurnHero().dropGold();
+        HeroManager.GetHero(type).dropGold();
     }
     
     public void dropGold()
     {
         if (PhotonNetwork.IsConnected)
         {
-            photonView.RPC("dropGoldPRC", RpcTarget.All);
+            photonView.RPC("dropGoldPRC", RpcTarget.All, GetSelfHero().GetHeroType());
         }
         else
         {
-            dropGoldPRC();
+            dropGoldPRC(GetSelfHero().GetHeroType());
         }
     }
 
