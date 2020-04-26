@@ -8,8 +8,12 @@ public class LegendCardManager : MonoBehaviour
     GameManager gameManager;
     CreatureManager creatureManager;
     HeroManager heroManager;
+
+    [SerializeField]
     GameObject infoPanel;
+    [SerializeField]
     Text headerText;
+    [SerializeField]
     Text narratorCardText;
 
     // Start is called before the first frame update
@@ -18,10 +22,10 @@ public class LegendCardManager : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         heroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         creatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
-        infoPanel = GameObject.Find("NarratorPopup");
-        headerText = GameObject.Find("HeaderText").GetComponent<Text>();
-        narratorCardText = GameObject.Find("NarratorCardText").GetComponent<Text>();
-        infoPanel.SetActive(false);
+        //infoPanel = GameObject.Find("NarratorPopup");
+        //headerText = GameObject.Find("HeaderText").GetComponent<Text>();
+        //narratorCardText = GameObject.Find("NarratorCardText").GetComponent<Text>();
+        //infoPanel.SetActive(false);
     }
 
     // Update is called once per frame

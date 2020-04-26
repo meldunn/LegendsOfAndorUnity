@@ -69,7 +69,14 @@ public class Hero : MonoBehaviourPun, Subject
         TypeWasSet = true;
 
         // Initialize strength and willpower
-        strength = 1;
+        if (Type == HeroType.PrinceThorald)
+        {
+            strength = 4;
+        } 
+        else
+        {
+            strength = 1;
+        }
         willpower = 7;
         maxWillpower = 20;
         myGold = 0;
