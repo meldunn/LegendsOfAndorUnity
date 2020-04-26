@@ -132,6 +132,12 @@ public class BattleMenu : MonoBehaviourPun, Observer
     GameObject BattleFlipDieButton = null;
     [SerializeField]
     GameObject BattleOkButton = null;
+    [SerializeField]
+    GameObject BattleLeaveButton = null;
+
+    // Waiting spinner
+    [SerializeField]
+    GameObject Spinner = null;
 
     // Dice images
     Sprite[] DiceSides;
@@ -218,6 +224,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
         {
             UpdateHeroInfo();
             UpdateCreatureInfo();
+            UpdateBattleRoll();     // To disable the leave button when a hero hits 0 willpower
         }
         else if (string.Equals(Category, "BATTLE_WON"))
         {
@@ -230,10 +237,11 @@ public class BattleMenu : MonoBehaviourPun, Observer
         else if (string.Equals(Category, "BATTLE_PARTICIPANTS"))
         {
             UpdateHeroBoxes();
+            UpdateButtonDisplay();
         }
-        else if (string.Equals(Category, "CANCELLED"))
+        else if (string.Equals(Category, "BATTLE_CANCELLED"))
         {
-            
+            UpdateIfCancelled();
         }
         else if (string.Equals(Category, "CONTROL"))
         {
@@ -270,7 +278,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
         // Initialize UI
         SetInfoText("");
 
-        BattleOkButton.SetActive(false);
+        HideButton(BattleOkButton);
+        Spinner.SetActive(false);
 
         UpdateHeroBoxes();
         UpdateMainCreature();
@@ -280,6 +289,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
         UpdateBattleRoll();
         UpdateWon();
         UpdateLost();
+        UpdateIfCancelled();
+        UpdateButtonDisplay();
     }
 
     private Color32 GetDiceColour(HeroType Type)
@@ -357,6 +368,15 @@ public class BattleMenu : MonoBehaviourPun, Observer
         }
     }
 
+    // If the current hero is no longer a battle participant, hide all buttons
+    private void UpdateButtonDisplay()
+    {
+        // Current hero
+        Hero MyHero = GameManager.GetSelfHero();
+
+        if (Battle.GetParticipants().IndexOf(MyHero) == -1) HideAllButtons();
+    }
+
     public void UpdateHeroInfo()
     {
         List<Hero> Participants = Battle.GetParticipants();
@@ -408,12 +428,16 @@ public class BattleMenu : MonoBehaviourPun, Observer
 
         // Get whose turn it is
         Hero TurnHolder = Battle.GetTurnHolder();
-        HeroType Type = TurnHolder.GetHeroType();
 
-        if (Type == HeroType.Warrior) WarriorTurnMarker.SetActive(true);
-        else if (Type == HeroType.Archer) ArcherTurnMarker.SetActive(true);
-        else if (Type == HeroType.Dwarf) DwarfTurnMarker.SetActive(true);
-        else if (Type == HeroType.Wizard) WizardTurnMarker.SetActive(true);
+        if (TurnHolder != null)
+        {
+            HeroType Type = TurnHolder.GetHeroType();
+
+            if (Type == HeroType.Warrior) WarriorTurnMarker.SetActive(true);
+            else if (Type == HeroType.Archer) ArcherTurnMarker.SetActive(true);
+            else if (Type == HeroType.Dwarf) DwarfTurnMarker.SetActive(true);
+            else if (Type == HeroType.Wizard) WizardTurnMarker.SetActive(true);
+        }
 
         // Show the round #
         int RoundNum = Battle.GetRoundNum();
@@ -423,17 +447,20 @@ public class BattleMenu : MonoBehaviourPun, Observer
     private void UpdateBattleRoll()
     {
         // Defaults
-        BattleRollButton.SetActive(false);
-        BattleNextButton.SetActive(false);
-        BattleFlipDieButton.SetActive(false);
+        HideButton(BattleRollButton);
+        HideButton(BattleNextButton);
+        HideButton(BattleLeaveButton);
+        HideButton(BattleFlipDieButton);
         DisableButton(BattleRollButton);
         DisableButton(BattleNextButton);
+        DisableButton(BattleLeaveButton);
         DisableButton(BattleFlipDieButton);
         SetText(HeroBattleValue, "");
         SetText(CreatureBattleValue, "");
         SetText(BattleValueOperator, "");
         SetText(HeroWillpowerLoss, "");
         SetText(CreatureWillpowerLoss, "");
+        Spinner.SetActive(false);
 
         // Current hero
         Hero MyHero = GameManager.GetSelfHero();
@@ -447,8 +474,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
         if (MyHero == TurnHolder)
         {
             // Display roll-related buttons
-            BattleRollButton.SetActive(true);
-            BattleNextButton.SetActive(true);
+            ShowButton(BattleRollButton);
+            ShowButton(BattleNextButton);
 
             // If the hero hasn't finished rolling, enable the button to do so
             if (!Battle.HasFinishedRoll(MyHero))
@@ -464,6 +491,23 @@ public class BattleMenu : MonoBehaviourPun, Observer
         }
 
         UpdateWizardFlipDie();
+
+        // If the battle round is finished, give heroes the opportunity to click next (to start a new round) or leave the battle
+        if (Battle.CreatureHasRolled() && !Battle.IsFinished())
+        {
+            ShowButton(BattleNextButton);
+            EnableButton(BattleNextButton);
+            ShowButton(BattleLeaveButton);
+            if (MyHero.getWillpower() > 0) EnableButton(BattleLeaveButton);         // If their willpower is 0, the hero cannot leave (and skip strength deduction / willpower gain)
+        }
+
+        // If the hero has consented to continue but is waiting on others to do so, disable the relevant buttons and show a spinner
+        if (Battle.HasConsentedToContinue(MyHero))
+        {
+            DisableButton(BattleNextButton);
+            DisableButton(BattleLeaveButton);
+            Spinner.SetActive(true);
+        }
 
         // Display the current hero roll results
         SetText(WarriorRoll, Battle.GetLatestRollValue(HeroManager.GetHero(HeroType.Warrior)).ToString());
@@ -602,14 +646,11 @@ public class BattleMenu : MonoBehaviourPun, Observer
     {
         if (Battle.IsWon())
         {
-            BattleRollButton.SetActive(false);
-            BattleNextButton.SetActive(false);
-            BattleFlipDieButton.SetActive(false);
-            DisableButton(BattleRollButton);
-            DisableButton(BattleNextButton);
-            DisableButton(BattleFlipDieButton);
+            HideAllButtons();
+            DisableAllButtons();
             SetInfoText("The battle has been won!");
             BattleOkButton.SetActive(true);
+            EnableButton(BattleOkButton);
         }
     }
     
@@ -617,15 +658,57 @@ public class BattleMenu : MonoBehaviourPun, Observer
     {
         if (Battle.IsLost())
         {
-            BattleRollButton.SetActive(false);
-            BattleNextButton.SetActive(false);
-            BattleFlipDieButton.SetActive(false);
-            DisableButton(BattleRollButton);
-            DisableButton(BattleNextButton);
-            DisableButton(BattleFlipDieButton);
+            HideAllButtons();
+            DisableAllButtons();
             SetInfoText("The battle has been lost.");
             BattleOkButton.SetActive(true);
+            EnableButton(BattleOkButton);
         }
+    }
+
+    private void UpdateIfCancelled()
+    {
+        if (Battle.IsCancelled())
+        {
+            HideAllButtons();
+            DisableAllButtons();
+            SetInfoText("The battle has been cancelled because all heroes left.");
+            BattleOkButton.SetActive(true);
+            EnableButton(BattleOkButton);
+        }
+    }
+    
+    // Shows the given button, but only if the current hero is a battle participant
+    private void ShowButton(GameObject Button)
+    {
+        // Current hero
+        Hero MyHero = GameManager.GetSelfHero();
+
+        if (Battle.GetParticipants().IndexOf(MyHero) != -1) Button.SetActive(true);
+    }
+
+    // Hides the given button
+    private void HideButton(GameObject Button)
+    {
+        Button.SetActive(false);
+    }
+
+    private void HideAllButtons()
+    {
+        HideButton(BattleRollButton);
+        HideButton(BattleNextButton);
+        HideButton(BattleFlipDieButton);
+        HideButton(BattleOkButton);
+        HideButton(BattleLeaveButton);
+    }
+
+    private void DisableAllButtons()
+    {
+        DisableButton(BattleRollButton);
+        DisableButton(BattleNextButton);
+        DisableButton(BattleFlipDieButton);
+        DisableButton(BattleOkButton);
+        DisableButton(BattleLeaveButton);
     }
 
     // Player-triggered action
@@ -704,10 +787,10 @@ public class BattleMenu : MonoBehaviourPun, Observer
             // If the creature has already rolled, go to the next round
             else
             {
-                // Go to the next round
+                // Express agreement to go to the next round
                 // NETWORKED
-                if (PhotonNetwork.IsConnected) photonView.RPC("GoToNextRoundRPC", RpcTarget.All);
-                else GoToNextRoundRPC();
+                if (PhotonNetwork.IsConnected) photonView.RPC("GoToNextRoundRPC", RpcTarget.All, MyHeroType);
+                else GoToNextRoundRPC(MyHeroType);
             }
         }
         // If the round is not done (for heroes), go to the next turn
@@ -747,7 +830,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
         // Check if the wizard has flipped a die this round
         if (MyHeroType == HeroType.Wizard)
         {
-            BattleFlipDieButton.SetActive(true);
+            ShowButton(BattleFlipDieButton);
             if (Battle.WizardCanFlipDie()) EnableButton(BattleFlipDieButton);
         }
 
@@ -787,6 +870,20 @@ public class BattleMenu : MonoBehaviourPun, Observer
             CurrentlyFlippingDie = false;
             UpdateWizardFlipDie();
         }
+    }
+
+    // Player-triggered action
+    public void LeaveBattle()
+    {
+        // Current hero
+        Hero MyHero = GameManager.GetSelfHero();
+        HeroType MyHeroType = MyHero.GetHeroType();
+
+        // Remove the hero from the battle
+        // NETWORKED
+        if (PhotonNetwork.IsConnected) photonView.RPC("LeaveBattleRPC", RpcTarget.All, MyHeroType);
+        else LeaveBattleRPC(MyHeroType);
+        
     }
 
     // NETWORKED
@@ -864,10 +961,12 @@ public class BattleMenu : MonoBehaviourPun, Observer
     // NETWORKED
     // Moves the battle to the next round
     [PunRPC]
-    public void GoToNextRoundRPC()
+    public void GoToNextRoundRPC(HeroType MyHeroType)
     {
-        Battle.GoToNextRound();
-        Battle.GoToNextTurn();
+        // Get a reference to the hero
+        Hero MyHero = HeroManager.GetHero(MyHeroType);
+
+        Battle.ExpressConsentToContinue(MyHero);
     }
 
     // NETWORKED
@@ -888,5 +987,17 @@ public class BattleMenu : MonoBehaviourPun, Observer
 
         // Flip the die
         Battle.FlipDie(FlipTargetHero, DieIndex);
+    }
+
+    // NETWORKED
+    // Removes the specified hero from the battle
+    [PunRPC]
+    public void LeaveBattleRPC(HeroType Target)
+    {
+        // Get a reference to the hero
+        Hero TargetHero = HeroManager.GetHero(Target);
+
+        // Leave the battle
+        Battle.LeaveHero(TargetHero);
     }
 }

@@ -3727,7 +3727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2824355935730238102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3917,7 +3917,6 @@ MonoBehaviour:
   StartBattleInfoText: {fileID: 2824355935935807187}
   StartBattleCancelButton: {fileID: 2824355934850888405}
   StartBattleStartButton: {fileID: 2824355934130865100}
-  StartBattleCloseButton: {fileID: 2824355935730238101}
   StartBattleOkButton: {fileID: 2824355934234948726}
 --- !u!114 &5622013190382402475
 MonoBehaviour:
@@ -3936,7 +3935,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
