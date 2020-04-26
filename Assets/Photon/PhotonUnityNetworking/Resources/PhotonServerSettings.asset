@@ -11,21 +11,21 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   AppSettings:
     AppIdRealtime: d4408bb2-cc46-441f-a12b-33f9f0571f95
-    AppIdChat:
-    AppIdVoice:
-    AppVersion:
+    AppIdChat: 
+    AppIdVoice: 
+    AppVersion: 
     UseNameServer: 1
-    FixedRegion:
-    Server:
+    FixedRegion: 
+    Server: 
     Port: 0
     Protocol: 0
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: us
+  DevRegion: cae
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -33,6 +33,7 @@ MonoBehaviour:
   RpcList:
   - AcceptBattleInviteRPC
   - AddBattleInviteRPC
+  - advanceNarratorRPC
   - AdvanceTurnRPC
   - CancelHeroBattleRPC
   - CleanupCancelledHeroBattleRPC
@@ -40,6 +41,8 @@ MonoBehaviour:
   - CreateNewHeroBattleRPC
   - DeclineBattleInviteRPC
   - DestroyRpc
+  - DisplayTheirInventory
+  - dropGoldPRC
   - FinalizeRollRPC
   - FlipDieRPC
   - GoToNextRoundRPC
@@ -49,6 +52,7 @@ MonoBehaviour:
   - InstantiateSplitResources
   - LeaveBattleRPC
   - NextHero
+  - pickupGoldRPC
   - PrevHero
   - ReadyUp
   - ReadyUpMaster
@@ -57,21 +61,18 @@ MonoBehaviour:
   - SendHeroRollValuesRPC
   - SendNewCreatureRollRPC
   - SendNewHeroRollRPC
+  - SendReplyRPC
+  - SendTradeRPC
   - SetTurnOrderRPC
   - TakeDamageRPC
   - TestDisplayText
   - TestStoreText
   - UpdateMaxAmountRPC
   - UpdateWellRPC
-  - pickupGold
-  - dropGold
-  - pickupGoldRPC
-  - dropGoldPRC
-  - advanceNarratorRPC
-  - DisplayTheirInventory
-  - SendReplyRPC
-  - SendTradeRPC
-
+  - IncrementCoins
+  - DecreaseCoins
+  - IncrementWine
+  - DecreaseWine
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1
