@@ -17723,7 +17723,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2125600101}
-        m_MethodName: advance
+        m_MethodName: advanceNarrator
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -48782,6 +48782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145962524}
   - component: {fileID: 1145962525}
+  - component: {fileID: 1145962526}
   m_Layer: 0
   m_Name: LegendCardManager
   m_TagString: Untagged
@@ -48818,6 +48819,28 @@ MonoBehaviour:
   infoPanel: {fileID: 621575102}
   headerText: {fileID: 110997750}
   narratorCardText: {fileID: 1067339031}
+--- !u!114 &1145962526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145962523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 87
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1148439828
 GameObject:
   m_ObjectHideFlags: 0
@@ -58366,6 +58389,7 @@ GameObject:
   - component: {fileID: 1326781068}
   - component: {fileID: 1326781070}
   - component: {fileID: 1326781069}
+  - component: {fileID: 1326781071}
   m_Layer: 0
   m_Name: NarratorMarker
   m_TagString: Untagged
@@ -58449,6 +58473,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1326781071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326781067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 89
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!4 &1327651456 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
@@ -95408,6 +95454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2125600100}
   - component: {fileID: 2125600101}
+  - component: {fileID: 2125600102}
   m_Layer: 0
   m_Name: NarratorManager
   m_TagString: Untagged
@@ -95441,6 +95488,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4306b828f0489d4ab733c9776ac4afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2125600102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125600099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 88
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &2126867333
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -136,6 +136,7 @@ public class NarratorManager : MonoBehaviourPun
         } 
         else
         {
+            Debug.LogError("ADVANCE NARRATOR");
             advanceNarratorRPC(52);
         }
 
