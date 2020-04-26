@@ -95,6 +95,9 @@ public class BattleInvitationMenu : MonoBehaviourPun, Observer
         SetInfoText("");
         EnableButton(BattleInviteAcceptButton);
         EnableButton(BattleInviteDeclineButton);
+        EnableButton(BattleInviteOkButton);
+        BattleInviteAcceptButton.SetActive(true);
+        BattleInviteDeclineButton.SetActive(true);
         BattleInviteOkButton.SetActive(false);
         BattleInviteSpinner.SetActive(false);
     }
@@ -110,7 +113,7 @@ public class BattleInvitationMenu : MonoBehaviourPun, Observer
         {
             UpdateIfStarted();
         }
-        else if (string.Equals(Category, "CANCELLED"))
+        else if (string.Equals(Category, "START_CANCELLED"))
         {
             UpdateIfCancelled();
         }
@@ -240,7 +243,9 @@ public class BattleInvitationMenu : MonoBehaviourPun, Observer
 
             if (MyBattle.IsCancelled())
             {
-                SetInfoText("This battle has been cancelled because an invited hero declined.");
+                if (MyBattle.DeclinedBySomeone()) SetInfoText("This battle has been cancelled because an invited hero declined.");
+                else SetInfoText("This battle has been cancelled.");
+
                 BattleInviteOkButton.SetActive(true);
                 BattleInviteAcceptButton.SetActive(false);
                 BattleInviteDeclineButton.SetActive(false);

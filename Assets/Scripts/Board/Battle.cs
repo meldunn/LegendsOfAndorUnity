@@ -11,34 +11,37 @@ public class Battle : Subject
     private CreatureManager CreatureManager;
 
     // List of Observers (Observer design pattern)
-    List<Observer> Observers = new List<Observer>();
+    private List<Observer> Observers = new List<Observer>();
 
     // Hero that started the battle
-    Hero BattleStarter;
+    private Hero BattleStarter;
 
     // Creature being fought
-    Creature Creature;
+    private Creature Creature;
 
     // Heroes participating in the battle, including the battle starter
-    List<Hero> Participants = new List<Hero>(1);
+    private List<Hero> Participants = new List<Hero>(1);
 
     // Heroes that the battle starter wants to invite to the battle
-    List<Hero> HeroesToInvite = new List<Hero>();
+    private List<Hero> HeroesToInvite = new List<Hero>();
 
     // Invitations sent to the other heroes
-    List<BattleInvitation> Invitations = new List<BattleInvitation>();
+    private List<BattleInvitation> Invitations = new List<BattleInvitation>();
 
     // Whether the invitations have been sent. This value will become true after sending was triggered (even if the hero is fighting alone and there were none to send).
-    bool InvitationsSent = false;
-    
+    private bool InvitationsSent = false;
+
     // List of rounds in the battle
-    List<BattleRound> Rounds = new List<BattleRound>();
+    private List<BattleRound> Rounds = new List<BattleRound>();
 
     // Status of this battle
-    BattleStatus Status = BattleStatus.Pending;
+    private BattleStatus Status = BattleStatus.Pending;
 
     // Hero whose turn it is within the battle
-    Hero TurnHolder;
+    private Hero TurnHolder;
+
+    // List of heroes who have agreed to start a new round
+    private List<Hero> ConsentToContinue = new List<Hero>();
 
     // Constructor
     public Battle(Hero BattleStarter, Creature Creature)        // Initialize a battle without any other participants
@@ -95,11 +98,11 @@ public class Battle : Subject
         return InvitationsSent;
     }
 
-    // Used to cancel a battle if not all participants accepted their invitation
-    public void Cancel()
+    // Used to cancel a battle being started if not all participants accepted their invitation
+    public void CancelStart()
     {
         Status = BattleStatus.Cancelled;
-        Notify("CANCELLED");
+        Notify("START_CANCELLED");
     }
 
     // Tests if the battle is ready to start, and starts it if it is
@@ -109,7 +112,7 @@ public class Battle : Subject
         int NumAccepted = GetNumInvitesAccepted();
         int NumDeclined = GetNumInvitesDeclined();
 
-        if (NumDeclined > 0) Cancel();
+        if (NumDeclined > 0) CancelStart();
         else if (NumAccepted == NumInvites && InvitationsWereSent()) Start();
     }
 
@@ -171,9 +174,6 @@ public class Battle : Subject
 
         // Create the first battle round
         GoToNextRound();
-
-        // Initialize the battle starter as the first turn holder
-        TurnHolder = BattleStarter;
 
         // Register this as the current battle in progress in CreatureManager
         CreatureManager.SetCurrentBattle(this);
@@ -254,6 +254,20 @@ public class Battle : Subject
         Notify("BATTLE_LOST");
     }
 
+    // Cancels the battle in progress
+    private void CancelBattleInProgress()
+    {
+        // Set the status as cancelled
+        Status = BattleStatus.Cancelled;
+
+        // Reset the creature's willpower
+        Creature.ResetWillpower();
+
+        this.End();
+
+        Notify("BATTLE_CANCELLED");
+    }
+
     // Tests whether a hero should be removed from the battle and if so, kicks them out
     private void TestKickOutHero(Hero Hero)
     {
@@ -271,6 +285,21 @@ public class Battle : Subject
         Hero.IncreaseWillpower(3);
 
         Notify("BATTLE_PARTICIPANTS");
+
+        // Test whether the kicked out hero was the last; if so, lose the battle
+        if (Participants.Count == 0) Lose();
+    }
+
+    // Removes the target hero from the battle with no penalty (based on a hero choosing to leave)
+    public void LeaveHero(Hero Hero)
+    {
+        Participants.Remove(Hero);
+        Hero.SetCurrentBattle(null);
+
+        Notify("BATTLE_PARTICIPANTS");
+
+        if (Participants.Count == 0) CancelBattleInProgress();
+        else TestGoToNextRound();
     }
 
     // Launches the roll for the specified hero. Returns true if the roll is new; false if it is continued (for archer / bow user).
@@ -366,9 +395,33 @@ public class Battle : Subject
         return GetCurrentRound().GetCreatureRollValues().Length != 0;
     }
 
+    // Marks whether the given hero agrees to go to the next round, and proceeds if all heroes have agreed
+    public void ExpressConsentToContinue(Hero Hero)
+    {
+        // Remove any existing consent
+        ConsentToContinue.Remove(Hero);
+
+        // Add the new consent
+        ConsentToContinue.Add(Hero);
+
+        bool GoingToNextRound = TestGoToNextRound();
+        if (!GoingToNextRound) Notify("ROLL");
+    }
+
+    // Tests whether the go to the next round, and proceeds if this is the case
+    private bool TestGoToNextRound()
+    {
+        bool Went = ConsentToContinue.Count == Participants.Count;
+        if (Went) GoToNextRound();
+        return Went;
+    }
+
     // Moves this battle to the next round
     public void GoToNextRound()
     {
+        // Clear the agreements to go to the next round
+        ConsentToContinue.Clear();
+
         // Kick out any participants who reached 0 willpower
         var ParticipantsCopy = new List<Hero>(Participants);        // Use a copy to prevent errors removing elements while iterating
         foreach (Hero Participant in ParticipantsCopy)
@@ -380,28 +433,37 @@ public class Battle : Subject
         Rounds.Add(new BattleRound(Creature, Participants));
 
         // TODO advance time marker
+
+        GoToNextTurn();
     }
 
     // Passes the roll turn to the next hero in the order
     public void GoToNextTurn()
     {
-        if (Participants.Count == 0)
+        // Initialize the battle starter as the first turn holder if this is the first round
+        if (TurnHolder == null) TurnHolder = BattleStarter;
+
+        // Otherwise, advance the battle turn
+        else
         {
-            TurnHolder = null;
-            return;
+            if (Participants.Count == 0)
+            {
+                TurnHolder = null;
+                return;
+            }
+
+            Hero NewTurnHolder = TurnHolder;
+
+            do
+            {
+                NewTurnHolder = GameManager.GetTurnHeroAfter(NewTurnHolder);
+            }
+            while (Participants.IndexOf(NewTurnHolder) == -1);
+
+            TurnHolder = NewTurnHolder;
+
+            Notify("BATTLE_TURN");
         }
-
-        Hero NewTurnHolder = TurnHolder;
-
-        do
-        {
-            NewTurnHolder = GameManager.GetTurnHeroAfter(NewTurnHolder);
-        }
-        while (Participants.IndexOf(NewTurnHolder) == -1);
-
-        TurnHolder = NewTurnHolder;
-
-        Notify("BATTLE_TURN");
     }
 
     public Roll GetRoll(Hero Hero)
@@ -451,7 +513,7 @@ public class Battle : Subject
 
     public bool IsFinished()
     {
-        return Status == BattleStatus.Won || Status == BattleStatus.Lost;
+        return Status == BattleStatus.Won || Status == BattleStatus.Lost || Status == BattleStatus.Cancelled;
     }
 
     public bool IsCancelled()
@@ -560,6 +622,17 @@ public class Battle : Subject
     public int GetCreatureLostWillpower()
     {
         return GetCurrentRound().GetCreatureLostWillpower();
+    }
+
+    public bool HasConsentedToContinue(Hero Hero)
+    {
+        return ConsentToContinue.IndexOf(Hero) != -1;
+    }
+
+    // Returns true if at least one but not all heroes have consented to advance to the next round (used to display a spinner)
+    public bool WaitingOnConsentToContinue()
+    {
+        return ConsentToContinue.Count >= 1 && ConsentToContinue.Count < Participants.Count;
     }
 
     // Used in Observer design pattern

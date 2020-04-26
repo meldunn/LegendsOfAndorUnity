@@ -47,6 +47,7 @@ MonoBehaviour:
   - HideWellButton
   - InstantiateSelector
   - InstantiateSplitResources
+  - LeaveBattleRPC
   - NextHero
   - PrevHero
   - ReadyUp

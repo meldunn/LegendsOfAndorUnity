@@ -92,8 +92,6 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     [SerializeField]
     GameObject StartBattleStartButton = null;
     [SerializeField]
-    GameObject StartBattleCloseButton = null;
-    [SerializeField]
     GameObject StartBattleOkButton = null;
 
     // Start is called before the first frame update
@@ -175,11 +173,9 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
 
         EnableButton(StartBattleCancelButton);
         EnableButton(StartBattleStartButton);
-        EnableButton(StartBattleCloseButton);
         EnableButton(StartBattleOkButton);
         StartBattleCancelButton.SetActive(true);
         StartBattleStartButton.SetActive(true);
-        StartBattleCloseButton.SetActive(true);
         StartBattleOkButton.SetActive(false);
 
         WarriorStartBattleInviteIcon.GetComponent<HeroInviteIcon>().Reset();
@@ -205,8 +201,6 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         // NETWORKED
         if (PhotonNetwork.IsConnected) photonView.RPC("CancelHeroBattleRPC", RpcTarget.All, MainHeroType);
         else CancelHeroBattleRPC(MainHeroType);
-
-        OkCancelBattle();       // Call the same function as when a hero clicks ok to acknowledge that a battle was cancelled
     }
 
     // Cleanup after a hero acknowledges that the battle has been cancelled
@@ -241,8 +235,9 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         {
             UpdateIfStarted();
         }
-        else if (string.Equals(Category, "CANCELLED"))
+        else if (string.Equals(Category, "START_CANCELLED"))
         {
+            UpdateWaitStatus();
             UpdateIfCancelled();
         }
         else if (string.Equals(Category, "CONTROL"))
@@ -421,7 +416,7 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         {
             HeroType Type = Invite.GetHero().GetHeroType();
 
-            if (Invite.IsPending())
+            if (Invite.IsPending() && GetMyBattle().IsPending())
             {
                 if (Type == HeroType.Warrior) WarriorStartBattleInviteSpinner.SetActive(true);
                 if (Type == HeroType.Archer) ArcherStartBattleInviteSpinner.SetActive(true);
@@ -477,12 +472,11 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         if (GetMyBattle().IsCancelled())
         {
             if (GetMyBattle().DeclinedBySomeone()) SetInfoText("This battle has been cancelled because an invited hero declined.");
-            else SetInfoText("This battle has been cancelled");
+            else SetInfoText("This battle has been cancelled.");
             DisableButton(StartBattleStartButton);
             StartBattleStartButton.SetActive(false);
             DisableButton(StartBattleCancelButton);
             StartBattleCancelButton.SetActive(false);
-            StartBattleCloseButton.SetActive(false);
             StartBattleOkButton.SetActive(true);
         }
     }
@@ -627,7 +621,7 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         Hero TargetHero = HeroManager.GetHero(Type);
 
         Battle MyBattle = TargetHero.GetCurrentBattle();
-        if (MyBattle != null) MyBattle.Cancel();
+        if (MyBattle != null) MyBattle.CancelStart();
     }
 
     // NETWORKED
