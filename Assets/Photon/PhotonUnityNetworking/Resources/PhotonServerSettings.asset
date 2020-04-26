@@ -67,6 +67,13 @@ MonoBehaviour:
   - dropGold
   - pickupGoldRPC
   - dropGoldPRC
+<<<<<<< HEAD
+  - advanceNarratorRPC
+=======
+  - DisplayTheirInventory
+  - SendReplyRPC
+  - SendTradeRPC
+>>>>>>> 9cc4faba7e91a408be4852b34ccdfc0d8730bfd4
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

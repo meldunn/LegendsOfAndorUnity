@@ -55,7 +55,7 @@ public class HeroManager : MonoBehaviour
         Archer.SetHeroType(HeroType.Archer);
         Dwarf.SetHeroType(HeroType.Dwarf);
         Wizard.SetHeroType(HeroType.Wizard);
-        PrinceThorald.SetHeroType(HeroType.PrinceThorald);
+        //PrinceThorald.SetHeroType(HeroType.PrinceThorald);
     }
 
     // Initializes the given hero by placing them on the correct region, and returns a reference to the hero

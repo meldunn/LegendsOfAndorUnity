@@ -228,6 +228,20 @@ public class Hero : MonoBehaviourPun, Subject
         heroInventory.addItem(ItemType);
     }
 
+    public Dictionary<ItemType, int> GetInventory()
+    {
+        return heroInventory.getInventory();
+    }
+
+    public void GiveItemFromTrade(ItemType Item)
+    {
+        heroInventory.removeItem(Item);
+    }
+    public void ReceiveItemFromTrade(ItemType Item)
+    {
+        heroInventory.addItem(Item);
+    }
+
     public void DrinkFromWell(int regionNum)
     {
         // TODO: avoid Teleport and fix null reference to myRegion

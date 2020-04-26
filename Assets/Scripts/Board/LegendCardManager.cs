@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class LegendCardManager : MonoBehaviour
+public class LegendCardManager : MonoBehaviourPun
 {
     GameManager gameManager;
     CreatureManager creatureManager;
@@ -34,7 +35,7 @@ public class LegendCardManager : MonoBehaviour
 
     }
 
-    public void activateLegendCard_C()
+    public void activateLegendCard_C(int regionNumber)
     {
         Debug.Log("LEGEND CARD C");
         //C1
@@ -42,7 +43,9 @@ public class LegendCardManager : MonoBehaviour
         //Farmer placed on 28
         Waypoint waypoint28 = GameObject.Find("Waypoint (28)").GetComponent<Waypoint>();
         waypoint28.dropOneFarmer();
-        creatureManager.SpawnTowerSkral();
+        //creatureManager.SpawnTowerSkral();
+        creatureManager.Spawn(CreatureType.TowerSkral, regionNumber);
+
         headerText.text = "LEGEND CARD C";
         narratorCardText.text = "NARRATOR CARD C";
         infoPanel.SetActive(true);
@@ -68,6 +71,7 @@ public class LegendCardManager : MonoBehaviour
         creatureManager.Spawn(CreatureType.Wardrak, 27);
         headerText.text = "LEGEND CARD G";
         narratorCardText.text = "NARRATOR CARD G";
+        //HeroManager.Destroy()
         infoPanel.SetActive(true);
     }
 

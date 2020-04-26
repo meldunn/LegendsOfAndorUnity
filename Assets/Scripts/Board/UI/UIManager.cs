@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     WellUIManager WellUIManager;
     InputManager InputManager;
     RuneStoneMenu RuneStoneMenu;
+    TradeMenuUI TradeMenuUI;
     BattleInvitationMenu BattleInvitationMenu;
     StatsUIManager StatsUIManager;
     MerchantUIManager MerchantUIManager;
@@ -64,6 +65,7 @@ public class UIManager : MonoBehaviour
         StartBattleMenu = StartBattleMenuObject.GetComponent<StartBattleMenu>();
         WellUIManager = GameObject.Find("WellUIManager").GetComponent<WellUIManager>();
         RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
+        TradeMenuUI = GameObject.Find("TradeMenu").GetComponent<TradeMenuUI>();
         BattleInvitationMenu = BattleInvitationMenuObject.GetComponent<BattleInvitationMenu>();
         StatsUIManager = GameObject.Find("StatsUIManager").GetComponent<StatsUIManager>();
         MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
@@ -89,6 +91,7 @@ public class UIManager : MonoBehaviour
         WellUIManager.Initialize();
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
+        TradeMenuUI.Initialize();
 
         // Initializing the HeroCards
         WarriorHeroCard.Initialize();
