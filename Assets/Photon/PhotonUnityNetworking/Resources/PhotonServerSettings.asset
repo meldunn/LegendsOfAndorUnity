@@ -11,15 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
   AppSettings:
     AppIdRealtime: d4408bb2-cc46-441f-a12b-33f9f0571f95
-    AppIdChat: 
-    AppIdVoice: 
-    AppVersion: 
+    AppIdChat:
+    AppIdVoice:
+    AppVersion:
     UseNameServer: 1
-    FixedRegion: 
-    Server: 
+    FixedRegion:
+    Server:
     Port: 0
     Protocol: 0
     AuthMode: 0
@@ -67,13 +67,11 @@ MonoBehaviour:
   - dropGold
   - pickupGoldRPC
   - dropGoldPRC
-<<<<<<< HEAD
   - advanceNarratorRPC
-=======
   - DisplayTheirInventory
   - SendReplyRPC
   - SendTradeRPC
->>>>>>> 9cc4faba7e91a408be4852b34ccdfc0d8730bfd4
+
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
