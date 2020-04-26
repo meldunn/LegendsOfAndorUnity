@@ -107,7 +107,7 @@ public class Hero : MonoBehaviourPun, Subject
 
     }
 
-    [PunRPC]
+
     public void pickupGold()
     {
         if (myRegion.pickupOneGold() == 1)
@@ -116,6 +116,7 @@ public class Hero : MonoBehaviourPun, Subject
         }
         else
         {
+            Debug.LogError(this.Type + " can't pickup Gold");
             // Can't pick up gold
         }
     }
@@ -128,7 +129,7 @@ public class Hero : MonoBehaviourPun, Subject
     //    }
     //}
 
-    [PunRPC]
+
     public void dropGold()
     {
         if (myGold >= 1)
@@ -138,6 +139,7 @@ public class Hero : MonoBehaviourPun, Subject
         }
         else
         {
+            Debug.LogError(this.Type + " can't drop Gold");
             //No Gold to drop
         }
     }

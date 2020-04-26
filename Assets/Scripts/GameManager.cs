@@ -411,23 +411,29 @@ public class GameManager : MonoBehaviourPun, Subject
     {
         if (PhotonNetwork.IsConnected)
         {
-            photonView.RPC("pickupGold", RpcTarget.All);
+            photonView.RPC("pickupGoldRPC", RpcTarget.All);
         }
         else
-            pickupGold();
+        {
+            pickupGoldRPC();
+        }
     }
 
     [PunRPC]
-    public void dropGold()
+    public void dropGoldPRC()
     {
         GetCurrentTurnHero().dropGold();
     }
     
-    public void dropGoldRPC()
+    public void dropGold()
     {
-        if (photonView.IsMine)
+        if (PhotonNetwork.IsConnected)
         {
-            photonView.RPC("dropGold", RpcTarget.All);
+            photonView.RPC("dropGoldPRC", RpcTarget.All);
+        }
+        else
+        {
+            dropGoldPRC();
         }
     }
 
