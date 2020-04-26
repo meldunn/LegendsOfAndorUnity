@@ -34,4 +34,9 @@ public class Item: MonoBehaviour
     {
         return type;
     }
+
+    public void setItemType(ItemType type)
+    {
+        this.type = type;
+    }
 }
