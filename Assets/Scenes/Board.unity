@@ -28829,7 +28829,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 151292509}
-        m_MethodName: pickupGoldNetworked
+        m_MethodName: pickupGold
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -41511,7 +41511,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 151292509}
-        m_MethodName: dropGoldNetworked
+        m_MethodName: dropGoldRPC
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
