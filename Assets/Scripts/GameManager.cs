@@ -391,14 +391,40 @@ public class GameManager : MonoBehaviourPun, Subject
         }
     }
 
-    public void pickupFarmer()
+    [PunRPC]
+    public void pickupFarmerRPC()
     {
         GetCurrentTurnHero().pickupFarmer();
     }
 
-    public void dropFarmer()
+    public void pickupFarmer()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("pickupFarmerRPC", RpcTarget.All);
+        }
+        else
+        {
+            pickupFarmerRPC();
+        }
+    }
+
+    [PunRPC]
+    public void dropFarmerRPC()
     {
         GetCurrentTurnHero().dropFarmer();
+    }
+    
+    public void dropFarmer()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("dropFarmerRPC", RpcTarget.All);
+        }
+        else
+        {
+            dropFarmerRPC();
+        }
     }
 
     [PunRPC]

@@ -82,6 +82,8 @@ public class Hero : MonoBehaviourPun, Subject
         myGold = 0;
         heroInventory = new HeroInventory();
 
+        numFarmers = 1;
+
         // Initialize rank
         if (Type == HeroType.Warrior) Rank = 14;
         else if (Type == HeroType.Archer) Rank = 25;
@@ -123,19 +125,10 @@ public class Hero : MonoBehaviourPun, Subject
         }
         else
         {
-            Debug.LogError(this.Type + " can't pickup Gold");
+            //Debug.LogError(this.Type + " can't pickup Gold");
             // Can't pick up gold
         }
     }
-
-    //public void pickupGoldNetworked()
-    //{
-    //    if (photonView.IsMine)
-    //    {
-    //        photonView.RPC("pickupGold", RpcTarget.All);
-    //    }
-    //}
-
 
     public void dropGold()
     {
@@ -146,22 +139,14 @@ public class Hero : MonoBehaviourPun, Subject
         }
         else
         {
-            Debug.LogError(this.Type + " can't drop Gold");
+            //Debug.LogError(this.Type + " can't drop Gold");
             //No Gold to drop
         }
     }
 
-    //public void dropGoldNetworked()
-    //{
-    //    if (photonView.IsMine)
-    //    {
-    //        photonView.RPC("dropGold", RpcTarget.All);
-    //    }
-    //}
-
     public void pickupFarmer()
     {
-        if (myRegion.pickupOneFarmer() != null)
+        if (myRegion.pickupOneFarmer() == 1)
         {
             numFarmers++;
         }
