@@ -367,6 +367,16 @@ public class GameManager : MonoBehaviourPun, Subject
         return Difficulty;
     }
 
+    // Returns whether the specified hero is playing
+    public bool IsPlaying(HeroType Type)
+    {
+        if (Type == HeroType.Warrior) return WarriorIsPlaying;
+        else if (Type == HeroType.Archer) return ArcherIsPlaying;
+        else if (Type == HeroType.Dwarf) return DwarfIsPlaying;
+        else if (Type == HeroType.Wizard) return WizardIsPlaying;
+        else return false;
+    }
+
     // Used in Observer design pattern
     public void Attach(Observer o)
     {

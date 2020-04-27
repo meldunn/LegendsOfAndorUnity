@@ -52,6 +52,7 @@ MonoBehaviour:
   - GoToNextTurnRPC
   - HideWellButton
   - IncrementCoins
+  - IncrementHeroTimeRPC
   - IncrementWine
   - InstantiateSelector
   - InstantiateSplitResources

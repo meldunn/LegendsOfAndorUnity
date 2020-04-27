@@ -194,9 +194,7 @@ public class HeroManager : MonoBehaviourPun
         HeroTypes.Add(HeroType.Archer);
         HeroTypes.Add(HeroType.Dwarf);
         HeroTypes.Add(HeroType.Wizard);
-
-        //Uncomment if needed
-        //HeroTypes.Add(HeroType.PrinceThorald);
+        // Do not return Prince Thorald
 
         return HeroTypes;
     }
@@ -234,10 +232,26 @@ public class HeroManager : MonoBehaviourPun
         }
     }
 
+    // Use for testing only; increments the current hero's time of day by the specified amount
+    public void IncrementSelfHeroTime(int Amount)
+    {
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        if (PhotonNetwork.IsConnected) photonView.RPC("IncrementHeroTimeRPC", RpcTarget.All, MyHeroType, Amount);
+        else IncrementHeroTimeRPC(MyHeroType, Amount);
+    }
+
     // NETWORKED
     [PunRPC]
     private void TeleportRPC(HeroType TargetHeroType, int RegionNum)
     {
         GetHero(TargetHeroType).Teleport(RegionNum);
+    }
+
+    // NETWORKED
+    [PunRPC]
+    private void IncrementHeroTimeRPC(HeroType TargetHeroType, int Amount)
+    {
+        GetHero(TargetHeroType).AdvanceTimeMarker(Amount);
     }
 }

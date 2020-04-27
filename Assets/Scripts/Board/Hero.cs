@@ -334,18 +334,18 @@ public class Hero : MonoBehaviourPun, Subject
         // Validate the new time value
         if (NewTime > 10)
         {
-            Debug.Log("Cannot advance time marker; new time would exceed 10 hours.");
+            Debug.LogWarning("Cannot advance time marker; new time would exceed 10 hours.");
             return false;
         }
         else if (NewTime >= 8)
         {
-            int NumOfOvertimeHours = NewTime - 7;
+            int NumOfOvertimeHours = NewTime - Math.Max(timeOfDay, 7);
             NewWillpower = willpower - 2 * NumOfOvertimeHours;
 
             // Validate the new willpower value
             if (NewWillpower <= 0)      // Allowing overtime to bring a hero's willpower to 0 is disallowed
             {
-                Debug.Log("Cannot advance time marker; overtime cannot be used if it brings a hero to 0 willpower.");
+                Debug.LogWarning("Cannot advance time marker; overtime cannot be used if it brings a hero to 0 willpower.");
                 return false;
             }
         }
@@ -355,10 +355,21 @@ public class Hero : MonoBehaviourPun, Subject
         willpower = NewWillpower;
 
         // Notify observers; notifications can be received to prompt UI updates
-        Notify("TIME");
+        Notify("HERO_TIME");
         Notify("HERO_WILLPOWER");
 
         return true;
+    }
+
+    public int GetTimeOfDay()
+    {
+        return timeOfDay;
+    }
+
+    // Returns true if the hero was the first to end their day
+    public bool IsInRoosterBox()
+    {
+        return false;       // TODO real value
     }
 
     // Returns whether the hero has the black die (if they have 3 different rune stones)
