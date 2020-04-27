@@ -127,6 +127,7 @@ public class Hero : MonoBehaviourPun, Subject
         if (myRegion.pickupOneGold() == 1)
         {
             myGold++;
+            Notify("HERO_STATS");
         }
         else
         {
@@ -141,6 +142,7 @@ public class Hero : MonoBehaviourPun, Subject
         {
             myGold--;
             myRegion.dropOneGold();
+            Notify("HERO_STATS");
         }
         else
         {
@@ -154,6 +156,7 @@ public class Hero : MonoBehaviourPun, Subject
         if (myRegion.pickupOneFarmer() == 1)
         {
             numFarmers++;
+            Notify("HERO_STATS");
         }
         else
         {
@@ -167,6 +170,7 @@ public class Hero : MonoBehaviourPun, Subject
         {
             numFarmers--;
             myRegion.dropOneFarmer();
+            Notify("HERO_STATS");
         }
         else
         {
