@@ -13,6 +13,9 @@ public class Hero : MonoBehaviour, Subject
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
 
+    public int[] path;
+
+
     // Type of hero
     HeroType Type;
     bool TypeWasSet = false;
@@ -99,6 +102,13 @@ public class Hero : MonoBehaviour, Subject
         //}
         Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
 
+        path = new int[10]; //max len 10, reset every turn
+        //initialize to have each element be -1
+        for(int i =0; i < 10; i++)
+        {
+            path[i] = -1;
+        }
+        
         //show the adjacent waypoints
         this.GetWaypoint().ShowAdjWP();
 

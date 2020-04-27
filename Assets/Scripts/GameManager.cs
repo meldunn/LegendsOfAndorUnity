@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviourPun, Subject
 
         // Initialize the UI manager
         // IMPORTANT: Do this last to ensure all data is available
-        UIManager.Initialize();
+        UIManager.Initialize(this);
     }
 
     // Update is called once per frame

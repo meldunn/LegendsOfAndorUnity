@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void Initialize()
+    public void Initialize(GameManager GM)
     {
         // Initialize references to UI element
         HeroMenu = GameObject.Find("HeroMenu").GetComponent<HeroMenu>();
@@ -99,7 +99,7 @@ public class UIManager : MonoBehaviour
         // StatsUIManager.Initialize();
         MerchantUIManager.Initialize();
         BattleMenu.Initialize();
-        WPButtonMoveUI.Initialize();
+        WPButtonMoveUI.Initialize(GM);
         FogManager.Initialize();
         CastleMenu.Initialize();
 

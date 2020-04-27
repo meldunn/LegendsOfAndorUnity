@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Text.RegularExpressions;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,15 +9,29 @@ public class WPButtonMoveUI : MonoBehaviour
 
     //TODO: fix issue where if monster and WPbutoon on on same tile cant click WP button, potential fix: when making them visible check if space is occupied if yes then change x/y by a bit
 
+    private static GameManager GM;
+
     int[] Location = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11,12,13,14,15,16,17,18,
                         19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                         51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 81, 82, 84 };
 
     public List<GameObject> WPButton = new List<GameObject>(73); 
 
-    public void Initialize()
+    public void Initialize(GameManager GameManager)
     {
         Debug.Log("in WPButtonMoveUI initializer");
+
+        //GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GM = GameManager;
+
+        //Debug.Log("is gamemananger null? " + GameManager == null);
+        Debug.Log("is gamemananger null? ");
+
+        Debug.Log("------------" + (GM == null));
+
+        Debug.Log(GM);
+        Debug.Log(GM.GetCurrentTurnHero());
+
         string ButtonName = "";
         int j;
         for (int i = 0; i < 85; i++)
@@ -119,7 +135,38 @@ public class WPButtonMoveUI : MonoBehaviour
     {
         Debug.Log("clicked");
         Debug.Log(" clicked is " + this.gameObject.name);
-        Visibility(this.gameObject, false);
+
+
+        Debug.Log("------");
+        // Debug.Log(GameManager);
+        // Debug.Log(GameManager.GetCurrentTurnHero().GetWaypoint().GetWaypointNum());
+        Debug.Log(GM);
+
+        // Hero currHero = GameManager.GetCurrentTurnHero();
+
+        Hero currHero = GM.GetCurrentTurnHero();
+
+
+        //add to path
+        //get path index
+        int index = 0;
+        while (true)
+        {
+            if (currHero.path[index] == -1)
+            {
+
+                Debug.Log("nametoposint returns: " + nameToPosInt(this.gameObject.name));
+                currHero.path[index] = nameToPosInt(this.gameObject.name);
+                break;
+            }
+            else
+            {
+                index++;
+            }
+        }
+        
+
+       // Visibility(this.gameObject, false);
     }
 
     public void toMakeVisible(int[] list)
@@ -145,6 +192,17 @@ public class WPButtonMoveUI : MonoBehaviour
                 Visibility(WPButton[j], true); //make WP button visible
             }
         }
+    }
+
+    public int nameToPosInt(string name)
+    {
+
+        //convert name to int position
+
+        string newStr;
+        newStr = string.Join(string.Empty, Regex.Matches(name, @"\d+").OfType<Match>().Select(m => m.Value)); //extract numbers
+        int num = int.Parse(newStr);
+        return num;
     }
 
 }
