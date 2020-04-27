@@ -62,6 +62,21 @@ MonoBehaviour:
   - TestStoreText
   - UpdateMaxAmountRPC
   - UpdateWellRPC
+  - advanceNarratorRPC
+  - CleanupHeroBattleRPC
+  - DecreaseCoins
+  - DecreaseWine
+  - DisplayTheirInventory
+  - dropFarmerRPC
+  - dropGoldPRC
+  - IncrementCoins
+  - IncrementWine
+  - LeaveBattleRPC
+  - pickupFarmerRPC
+  - pickupGoldRPC
+  - SendReplyRPC
+  - SendTradeRPC
+  - TeleportRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0
