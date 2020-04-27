@@ -6293,6 +6293,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 976397856}
     m_Modifications:
+    - target: {fileID: 1973953567847736664, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZHelm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541819420242, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZBow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541931532093, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZTelescope
+      objectReference: {fileID: 0}
     - target: {fileID: 2549219542007339201, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -6317,6 +6332,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542035236304, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542143140167, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZFalcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542254634915, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZBrew
       objectReference: {fileID: 0}
     - target: {fileID: 2549219542302631204, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
@@ -6457,6 +6487,36 @@ PrefabInstance:
         type: 3}
       propertyPath: myHeroType
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: HeroCard
+      value: 
+      objectReference: {fileID: 141418801}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: StatsPanel
+      value: 
+      objectReference: {fileID: 2000327642}
+    - target: {fileID: 2549219542677651640, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZWineskin
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108116769881918995, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZBlueRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196417414542354296, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZYellowRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277197084999481676, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ZGreenRune
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
@@ -26475,6 +26535,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1140257375}
     m_Modifications:
+    - target: {fileID: 1973953567847736664, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DHelm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541819420242, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DBow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541931532093, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DTelescope
+      objectReference: {fileID: 0}
     - target: {fileID: 2549219542007339201, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -26499,6 +26574,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542035236304, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542143140167, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DFalcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542254634915, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DBrew
       objectReference: {fileID: 0}
     - target: {fileID: 2549219542302631204, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
@@ -26639,6 +26729,36 @@ PrefabInstance:
         type: 3}
       propertyPath: myHeroType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: HeroCard
+      value: 
+      objectReference: {fileID: 621621578}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: StatsPanel
+      value: 
+      objectReference: {fileID: 602639261}
+    - target: {fileID: 2549219542677651640, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DWineskin
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108116769881918995, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DBlueRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196417414542354296, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DYellowRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277197084999481676, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: DGreenRune
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
@@ -30238,7 +30358,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 621621577}
-        m_MethodName: displayDwarfHeroCard
+        m_MethodName: displayHeroCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -57308,6 +57428,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2033517401}
     m_Modifications:
+    - target: {fileID: 1973953567847736664, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: AHelm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541819420242, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ABow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541931532093, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ATelescope
+      objectReference: {fileID: 0}
     - target: {fileID: 2549219542007339201, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -57332,6 +57467,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.pageCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542035236304, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: AShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542143140167, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: AFalcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542254634915, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ABrew
       objectReference: {fileID: 0}
     - target: {fileID: 2549219542302631204, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
@@ -57472,6 +57622,36 @@ PrefabInstance:
         type: 3}
       propertyPath: myHeroType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: HeroCard
+      value: 
+      objectReference: {fileID: 2135854129}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: StatsPanel
+      value: 
+      objectReference: {fileID: 1794163970}
+    - target: {fileID: 2549219542677651640, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: AWineskin
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108116769881918995, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: ABlueRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196417414542354296, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: AYellowRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277197084999481676, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: AGreenRune
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
@@ -63770,7 +63950,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1196721071}
-        m_MethodName: displayWarriorHeroCard
+        m_MethodName: displayHeroCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -85780,7 +85960,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2135854130}
-        m_MethodName: displayArcherHeroCard
+        m_MethodName: displayHeroCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -91153,7 +91333,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 141418800}
-        m_MethodName: displayWizardHeroCard
+        m_MethodName: displayHeroCard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -93095,6 +93275,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1440642640}
     m_Modifications:
+    - target: {fileID: 1973953567847736664, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WHelm
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541819420242, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WBow
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219541931532093, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WTelescope
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542035236304, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542143140167, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WFalcon
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542254634915, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WBrew
+      objectReference: {fileID: 0}
     - target: {fileID: 2549219542487676733, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
       propertyPath: m_Name
@@ -93204,6 +93414,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: HeroCard
+      value: 
+      objectReference: {fileID: 1196721069}
+    - target: {fileID: 2549219542487676735, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: StatsPanel
+      value: 
+      objectReference: {fileID: 1412737522}
+    - target: {fileID: 2549219542677651640, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WWineskin
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108116769881918995, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WBlueRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 3196417414542354296, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WYellowRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277197084999481676, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_Name
+      value: WGreenRune
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
