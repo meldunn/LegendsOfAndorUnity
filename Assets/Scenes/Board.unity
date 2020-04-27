@@ -6378,6 +6378,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WizardHeroCard
       objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676733, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2549219542487676734, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26619,6 +26624,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DwarfHeroCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676733, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2549219542487676734, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
@@ -57512,6 +57522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ArcherHeroCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676733, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2549219542487676734, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}
@@ -93309,6 +93324,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WarriorHeroCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549219542487676733, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2549219542487676734, guid: 1146541b8a5180d4c953625c029bdd75,
         type: 3}

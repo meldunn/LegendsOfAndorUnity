@@ -181,6 +181,8 @@ public class Hero : MonoBehaviourPun, Subject
         {
             heroInventory.addItem(item.GetItemType());
             myRegion.removeItem(item);
+
+            Notify("HERO_ITEMS");
         }
         else
         {
@@ -194,6 +196,8 @@ public class Hero : MonoBehaviourPun, Subject
         {
             heroInventory.removeItem(item.GetItemType());
             myRegion.addItem(item);
+
+            Notify("HERO_ITEMS");
         }
         else
         {
@@ -217,6 +221,8 @@ public class Hero : MonoBehaviourPun, Subject
     {
         // Debug.Log(ItemType);
         heroInventory.addItem(ItemType);
+
+        Notify("HERO_ITEMS");
     }
 
     public Dictionary<ItemType, int> GetInventory()
@@ -227,10 +233,14 @@ public class Hero : MonoBehaviourPun, Subject
     public void GiveItemFromTrade(ItemType Item)
     {
         heroInventory.removeItem(Item);
+
+        Notify("HERO_ITEMS");
     }
     public void ReceiveItemFromTrade(ItemType Item)
     {
         heroInventory.addItem(Item);
+
+        Notify("HERO_ITEMS");
     }
 
     public void DrinkFromWell(int regionNum)

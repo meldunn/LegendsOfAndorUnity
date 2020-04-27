@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroCardUI : MonoBehaviour
+public class HeroCardUI : MonoBehaviour, Observer
 {
     //TODO: attach game manager for getSelfPlayer
-    private GameManager GameManager;
+    HeroManager HeroManager;
+    GameManager GameManager;
 
     [SerializeField]
     HeroType myHeroType;
+
+    Hero myHero;
 
     //HeroCard and StatsPanek
     [SerializeField] GameObject HeroCard;
@@ -28,9 +31,11 @@ public class HeroCardUI : MonoBehaviour
 
     public void Initialize()
     {
-
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        //Hero.Attach(this);
+
+        myHero = HeroManager.GetHero(myHeroType);
+        myHero.Attach(this);
 
     }
 
@@ -45,5 +50,17 @@ public class HeroCardUI : MonoBehaviour
         }   
     }
 
-   
-}
+    public void UpdateData(string Category)
+    {
+        if (string.Equals(Category, "HERO_ITEMS"))
+        {
+            UpdateHeroInventory();
+        }
+    }
+
+    public void UpdateHeroInventory()
+    {
+
+    }
+
+    }
