@@ -391,24 +391,76 @@ public class GameManager : MonoBehaviourPun, Subject
         }
     }
 
-    public void pickupFarmer()
+    [PunRPC]
+    public void pickupFarmerRPC(HeroType type)
     {
-        GetCurrentTurnHero().pickupFarmer();
+        HeroManager.GetHero(type).pickupFarmer();
     }
 
+    public void pickupFarmer()
+    {
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("pickupFarmerRPC", RpcTarget.All, GetSelfHero().GetHeroType());
+        }
+        else
+        {
+            pickupFarmerRPC(GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropFarmerRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropFarmer();
+    }
+    
     public void dropFarmer()
     {
-        GetCurrentTurnHero().dropFarmer();
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("dropFarmerRPC", RpcTarget.All, GetSelfHero().GetHeroType());
+        }
+        else
+        {
+            dropFarmerRPC(GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void pickupGoldRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).pickupGold();
     }
 
     public void pickupGold()
     {
-        GetCurrentTurnHero().pickupGold();
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("pickupGoldRPC", RpcTarget.All, GetSelfHero().GetHeroType());
+        }
+        else
+        {
+            pickupGoldRPC(GetSelfHero().GetHeroType());
+        }
     }
 
+    [PunRPC]
+    public void dropGoldPRC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropGold();
+    }
+    
     public void dropGold()
     {
-        GetCurrentTurnHero().dropGold();
+        if (PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("dropGoldPRC", RpcTarget.All, GetSelfHero().GetHeroType());
+        }
+        else
+        {
+            dropGoldPRC(GetSelfHero().GetHeroType());
+        }
     }
 
     // NETWORKED

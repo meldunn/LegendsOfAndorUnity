@@ -20,7 +20,9 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
     //ready logic
     int readyPlayers = 0;
-    Dictionary<int, HeroType> selectedHeroes;
+    public Dictionary<int, HeroType> selectedHeroes;
+    public Dictionary<int, int> coinsSplit;
+    public Dictionary<int, int> wineSplit;
 
 
 
@@ -37,6 +39,8 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         }
 
         selectedHeroes = new Dictionary<int, HeroType>();
+        coinsSplit = new Dictionary<int, int>();
+        wineSplit = new Dictionary<int, int>();
 
         int id = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         GameObject heroSelectorInstance = PhotonNetwork.Instantiate("HeroSelectionGUI", heroSelectorPositions[id].position, heroSelectorPositions[id].rotation);
@@ -54,14 +58,20 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         {
             readyPlayers++;
             selectedHeroes.Add(playerID, type);
+            coinsSplit.Add(playerID, 0);
+            wineSplit.Add(playerID, 0);
         }
         else
         {
             readyPlayers--;
             selectedHeroes.Remove(playerID);
+            coinsSplit.Remove(playerID);
+            wineSplit.Remove(playerID);
+           
         }
-        //print("Hero is : " + type);
-        //print("Status Recieved: " + status + " || Number ready: "+ readyPlayers+" || Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount);
+
+        print("Hero is : " + type);
+        print("Status Recieved: " + status + " || Number ready: "+ readyPlayers+" || Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount);
         if (readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         {
             if (AreDifferentHeroes())
@@ -69,6 +79,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
                 //this executes on master by construction
 
                 photonView.RPC("InstantiateSplitResources", RpcTarget.All);
+               
             }
         }
     }
@@ -97,6 +108,8 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         readyPlayers--;
+        coinsSplit.Remove(otherPlayer.ActorNumber);
+        wineSplit.Remove(otherPlayer.ActorNumber);
         selectedHeroes.Remove(otherPlayer.ActorNumber);
     }
 

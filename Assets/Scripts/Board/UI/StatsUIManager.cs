@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class StatsUIManager : MonoBehaviour
+public class StatsUIManager : MonoBehaviour, Observer
 {
     GameObject warriorStatsPanel;
     GameObject archerStatsPanel;
@@ -30,6 +30,11 @@ public class StatsUIManager : MonoBehaviour
     Text wizardWillpowerText;
     Text wizardStrengthText;
     Text wizardGoldText;
+
+    Hero warrior;
+    Hero archer;
+    Hero dwarf;
+    Hero Wizard;
 
     GameManager gameManager;
     HeroManager heroManager;
@@ -69,13 +74,41 @@ public class StatsUIManager : MonoBehaviour
         dwarfStatsPanel.SetActive(false);
         wizardStatsPanel.SetActive(false);
 
+        UpdateHeroStats();
+
+        warrior = heroManager.GetHero(HeroType.Warrior);
+        archer = heroManager.GetHero(HeroType.Archer);
+        dwarf = heroManager.GetHero(HeroType.Dwarf);
+        Wizard = heroManager.GetHero(HeroType.Wizard);
+
+        warrior.Attach(this);
+        archer.Attach(this);
+        dwarf.Attach(this);
+        Wizard.Attach(this);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (!string.Equals(oldFarmerText.text, farmerText.text))
+        
+    }
 
+    public void Initialize()
+    {
+
+    }
+
+    // Used in Observer design pattern
+    public void UpdateData(string Category)
+    {
+        if (string.Equals(Category, "HERO_STATS") || string.Equals(Category, "HERO_WILLPOWER") || string.Equals(Category, "HERO_STRENGTH"))
+        {
+            UpdateHeroStats();
+        }
+    }
+
+    public void UpdateHeroStats()
+    {
         warriorFarmerText.text = " Farmers: " + heroManager.GetHero(HeroType.Warrior).getNumFarmers();
         warriorWillpowerText.text = " Willpower: " + heroManager.GetHero(HeroType.Warrior).getWillpower();
         warriorStrengthText.text = " Strength: " + heroManager.GetHero(HeroType.Warrior).getStrength();
@@ -95,11 +128,5 @@ public class StatsUIManager : MonoBehaviour
         wizardWillpowerText.text = " Willpower: " + heroManager.GetHero(HeroType.Wizard).getWillpower();
         wizardStrengthText.text = " Strength: " + heroManager.GetHero(HeroType.Wizard).getStrength();
         wizardGoldText.text = " Gold: " + heroManager.GetHero(HeroType.Wizard).getGold();
-
-    }
-
-    public void Initialize()
-    {
-
     }
 }

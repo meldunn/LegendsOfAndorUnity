@@ -23,7 +23,9 @@ public class BattleRound
     public BattleRound(Creature Creature, List<Hero> Participants)
     {
         this.Creature = Creature;
-        this.Participants = Participants;
+
+        // Make a copy of the participants list that is independant of the input list (which comes from the battle)
+        this.Participants = new List<Hero>(Participants);
 
         // Deduct one hour from each participating hero
         foreach (Hero Hero in Participants)

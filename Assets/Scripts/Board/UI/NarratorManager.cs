@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public enum NarratorLetter
 {
@@ -21,7 +22,7 @@ public enum NarratorLetter
     Z = 15
 };
 
-public class NarratorManager : MonoBehaviour
+public class NarratorManager : MonoBehaviourPun
 {
     // Array of waypoints
     private NarratorWaypoint[] waypoints = new NarratorWaypoint[16];
@@ -62,7 +63,8 @@ public class NarratorManager : MonoBehaviour
         marker.transform.SetPositionAndRotation(waypoints[1].GetLocation(), Quaternion.identity);
     }
 
-    public void advance()
+    [PunRPC]
+    public void advanceNarratorRPC(int regionNumber)
     {
         curLetter++;
         switch (curLetter)
@@ -72,7 +74,7 @@ public class NarratorManager : MonoBehaviour
                 return;
             case NarratorLetter.C:
                 marker.transform.SetPositionAndRotation(waypoints[3].GetLocation(), Quaternion.identity);
-                legendCardManager.activateLegendCard_C();
+                legendCardManager.activateLegendCard_C(regionNumber);
                 return;
             case NarratorLetter.D:
                 marker.transform.SetPositionAndRotation(waypoints[4].GetLocation(), Quaternion.identity);
@@ -116,6 +118,28 @@ public class NarratorManager : MonoBehaviour
                 Debug.LogError("ERROR!");
                 return;
         }
+    }
+
+    public void advanceNarrator()
+    {
+        if (PhotonNetwork.IsConnected && photonView.IsMine)
+        {
+            int RegionNum = UnityEngine.Random.Range(51, 57);
+            if (PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("advanceNarratorRPC", RpcTarget.All, RegionNum);
+            }
+            else
+            {
+                advanceNarratorRPC(RegionNum);
+            }
+        } 
+        else
+        {
+            //Debug.LogError("ADVANCE NARRATOR");
+            advanceNarratorRPC(52);
+        }
+
     }
 
     public void advanceToN()

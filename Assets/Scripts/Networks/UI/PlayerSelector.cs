@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using System.Collections.Generic;
+using System;
 using Photon.Realtime;
 
 
@@ -51,6 +53,13 @@ public class PlayerSelector : MonoBehaviourPun
 
 
     private HeroType heroSelectedType;
+    private int numberOfCoins = 0;
+    private int numberOfWine = 0;
+
+
+    int maxCoins = 5;
+    int maxWine = 2;
+    int playerID;
 
     private bool isReady = false;
 
@@ -58,11 +67,13 @@ public class PlayerSelector : MonoBehaviourPun
 
     public void OnEnable()
     {
+
         if (photonView.IsMine)
         { 
             currentHero = 0;
             hero.sprite = heroSprites[currentHero];
 
+            
             next.gameObject.SetActive(true);
             prev.gameObject.SetActive(true);
 
@@ -78,6 +89,7 @@ public class PlayerSelector : MonoBehaviourPun
     void InstantiateSelector(int id)
     {
         nickName.text = photonView.Owner.NickName;
+        playerID = id + 1;
 
         gameObject.transform.SetParent(HeroSelectionManager.Instance.heroSelectorPositions[id]);
         gameObject.transform.localScale = Vector3.one;
@@ -183,17 +195,178 @@ public class PlayerSelector : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient)
         {
             nextWine.gameObject.SetActive(true);
+            nextCoin.gameObject.SetActive(true);
         }
     }
 
     public void OnClick_NextCoin()
     {
-       //TODO: set coins of this player in the Hero class
-       //only master client can select coins so, we can send this info to heroselectionmanager.
-       //which will contain coins/wine/heroes selected
+
+        Dictionary<int, int> coins = HeroSelectionManager.Instance.coinsSplit;
+
+        int count = 0;
 
 
+        foreach (var player in coins)
+        {
+            count += player.Value;
+        }
+
+        if (count < maxCoins)
+        {
+            if(count == maxCoins - 1)
+            {
+                nextCoin.gameObject.SetActive(false);
+            }
+
+            photonView.RPC("IncrementCoins", RpcTarget.All);
+        }
+        else
+        {
+            //TODO: display a message that no more coins left to split
+        }
+    }
+
+    public void OnClick_PrevCoin()
+    {
+        int amount = Int32.Parse(coinsText.text);
+
+        //decrease
+        if(amount > 0)
+        {
+            photonView.RPC("DecreaseCoins", RpcTarget.All);
+        }
+        else
+        {
+            //can't decrease anymore
+            //The button should be hidden
+        }
+    }
+
+    [PunRPC]
+    void DecreaseCoins()
+    {
+        coinsText.text = (Int32.Parse(coinsText.text) - 1).ToString();
+        HeroSelectionManager.Instance.coinsSplit[playerID] -= 1;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (HeroSelectionManager.Instance.coinsSplit[playerID] == 0)
+            {
+                prevCoin.gameObject.SetActive(false); // enable previous button
+            }
+            else if (HeroSelectionManager.Instance.coinsSplit[playerID] < maxCoins)
+            {
+                nextCoin.gameObject.SetActive(true);
+            }
+        }
 
     }
+
+    [PunRPC]
+    void IncrementCoins()
+    {
+        coinsText.text = (Int32.Parse(coinsText.text) + 1).ToString(); //increment the text
+
+        int value = HeroSelectionManager.Instance.coinsSplit[playerID];
+        value += 1; //increment the value
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (value == 1)
+            {
+                prevCoin.gameObject.SetActive(true); // enable previous button
+            }
+        }
+
+
+        HeroSelectionManager.Instance.coinsSplit[playerID] = value;
+    }
+
+    public void OnClick_NextWine()
+    {
+
+        Dictionary<int, int> wine = HeroSelectionManager.Instance.wineSplit;
+
+        int count = 0;
+
+
+        foreach (var player in wine)
+        {
+            count += player.Value;
+        }
+
+        if (count < maxWine)
+        {
+            if(count == maxWine - 1)
+            {
+                nextWine.gameObject.SetActive(false);
+            }
+
+            photonView.RPC("IncrementWine", RpcTarget.All);
+        }
+        else
+        {
+            //TODO: display a message that no more coins left to split
+        }
+    }
+
+    public void OnClick_PrevWine()
+    {
+        int amount = Int32.Parse(wineSkinText.text);
+
+        //decrease
+        if (amount > 0)
+        {
+            photonView.RPC("DecreaseWine", RpcTarget.All);
+        }
+        else
+        {
+            //can't decrease anymore
+            //The button should be hidden
+        }
+    }
+
+    [PunRPC]
+    void IncrementWine()
+    {
+        wineSkinText.text = (Int32.Parse(wineSkinText.text) + 1).ToString(); //increment the text
+
+        int value = HeroSelectionManager.Instance.wineSplit[playerID];
+        value += 1; //increment the value
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (value == 1)
+            {
+                prevWine.gameObject.SetActive(true); // enable previous button
+            }
+        }
+
+
+        HeroSelectionManager.Instance.wineSplit[playerID] = value;
+    }
+
+
+    [PunRPC]
+    void DecreaseWine()
+    {
+        wineSkinText.text = (Int32.Parse(wineSkinText.text) - 1).ToString();
+        HeroSelectionManager.Instance.wineSplit[playerID] -= 1;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (HeroSelectionManager.Instance.wineSplit[playerID] == 0)
+            {
+                prevWine.gameObject.SetActive(false); // enable previous button
+            }
+            else if (HeroSelectionManager.Instance.wineSplit[playerID] < maxWine)
+            {
+                nextWine.gameObject.SetActive(true);
+            }
+        }
+    }
+
+
 
 }

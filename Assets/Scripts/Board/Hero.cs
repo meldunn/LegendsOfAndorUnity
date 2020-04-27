@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 
-public class Hero : MonoBehaviour, Subject
+public class Hero : MonoBehaviourPun, Subject
 {
     // Reference to WaypointManager, UIManager
     private WaypointManager WaypointManager;
@@ -35,9 +36,6 @@ public class Hero : MonoBehaviour, Subject
 
     // Current battle invitation
     BattleInvitation BattleInvitation;
-
-    // Battle which this hero is currently involved in
-    Battle CurrentBattle;
 
     // Start is called before the first frame update
     void Start()
@@ -71,11 +69,20 @@ public class Hero : MonoBehaviour, Subject
         TypeWasSet = true;
 
         // Initialize strength and willpower
-        strength = 1;
+        if (Type == HeroType.PrinceThorald)
+        {
+            strength = 4;
+        } 
+        else
+        {
+            strength = 1;
+        }
         willpower = 7;
         maxWillpower = 20;
         myGold = 0;
         heroInventory = new HeroInventory();
+
+        numFarmers = 1;
 
         // Initialize rank
         if (Type == HeroType.Warrior) Rank = 14;
@@ -88,9 +95,14 @@ public class Hero : MonoBehaviour, Subject
     // Moves the hero to the specified location with no regards for game rules
     public void Teleport(int RegionNum)
     {
+        // Set the correct references
+        myRegion.RemoveHero(this);
         myRegion = WaypointManager.GetWaypoint(RegionNum);
-        // TODO: change transform location of hero
-        Move();
+        myRegion.AddHero(this);
+
+        // Move the hero sprite
+        this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
+            Quaternion.identity);                                         // No rotation
     }
 
     public void Move()
@@ -116,14 +128,17 @@ public class Hero : MonoBehaviour, Subject
 
     }
 
+
     public void pickupGold()
     {
         if (myRegion.pickupOneGold() == 1)
         {
             myGold++;
+            Notify("HERO_STATS");
         }
         else
         {
+            //Debug.LogError(this.Type + " can't pickup Gold");
             // Can't pick up gold
         }
     }
@@ -134,18 +149,21 @@ public class Hero : MonoBehaviour, Subject
         {
             myGold--;
             myRegion.dropOneGold();
+            Notify("HERO_STATS");
         }
         else
         {
+            //Debug.LogError(this.Type + " can't drop Gold");
             //No Gold to drop
         }
     }
 
     public void pickupFarmer()
     {
-        if (myRegion.pickupOneFarmer() != null)
+        if (myRegion.pickupOneFarmer() == 1)
         {
             numFarmers++;
+            Notify("HERO_STATS");
         }
         else
         {
@@ -159,6 +177,7 @@ public class Hero : MonoBehaviour, Subject
         {
             numFarmers--;
             myRegion.dropOneFarmer();
+            Notify("HERO_STATS");
         }
         else
         {
@@ -172,6 +191,8 @@ public class Hero : MonoBehaviour, Subject
         {
             heroInventory.addItem(item.GetItemType());
             myRegion.removeItem(item);
+
+            Notify("HERO_ITEMS");
         }
         else
         {
@@ -185,6 +206,8 @@ public class Hero : MonoBehaviour, Subject
         {
             heroInventory.removeItem(item.GetItemType());
             myRegion.addItem(item);
+
+            Notify("HERO_ITEMS");
         }
         else
         {
@@ -208,6 +231,26 @@ public class Hero : MonoBehaviour, Subject
     {
         // Debug.Log(ItemType);
         heroInventory.addItem(ItemType);
+
+        Notify("HERO_ITEMS");
+    }
+
+    public Dictionary<ItemType, int> GetInventory()
+    {
+        return heroInventory.getInventory();
+    }
+
+    public void GiveItemFromTrade(ItemType Item)
+    {
+        heroInventory.removeItem(Item);
+
+        Notify("HERO_ITEMS");
+    }
+    public void ReceiveItemFromTrade(ItemType Item)
+    {
+        heroInventory.addItem(Item);
+
+        Notify("HERO_ITEMS");
     }
 
     public void DrinkFromWell(int regionNum)
@@ -364,16 +407,6 @@ public class Hero : MonoBehaviour, Subject
                     return -1;
             }
         }
-    }
-
-    public void SetCurrentBattle(Battle OwnedBattle)
-    {
-        this.CurrentBattle = OwnedBattle;
-    }
-
-    public Battle GetCurrentBattle()
-    {
-        return CurrentBattle;
     }
 
     public void SendBattleInvitation(BattleInvitation Invitation)

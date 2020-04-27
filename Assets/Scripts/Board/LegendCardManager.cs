@@ -1,17 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
 
-public class LegendCardManager : MonoBehaviour
+public class LegendCardManager : MonoBehaviourPun
 {
     GameManager gameManager;
     CreatureManager creatureManager;
+    HeroManager heroManager;
+
+    [SerializeField]
+    GameObject infoPanel;
+    [SerializeField]
+    Text headerText;
+    [SerializeField]
+    Text narratorCardText;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        heroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         creatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        //infoPanel = GameObject.Find("NarratorPopup");
+        //headerText = GameObject.Find("HeaderText").GetComponent<Text>();
+        //narratorCardText = GameObject.Find("NarratorCardText").GetComponent<Text>();
+        //infoPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -20,7 +35,7 @@ public class LegendCardManager : MonoBehaviour
 
     }
 
-    public void activateLegendCard_C()
+    public void activateLegendCard_C(int regionNumber)
     {
         Debug.Log("LEGEND CARD C");
         //C1
@@ -28,7 +43,14 @@ public class LegendCardManager : MonoBehaviour
         //Farmer placed on 28
         Waypoint waypoint28 = GameObject.Find("Waypoint (28)").GetComponent<Waypoint>();
         waypoint28.dropOneFarmer();
-        creatureManager.SpawnTowerSkral();
+        //creatureManager.SpawnTowerSkral();
+        creatureManager.Spawn(CreatureType.TowerSkral, regionNumber);
+
+        headerText.text = "LEGEND CARD C";
+        narratorCardText.text = "NARRATOR CARD C";
+        infoPanel.SetActive(true);
+        infoPanel.transform.SetPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
+
 
         //C2
         //Gors placed on 27, 31
@@ -37,6 +59,7 @@ public class LegendCardManager : MonoBehaviour
         //Skral placed on 29
         creatureManager.Spawn(CreatureType.Skral, 29);
         //Prince Thorald placed on 72
+        heroManager.InitializeHero(HeroType.PrinceThorald, 72);
     }
 
     public void activateLegendCard_G()
@@ -46,11 +69,20 @@ public class LegendCardManager : MonoBehaviour
         //Wardraks placed on 26, 27 (10 Strength, 7 Willpower, 2 Black dice)
         creatureManager.Spawn(CreatureType.Wardrak, 26);
         creatureManager.Spawn(CreatureType.Wardrak, 27);
+        headerText.text = "LEGEND CARD G";
+        narratorCardText.text = "NARRATOR CARD G";
+        //HeroManager.Destroy()
+        infoPanel.SetActive(true);
     }
 
     public void activateLegendCard_N()
     {
         Debug.Log("LEGEND CARD N");
         //End game (win/lose)
+    }
+
+    public void closePopup()
+    {
+        infoPanel.SetActive(false);
     }
 }

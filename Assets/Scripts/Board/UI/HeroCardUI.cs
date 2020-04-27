@@ -2,93 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroCardUI : MonoBehaviour
+public class HeroCardUI : MonoBehaviour, Observer
 {
+    //TODO: attach game manager for getSelfPlayer
+    HeroManager HeroManager;
+    GameManager GameManager;
 
     [SerializeField]
     HeroType myHeroType;
 
-    GameObject WarriorHeroCard;
-    GameObject ArcherHeroCard;
-    GameObject DwarfHeroCard;
-    GameObject WizardHeroCard;
+    Hero myHero;
 
-    GameObject warriorStatsPanel;
-    GameObject archerStatsPanel;
-    GameObject dwarfStatsPanel;
-    GameObject wizardStatsPanel;
+    //HeroCard and StatsPanek
+    [SerializeField] GameObject HeroCard;
+    [SerializeField] GameObject StatsPanel;
+
+    //Children: Items
+    GameObject Bow;
+    GameObject Brew;
+    GameObject Falcon;
+    GameObject Telescope;
+    GameObject Wineskin;
+    GameObject Shield;
+    GameObject Helm;
+    GameObject GreenRune;
+    GameObject YellowRune;
+    GameObject BlueRune;
 
     public void Initialize()
     {
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        //initialize hero
-        //Hero.Attach(this);
-
-        WarriorHeroCard = GameObject.Find("WarriorHeroCard");
-        ArcherHeroCard = GameObject.Find("ArcherHeroCard");
-        DwarfHeroCard = GameObject.Find("DwarfHeroCard");
-        WizardHeroCard = GameObject.Find("WizardHeroCard");
-
-        warriorStatsPanel = GameObject.Find("WarriorStatsPanel");
-        archerStatsPanel = GameObject.Find("ArcherStatsPanel");
-        dwarfStatsPanel = GameObject.Find("DwarfStatsPanel");
-        wizardStatsPanel = GameObject.Find("WizardStatsPanel");
+        myHero = HeroManager.GetHero(myHeroType);
+        myHero.Attach(this);
 
     }
 
-    public void displayWarriorHeroCard()
+    public void displayHeroCard()
     {
-        if (WarriorHeroCard.activeSelf){
-            WarriorHeroCard.SetActive(false);
-            warriorStatsPanel.SetActive(false);
+        if (HeroCard.activeSelf){
+            HeroCard.SetActive(false);
+            StatsPanel.SetActive(false);
         } else{
-            WarriorHeroCard.SetActive(true);
-            warriorStatsPanel.SetActive(true);
+            HeroCard.SetActive(true);
+            StatsPanel.SetActive(true);
         }   
     }
 
-    public void displayArcherHeroCard()
+    public void UpdateData(string Category)
     {
-        if (ArcherHeroCard.activeSelf){
-            ArcherHeroCard.SetActive(false);
-            archerStatsPanel.SetActive(false);
-        } else{
-            ArcherHeroCard.SetActive(true);
-            archerStatsPanel.SetActive(true);
-        }   
+        if (string.Equals(Category, "HERO_ITEMS"))
+        {
+            UpdateHeroInventory();
+        }
     }
 
-    public void displayDwarfHeroCard()
+    public void UpdateHeroInventory()
     {
-        if (DwarfHeroCard.activeSelf){
-            DwarfHeroCard.SetActive(false);
-            dwarfStatsPanel.SetActive(false);
-        } else{
-            DwarfHeroCard.SetActive(true);
-            dwarfStatsPanel.SetActive(true);
-        }   
+
     }
 
-    public void displayWizardHeroCard()
-    {
-        if (WizardHeroCard.activeSelf){
-            WizardHeroCard.SetActive(false);
-            wizardStatsPanel.SetActive(false);
-        } else{
-            WizardHeroCard.SetActive(true);
-            wizardStatsPanel.SetActive(true);
-        }   
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}

@@ -354,7 +354,7 @@ public class Creature : MonoBehaviour
         // Otherwise, advance the narrator by one space
         else
         {
-            NarratorManager.advance();
+            NarratorManager.advanceNarratorRPC(51);
         }
     }
 
