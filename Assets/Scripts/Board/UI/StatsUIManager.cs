@@ -74,25 +74,7 @@ public class StatsUIManager : MonoBehaviour, Observer
         dwarfStatsPanel.SetActive(false);
         wizardStatsPanel.SetActive(false);
 
-        warriorFarmerText.text = " Farmers: " + heroManager.GetHero(HeroType.Warrior).getNumFarmers();
-        warriorWillpowerText.text = " Willpower: " + heroManager.GetHero(HeroType.Warrior).getWillpower();
-        warriorStrengthText.text = " Strength: " + heroManager.GetHero(HeroType.Warrior).getStrength();
-        warriorGoldText.text = " Gold: " + heroManager.GetHero(HeroType.Warrior).getGold();
-
-        archerFarmerText.text = " Farmers: " + heroManager.GetHero(HeroType.Archer).getNumFarmers();
-        archerWillpowerText.text = " Willpower: " + heroManager.GetHero(HeroType.Archer).getWillpower();
-        archerStrengthText.text = " Strength: " + heroManager.GetHero(HeroType.Archer).getStrength();
-        archerGoldText.text = " Gold: " + heroManager.GetHero(HeroType.Archer).getGold();
-
-        dwarfFarmerText.text = " Farmers: " + heroManager.GetHero(HeroType.Dwarf).getNumFarmers();
-        dwarfWillpowerText.text = " Willpower: " + heroManager.GetHero(HeroType.Dwarf).getWillpower();
-        dwarfStrengthText.text = " Strength: " + heroManager.GetHero(HeroType.Dwarf).getStrength();
-        dwarfGoldText.text = " Gold: " + heroManager.GetHero(HeroType.Dwarf).getGold();
-
-        wizardFarmerText.text = " Farmers: " + heroManager.GetHero(HeroType.Wizard).getNumFarmers();
-        wizardWillpowerText.text = " Willpower: " + heroManager.GetHero(HeroType.Wizard).getWillpower();
-        wizardStrengthText.text = " Strength: " + heroManager.GetHero(HeroType.Wizard).getStrength();
-        wizardGoldText.text = " Gold: " + heroManager.GetHero(HeroType.Wizard).getGold();
+        UpdateHeroStats();
 
         warrior = heroManager.GetHero(HeroType.Warrior);
         archer = heroManager.GetHero(HeroType.Archer);
@@ -119,11 +101,10 @@ public class StatsUIManager : MonoBehaviour, Observer
     // Used in Observer design pattern
     public void UpdateData(string Category)
     {
-        if (string.Equals(Category, "HERO_STATS"))
+        if (string.Equals(Category, "HERO_STATS") || string.Equals(Category, "HERO_WILLPOWER") || string.Equals(Category, "HERO_STRENGTH"))
         {
             UpdateHeroStats();
         }
-        throw new System.NotImplementedException();
     }
 
     public void UpdateHeroStats()
