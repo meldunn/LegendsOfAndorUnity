@@ -31,9 +31,6 @@ public class CreatureManager : MonoBehaviour
     // A special case is used to include the Herb Gor in the Gor wave. The tower Skral does not advance.
     private CreatureType[] Waves = { CreatureType.Gor, CreatureType.Skral, CreatureType.Wardrak, CreatureType.Wardrak };
 
-    // Current battle in progress
-    Battle CurrentBattle;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -226,16 +223,6 @@ public class CreatureManager : MonoBehaviour
     {
         IsAdvancing = false;
         // Debug.Log("Advancing done.");
-    }
-
-    public void SetCurrentBattle(Battle Battle)
-    {
-        this.CurrentBattle = Battle;
-    }
-
-    public Battle GetCurrentBattle()
-    {
-        return CurrentBattle;
     }
 
     public void DecreaseNumCreatures()

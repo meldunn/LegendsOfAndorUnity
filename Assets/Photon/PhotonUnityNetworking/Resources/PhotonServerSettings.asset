@@ -36,7 +36,7 @@ MonoBehaviour:
   - advanceNarratorRPC
   - AdvanceTurnRPC
   - CancelHeroBattleRPC
-  - CleanupCancelledHeroBattleRPC
+  - CleanupHeroBattleRPC
   - ClickRpc
   - CreateNewHeroBattleRPC
   - DeclineBattleInviteRPC

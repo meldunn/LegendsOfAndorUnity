@@ -34,9 +34,6 @@ public class Hero : MonoBehaviourPun, Subject
     // Current battle invitation
     BattleInvitation BattleInvitation;
 
-    // Battle which this hero is currently involved in
-    Battle CurrentBattle;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -390,16 +387,6 @@ public class Hero : MonoBehaviourPun, Subject
                     return -1;
             }
         }
-    }
-
-    public void SetCurrentBattle(Battle OwnedBattle)
-    {
-        this.CurrentBattle = OwnedBattle;
-    }
-
-    public Battle GetCurrentBattle()
-    {
-        return CurrentBattle;
     }
 
     public void SendBattleInvitation(BattleInvitation Invitation)

@@ -131,30 +131,29 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     {
         this.StartBattleIcon = Icon;
 
-        Hero MainHero = GameManager.GetSelfHero();
-        HeroType MainHeroType = MainHero.GetHeroType();
+        Hero MyHero = GameManager.GetSelfHero();
+        HeroType MyHeroType = MyHero.GetHeroType();
 
-        // If the hero already has a battle being created, use it
-        Battle HeroBattle = MainHero.GetCurrentBattle();
+        // Create a new battle if necessary (if there is none, or if the old draft was for a different creature)
+        if (GetMyBattle() == null || GetMyBattle().GetCreature() != Creature)
+        {
+            if (Creature == null)
+            {
+                Debug.LogError("Cannot show StartBattleMenu because no battle draft is available and no creature was provided.");
+                return;
+            }
 
-        if (HeroBattle != null)
-        {
-            SetMyBattle(HeroBattle);
-        }
-        // Create a new battle if necessary
-        else
-        {
             int CreatureRegionNum = Creature.GetRegion().GetWaypointNum();
 
             // Save a new battle for the played hero, seen by all players (so other players can later receive invitations to this battle)
             // NETWORKED
-            if (PhotonNetwork.IsConnected) photonView.RPC("CreateNewHeroBattleRPC", RpcTarget.All, MainHeroType, CreatureRegionNum);
-            else CreateNewHeroBattleRPC(MainHeroType, CreatureRegionNum);
+            if (PhotonNetwork.IsConnected) photonView.RPC("CreateNewHeroBattleRPC", RpcTarget.All, MyHeroType, CreatureRegionNum);
+            else CreateNewHeroBattleRPC(MyHeroType, CreatureRegionNum);
 
             // Register as an observer of the battle
             GetMyBattle().Attach(this);
         }
-
+        
         this.gameObject.SetActive(true);
 
         InitializeUI();
@@ -214,8 +213,8 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
 
         // Cleanup after cancelling the battle
         // NETWORKED
-        if (PhotonNetwork.IsConnected) photonView.RPC("CleanupCancelledHeroBattleRPC", RpcTarget.All, MainHeroType);
-        else CleanupCancelledHeroBattleRPC(MainHeroType);
+        if (PhotonNetwork.IsConnected) photonView.RPC("CleanupHeroBattleRPC", RpcTarget.All, MainHeroType);
+        else CleanupHeroBattleRPC(MainHeroType);
 
         this.Hide();
     }
@@ -245,12 +244,12 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
             // When changing the controlled hero, check whether the hero already has an ongoing battle being created
             // If yes, show it. If no, don't show this menu.
 
-            Hero MainHero = GameManager.GetSelfHero();
+            Hero MyHero = GameManager.GetSelfHero();
 
             // If the hero already has a battle being created, use it
-            Battle HeroBattle = MainHero.GetCurrentBattle();
+            Battle HeroBattle = GetMyBattle();
 
-            if (HeroBattle != null && HeroBattle.IsPending() && MainHero.GetBattleInvitation() == null) this.Show(null, null);
+            if (HeroBattle != null && HeroBattle.IsPending() && MyHero.GetBattleInvitation() == null) this.Show(null, null);
             else this.Hide();
         }
     }
@@ -444,6 +443,10 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     {
         if (GetMyBattle() == null) return;
 
+        // Current hero
+        Hero MyHero = GameManager.GetSelfHero();
+        HeroType MyHeroType = MyHero.GetHeroType();
+
         int NumInvites = GetMyBattle().GetNumInvites();
         int NumPending = GetMyBattle().GetNumInvitesPending();
         int NumAccepted = GetMyBattle().GetNumInvitesAccepted();
@@ -459,7 +462,14 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
             DisableButton(StartBattleStartButton);
             DisableButton(StartBattleCancelButton);
 
-            BattleMenu.SetBattle(GetMyBattle());
+            // If this is the battle starter, remove their battle draft reference
+            if (MyHero == GetMyBattle().GetBattleStarter())
+            {
+                // NETWORKED
+                if (PhotonNetwork.IsConnected) photonView.RPC("CleanupHeroBattleRPC", RpcTarget.All, MyHeroType);
+                else CleanupHeroBattleRPC(MyHeroType);
+            }
+
             this.Hide();
             BattleMenu.Show();
         }
@@ -554,11 +564,10 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     public void AddBattleInviteRPC(HeroType Inviter, HeroType Invitee)
     {
         // Get references to the involved heroes
-        Hero InviterHero = HeroManager.GetHero(Inviter);
         Hero TargetHero = HeroManager.GetHero(Invitee);
 
         // Get a reference to the inviter's battle
-        Battle TargetBattle = InviterHero.GetCurrentBattle();
+        Battle TargetBattle = GetHeroBattle(Inviter);
 
         TargetBattle.AddHeroToInvite(TargetHero);
     }
@@ -569,11 +578,10 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     public void RemoveBattleInviteRPC(HeroType Inviter, HeroType Invitee)
     {
         // Get references to the involved heroes
-        Hero InviterHero = HeroManager.GetHero(Inviter);
         Hero TargetHero = HeroManager.GetHero(Invitee);
 
         // Get a reference to the inviter's battle
-        Battle TargetBattle = InviterHero.GetCurrentBattle();
+        Battle TargetBattle = GetHeroBattle(Inviter);
 
         TargetBattle.RemoveHeroToInvite(TargetHero);
     }
@@ -583,17 +591,14 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     [PunRPC]
     public void SendBattleInvitesRPC(HeroType Inviter)
     {
-        // Get references to the inviter hero
-        Hero InviterHero = HeroManager.GetHero(Inviter);
-
         // Get a reference to the inviter's battle
-        Battle TargetBattle = InviterHero.GetCurrentBattle();
-
-        // Make the invitations visible to the concerned heroes
-        TargetBattle.SendInvitations();
+        Battle TargetBattle = GetHeroBattle(Inviter);
 
         // Link the battle to the BattleMenu
         BattleMenu.SetBattle(TargetBattle);
+
+        // Make the invitations visible to the concerned heroes
+        TargetBattle.SendInvitations();
     }
 
     // NETWORKED
@@ -607,8 +612,6 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
 
         Battle NewBattle = new Battle(TargetHero, TargetCreature);
 
-        TargetHero.SetCurrentBattle(NewBattle);
-
         SetHeroBattle(Type, NewBattle);
     }
 
@@ -617,24 +620,15 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     [PunRPC]
     public void CancelHeroBattleRPC(HeroType Type)
     {
-        // Get the referenced hero
-        Hero TargetHero = HeroManager.GetHero(Type);
-
-        Battle MyBattle = TargetHero.GetCurrentBattle();
+        Battle MyBattle = GetHeroBattle(Type);
         if (MyBattle != null) MyBattle.CancelStart();
     }
 
     // NETWORKED
     // Cleans up trailing references after cancelling the battle being prepared by the specified hero
     [PunRPC]
-    public void CleanupCancelledHeroBattleRPC(HeroType Type)
+    public void CleanupHeroBattleRPC(HeroType Type)
     {
-        // Get the referenced hero
-        Hero TargetHero = HeroManager.GetHero(Type);
-
-        // Remove the battle from the hero class
-        TargetHero.SetCurrentBattle(null);
-
         // Delete the battle that was being created
         SetHeroBattle(Type, null);
     }

@@ -248,15 +248,12 @@ public class BattleMenu : MonoBehaviourPun, Observer
             // When changing the controlled hero, check whether the hero already has an ongoing battle
             // If yes, show it. If no, don't show this menu.
 
-            Hero MainHero = GameManager.GetSelfHero();
-
-            // If the hero already has an ongoing battle, use it
-            Battle HeroBattle = MainHero.GetCurrentBattle();
+            Hero MyHero = GameManager.GetSelfHero();
 
             // If the wizard had started flipping a die, cancel this process
             CurrentlyFlippingDie = false;
 
-            if (HeroBattle != null && HeroBattle.IsStarted()) this.Show();
+            if (Battle != null && Battle.IsParticipating(MyHero) && Battle.IsStarted()) this.Show();
             else this.Hide();
         }
     }

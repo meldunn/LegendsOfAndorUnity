@@ -175,9 +175,6 @@ public class Battle : Subject
         // Create the first battle round
         GoToNextRound();
 
-        // Register this as the current battle in progress in CreatureManager
-        CreatureManager.SetCurrentBattle(this);
-        
         Notify("STARTED");
         Notify("BATTLE_TURN");
     }
@@ -185,15 +182,6 @@ public class Battle : Subject
     // Ends the battle
     public void End()
     {
-        // Un-register this as the current battle in progress in CreatureManager
-        CreatureManager.SetCurrentBattle(null);
-
-        // Remove this battle from all participants as their battle in progress
-        foreach (Hero Participant in Participants)
-        {
-            Participant.SetCurrentBattle(null);
-        }
-
         // Go to the next hero turn in the main game
         GameManager.GoToNextHeroTurn();
     }
@@ -278,7 +266,6 @@ public class Battle : Subject
     private void KickOutHero(Hero Hero)
     {
         Participants.Remove(Hero);
-        Hero.SetCurrentBattle(null);
 
         // Deduct one strength point and award 3 willpower to the kicked out hero
         Hero.DecreaseStrength(1);
@@ -294,7 +281,6 @@ public class Battle : Subject
     public void LeaveHero(Hero Hero)
     {
         Participants.Remove(Hero);
-        Hero.SetCurrentBattle(null);
 
         Notify("BATTLE_PARTICIPANTS");
 
@@ -474,6 +460,12 @@ public class Battle : Subject
     public List<Hero> GetParticipants()
     {
         return Participants;
+    }
+
+    // Returns whether a hero is participating in the battle
+    public bool IsParticipating(Hero Hero)
+    {
+        return Participants.IndexOf(Hero) != -1;
     }
 
     public Creature GetCreature()

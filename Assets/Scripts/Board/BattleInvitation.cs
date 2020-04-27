@@ -45,7 +45,6 @@ public class BattleInvitation
     public void Accept()
     {
         Status = InvitationStatus.Accepted;
-        MyHero.SetCurrentBattle(Battle);
         NotifyHeroAndBattle();
 
         Battle.TestToStart();
