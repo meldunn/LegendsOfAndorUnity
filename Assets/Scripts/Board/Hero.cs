@@ -95,9 +95,14 @@ public class Hero : MonoBehaviourPun, Subject
     // Moves the hero to the specified location with no regards for game rules
     public void Teleport(int RegionNum)
     {
+        // Set the correct references
+        myRegion.RemoveHero(this);
         myRegion = WaypointManager.GetWaypoint(RegionNum);
-        // TODO: change transform location of hero
-        Move();
+        myRegion.AddHero(this);
+
+        // Move the hero sprite
+        this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
+            Quaternion.identity);                                         // No rotation
     }
 
     public void Move()

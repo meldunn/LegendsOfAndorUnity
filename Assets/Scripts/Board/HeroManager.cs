@@ -1,14 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using Photon.Pun;
+using TMPro;
 
 //!!!DISCLAMER: DO NOT CHANGE THE ORDER OF THIS ENUM!!!
 public enum HeroType { Warrior, Archer, Dwarf, Wizard, PrinceThorald };
 
-public class HeroManager : MonoBehaviour
+public class HeroManager : MonoBehaviourPun
 {
-    // Reference to WaypointManager
+    // Reference to managers
+    private GameManager GameManager;
     private WaypointManager WaypointManager;
 
     // References to the heroes
@@ -41,6 +45,7 @@ public class HeroManager : MonoBehaviour
     public void Initialize()
     {
         // Initialize reference to WaypointManager
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
 
         // Initialize references to the Heroes
@@ -200,4 +205,39 @@ public class HeroManager : MonoBehaviour
     //{
     //    GameManager.GetCurrentTurnHero().Move();
     //}
+
+    // Moves the current hero to the region specified in the input field with no regards to game rules
+    public void Teleport(GameObject Input)
+    {
+        // Get the region string to use based on the input
+        string RegionString = Input.GetComponent<TMP_InputField>().text;
+
+        // Get the hero type of the hero to teleport
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        // Try to convert the region string to a number
+        int RegionNum;
+        try
+        {
+            RegionNum = Int32.Parse(RegionString);
+
+            if (WaypointManager.IsValidWaypoint(RegionNum))
+            {
+                if (PhotonNetwork.IsConnected) photonView.RPC("TeleportRPC", RpcTarget.All, MyHeroType, RegionNum);
+                else TeleportRPC(MyHeroType, RegionNum);
+            }
+            else throw new FormatException();
+        }
+        catch (FormatException e)
+        {
+            Debug.LogError("Cannot teleport to region \"" + RegionString + "\"; invalid region number.");
+        }
+    }
+
+    // NETWORKED
+    [PunRPC]
+    private void TeleportRPC(HeroType TargetHeroType, int RegionNum)
+    {
+        GetHero(TargetHeroType).Teleport(RegionNum);
+    }
 }

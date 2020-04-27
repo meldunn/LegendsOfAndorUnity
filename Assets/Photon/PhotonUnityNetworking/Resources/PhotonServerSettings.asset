@@ -65,6 +65,7 @@ MonoBehaviour:
   - SendTradeRPC
   - SetTurnOrderRPC
   - TakeDamageRPC
+  - TeleportRPC
   - TestDisplayText
   - TestStoreText
   - UpdateMaxAmountRPC
