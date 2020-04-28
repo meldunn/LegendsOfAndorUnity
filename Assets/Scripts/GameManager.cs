@@ -330,11 +330,18 @@ public class GameManager : MonoBehaviourPun, Subject
         // Read an event card
         Debug.Log("TODO: Read an event card");
 
-        // When this is done, advance monsters
+        // When this is done, advance the creatures (IMPORTANT: must be the last step in this function)
+        CreatureManager.StartAdvancing(EndDaySecondHalf);       // Provide the second half as a callback when advancing is done
+    }
 
-        // When this is done, refill all wells
+    // This function is provided as a callback after creature advancing in EndDay()
+    public void EndDaySecondHalf()
+    {
+        // Refill all wells
+        WaypointManager.ReplenishAllWells();
 
         // Advance the narrator
+        NarratorManager.advanceNarratorRPC(51);
     }
 
     // Changes control of the current game session to a different player.
@@ -494,6 +501,13 @@ public class GameManager : MonoBehaviourPun, Subject
         }
     }
 
+    // Used by the cheat menu only
+    public void AdvanceCreaturesForAll()
+    {
+        if (PhotonNetwork.IsConnected) photonView.RPC("AdvanceCreaturesRPC", RpcTarget.All);
+        else AdvanceCreaturesRPC();
+    }
+
     // NETWORKED
     // Sets the turn order on all machines
     [PunRPC]
@@ -534,5 +548,13 @@ public class GameManager : MonoBehaviourPun, Subject
     public void AdvanceTurnRPC()
     {
         GoToNextHeroTurn();
+    }
+
+    // NEWTORKED
+    // Advances creatures on all machines (used in cheat menu)
+    [PunRPC]
+    public void AdvanceCreaturesRPC()
+    {
+        CreatureManager.StartAdvancing(null);
     }
 }

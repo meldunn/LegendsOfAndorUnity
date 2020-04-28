@@ -63293,8 +63293,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 918336530}
-        m_MethodName: StartAdvancing
+      - m_Target: {fileID: 151292509}
+        m_MethodName: AdvanceCreaturesForAll
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

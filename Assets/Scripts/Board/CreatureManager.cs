@@ -27,6 +27,7 @@ public class CreatureManager : MonoBehaviour
     private bool IsAdvancing = false;
     private List<Creature> AdvancingList;
     private int CurrentAdvancingIndex;
+    private Action AdvancingCallback;
 
     // A special case is used to include the Herb Gor in the Gor wave. The tower Skral does not advance.
     private CreatureType[] Waves = { CreatureType.Gor, CreatureType.Skral, CreatureType.Wardrak, CreatureType.Wardrak };
@@ -150,7 +151,8 @@ public class CreatureManager : MonoBehaviour
 
     // Starts the process of advancing the creatures one at a time according to the game rules.
     // After starting this process, advancing proceeds using callbacks, because moving is handled asynchronously (frame-by-frame).
-    public void StartAdvancing()
+    // The callback (if provided) is called when all creatures are done advancing
+    public void StartAdvancing(Action Callback)
     {
         // Make sure advancing is not already in progress
         if (IsAdvancing)
@@ -162,6 +164,8 @@ public class CreatureManager : MonoBehaviour
         // Debug.Log("Starting advancing creatures.");
 
         IsAdvancing = true;
+
+        this.AdvancingCallback = Callback;
 
         // Set up the advancing order
         // Start by resetting the advancing list
@@ -223,6 +227,9 @@ public class CreatureManager : MonoBehaviour
     {
         IsAdvancing = false;
         // Debug.Log("Advancing done.");
+
+        // If a callback was provided, run it
+        if (AdvancingCallback != null) AdvancingCallback();
     }
 
     public void DecreaseNumCreatures()

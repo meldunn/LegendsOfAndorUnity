@@ -33,6 +33,7 @@ MonoBehaviour:
   RpcList:
   - AcceptBattleInviteRPC
   - AddBattleInviteRPC
+  - AdvanceCreaturesRPC
   - advanceNarratorRPC
   - AdvanceTurnRPC
   - CancelHeroBattleRPC
