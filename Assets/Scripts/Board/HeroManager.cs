@@ -204,6 +204,20 @@ public class HeroManager : MonoBehaviourPun
     //    GameManager.GetCurrentTurnHero().Move();
     //}
 
+    // Skips the turn of the current hero and advances their time marker by an hour
+    public void PassTurn()
+    {
+        HeroType CurrentTurnHeroType = GameManager.GetCurrentTurnHero().GetHeroType();
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        // Only the hero whose turn it is can pass their turn
+        if (MyHeroType == CurrentTurnHeroType)
+        {
+            if (PhotonNetwork.IsConnected) photonView.RPC("PassHeroTurnRPC", RpcTarget.All, MyHeroType);
+            else PassHeroTurnRPC(MyHeroType);
+        }
+    }
+
     // Moves the current hero to the region specified in the input field with no regards to game rules
     public void Teleport(GameObject Input)
     {
@@ -253,5 +267,13 @@ public class HeroManager : MonoBehaviourPun
     private void IncrementHeroTimeRPC(HeroType TargetHeroType, int Amount)
     {
         GetHero(TargetHeroType).AdvanceTimeMarker(Amount);
+    }
+
+    // NETWORKED
+    [PunRPC]
+    private void PassHeroTurnRPC(HeroType TargetHeroType)
+    {
+        bool OperationSuccess = GetHero(TargetHeroType).AdvanceTimeMarker(1);
+        if (OperationSuccess) GameManager.GoToNextHeroTurn();
     }
 }

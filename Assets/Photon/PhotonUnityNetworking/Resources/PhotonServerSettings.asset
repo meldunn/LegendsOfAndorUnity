@@ -58,6 +58,7 @@ MonoBehaviour:
   - InstantiateSplitResources
   - LeaveBattleRPC
   - NextHero
+  - PassHeroTurnRPC
   - pickupFarmerRPC
   - pickupGoldRPC
   - PrevHero
@@ -93,5 +94,5 @@ MonoBehaviour:
   - SendTradeRPC
   - TeleportRPC
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 0
