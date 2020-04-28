@@ -126,9 +126,13 @@ public class Hero : MonoBehaviourPun, Subject
                     //this.transform.position = Vector2.MoveTowards(this.GetLocation(),     // Self
                     //myRegion.GetLocation(),                                        // Destination
                     //MoveSpeed * Time.deltaTime);                                 // Max distance moved
+
+                    //return path to empty
+                    path[i] = -1;
                 }
             }
         }
+
     }
 
     public void Move()
