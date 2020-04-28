@@ -13,15 +13,16 @@ public class ChatBehaviour
     [SerializeField]
     TMP_InputField InputMessages = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<string> ChatHistory = new List<string>();
+    public string currentMessage = string.Empty;
 
-    // Update is called once per frame
-    void Update()
+     public void sendMessage()
     {
-        
+        if (true)
+        {
+            //networkView.RPC()
+        }
+
     }
+    
 }
