@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour
 
     // Directly linked UI elements
     [SerializeField]
+    GameObject HeroControlMenuObject = null;
+    [SerializeField]
     GameObject StartBattleMenuObject = null;
     [SerializeField]
     GameObject BattleInvitationMenuObject = null;
@@ -64,7 +66,7 @@ public class UIManager : MonoBehaviour
     {
         // Initialize references to UI element
         HeroMenu = GameObject.Find("HeroMenu").GetComponent<HeroMenu>();
-        HeroControlMenu = GameObject.Find("HeroControlMenu").GetComponent<HeroControlMenu>();
+        HeroControlMenu = HeroControlMenuObject.GetComponent<HeroControlMenu>();
         StartBattleMenu = StartBattleMenuObject.GetComponent<StartBattleMenu>();
         WellUIManager = GameObject.Find("WellUIManager").GetComponent<WellUIManager>();
         RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
@@ -127,6 +129,12 @@ public class UIManager : MonoBehaviour
             WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
         }
         MerchantUIManager.UpdateMerchantButton(HeroRegion.GetWaypointNum());
+    }
+
+    public void ToggleCheatMenu(GameObject CheatMenu)
+    {
+        if (CheatMenu.gameObject.activeSelf == true) CheatMenu.SetActive(false);
+        else if (CheatMenu.gameObject.activeSelf == false) CheatMenu.SetActive(true);
     }
 
     public StartBattleMenu GetStartBattleMenu()
