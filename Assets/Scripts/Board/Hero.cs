@@ -16,6 +16,8 @@ public class Hero : MonoBehaviourPun, Subject
 
     public int[] path;
 
+    // Hero move speed
+    private float MoveSpeed = 3f;
 
     // Type of hero
     HeroType Type;
@@ -105,6 +107,30 @@ public class Hero : MonoBehaviourPun, Subject
             Quaternion.identity);                                         // No rotation
     }
 
+    public void ExecuteMove()
+    {
+        if (path.Length > 0)
+        {
+            for (int i =0; i < path.Length; i++)
+            {
+                if (path[i] != -1)
+                {
+                    Debug.Log("in hero execmove, path[i] is " + path[i]);
+                    myRegion.RemoveHero(this);
+                    myRegion = WaypointManager.GetWaypoint(path[i]);
+                    myRegion.AddHero(this);
+                    //Move the hero sprite
+                    this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
+                        Quaternion.identity);                                         // No rotation
+
+                    //this.transform.position = Vector2.MoveTowards(this.GetLocation(),     // Self
+                    //myRegion.GetLocation(),                                        // Destination
+                    //MoveSpeed * Time.deltaTime);                                 // Max distance moved
+                }
+            }
+        }
+    }
+
     public void Move()
     {
         //if (GetSelfHero() == GetCurrentTurnHero())
@@ -128,6 +154,12 @@ public class Hero : MonoBehaviourPun, Subject
 
     }
 
+
+    // Get the location of this hero
+    private Vector3 GetLocation()
+    {
+        return transform.position;
+    }
 
     public void pickupGold()
     {

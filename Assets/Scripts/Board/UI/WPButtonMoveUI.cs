@@ -189,6 +189,8 @@ public class WPButtonMoveUI : MonoBehaviour
                 HideWPButtons();
                 Debug.Log("here1");
 
+                ExecuteMove(); //TEMPORARY
+
                 break;
             }
             else
@@ -243,6 +245,15 @@ public class WPButtonMoveUI : MonoBehaviour
         newStr = string.Join(string.Empty, Regex.Matches(name, @"\d+").OfType<Match>().Select(m => m.Value)); //extract numbers
         int num = int.Parse(newStr);
         return num;
+    }
+
+    public void ExecuteMove()
+    {
+        GM.GetCurrentTurnHero().ExecuteMove();
+    }
+    public void ContinueMove()
+    {
+        //show adj wp to most recent tile path selected
     }
 
 }
