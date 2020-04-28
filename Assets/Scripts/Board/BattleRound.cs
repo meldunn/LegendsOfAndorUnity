@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BattleRound
 {
+    // References to managers
+    private HeroManager HeroManager;
+
     // Heroes participating in this round
     List<Hero> Participants;
 
@@ -23,6 +26,9 @@ public class BattleRound
     public BattleRound(Creature Creature, List<Hero> Participants)
     {
         this.Creature = Creature;
+
+        // Managers
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
 
         // Make a copy of the participants list that is independant of the input list (which comes from the battle)
         this.Participants = new List<Hero>(Participants);
@@ -246,6 +252,9 @@ public class BattleRound
             if (CurrentRoll != null) BattleValue += CurrentRoll.GetRollValue() + Participant.getStrength();
         }
 
+        // Add Thorald's contribution
+        if (ThoraldIsParticipating()) BattleValue += 4;
+
         return BattleValue;
     }
 
@@ -299,5 +308,15 @@ public class BattleRound
 
         if (CurrentRoll == null) return;
         else CurrentRoll.FinalizeRoll();
+    }
+
+    // Whether Thorald is participating in this battle round
+    public bool ThoraldIsParticipating()
+    {
+        Waypoint CreatureRegion = Creature.GetRegion();
+        Waypoint ThoraldRegion = HeroManager.GetHero(HeroType.PrinceThorald).GetWaypoint();
+
+        if (CreatureRegion == null) return false;
+        else return CreatureRegion.Equals(ThoraldRegion);
     }
 }

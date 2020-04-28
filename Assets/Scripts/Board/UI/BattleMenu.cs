@@ -36,6 +36,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
     GameObject DwarfBox = null;
     [SerializeField]
     GameObject WizardBox = null;
+    [SerializeField]
+    GameObject ThoraldBox = null;
 
     // Turn markers
     [SerializeField]
@@ -330,6 +332,7 @@ public class BattleMenu : MonoBehaviourPun, Observer
         ArcherBox.SetActive(false);
         DwarfBox.SetActive(false);
         WizardBox.SetActive(false);
+        ThoraldBox.SetActive(false);
 
         foreach (Hero Participant in Participants)
         {
@@ -340,6 +343,8 @@ public class BattleMenu : MonoBehaviourPun, Observer
             else if (Type == HeroType.Dwarf) DwarfBox.SetActive(true);
             else if (Type == HeroType.Wizard) WizardBox.SetActive(true);
         }
+
+        if (Battle.ThoraldIsParticipating()) ThoraldBox.SetActive(true);
     }
     
     public void UpdateMainCreature()

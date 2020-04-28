@@ -19,7 +19,7 @@ public class Battle : Subject
     // Creature being fought
     private Creature Creature;
 
-    // Heroes participating in the battle, including the battle starter
+    // Heroes participating in the battle, including the battle starter (but not including Thorald)
     private List<Hero> Participants = new List<Hero>(1);
 
     // Heroes that the battle starter wants to invite to the battle
@@ -625,6 +625,12 @@ public class Battle : Subject
     public bool WaitingOnConsentToContinue()
     {
         return ConsentToContinue.Count >= 1 && ConsentToContinue.Count < Participants.Count;
+    }
+
+    // Whether Thorald is participating in this battle
+    public bool ThoraldIsParticipating()
+    {
+        return GetCurrentRound().ThoraldIsParticipating();
     }
 
     // Used in Observer design pattern
