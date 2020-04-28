@@ -78,7 +78,8 @@ public class WPButtonMoveUI : MonoBehaviour
             PathButtonName = "PathButton (" + i + ")";
             if (GameObject.Find(PathButtonName) != null)
             {
-
+                PathButton.Add(GameObject.Find(PathButtonName));
+                Visibility(PathButton[i], false);
             }
         }
 
@@ -150,7 +151,7 @@ public class WPButtonMoveUI : MonoBehaviour
         Debug.Log(" clicked is " + this.gameObject.name);
 
 
-        Debug.Log("------");
+        
         // Debug.Log(GameManager);
         // Debug.Log(GameManager.GetCurrentTurnHero().GetWaypoint().GetWaypointNum());
         Debug.Log(GM);
@@ -167,9 +168,8 @@ public class WPButtonMoveUI : MonoBehaviour
         {
             if (currHero.path[index] == -1)
             {
-
-                Debug.Log("nametoposint returns: " + nameToPosInt(this.gameObject.name));
                 currHero.path[index] = nameToPosInt(this.gameObject.name);
+                Debug.Log("hero path index is " + index + "wp number is " + currHero.path[index]);
                 break;
             }
             else
