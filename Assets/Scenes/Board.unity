@@ -4985,12 +4985,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15
+      value: -35.8
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -61
+      value: -52.5
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -7177,7 +7177,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 78
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -9838,12 +9839,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -314
+      value: -289
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 302
+      value: 259.7
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -14744,6 +14745,7 @@ GameObject:
   m_Component:
   - component: {fileID: 313784734}
   - component: {fileID: 313784735}
+  - component: {fileID: 313784736}
   m_Layer: 5
   m_Name: FogBack7
   m_TagString: Untagged
@@ -14820,6 +14822,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &313784736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313784733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd16025ed72dbf4c96c7e1e8ba0ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &314060320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15380,12 +15394,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 26
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 68
+      value: 56.3
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -16246,7 +16260,7 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -347
+      value: -403
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -19456,12 +19470,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -78
+      value: -93.6
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 203
+      value: 172.4
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -22968,12 +22982,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -259
+      value: -238.8
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 116
+      value: 99.1
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -37867,7 +37881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: 850, y: 400}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &863479888 stripped
@@ -39952,6 +39966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 900601426}
   - component: {fileID: 900601427}
+  - component: {fileID: 900601428}
   m_Layer: 5
   m_Name: FogBack6
   m_TagString: Untagged
@@ -40028,6 +40043,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &900601428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900601425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd16025ed72dbf4c96c7e1e8ba0ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &905240484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41856,6 +41883,7 @@ GameObject:
   m_Component:
   - component: {fileID: 968404284}
   - component: {fileID: 968404285}
+  - component: {fileID: 968404286}
   m_Layer: 5
   m_Name: FogBack5
   m_TagString: Untagged
@@ -41932,6 +41960,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &968404286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968404283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd16025ed72dbf4c96c7e1e8ba0ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &972959532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49136,6 +49176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1176616745}
   - component: {fileID: 1176616746}
+  - component: {fileID: 1176616747}
   m_Layer: 5
   m_Name: FogBack3
   m_TagString: Untagged
@@ -49212,6 +49253,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1176616747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1176616744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd16025ed72dbf4c96c7e1e8ba0ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1177122565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
@@ -55173,7 +55226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1276878121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -58714,6 +58767,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1333449610}
   - component: {fileID: 1333449611}
+  - component: {fileID: 1333449612}
   m_Layer: 5
   m_Name: FogBack2
   m_TagString: Untagged
@@ -58790,6 +58844,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1333449612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333449609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd16025ed72dbf4c96c7e1e8ba0ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1333506611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58800,12 +58866,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -630
+      value: -315.8
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 370
+      value: 179.4
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -61918,12 +61984,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 204
+      value: 144.2
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 92
+      value: 73.8
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -64837,6 +64903,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1477296446}
   - component: {fileID: 1477296447}
+  - component: {fileID: 1477296448}
   m_Layer: 5
   m_Name: FogBack4
   m_TagString: Untagged
@@ -64913,6 +64980,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1477296448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477296445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd16025ed72dbf4c96c7e1e8ba0ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1479066183
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69214,6 +69293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1583265308}
   - component: {fileID: 1583265309}
+  - component: {fileID: 1583265310}
   m_Layer: 5
   m_Name: FogBack1
   m_TagString: Untagged
@@ -69290,6 +69370,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1583265310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583265307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd16025ed72dbf4c96c7e1e8ba0ea67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1583313997
 GameObject:
   m_ObjectHideFlags: 0
@@ -69702,12 +69794,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13
+      value: -9.1
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 177
+      value: 152.9
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -76590,12 +76682,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 339
+      value: 259
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 191
+      value: 162.4
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -81192,7 +81284,7 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13
+      value: -11.1
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -82758,12 +82850,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 190
+      value: 132.1
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 173
+      value: 149.6
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -85023,12 +85115,12 @@ PrefabInstance:
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -456
+      value: -486.4
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 261
+      value: 250.3
       objectReference: {fileID: 0}
     - target: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
         type: 3}
@@ -95959,7 +96051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2136051775
 RectTransform:
   m_ObjectHideFlags: 0
