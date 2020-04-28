@@ -8,14 +8,22 @@ public class HeroControlMenu : MonoBehaviour, Observer
     private GameManager GameManager;
 
     // References to children components
-    GameObject WarriorControlFrame;
-    GameObject ArcherControlFrame;
-    GameObject DwarfControlFrame;
-    GameObject WizardControlFrame;
-    HeroControlIcon WarriorControlIcon;
-    HeroControlIcon ArcherControlIcon;
-    HeroControlIcon DwarfControlIcon;
-    HeroControlIcon WizardControlIcon;
+    [SerializeField]
+    private GameObject WarriorControlFrame = null;
+    [SerializeField]
+    private GameObject ArcherControlFrame = null;
+    [SerializeField]
+    private GameObject DwarfControlFrame = null;
+    [SerializeField]
+    private GameObject WizardControlFrame = null;
+    [SerializeField]
+    private HeroControlIcon WarriorControlIcon = null;
+    [SerializeField]
+    private HeroControlIcon ArcherControlIcon = null;
+    [SerializeField]
+    private HeroControlIcon DwarfControlIcon = null;
+    [SerializeField]
+    private HeroControlIcon WizardControlIcon = null;
 
     // Start is called before the first frame update
     void Start()
@@ -37,16 +45,6 @@ public class HeroControlMenu : MonoBehaviour, Observer
 
         // Register as an observer of GameManager
         GameManager.Attach(this);
-
-        // Initialize references to children components
-        WarriorControlFrame = GameObject.Find("WarriorControlFrame");
-        ArcherControlFrame = GameObject.Find("ArcherControlFrame");
-        DwarfControlFrame = GameObject.Find("DwarfControlFrame");
-        WizardControlFrame = GameObject.Find("WizardControlFrame");
-        WarriorControlIcon = GameObject.Find("WarriorControlIcon").GetComponent<HeroControlIcon>();
-        ArcherControlIcon = GameObject.Find("ArcherControlIcon").GetComponent<HeroControlIcon>();
-        DwarfControlIcon = GameObject.Find("DwarfControlIcon").GetComponent<HeroControlIcon>();
-        WizardControlIcon = GameObject.Find("WizardControlIcon").GetComponent<HeroControlIcon>();
 
         // Initialize children
         WarriorControlIcon.Initialize(HeroType.Warrior);
@@ -74,42 +72,19 @@ public class HeroControlMenu : MonoBehaviour, Observer
 
         if (ControlledHero != null)
         {
+            // Defaults
+            WarriorControlFrame.SetActive(false);
+            ArcherControlFrame.SetActive(false);
+            DwarfControlFrame.SetActive(false);
+            WizardControlFrame.SetActive(false);
+
             HeroType Type = ControlledHero.GetHeroType();
 
-            switch (Type)
-            {
-                case HeroType.Warrior:
-                    WarriorControlFrame.SetActive(true);
-                    ArcherControlFrame.SetActive(false);
-                    DwarfControlFrame.SetActive(false);
-                    WizardControlFrame.SetActive(false);
-                    break;
-
-                case HeroType.Archer:
-                    WarriorControlFrame.SetActive(false);
-                    ArcherControlFrame.SetActive(true);
-                    DwarfControlFrame.SetActive(false);
-                    WizardControlFrame.SetActive(false);
-                    break;
-
-                case HeroType.Dwarf:
-                    WarriorControlFrame.SetActive(false);
-                    ArcherControlFrame.SetActive(false);
-                    DwarfControlFrame.SetActive(true);
-                    WizardControlFrame.SetActive(false);
-                    break;
-
-                case HeroType.Wizard:
-                    WarriorControlFrame.SetActive(false);
-                    ArcherControlFrame.SetActive(false);
-                    DwarfControlFrame.SetActive(false);
-                    WizardControlFrame.SetActive(true);
-                    break;
-
-                default:
-                    Debug.LogError("Cannot update control frames in HeroControlMenu; invalid hero type: " + Type);
-                    break;
-            }
+            if (Type == HeroType.Warrior) WarriorControlFrame.SetActive(true);
+            else if (Type == HeroType.Archer) ArcherControlFrame.SetActive(true);
+            else if (Type == HeroType.Dwarf) DwarfControlFrame.SetActive(true);
+            else if (Type == HeroType.Wizard) WizardControlFrame.SetActive(true);
+            else Debug.LogError("Cannot update control frames in HeroControlMenu; invalid hero type: " + Type);
         }
     }
 }
