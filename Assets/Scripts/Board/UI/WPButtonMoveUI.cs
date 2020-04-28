@@ -15,7 +15,8 @@ public class WPButtonMoveUI : MonoBehaviour
                         19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
                         51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 81, 82, 84 };
 
-    public List<GameObject> WPButton = new List<GameObject>(73); 
+    public List<GameObject> WPButton = new List<GameObject>(73);
+    public List<GameObject> PathButton = new List<GameObject>(10);
 
     public void Initialize(GameManager GameManager)
     {
@@ -32,6 +33,8 @@ public class WPButtonMoveUI : MonoBehaviour
         Debug.Log(GM);
         Debug.Log(GM.GetCurrentTurnHero());
 
+
+        //initialize WPmovebuttons
         string ButtonName = "";
         int j;
         for (int i = 0; i < 85; i++)
@@ -68,6 +71,16 @@ public class WPButtonMoveUI : MonoBehaviour
         //    Visibility(WPButton[i], true);
         //}
 
+        //initiliaze path buttons
+        string PathButtonName = "";
+        for (int i = 0; i < 10; i++)
+        {
+            PathButtonName = "PathButton (" + i + ")";
+            if (GameObject.Find(PathButtonName) != null)
+            {
+
+            }
+        }
 
     }
 
