@@ -47,20 +47,6 @@ public class HeroInventory : MonoBehaviour
         return false;
     }
 
-    public bool containsItem(string item)
-    {
-        /*
-        foreach (Item i in itemList)
-        {
-            if (i.type.TryParse))
-            {
-                return true;
-            }
-        }
-        */
-        return false;
-    }
-
     public Dictionary<ItemType, int> getInventory()
     {
         return Inventory;

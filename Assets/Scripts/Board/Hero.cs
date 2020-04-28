@@ -35,7 +35,7 @@ public class Hero : MonoBehaviourPun, Subject
     int myGold;
     int numFarmers;
     bool moveCompleted;
-    HeroInventory heroInventory;
+    public HeroInventory heroInventory;
     Waypoint myRegion;
 
     // Current battle invitation
