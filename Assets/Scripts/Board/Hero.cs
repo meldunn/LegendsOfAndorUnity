@@ -30,6 +30,7 @@ public class Hero : MonoBehaviourPun, Subject
     int maxWillpower;
     int willpower;
     int timeOfDay;
+    bool InRoosterBox = false;
     int myGold;
     int numFarmers;
     bool moveCompleted;
@@ -386,6 +387,9 @@ public class Hero : MonoBehaviourPun, Subject
             }
         }
 
+        // Reset the rooster box value
+        if (NewTime > 0) InRoosterBox = false;
+
         // Finalize the time marker advancement
         timeOfDay = NewTime;
         willpower = NewWillpower;
@@ -402,10 +406,19 @@ public class Hero : MonoBehaviourPun, Subject
         return timeOfDay;
     }
 
+    public void EndHeroDay(bool InRoosterBox)
+    {
+        this.InRoosterBox = InRoosterBox;
+        timeOfDay = 0;
+
+        // Notify observers
+        Notify("HERO_TIME");
+    }
+
     // Returns true if the hero was the first to end their day
     public bool IsInRoosterBox()
     {
-        return false;       // TODO real value
+        return InRoosterBox;
     }
 
     // Returns whether the hero has the black die (if they have 3 different rune stones)

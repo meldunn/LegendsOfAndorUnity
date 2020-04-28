@@ -46,6 +46,7 @@ MonoBehaviour:
   - DisplayTheirInventory
   - dropFarmerRPC
   - dropGoldPRC
+  - EndHeroDayRPC
   - FinalizeRollRPC
   - FlipDieRPC
   - GoToNextRoundRPC

@@ -218,6 +218,19 @@ public class HeroManager : MonoBehaviourPun
         }
     }
 
+    public void EndHeroDay()
+    {
+        HeroType CurrentTurnHeroType = GameManager.GetCurrentTurnHero().GetHeroType();
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        // Only the hero whose turn it is can end their day
+        if (MyHeroType == CurrentTurnHeroType)
+        {
+            if (PhotonNetwork.IsConnected) photonView.RPC("EndHeroDayRPC", RpcTarget.All, MyHeroType);
+            else EndHeroDayRPC(MyHeroType);
+        }
+    }
+
     // Moves the current hero to the region specified in the input field with no regards to game rules
     public void Teleport(GameObject Input)
     {
@@ -275,5 +288,26 @@ public class HeroManager : MonoBehaviourPun
     {
         bool OperationSuccess = GetHero(TargetHeroType).AdvanceTimeMarker(1);
         if (OperationSuccess) GameManager.GoToNextHeroTurn();
+    }
+
+    // NETWORKED
+    [PunRPC]
+    private void EndHeroDayRPC(HeroType TargetHeroType)
+    {
+        bool GoToRoosterBox = true;
+
+        // Check whether another hero is already in the rooster box
+        foreach (HeroType Type in GetAllHeroTypes())
+        {
+            if (GetHero(Type).IsInRoosterBox()) GoToRoosterBox = false;
+        }
+
+        // End the hero's day
+        GetHero(TargetHeroType).EndHeroDay(GoToRoosterBox);
+
+        // Move the turn along
+        GameManager.GoToNextHeroTurn();
+
+        // TestEndOfDay();
     }
 }
