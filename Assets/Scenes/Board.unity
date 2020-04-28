@@ -1216,7 +1216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &38531679
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5101,7 +5100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &114460856
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5630,7 +5628,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &126370368
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8011,7 +8008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &175466975
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8360,7 +8356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &186315839
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9491,7 +9486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &211750505
 GameObject:
   m_ObjectHideFlags: 0
@@ -9834,7 +9828,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1001 &217513613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11118,7 +11111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &240276891
 GameObject:
   m_ObjectHideFlags: 0
@@ -11480,7 +11472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1001 &248288958
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12195,7 +12186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &271257731
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -12897,7 +12887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &280106643
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -14417,7 +14406,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &307443692
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -16480,7 +16468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &352940062
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -17979,7 +17966,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1001 &393382358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21441,6 +21427,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486528311}
   m_CullTransparentMesh: 0
+--- !u!1 &486549414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 486549415}
+  - component: {fileID: 486549417}
+  - component: {fileID: 486549416}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &486549415
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486549414}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1885780035}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &486549416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486549414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Button
+--- !u!222 &486549417
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486549414}
+  m_CullTransparentMesh: 0
 --- !u!1 &490143592
 GameObject:
   m_ObjectHideFlags: 0
@@ -21491,7 +21554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &490143595
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -21868,7 +21930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &500833934
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -26997,7 +27058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &627335341
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -28099,7 +28159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!224 &667147181 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 262331298216365649, guid: 4c23102c66fbf014ba0361ea9d8c5084,
@@ -28156,7 +28215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &669733009
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -30540,7 +30598,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &704316040
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -30937,7 +30994,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &713079822
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -31301,7 +31357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &722764897
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -32306,7 +32361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1001 &747355522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32869,7 +32923,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &751770994
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -33450,7 +33503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &758318873
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -37015,7 +37067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &846563255
 GameObject:
   m_ObjectHideFlags: 0
@@ -37311,7 +37362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &850772108
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -37428,7 +37478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &851494738
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -41570,7 +41619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &964422896
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -43978,7 +44026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1018712732
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -45720,7 +45767,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1067314103
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -46632,7 +46678,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!114 &1096228092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46645,7 +46690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1096228093
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -46983,7 +47027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1102911634
 GameObject:
   m_ObjectHideFlags: 0
@@ -47342,7 +47385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1117144242
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -48631,6 +48673,124 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161681226}
   m_CullTransparentMesh: 0
+--- !u!1 &1163203465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1163203466}
+  - component: {fileID: 1163203469}
+  - component: {fileID: 1163203468}
+  - component: {fileID: 1163203467}
+  m_Layer: 5
+  m_Name: ButtonEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1163203466
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163203465}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1757713520}
+  m_Father: {fileID: 2136051775}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1163203467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163203465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1163203468}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1163203468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163203465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1163203469
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163203465}
+  m_CullTransparentMesh: 0
 --- !u!1 &1169495659
 GameObject:
   m_ObjectHideFlags: 0
@@ -48809,7 +48969,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1173424037
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -51510,7 +51669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1203813096
 GameObject:
   m_ObjectHideFlags: 0
@@ -52375,7 +52533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1218001812
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -56481,7 +56638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!224 &1306388125 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 262331298216365649, guid: 4c23102c66fbf014ba0361ea9d8c5084,
@@ -56812,7 +56968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1313077850
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -57941,7 +58096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1326781067
 GameObject:
   m_ObjectHideFlags: 0
@@ -59042,7 +59196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1346071801
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -59159,7 +59312,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1346845979
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -59480,7 +59632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1359688328
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -62010,7 +62161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1419300059
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -65790,7 +65940,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1492984281
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -66346,7 +66495,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1504619892
 GameObject:
   m_ObjectHideFlags: 0
@@ -66824,7 +66972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1521516096
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -68139,7 +68286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1566090476
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -68836,7 +68982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1583265307
 GameObject:
   m_ObjectHideFlags: 0
@@ -69259,7 +69404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1585756360
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -70647,7 +70791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1619250867
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -71631,7 +71774,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1637350782
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -73555,7 +73697,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1684455833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6046333547441995904, guid: c225803d95eaa124fbaebbe188ba3f0b,
@@ -74272,7 +74413,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1001 &1705564304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75898,6 +76038,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733370498}
   m_CullTransparentMesh: 0
+--- !u!1 &1736278705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1736278706}
+  m_Layer: 5
+  m_Name: MoveMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1736278706
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736278705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2136051775}
+  m_Father: {fileID: 2135194514}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 104.6, y: -65.8}
+  m_SizeDelta: {x: 309.3, y: 231.5}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1738297069
 GameObject:
   m_ObjectHideFlags: 0
@@ -76527,7 +76703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1753519187
 GameObject:
   m_ObjectHideFlags: 0
@@ -76888,7 +77063,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1753670871
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -77260,6 +77434,83 @@ MonoBehaviour:
   viewIdField: 16
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!1 &1757713519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757713520}
+  - component: {fileID: 1757713522}
+  - component: {fileID: 1757713521}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1757713520
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757713519}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1163203466}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1757713521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757713519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Button
+--- !u!222 &1757713522
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757713519}
+  m_CullTransparentMesh: 0
 --- !u!1 &1757963889
 GameObject:
   m_ObjectHideFlags: 0
@@ -77821,7 +78072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1774089181
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -77938,7 +78188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1774658715
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -79655,7 +79904,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1816155350
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -81652,7 +81900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1847834589
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -82106,7 +82353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1001 &1857417367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -83025,7 +83271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1871223278
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -83249,7 +83494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1877239682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -83521,7 +83765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1879962468
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -83969,6 +84212,124 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1885771176}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1885780034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1885780035}
+  - component: {fileID: 1885780038}
+  - component: {fileID: 1885780037}
+  - component: {fileID: 1885780036}
+  m_Layer: 5
+  m_Name: ButtonContinue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1885780035
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885780034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 486549415}
+  m_Father: {fileID: 2136051775}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1885780036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885780034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1885780037}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1885780037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885780034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1885780038
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885780034}
+  m_CullTransparentMesh: 0
 --- !u!1 &1893931955
 GameObject:
   m_ObjectHideFlags: 0
@@ -84889,7 +85250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1001 &1906739190
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85202,7 +85562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1914485717
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -85468,7 +85827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1915031843
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -86131,7 +86489,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1926714775
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -86509,7 +86866,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1931901020
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -87448,7 +87804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &1951686667
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -89442,7 +89797,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &1997320672
 GameObject:
   m_ObjectHideFlags: 0
@@ -89875,7 +90229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &2015021281
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -91593,7 +91946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!224 &2048816278 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 262331298216365649, guid: 4c23102c66fbf014ba0361ea9d8c5084,
@@ -91716,7 +92068,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!1 &2052652025
 GameObject:
   m_ObjectHideFlags: 0
@@ -93659,7 +94010,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &2092226764
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -95347,6 +95697,7 @@ RectTransform:
   - {fileID: 114027317}
   - {fileID: 1400224289}
   - {fileID: 862075272}
+  - {fileID: 1736278706}
   m_Father: {fileID: 394364280}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -95409,6 +95760,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab8afe5a8577434a98021a674b487db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2136051774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2136051775}
+  - component: {fileID: 2136051777}
+  - component: {fileID: 2136051776}
+  m_Layer: 5
+  m_Name: MovePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2136051775
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136051774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1885780035}
+  - {fileID: 1163203466}
+  m_Father: {fileID: 1736278706}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2136051776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136051774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2136051777
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136051774}
+  m_CullTransparentMesh: 0
 --- !u!4 &2137886291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4519457643544873890, guid: 19436618bc71a114db124446f0a0f432,
@@ -95714,7 +96140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3448a7337f9bf3246a5020d91e9b51a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WPButton: []
 --- !u!58 &2141909027
 CircleCollider2D:
   m_ObjectHideFlags: 0
