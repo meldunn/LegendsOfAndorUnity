@@ -31,6 +31,7 @@ public class Hero : MonoBehaviourPun, Subject
     int willpower;
     int timeOfDay;
     bool InRoosterBox = false;
+    bool EndedDay = false;
     int myGold;
     int numFarmers;
     bool moveCompleted;
@@ -409,16 +410,28 @@ public class Hero : MonoBehaviourPun, Subject
     public void EndHeroDay(bool InRoosterBox)
     {
         this.InRoosterBox = InRoosterBox;
+        EndedDay = true;
         timeOfDay = 0;
 
         // Notify observers
         Notify("HERO_TIME");
     }
 
+    public void StartHeroDay()
+    {
+        EndedDay = false;
+    }
+
     // Returns true if the hero was the first to end their day
     public bool IsInRoosterBox()
     {
         return InRoosterBox;
+    }
+
+    // Returns true if the hero has ended their day
+    public bool HasEndedDay()
+    {
+        return EndedDay;
     }
 
     // Returns whether the hero has the black die (if they have 3 different rune stones)

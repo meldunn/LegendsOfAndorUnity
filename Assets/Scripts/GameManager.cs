@@ -293,6 +293,9 @@ public class GameManager : MonoBehaviourPun, Subject
 
         CurrentTurnHero = TurnOrder[ (CurrentIndex + 1) % TurnOrder.Length ];
 
+        // If the hero can't take the turn because their day is ended, go to the next turn again
+        if (HeroManager.GetHero(CurrentTurnHero).HasEndedDay()) GoToNextHeroTurn();
+
         // Notify observers to update UI
         Notify("TURN");
     }
@@ -314,6 +317,24 @@ public class GameManager : MonoBehaviourPun, Subject
             if (TurnOrder[i] == Hero.GetHeroType()) return HeroManager.GetHero(TurnOrder[(i + 1) % TurnOrder.Length]);
         }
         return null;
+    }
+
+    public void EndDay()
+    {
+        Debug.Log("It's a new dawn, it's a new day.");
+
+        // Change the hero turn
+        CurrentTurnHero = HeroManager.GetRoosterHero().GetHeroType();
+        Notify("TURN");
+
+        // Read an event card
+        Debug.Log("TODO: Read an event card");
+
+        // When this is done, advance monsters
+
+        // When this is done, refill all wells
+
+        // Advance the narrator
     }
 
     // Changes control of the current game session to a different player.

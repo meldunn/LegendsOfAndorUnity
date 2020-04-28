@@ -231,6 +231,45 @@ public class HeroManager : MonoBehaviourPun
         }
     }
 
+    // Tests whether to end the day for all, and triggers ending the day if necessary.
+    // Returns whether the end-of-day was triggered.
+    public bool TestEndDay()
+    {
+        bool EndDay = true;
+
+        // Check whether all the heroes have ended their day
+        foreach (HeroType Type in GetAllHeroTypes())
+        {
+            if (!GetHero(Type).HasEndedDay()) EndDay = false;
+        }
+
+        // Trigger ending day if necessary
+        if (EndDay)
+        {
+            // Clear the ended day field for all (to allow turns to be set correctly)
+            foreach (HeroType Type in GetAllHeroTypes()) GetHero(Type).StartHeroDay();
+
+            // End the day
+            GameManager.EndDay();
+        }
+
+        return EndDay;
+    }
+
+    // Returns the hero who is in the rooster box, or null if there is none
+    public Hero GetRoosterHero()
+    {
+        Hero RoosterHero = null;
+
+        // Check whether a hero is in the rooster box
+        foreach (HeroType Type in GetAllHeroTypes())
+        {
+            if (GetHero(Type).IsInRoosterBox()) RoosterHero = GetHero(Type);
+        }
+
+        return RoosterHero;
+    }
+
     // Moves the current hero to the region specified in the input field with no regards to game rules
     public void Teleport(GameObject Input)
     {
@@ -294,20 +333,17 @@ public class HeroManager : MonoBehaviourPun
     [PunRPC]
     private void EndHeroDayRPC(HeroType TargetHeroType)
     {
-        bool GoToRoosterBox = true;
-
         // Check whether another hero is already in the rooster box
-        foreach (HeroType Type in GetAllHeroTypes())
-        {
-            if (GetHero(Type).IsInRoosterBox()) GoToRoosterBox = false;
-        }
+        Hero RoosterBoxHero = GetRoosterHero();
+        bool GoToRoosterBox = RoosterBoxHero == null;
 
         // End the hero's day
         GetHero(TargetHeroType).EndHeroDay(GoToRoosterBox);
 
-        // Move the turn along
-        GameManager.GoToNextHeroTurn();
+        // Test whether to end the day for all
+        bool DayChanged = TestEndDay();
 
-        // TestEndOfDay();
+        // If the day hasn't changed, move the turn along
+        if (!DayChanged) GameManager.GoToNextHeroTurn();
     }
 }
