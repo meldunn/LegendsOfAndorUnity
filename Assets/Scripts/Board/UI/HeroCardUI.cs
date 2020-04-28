@@ -12,22 +12,24 @@ public class HeroCardUI : MonoBehaviour, Observer
     HeroType myHeroType;
 
     Hero myHero;
+    HeroInventory inventory;
 
     //HeroCard and StatsPanek
     [SerializeField] GameObject HeroCard;
     [SerializeField] GameObject StatsPanel;
 
     //Children: Items
-    GameObject Bow;
-    GameObject Brew;
-    GameObject Falcon;
-    GameObject Telescope;
-    GameObject Wineskin;
-    GameObject Shield;
-    GameObject Helm;
-    GameObject GreenRune;
-    GameObject YellowRune;
-    GameObject BlueRune;
+    [SerializeField] GameObject Bow;
+    [SerializeField] GameObject Brew;
+    [SerializeField] GameObject Falcon;
+    [SerializeField] GameObject Telescope;
+    [SerializeField] GameObject Wineskin;
+    [SerializeField] GameObject Shield;
+    [SerializeField] GameObject Helm;
+    [SerializeField] GameObject GreenRune;
+    [SerializeField] GameObject YellowRune;
+    [SerializeField] GameObject BlueRune;
+    [SerializeField] GameObject Medicinalherb;
 
     public void Initialize()
     {
@@ -60,7 +62,7 @@ public class HeroCardUI : MonoBehaviour, Observer
 
     public void UpdateHeroInventory()
     {
-
+        
     }
 
     }
