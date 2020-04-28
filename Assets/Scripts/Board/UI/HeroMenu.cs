@@ -8,6 +8,7 @@ public class HeroMenu : MonoBehaviour, Observer
     private GameManager GameManager;
 
     // References to children components
+    // Markers for whose turn it is
     [SerializeField]
     GameObject WarriorTurnBox = null;
     [SerializeField]
@@ -16,6 +17,16 @@ public class HeroMenu : MonoBehaviour, Observer
     GameObject DwarfTurnBox = null;
     [SerializeField]
     GameObject WizardTurnBox = null;
+
+    // Markers for who you're controlling
+    [SerializeField]
+    GameObject WarriorThisIsMe = null;
+    [SerializeField]
+    GameObject ArcherThisIsMe = null;
+    [SerializeField]
+    GameObject DwarfThisIsMe = null;
+    [SerializeField]
+    GameObject WizardThisIsMe = null;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +51,7 @@ public class HeroMenu : MonoBehaviour, Observer
 
         // Initialize UI
         UpdateTurn();
+        UpdateControl();
     }
 
     // Used in Observer design pattern
@@ -48,6 +60,10 @@ public class HeroMenu : MonoBehaviour, Observer
         if (string.Equals(Category, "TURN"))
         {
             UpdateTurn();
+        }
+        else if (string.Equals(Category, "CONTROL"))
+        {
+            UpdateControl();
         }
     }
 
@@ -69,7 +85,29 @@ public class HeroMenu : MonoBehaviour, Observer
             else if (Type == HeroType.Archer) ArcherTurnBox.SetActive(true);
             else if (Type == HeroType.Dwarf) DwarfTurnBox.SetActive(true);
             else if (Type == HeroType.Wizard) WizardTurnBox.SetActive(true);
-            else Debug.LogError("Cannot update turn labels in HeroMenu; invalid hero type: " + Type);
+            else Debug.LogError("Cannot update turn marker in HeroMenu; invalid hero type: " + Type);
+        }
+    }
+
+    private void UpdateControl()
+    {
+        // Defaults
+        WarriorThisIsMe.SetActive(false);
+        ArcherThisIsMe.SetActive(false);
+        DwarfThisIsMe.SetActive(false);
+        WizardThisIsMe.SetActive(false);
+
+        Hero CurrentTurnHero = GameManager.GetSelfHero();
+
+        if (CurrentTurnHero != null)
+        {
+            HeroType Type = CurrentTurnHero.GetHeroType();
+
+            if (Type == HeroType.Warrior) WarriorThisIsMe.SetActive(true);
+            else if (Type == HeroType.Archer) ArcherThisIsMe.SetActive(true);
+            else if (Type == HeroType.Dwarf) DwarfThisIsMe.SetActive(true);
+            else if (Type == HeroType.Wizard) WizardThisIsMe.SetActive(true);
+            else Debug.LogError("Cannot update control marker in HeroMenu; invalid hero type: " + Type);
         }
     }
 }
