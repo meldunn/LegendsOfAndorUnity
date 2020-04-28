@@ -1199,19 +1199,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Some say the world will end in fire,\r\nSome say in ice.\r\nFrom what
-    I\u2019ve tasted of desire\r\nI hold with those who favor fire.\r\nBut if it
-    had to perish twice,\r\nI think I know enough of hate\r\nTo say that for destruction
-    ice\r\nIs also great\r\nAnd would suffice.\n\nI had withdrawn in forest, and
-    my song\r\nWas swallowed up in leaves that blew alway;\r\nAnd to the forest edge
-    you came one day\r\n(This was my dream) and looked and pondered long,\r\nBut
-    did not enter, though the wish was strong:\r\nYou shook your pensive head as
-    who should say,\r\n\u2018I dare not\u2014too far in his footsteps stray\u2014\r\nHe
-    must seek me would he undo the wrong.\u2019\r\n\r\nNot far, but near, I stood
-    and saw it all\r\nBehind low boughs the trees let down outside;\r\nAnd the sweet
-    pang it cost me not to call\r\nAnd tell you that I saw does still abide.\r\nBut
-    \u2019tis not true that thus I dwelt aloof,\r\nFor the wood wakes, and you are
-    here for proof."
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
@@ -1280,13 +1268,13 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 6.3647003}
   m_textInfo:
     textComponent: {fileID: 8126573135662836584}
-    characterCount: 885
+    characterCount: 0
     spriteCount: 0
-    spaceCount: 177
-    wordCount: 177
+    spaceCount: 0
+    wordCount: 0
     linkCount: 0
-    lineCount: 25
-    pageCount: 1
+    lineCount: 0
+    pageCount: 0
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
