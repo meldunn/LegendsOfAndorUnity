@@ -92,6 +92,7 @@ MonoBehaviour:
   - LeaveBattleRPC
   - pickupFarmerRPC
   - pickupGoldRPC
+  - SendChatRPC
   - SendReplyRPC
   - SendTradeRPC
   - TeleportRPC

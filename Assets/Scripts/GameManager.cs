@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviourPun, Subject
     private HeroManager HeroManager;
     private CreatureManager CreatureManager;
     private NarratorManager NarratorManager;
+    private ChatManager ChatManager;
 
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
@@ -81,12 +82,14 @@ public class GameManager : MonoBehaviourPun, Subject
         HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
         NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
+        ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
 
         // Initialize the non-UI managers
         WaypointManager.Initialize();
         HeroManager.Initialize();
         CreatureManager.Initialize();
         NarratorManager.Initialize();
+        ChatManager.Initialize();
 
 
         //TONETWORK
@@ -188,6 +191,8 @@ public class GameManager : MonoBehaviourPun, Subject
             Merchant Merchant = Waypoint.GetComponent<Merchant>();
             Merchant.Initialize();
         }
+
+        ChatManager.SendSystemMessage("Welcome to Legends of Andor!");
 
         // Initialize the UI manager
         // IMPORTANT: Do this last to ensure all data is available

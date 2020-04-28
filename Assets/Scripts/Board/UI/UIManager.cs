@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     HeroCardUI ArcherHeroCard;
     HeroCardUI WizardHeroCard;
     TimeTrackUI TimeTrackUI;
+    ChatUI ChatUI;
 
     // Directly linked UI elements
     [SerializeField]
@@ -38,6 +39,8 @@ public class UIManager : MonoBehaviour
     GameObject CastleMenuObject = null;
     [SerializeField]
     GameObject TimeTrackUIObject = null;
+    [SerializeField]
+    GameObject ChatUIObject = null;
 
     [SerializeField]
     GameObject WarriorCardObject = null;
@@ -79,6 +82,7 @@ public class UIManager : MonoBehaviour
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
         TimeTrackUI = TimeTrackUIObject.GetComponent<TimeTrackUI>();
+        ChatUI = ChatUIObject.GetComponent<ChatUI>();
 
         // Initializing the HeroCards
         WarriorHeroCard = WarriorCardObject.GetComponent<HeroCardUI>();
@@ -111,6 +115,7 @@ public class UIManager : MonoBehaviour
         FogManager.Initialize();
         CastleMenu.Initialize();
         TimeTrackUI.Initialize();
+        ChatUI.Initialize();
 
         // Must come AFTER all initializations
         InputManager.Initialize();
