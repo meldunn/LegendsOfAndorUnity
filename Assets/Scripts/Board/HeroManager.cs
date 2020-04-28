@@ -271,13 +271,10 @@ public class HeroManager : MonoBehaviourPun
     }
 
     // Moves the current hero to the region specified in the input field with no regards to game rules
-    public void Teleport(GameObject Input)
+    private void Teleport(HeroType MyHeroType, GameObject Input)
     {
         // Get the region string to use based on the input
         string RegionString = Input.GetComponent<TMP_InputField>().text;
-
-        // Get the hero type of the hero to teleport
-        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
 
         // Try to convert the region string to a number
         int RegionNum;
@@ -294,8 +291,23 @@ public class HeroManager : MonoBehaviourPun
         }
         catch (FormatException e)
         {
-            Debug.LogError("Cannot teleport to region \"" + RegionString + "\"; invalid region number.");
+            Debug.LogError("Cannot teleport "+MyHeroType+" to region \"" + RegionString + "\"; invalid region number.");
         }
+    }
+
+    public void TeleportSelf(GameObject Input)
+    {
+        // Get the hero type of the hero to teleport
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        Teleport(MyHeroType, Input);
+    }
+
+    public void TeleportThorald(GameObject Input)
+    {
+        // Validate Thorald's existence
+        if (GetHero(HeroType.PrinceThorald).GetWaypoint() == null) Debug.LogError("Cannot teleport Prince Thorald; he has not arrived yet.");
+        else Teleport(HeroType.PrinceThorald, Input);
     }
 
     // Use for testing only; increments the current hero's time of day by the specified amount
