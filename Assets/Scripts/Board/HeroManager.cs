@@ -194,9 +194,7 @@ public class HeroManager : MonoBehaviourPun
         HeroTypes.Add(HeroType.Archer);
         HeroTypes.Add(HeroType.Dwarf);
         HeroTypes.Add(HeroType.Wizard);
-
-        //Uncomment if needed
-        //HeroTypes.Add(HeroType.PrinceThorald);
+        // Do not return Prince Thorald
 
         return HeroTypes;
     }
@@ -205,6 +203,20 @@ public class HeroManager : MonoBehaviourPun
     //{
     //    GameManager.GetCurrentTurnHero().Move();
     //}
+
+    // Skips the turn of the current hero and advances their time marker by an hour
+    public void PassTurn()
+    {
+        HeroType CurrentTurnHeroType = GameManager.GetCurrentTurnHero().GetHeroType();
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        // Only the hero whose turn it is can pass their turn
+        if (MyHeroType == CurrentTurnHeroType)
+        {
+            if (PhotonNetwork.IsConnected) photonView.RPC("PassHeroTurnRPC", RpcTarget.All, MyHeroType);
+            else PassHeroTurnRPC(MyHeroType);
+        }
+    }
 
     // Moves the current hero to the region specified in the input field with no regards to game rules
     public void Teleport(GameObject Input)
@@ -234,10 +246,34 @@ public class HeroManager : MonoBehaviourPun
         }
     }
 
+    // Use for testing only; increments the current hero's time of day by the specified amount
+    public void IncrementSelfHeroTime(int Amount)
+    {
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        if (PhotonNetwork.IsConnected) photonView.RPC("IncrementHeroTimeRPC", RpcTarget.All, MyHeroType, Amount);
+        else IncrementHeroTimeRPC(MyHeroType, Amount);
+    }
+
     // NETWORKED
     [PunRPC]
     private void TeleportRPC(HeroType TargetHeroType, int RegionNum)
     {
         GetHero(TargetHeroType).Teleport(RegionNum);
+    }
+
+    // NETWORKED
+    [PunRPC]
+    private void IncrementHeroTimeRPC(HeroType TargetHeroType, int Amount)
+    {
+        GetHero(TargetHeroType).AdvanceTimeMarker(Amount);
+    }
+
+    // NETWORKED
+    [PunRPC]
+    private void PassHeroTurnRPC(HeroType TargetHeroType)
+    {
+        bool OperationSuccess = GetHero(TargetHeroType).AdvanceTimeMarker(1);
+        if (OperationSuccess) GameManager.GoToNextHeroTurn();
     }
 }

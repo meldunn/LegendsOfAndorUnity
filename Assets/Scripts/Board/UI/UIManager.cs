@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     HeroCardUI DwarfHeroCard;
     HeroCardUI ArcherHeroCard;
     HeroCardUI WizardHeroCard;
+    TimeTrackUI TimeTrackUI;
 
     // Directly linked UI elements
     [SerializeField]
@@ -33,6 +34,8 @@ public class UIManager : MonoBehaviour
     GameObject BattleMenuObject = null;
     [SerializeField]
     GameObject CastleMenuObject = null;
+    [SerializeField]
+    GameObject TimeTrackUIObject = null;
 
     [SerializeField]
     GameObject WarriorCardObject = null;
@@ -73,14 +76,14 @@ public class UIManager : MonoBehaviour
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
+        TimeTrackUI = TimeTrackUIObject.GetComponent<TimeTrackUI>();
 
         // Initializing the HeroCards
         WarriorHeroCard = WarriorCardObject.GetComponent<HeroCardUI>();
         DwarfHeroCard = DwarfCardObject.GetComponent<HeroCardUI>();
         ArcherHeroCard = ArcherCardObject.GetComponent<HeroCardUI>();
         WizardHeroCard = WizardCardObject.GetComponent<HeroCardUI>();
-
-
+        
         // Must come AFTER all Game objects are found.
         InputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
 
@@ -105,6 +108,7 @@ public class UIManager : MonoBehaviour
         WPButtonMoveUI.Initialize(GM);
         FogManager.Initialize();
         CastleMenu.Initialize();
+        TimeTrackUI.Initialize();
 
         // Must come AFTER all initializations
         InputManager.Initialize();

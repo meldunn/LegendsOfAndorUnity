@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: 
+    AppIdRealtime: d4408bb2-cc46-441f-a12b-33f9f0571f95
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -25,7 +25,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: 
+  DevRegion: cae
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -33,21 +33,34 @@ MonoBehaviour:
   RpcList:
   - AcceptBattleInviteRPC
   - AddBattleInviteRPC
+  - advanceNarratorRPC
   - AdvanceTurnRPC
   - CancelHeroBattleRPC
-  - CleanupCancelledHeroBattleRPC
+  - CleanupHeroBattleRPC
   - ClickRpc
   - CreateNewHeroBattleRPC
   - DeclineBattleInviteRPC
+  - DecreaseCoins
+  - DecreaseWine
   - DestroyRpc
+  - DisplayTheirInventory
+  - dropFarmerRPC
+  - dropGoldPRC
   - FinalizeRollRPC
   - FlipDieRPC
   - GoToNextRoundRPC
   - GoToNextTurnRPC
   - HideWellButton
+  - IncrementCoins
+  - IncrementHeroTimeRPC
+  - IncrementWine
   - InstantiateSelector
   - InstantiateSplitResources
+  - LeaveBattleRPC
   - NextHero
+  - PassHeroTurnRPC
+  - pickupFarmerRPC
+  - pickupGoldRPC
   - PrevHero
   - ReadyUp
   - ReadyUpMaster
@@ -56,8 +69,11 @@ MonoBehaviour:
   - SendHeroRollValuesRPC
   - SendNewCreatureRollRPC
   - SendNewHeroRollRPC
+  - SendReplyRPC
+  - SendTradeRPC
   - SetTurnOrderRPC
   - TakeDamageRPC
+  - TeleportRPC
   - TestDisplayText
   - TestStoreText
   - UpdateMaxAmountRPC
@@ -78,5 +94,5 @@ MonoBehaviour:
   - SendTradeRPC
   - TeleportRPC
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 0
