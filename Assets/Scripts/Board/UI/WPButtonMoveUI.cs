@@ -10,6 +10,7 @@ public class WPButtonMoveUI : MonoBehaviour
     //TODO: fix issue where if monster and WPbutoon on on same tile cant click WP button, potential fix: when making them visible check if space is occupied if yes then change x/y by a bit
 
     private static GameManager GM;
+    private WaypointManager WaypointManager;
 
     int[] Location = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11,12,13,14,15,16,17,18,
                         19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
@@ -17,6 +18,16 @@ public class WPButtonMoveUI : MonoBehaviour
 
     public static List<GameObject> WPButton = new List<GameObject>(73);
     public static List<GameObject> PathButton = new List<GameObject>(10);
+
+
+
+    void Start()
+    {
+        // Initialize reference to WaypointManager
+        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+       
+
+    }
 
     public void Initialize(GameManager GameManager)
     {
@@ -189,7 +200,21 @@ public class WPButtonMoveUI : MonoBehaviour
                 HideWPButtons();
                 Debug.Log("here1");
 
-                ExecuteMove(); //TEMPORARY
+
+                //TO FIX WHEN I GET PANEL !!!!
+
+                //ExecuteMove(); //TEMPORARY
+
+
+                if (index == 4)
+                {
+                    ExecuteMove();
+                    break;
+                }
+
+                ContinueMove();
+
+
 
                 break;
             }
@@ -250,10 +275,28 @@ public class WPButtonMoveUI : MonoBehaviour
     public void ExecuteMove()
     {
         GM.GetCurrentTurnHero().ExecuteMove();
+        //make invisible pathbutton
+        for (int i = 0; i < 10; i++)
+        {
+            PathButton[i].SetActive(false);
+        }
     }
     public void ContinueMove()
     {
         //show adj wp to most recent tile path selected
+        int mostRecentTileNum = -1;
+
+        for (int i =9 ; i >= 0; i--)
+        {
+            if (GM.GetCurrentTurnHero().path[i] != -1)
+            {
+                mostRecentTileNum = GM.GetCurrentTurnHero().path[i];
+                break;
+
+            }
+        }
+        //show adjWP
+        WaypointManager.GetWaypoint(mostRecentTileNum).ShowAdjWP();
     }
 
 }
