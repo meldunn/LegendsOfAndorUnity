@@ -354,6 +354,61 @@ public class HeroManager : MonoBehaviourPun
         
     }
 
+    public void DivideBattleResources(Dictionary<HeroType, int> Gold, Dictionary<HeroType, int> WP)
+    {
+        if(WarriorWasInitialized)
+        {
+            if(PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("DivideBattleResourcesRPC", RpcTarget.All, HeroType.Warrior, Gold[HeroType.Warrior], WP[HeroType.Warrior]);
+            }
+            else
+            {
+                DivideBattleResourcesRPC(HeroType.Warrior, Gold[HeroType.Warrior], WP[HeroType.Warrior]);
+            }
+        }
+        if(ArcherWasInitialized)
+        {
+            if(PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("DivideBattleResourcesRPC", RpcTarget.All, HeroType.Archer, Gold[HeroType.Archer], WP[HeroType.Archer]);
+            }
+            else
+            {
+                DivideBattleResourcesRPC(HeroType.Archer, Gold[HeroType.Archer], WP[HeroType.Archer]);
+            }
+        }
+        if(WizardWasInitialized)
+        {
+            if(PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("DivideBattleResourcesRPC", RpcTarget.All, HeroType.Wizard, Gold[HeroType.Wizard], WP[HeroType.Wizard]);
+            }
+            else
+            {
+                DivideBattleResourcesRPC(HeroType.Wizard, Gold[HeroType.Wizard], WP[HeroType.Wizard]);
+            }
+        }
+        if(DwarfWasInitialized)
+        {
+            if(PhotonNetwork.IsConnected)
+            {
+                photonView.RPC("DivideBattleResourcesRPC", RpcTarget.All, HeroType.Dwarf, Gold[HeroType.Dwarf], WP[HeroType.Dwarf]);
+            }
+            else
+            {
+                DivideBattleResourcesRPC(HeroType.Dwarf, Gold[HeroType.Dwarf], WP[HeroType.Dwarf]);
+            }
+        }
+    }
+
+    [PunRPC]
+    private void DivideBattleResourcesRPC(HeroType TargetHeroType, int Gold, int WP)
+    {
+        GetHero(TargetHeroType).IncreaseWillpower(WP);
+        GetHero(TargetHeroType).ReceiveGold(Gold);
+    }
+    // NETWORKED
     [PunRPC]
     private void BuyFromMerchantRPC(HeroType TargetHeroType, ItemType Item)
     {
