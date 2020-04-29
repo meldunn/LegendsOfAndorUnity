@@ -13,7 +13,6 @@ public class FogManager : MonoBehaviour
     Fog[] foglist; //list of fog
 
     public static List<FogBack> FogBackList = new List<FogBack>(7);
-    //public static List<Waypoint> FogBackList = new List<Waypoint>(7);
     public static List<GameObject> FogFrontList = new List<GameObject>(7);
 
     static int[] TileWPNum = {13, 8, 11, 47, 46, 32, 12, 16, 64, 48, 44, 42, 56, 49, 63}; //in order of fogwp number 
@@ -54,9 +53,10 @@ public class FogManager : MonoBehaviour
             
 
         }
-        printlist(SelectedWP);  //for testing
+        //Debug.Log("printining fog list");
+        //printlist(SelectedWP);  //for testing
 
-        //place selected fogwaypoints into finalwaypoints
+        
 
     
 
@@ -85,25 +85,14 @@ public class FogManager : MonoBehaviour
         //set and place fogs
         for (int i =0; i < 7; i++)
         {
-            Fog newFod = new Fog(FogBackList[i]);
+            Fog newFod = new Fog(TileWPNum[SelectedWP[i]],FogBackList[i]);
             foglist[i] = newFod;
-
-
             Debug.Log(FogBackList[i]);
             Debug.Log(foglist[i]);
 
-
-
-            Debug.Log("SelectedWP[i] " + TileWPNum[SelectedWP[i]]);
-
-
-
+            Debug.Log("tilenum[SelectedWP[i]] " + TileWPNum[SelectedWP[i]]);
             WaypointName = "Waypoint (" + TileWPNum[SelectedWP[i]] + ")";
 
-
-            
-            
-            
             Waypoint waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
             foglist[i].GetFogBackCard().transform.position = waypoint.transform.position;
         }
@@ -112,6 +101,24 @@ public class FogManager : MonoBehaviour
 
 
     }
+    
+    public void triggerFogAtWP(int wpnumber)
+    {
+        for (int i =0; i < foglist.Length; i++)
+        {
+            if (wpnumber == foglist[i].GetWPNum())
+            {
+                Debug.Log("wpnum for fog is " + wpnumber);
+                //return foglist[i];
+                //foglist[i].GetFogBackCard().HideFogBack();
+                foglist[i].GetFogBackCard().gameObject.SetActive(false);
+            }
+         
+        }
+        Debug.Log("this wp doesnt have fog");
+        //return null;
+    }
+    
     //for testing
     public void printlist(List<int> list)
     {

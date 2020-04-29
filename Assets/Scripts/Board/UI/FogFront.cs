@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FogBack : MonoBehaviour
+public class FogFront : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,9 +15,4 @@ public class FogBack : MonoBehaviour
     {
         
     }
-
-    //public void HideFogBack()
-    //{
-    //    this.SetActive(false);
-    //}
 }

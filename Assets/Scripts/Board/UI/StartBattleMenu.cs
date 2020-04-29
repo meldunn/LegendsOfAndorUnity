@@ -47,12 +47,6 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     [SerializeField]
     GameObject WardrakStartBattleIcon = null;
 
-    // Creature stats
-    [SerializeField]
-    GameObject CreatureStrength = null;
-    [SerializeField]
-    GameObject CreatureWillpower = null;
-
     [SerializeField]
     GameObject WarriorStartBattleInviteIcon = null;
     [SerializeField]
@@ -128,12 +122,8 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         // Initialize reference to BattleMenu
         BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
 
-        // Register as an observer of GameManager and of the four heroes
+        // Register as an observer of GameManager
         GameManager.Attach(this);
-        HeroManager.GetHero(HeroType.Warrior).Attach(this);
-        HeroManager.GetHero(HeroType.Archer).Attach(this);
-        HeroManager.GetHero(HeroType.Dwarf).Attach(this);
-        HeroManager.GetHero(HeroType.Wizard).Attach(this);
     }
 
     // To function correctly, the start battle menu must be displayed using this method
@@ -194,7 +184,7 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
 
         UpdateMainHero();
         UpdateMainCreature();
-        UpdateAvailableHeroes();
+        UpdateAvailableOtherHeroes();
         UpdateWaitStatus();
         UpdateIfStarted();
         UpdateIfCancelled();
@@ -238,7 +228,7 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         }
         else if (string.Equals(Category, "TURN"))
         {
-            UpdateAvailableHeroes();
+            UpdateAvailableOtherHeroes();
         }
         else if (string.Equals(Category, "STARTED"))
         {
@@ -248,26 +238,6 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         {
             UpdateWaitStatus();
             UpdateIfCancelled();
-        }
-        else if (string.Equals(Category, "HERO_TIME"))
-        {
-            UpdateAvailableHeroes();
-        }
-        else if (string.Equals(Category, "HERO_WILLPOWER"))
-        {
-            UpdateAvailableHeroes();
-        }
-        else if (string.Equals(Category, "PLAYING_HEROES"))
-        {
-            UpdateAvailableHeroes();
-        }
-        else if (string.Equals(Category, "HERO_MOVE"))
-        {
-            UpdateAvailableHeroes();
-        }
-        else if (string.Equals(Category, "CREATURE_MOVE"))
-        {
-            UpdateAvailableHeroes();
         }
         else if (string.Equals(Category, "CONTROL"))
         {
@@ -286,12 +256,7 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
 
     public void SetInfoText(string Text)
     {
-        SetText(StartBattleInfoText, Text);
-    }
-
-    public void SetText(GameObject Display, string Text)
-    {
-        TextMeshProUGUI InfoText = Display.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI InfoText = StartBattleInfoText.GetComponent<TextMeshProUGUI>();
         InfoText.SetText(Text);
     }
 
@@ -371,27 +336,21 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
             else if (Type == CreatureType.TowerSkral) TowerSkralStartBattleIcon.SetActive(true);
             else if (Type == CreatureType.Wardrak) WardrakStartBattleIcon.SetActive(true);
             else Debug.LogError("Cannot update opponent icons in StartBattleMenu; invalid creature type: " + Type);
-
-            // Display creature stats
-            SetText(CreatureStrength, MainCreature.GetStrength().ToString());
-            SetText(CreatureWillpower, MainCreature.GetWillpower().ToString());
         }
     }
 
-    public void UpdateAvailableHeroes()
+    public void UpdateAvailableOtherHeroes()
     {
         // List of all heroes who are elegible for battle
         List<HeroType> AvailableHeroes = HeroManager.GetHeroesEligibleForBattle(GetMyBattle());
 
         // The main hero starting the battle
-        Hero MainHero = GameManager.GetSelfHero();
-        HeroType MainHeroType = MainHero.GetHeroType();
-        Hero TurnHero = GameManager.GetCurrentTurnHero();
-        HeroType TurnHeroType = TurnHero.GetHeroType();
+        HeroType MainHero = GameManager.GetSelfHero().GetHeroType();
+        HeroType TurnHero = GameManager.GetCurrentTurnHero().GetHeroType();
 
         // All other heroes
         List<HeroType> OtherHeroes = HeroManager.GetAllHeroTypes();
-        OtherHeroes.Remove(MainHeroType);
+        OtherHeroes.Remove(MainHero);
 
         // Defaults
         WarriorStartBattleInviteIcon.SetActive(false);
@@ -404,45 +363,27 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
         EnableButton(StartBattleCancelButton);
 
         // Confirm that our hero is eligible for battle
-        if (MainHeroType != TurnHeroType)
-        {
-            SetInfoText("It's not your turn.");
-            DisableButton(StartBattleStartButton);
-        }
-        else if (AvailableHeroes.IndexOf(MainHeroType) == -1)
+        if (AvailableHeroes.IndexOf(MainHero) == -1)
         {
             SetInfoText("You are not close enough to fight this creature.");
             DisableButton(StartBattleStartButton);
         }
-        else if (!MainHero.CanAdvanceTimeMarker(1))
+        else if (MainHero != TurnHero)
         {
-            SetInfoText("You don't have enough time (or willpower for overtime hours) to fight.");
-            DisableButton(StartBattleStartButton);
-        }
-        else if (MainHero.HasEndedDay())
-        {
-            SetInfoText("You can't fight because you've ended your day.");
-            DisableButton(StartBattleStartButton);
-        }
-        else if (!GameManager.IsPlaying(MainHero.GetHeroType()))
-        {
-            SetInfoText("You can't fight if you're not playing.");
+            SetInfoText("It's not your turn.");
             DisableButton(StartBattleStartButton);
         }
 
         // Compare the list of eligible heroes to the list of all other heroes and update the UI based on which ones are available
-        foreach (HeroType OtherHeroType in OtherHeroes)
+        foreach (HeroType OtherHero in OtherHeroes)
         {
-            Hero OtherHero = HeroManager.GetHero(OtherHeroType);
-            bool OtherConditionsOk = OtherHero.CanAdvanceTimeMarker(1) && !OtherHero.HasEndedDay() && GameManager.IsPlaying(OtherHero.GetHeroType());
-
-            if (AvailableHeroes.IndexOf(OtherHeroType) != -1 && OtherConditionsOk)
+            if (AvailableHeroes.IndexOf(OtherHero) != -1)
             {
                 StartBattleNoOtherHeroesText.SetActive(false);
-                if (OtherHeroType == HeroType.Warrior) WarriorStartBattleInviteIcon.SetActive(true);
-                if (OtherHeroType == HeroType.Archer) ArcherStartBattleInviteIcon.SetActive(true);
-                if (OtherHeroType == HeroType.Dwarf) DwarfStartBattleInviteIcon.SetActive(true);
-                if (OtherHeroType == HeroType.Wizard) WizardStartBattleInviteIcon.SetActive(true);
+                if (OtherHero == HeroType.Warrior) WarriorStartBattleInviteIcon.SetActive(true);
+                if (OtherHero == HeroType.Archer) ArcherStartBattleInviteIcon.SetActive(true);
+                if (OtherHero == HeroType.Dwarf) DwarfStartBattleInviteIcon.SetActive(true);
+                if (OtherHero == HeroType.Wizard) WizardStartBattleInviteIcon.SetActive(true);
             }
         }
     }

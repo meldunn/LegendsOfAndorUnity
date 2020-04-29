@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
     HeroCardUI WizardHeroCard;
     TimeTrackUI TimeTrackUI;
     ChatUI ChatUI;
-    DivideBattleResources DivideBattleResources;
 
     // Directly linked UI elements
     [SerializeField]
@@ -80,7 +79,6 @@ public class UIManager : MonoBehaviour
         MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
         BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
-        DivideBattleResources = GameObject.Find("DivideBattleResourcesPanel").GetComponent<DivideBattleResources>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
         TimeTrackUI = TimeTrackUIObject.GetComponent<TimeTrackUI>();
@@ -103,7 +101,6 @@ public class UIManager : MonoBehaviour
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
         TradeMenuUI.Initialize();
-        DivideBattleResources.Initialize();
 
         // Initializing the HeroCards
         WarriorHeroCard.Initialize();

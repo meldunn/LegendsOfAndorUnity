@@ -44,7 +44,7 @@ public class TradeMenuUI : MonoBehaviourPun
     {
         // Get References to current players
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        // Debug.Log(GameManager);
+        Debug.Log(GameManager);
         TradePopup = GameObject.Find("IncomingTradePopup");
         ConfirmationPopup = GameObject.Find("TradeConfirmationPopup");
 
@@ -154,7 +154,7 @@ public class TradeMenuUI : MonoBehaviourPun
     {
         int CurrentAmount = int.Parse(MyAmount[i].text);
 
-        if(CurrentAmount < MyInventory[Type[i]])
+        if(CurrentAmount < MyInventory[Type[i]] + 5)
         {
             CurrentAmount ++;
             TradedItems[Type[i]] ++;
@@ -178,7 +178,7 @@ public class TradeMenuUI : MonoBehaviourPun
     {
         int CurrentAmount = int.Parse(TheirAmount[i].text);
 
-        if(CurrentAmount < TheirInventory[Type[i]])
+        if(CurrentAmount < TheirInventory[Type[i]] + 5)
         {
             CurrentAmount ++;
             TradedItems[Type[i]] --;
