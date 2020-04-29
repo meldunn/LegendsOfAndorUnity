@@ -169,12 +169,12 @@ public class RuneStoneMenu : MonoBehaviourPun
         RuneStoneNum++;
         string RuneStoneName = "runestone" + RuneStoneNum.ToString();
         Debug.Log(RuneStoneName);
-        GameObject RuneStoneImage2 = GameObject.Find(RuneStoneName);
+        // GameObject RuneStoneImage2 = GameObject.Find(RuneStoneName);
         
         // Debug.Log("Place Rune Stone at Waypoint "+ RuneStoneName);
         Waypoint Waypoint = WaypointManager.GetWaypoint(RegionNum);
 
-        RuneStoneImage2.transform.Translate(Waypoint.GetLocation() - RuneStoneImage2.transform.position);
+        // RuneStoneImage2.transform.Translate(Waypoint.GetLocation() - RuneStoneImage2.transform.position);
         Waypoint.InitializeRuneStone(RuneStoneNum);
     }
 }

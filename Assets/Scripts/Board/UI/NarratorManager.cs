@@ -78,6 +78,7 @@ public class NarratorManager : MonoBehaviourPun
                 return;
             case NarratorLetter.D:
                 marker.transform.SetPositionAndRotation(waypoints[4].GetLocation(), Quaternion.identity);
+                legendCardManager.activateRuneStoneLegendCard();
                 return;
             case NarratorLetter.E:
                 marker.transform.SetPositionAndRotation(waypoints[5].GetLocation(), Quaternion.identity);
