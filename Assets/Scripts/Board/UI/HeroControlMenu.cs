@@ -167,7 +167,7 @@ public class HeroControlMenu : MonoBehaviour, Observer
 
     public void ControlHero(HeroType Type)
     {
-        GameManager.SetSelfPlayer(Type);
+        GameManager.SetSelfHero(Type);
     }
 
     public void ToggleIsPlaying(HeroType Type)
