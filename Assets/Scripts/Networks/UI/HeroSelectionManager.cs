@@ -43,11 +43,11 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         wineSplit = new Dictionary<int, int>();
 
         int id = PhotonNetwork.LocalPlayer.ActorNumber - 1;
-        GameObject heroSelectorInstance = PhotonNetwork.Instantiate("HeroSelectionGUI", heroSelectorPositions[id].position, heroSelectorPositions[id].rotation);
+        // GameObject heroSelectorInstance = PhotonNetwork.Instantiate("HeroSelectionGUI", heroSelectorPositions[id].position, heroSelectorPositions[id].rotation);
 
 
         //at run time subsribes the ready up logic. (done on run time because we are dealing with a prefab)
-        readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
+        // readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
        
     }
 
