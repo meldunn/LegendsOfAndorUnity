@@ -8,6 +8,7 @@ public class DivideBattleResources : MonoBehaviourPun
     // TODO: get re:
     // Start is called before the first frame update
     private GameManager GameManager;
+    private HeroManager HeroManager;
     private int TotalGold;
     private int TotalWP;
 
@@ -35,6 +36,7 @@ public class DivideBattleResources : MonoBehaviourPun
     public void Initialize()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
 
         Gold[HeroType.Warrior] = 0;
         Gold[HeroType.Archer] = 0;
@@ -76,7 +78,7 @@ public class DivideBattleResources : MonoBehaviourPun
     }
 
     // Called After a Battle
-    public void DivideResources(int Gold, int WP)
+    public void DivideResources(HeroType ControllingHero, int Gold, int WP)
     {
 
         TotalGold = Gold;
@@ -92,7 +94,7 @@ public class DivideBattleResources : MonoBehaviourPun
         // Only appears on master client
         if(PhotonNetwork.IsConnected)
         {
-            if(PhotonNetwork.IsMasterClient)
+            if(GameManager.GetSelfPlayer().GetHero().GetHeroType() == ControllingHero)
             {
                 Vector3 Origin = new Vector3(0,0,0);
                 transform.Translate(Origin - transform.position);
@@ -191,8 +193,8 @@ public class DivideBattleResources : MonoBehaviourPun
         else
         {
             Debug.Log("Resources Divided!");
-            // Call to HeroManager() to divide resources
             HideDivideResourceMenu();
+            HeroManager.DivideBattleResources(Gold, WP);
         }
     }
 
