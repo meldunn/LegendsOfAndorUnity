@@ -356,7 +356,7 @@ public class HeroManager : MonoBehaviourPun
 
     // NETWORKED
     [PunRPC]
-    private void TeleportRPC(HeroType TargetHeroType, int RegionNum)
+    public void TeleportRPC(HeroType TargetHeroType, int RegionNum)
     {
         GetHero(TargetHeroType).Teleport(RegionNum);
     }

@@ -308,10 +308,10 @@ public class WaypointManager : MonoBehaviourPun
 
     public void ReplenishAllWells()
     {
-        // Waypoints[5].ReplenishWell();
-        // Waypoints[35].ReplenishWell();
-        // Waypoints[45].ReplenishWell();
-        // Waypoints[55].ReplenishWell();
+        Waypoint[5].ReplenishWell();
+        Waypoint[35].ReplenishWell();
+        Waypoint[45].ReplenishWell();
+        Waypoint[55].ReplenishWell();
         Debug.Log("Request to Replenish All Wells");
     }
 

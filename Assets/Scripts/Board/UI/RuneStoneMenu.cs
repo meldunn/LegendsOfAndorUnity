@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class RuneStoneMenu : MonoBehaviour
+public class RuneStoneMenu : MonoBehaviourPun
 {
     WaypointManager WaypointManager;
     // list of images
@@ -82,47 +83,52 @@ public class RuneStoneMenu : MonoBehaviour
 
     public void FinishedBothRolls()
     {
-         if(NumRuneStonesPlaced == 5)
+
+
+         if(NumRuneStonesPlaced == 0)
          {
-             Invoke("AllRuneStonesPlaced", 4);
+             toggleGameObjectVisibility(PlacementText);
+         }
+         UpdatePlacementText(RuneStonePosition);
+
+         if(PhotonNetwork.IsConnected)
+         {
+             photonView.RPC("PlaceRuneStoneRPC", RpcTarget.All, RuneStonePosition, NumRuneStonesPlaced);
          }
          else
          {
-
-             // Remove rune stone image and show its new location
-             GameObject RuneStoneImage = GameObject.Find(IconName[NumRuneStonesPlaced]);
-             toggleGameObjectVisibility(RuneStoneImage);
-
-             // Debug.Log(NumRuneStonesPlaced);
-
-             if(NumRuneStonesPlaced == 0)
-             {
-                 toggleGameObjectVisibility(PlacementText);
-             }
-             UpdatePlacementText(RuneStonePosition);
-
              // Place a rune stone
-             PlaceRuneStone(RuneStonePosition, NumRuneStonesPlaced);
-
-             // Reset the Dice
-             RuneStonePosition = 0;
-             NumRuneStonesPlaced += 1;
-             toggleGameObjectVisibility(DiceTen);
-             toggleGameObjectVisibility(DiceOne);
-             OnesRolled = false;
-             TensRolled = false;
-
+             PlaceRuneStoneRPC(RuneStonePosition, NumRuneStonesPlaced);
          }
-        
+
+
+         // Reset the Dice
+         RuneStonePosition = 0;
+         NumRuneStonesPlaced += 1;
+         toggleGameObjectVisibility(DiceTen);
+         toggleGameObjectVisibility(DiceOne);
+         OnesRolled = false;
+         TensRolled = false;
+
+         if(NumRuneStonesPlaced == 5)
+         {
+            Invoke("AllRuneStonesPlaced", 1);
+         }
+    }
+
+    [PunRPC]
+    private void InitializeRuneStone(int i)
+    {
     }
     public void AllRuneStonesPlaced()
     {
         Vector3 Origin = new Vector3(200,0,0);
 
-        Debug.Log(Menu);
+        // Debug.Log(Menu);
         Menu.transform.Translate(Origin -
                 Menu.transform.position 
                 );
+        Debug.Log("Rune Stones Moved");
     }
 
     public void ShowRuneStoneMenu()
@@ -153,16 +159,22 @@ public class RuneStoneMenu : MonoBehaviour
         }
     }
     
-    private void PlaceRuneStone(int RegionNum, int RuneStoneNum)
+    [PunRPC]
+    private void PlaceRuneStoneRPC(int RegionNum, int RuneStoneNum)
     {
+        // Remove rune stone image and show its new location
+        GameObject RuneStoneImage = GameObject.Find(IconName[RuneStoneNum]);
+        toggleGameObjectVisibility(RuneStoneImage);
+
         RuneStoneNum++;
         string RuneStoneName = "runestone" + RuneStoneNum.ToString();
-        GameObject RuneStoneImage = GameObject.Find(RuneStoneName);
+        Debug.Log(RuneStoneName);
+        GameObject RuneStoneImage2 = GameObject.Find(RuneStoneName);
         
         // Debug.Log("Place Rune Stone at Waypoint "+ RuneStoneName);
-        Waypoint Waypoint = WaypointManager.GetWaypoint(RuneStonePosition);
+        Waypoint Waypoint = WaypointManager.GetWaypoint(RegionNum);
 
-        RuneStoneImage.transform.Translate(Waypoint.GetLocation() - RuneStoneImage.transform.position);
+        RuneStoneImage2.transform.Translate(Waypoint.GetLocation() - RuneStoneImage2.transform.position);
         Waypoint.InitializeRuneStone(RuneStoneNum);
     }
 }

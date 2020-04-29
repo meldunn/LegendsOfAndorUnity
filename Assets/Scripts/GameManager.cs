@@ -181,22 +181,30 @@ public class GameManager : MonoBehaviourPun, Subject
                 break;
         }
 
-        // Generate Initial Merchants
-        for(int i=0; i<MerchantLocation.Length; i++)
-        {
-            string WaypointName = "Waypoint (" + MerchantLocation[i] + ")";
-            GameObject Waypoint = GameObject.Find(WaypointName);
-            Waypoint.AddComponent<Merchant>();
+        //// Generate Initial Merchants
+        //for(int i=0; i<MerchantLocation.Length; i++)
+        //{
+        //    string WaypointName = "Waypoint (" + MerchantLocation[i] + ")";
+        //    GameObject Waypoint = GameObject.Find(WaypointName);
+        //    Waypoint.AddComponent<Merchant>();
 
-            Merchant Merchant = Waypoint.GetComponent<Merchant>();
-            Merchant.Initialize();
-        }
+        //    Merchant Merchant = Waypoint.GetComponent<Merchant>();
+        //    Merchant.Initialize();
+        //}
+
 
         ChatManager.SendSystemMessage("Welcome to Legends of Andor!");
 
         // Initialize the UI manager
         // IMPORTANT: Do this last to ensure all data is available
         UIManager.Initialize(this);
+
+
+        // Dummy Save Games
+        // MerchantSavedGame();
+        // FightingSavedGame();
+        // LoseSavedGame();
+        // WinSavedGame();
     }
 
     // Update is called once per frame
@@ -250,6 +258,59 @@ public class GameManager : MonoBehaviourPun, Subject
     {
         GetCurrentTurnHero().Move();
     }
+
+    /*
+     * Dummy Saved Games
+     */
+    public void MerchantSavedGame()
+    {
+        if(PhotonNetwork.IsConnected) photonView.RPC("MerchantSavedGameRPC", RpcTarget.All);
+        else MerchantSavedGameRPC();
+    }
+
+    public void LoseSavedGame()
+    {
+        // AdvanceCreaturesForAll()
+        // AdvanceCreaturesForAll()
+        // if(PhotonNetwork.IsConnected) photonView.RPC("LoseSavedGameRPC", RpcTarget.All);
+        // else LoseSavedGameRPC();
+    }
+
+    public void FightingSavedGame()
+    {
+        // TODO: Move all heroes to a spot, spawn a wardrak
+        if(PhotonNetwork.IsConnected) photonView.RPC("FightingSavedGameRPC", RpcTarget.All);
+        else FightingSavedGameRPC();
+
+    }
+
+    [PunRPC]
+    public void FightingSavedGameRPC()
+    {
+        // TODO: Move all heroes to a spot, spawn a wardrak
+        CreatureManager.Spawn(CreatureType.Wardrak, 14);
+        HeroManager.TeleportRPC(HeroType.Archer, 6);
+        HeroManager.TeleportRPC(HeroType.Wizard, 10);
+        HeroManager.TeleportRPC(HeroType.Warrior, 14);
+    }
+
+    [PunRPC]
+    public void LoseSavedGameRPC()
+    {
+        // TODO: Invoke the move function instead of teleport
+        // TODO: Add other values (items?) to simulate a real game
+
+    }
+    
+    [PunRPC]
+    public void MerchantSavedGameRPC()
+    {
+        // TODO: Invoke the move function
+        WarriorPlayer.GetHero().ReceiveGold(10);
+        HeroManager.TeleportRPC(HeroType.Warrior, 18);
+        // TODO: Add other values (items?) to simulate a real game
+    }
+
 
     // Returns a randomly generated turn order
     private HeroType[] GenerateTurnOrder()

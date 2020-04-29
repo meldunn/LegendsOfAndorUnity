@@ -170,6 +170,12 @@ public class Hero : MonoBehaviourPun, Subject
         return transform.position;
     }
 
+    public void ReceiveGold(int Amount)
+    {
+        myGold += Amount;
+        Notify("HERO_STATS");
+    }
+
     public void pickupGold()
     {
         if (myRegion.pickupOneGold() == 1)

@@ -42498,7 +42498,7 @@ RectTransform:
   m_GameObject: {fileID: 922298505}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -0.1910617, y: -0.1910617, z: -0.1910617}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2058132297}
   m_RootOrder: 4
@@ -70686,7 +70686,7 @@ RectTransform:
   m_GameObject: {fileID: 1565740523}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99971765, y: 0.99971765, z: 0.99971765}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2058132297}
   m_RootOrder: 3
@@ -82752,6 +82752,7 @@ GameObject:
   - component: {fileID: 1815368458}
   - component: {fileID: 1815368460}
   - component: {fileID: 1815368461}
+  - component: {fileID: 1815368462}
   m_Layer: 8
   m_Name: RuneStoneMenu
   m_TagString: Untagged
@@ -82856,6 +82857,28 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 200
   m_TargetDisplay: 0
+--- !u!114 &1815368462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815368456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 92
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!224 &1815907250 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 262331298216365649, guid: 4c23102c66fbf014ba0361ea9d8c5084,
@@ -97270,7 +97293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2089021139
 RectTransform:
   m_ObjectHideFlags: 0
