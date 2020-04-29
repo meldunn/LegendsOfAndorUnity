@@ -196,6 +196,9 @@ public class Creature : MonoBehaviour
                 Castle.CreatureEnterCastle(this);
 
                 IsMoving = false;
+
+                GameManager.NotifyCreatureMove();
+
                 if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance
             }
             else
@@ -209,6 +212,7 @@ public class Creature : MonoBehaviour
                 {
                     // Debug.Log("This creature will move again because there is already a creature on " + Region.GetWaypointNum());
                     IsMoving = false;   // To allow the creature to move again
+
                     ContinueAdvancing();
                 }
                 else
@@ -219,6 +223,9 @@ public class Creature : MonoBehaviour
                     Region.SetCreature(this);
 
                     IsMoving = false;
+
+                    GameManager.NotifyCreatureMove();
+
                     if (Callback != null) Callback();        // When this creature is done advancing, let the next creature advance
                 }
             }
