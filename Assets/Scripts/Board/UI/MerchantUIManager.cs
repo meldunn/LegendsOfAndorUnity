@@ -247,7 +247,14 @@ public class MerchantUIManager : MonoBehaviourPun
             // For each item, purchased, create an item and send it
             // {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
 
-            if(Purchased[i] > 0) PV.RPC("UpdateMaxAmountRPC", RpcTarget.All, i, Purchased[i]);
+            if(PhotonNetwork.IsConnected)
+            {
+                if(Purchased[i] > 0) PV.RPC("UpdateMaxAmountRPC", RpcTarget.All, i, Purchased[i]);
+            }
+            else
+            {
+                if(Purchased[i] > 0) UpdateMaxAmountRPC(i, Purchased[i]);
+            }
 
             for(int j=0; j<Purchased[i]; j++)
             {
