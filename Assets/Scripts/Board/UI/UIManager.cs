@@ -131,6 +131,7 @@ public class UIManager : MonoBehaviour
         // Update UI position-based buttons.
         if (HeroRegion.containsFullWell())
         {
+            Debug.Log("Request to show well");
             WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
         }
         MerchantUIManager.UpdateMerchantButton(HeroRegion.GetWaypointNum());

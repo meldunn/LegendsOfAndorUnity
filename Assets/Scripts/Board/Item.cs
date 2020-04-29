@@ -12,7 +12,8 @@ public enum ItemType
     Shield,
     Bow,
     Falcon,
-    MedicinalHerb
+    MedicinalHerb,
+    StrengthPoints
 }
 public class Item: MonoBehaviour
 {

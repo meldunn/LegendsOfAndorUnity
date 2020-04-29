@@ -319,6 +319,41 @@ public class HeroManager : MonoBehaviourPun
         else IncrementHeroTimeRPC(MyHeroType, Amount);
     }
 
+    public void DrinkFromWell(int regionNum)
+    {
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        if (PhotonNetwork.IsConnected) photonView.RPC("DrinkFromWellRPC", RpcTarget.All, MyHeroType);
+        else DrinkFromWellRPC(MyHeroType);
+    }
+
+    public void BuyFromMerchant(ItemType Item)
+    {
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        if (PhotonNetwork.IsConnected) photonView.RPC("BuyFromMerchantRPC", RpcTarget.All, MyHeroType, Item);
+        else BuyFromMerchantRPC(MyHeroType, Item);
+        
+    }
+
+    [PunRPC]
+    private void BuyFromMerchantRPC(HeroType TargetHeroType, ItemType Item)
+    {
+        GetHero(TargetHeroType).BuyFromMerchant(Item);
+    }
+
+    // NETWORKED
+    [PunRPC]
+    private void DrinkFromWellRPC(HeroType TargetHeroType)
+    {
+        GetHero(TargetHeroType).GetCurrentRegion().EmptyWell();
+
+        if(TargetHeroType == HeroType.Warrior) 
+            GetHero(TargetHeroType).IncreaseWillpower(5);
+        else
+            GetHero(TargetHeroType).IncreaseWillpower(3);
+    }
+
     // NETWORKED
     [PunRPC]
     private void TeleportRPC(HeroType TargetHeroType, int RegionNum)

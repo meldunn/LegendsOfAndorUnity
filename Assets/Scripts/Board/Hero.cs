@@ -83,7 +83,7 @@ public class Hero : MonoBehaviourPun, Subject
         }
         willpower = 7;
         maxWillpower = 20;
-        myGold = 0;
+        myGold = 20;
         heroInventory = new HeroInventory();
 
         numFarmers = 1;
@@ -103,6 +103,9 @@ public class Hero : MonoBehaviourPun, Subject
         myRegion.RemoveHero(this);
         myRegion = WaypointManager.GetWaypoint(RegionNum);
         myRegion.AddHero(this);
+
+
+        UIManager.onHeroMove(this);
 
         // Move the hero sprite
         this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
@@ -267,8 +270,12 @@ public class Hero : MonoBehaviourPun, Subject
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
     public void BuyFromMerchant(ItemType ItemType)
     {
-        // Debug.Log(ItemType);
-        heroInventory.addItem(ItemType);
+        if(ItemType == ItemType.StrengthPoints)
+        {
+            if(strength < maxStrength) strength ++;
+            Debug.Log("Updating Strength Points");
+        }
+        else heroInventory.addItem(ItemType);
 
         Notify("HERO_ITEMS");
     }
@@ -293,13 +300,11 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void DrinkFromWell(int regionNum)
     {
-        // TODO: avoid Teleport and fix null reference to myRegion
-        Teleport(regionNum);
-
         if (myRegion != null)
         {
             if (myRegion.containsFullWell())
             {
+                // RPC: EmptyWell(); Setting the willpower
                 myRegion.EmptyWell();
 
                 // Warrior special ability
@@ -308,6 +313,7 @@ public class Hero : MonoBehaviourPun, Subject
                 if (willpower <= maxWillpower - 3) willpower += 3;
 
                 else willpower = maxWillpower;
+
             }
             Debug.Log(Type + " now has will power " + willpower);
         }
@@ -315,6 +321,11 @@ public class Hero : MonoBehaviourPun, Subject
         {
             Debug.Log("Error. myRegion reference null.");
         }
+    }
+
+    public Waypoint GetCurrentRegion()
+    {
+        return myRegion;
     }
 
     // Returns whether the hero is close enought to fight the given creature

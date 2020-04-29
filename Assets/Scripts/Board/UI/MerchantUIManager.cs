@@ -8,12 +8,13 @@ public class MerchantUIManager : MonoBehaviourPun
     // Stored in numerical order { 18, 57, 71 }
     private GameObject MerchantMenu;
     private GameManager GameManager;
+    private HeroManager HeroManager;
     private GameObject GoldError;
 
     // Total amount in a client's "cart". Updated each time merchant menu is opened
     private int[] Purchased = {0, 0, 0, 0, 0, 0, 0};
     // Amount of available tokens for each item in the entire game.
-    private int[] MaxAmount = { 3, 5, 3, 5, 2, 2, 4 };
+    private int[] MaxAmount = { 3, 5, 3, 100, 2, 2, 4 };
     
     private List<GameObject> Merchant = new List<GameObject>(3);
     private List<GameObject> MerchantButton = new List<GameObject>(3);
@@ -25,16 +26,18 @@ public class MerchantUIManager : MonoBehaviourPun
 
     private PhotonView PV;
 
-    private string[] ArticleNames = {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
-    
+    // Wineskin, Shield, Falcon, Bow, Helm, Telescope, WitchBrew (only from witch), strenght points
+    private string[] ArticleNames = {"Helm", "Wineskin", "Bow", "StrengthPoints", "Falcon", "Telescope", "Shield"};
 
     public void Initialize()
     {
 
         // Initialize Merchant Menu
         MerchantMenu = GameObject.Find("MerchantMenu");
-        Debug.Log("MerchantMenu");
+        // Debug.Log("MerchantMenu");
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
 
         GoldError = GameObject.Find("NotEnough");
         GoldError.SetActive(false);
@@ -59,7 +62,7 @@ public class MerchantUIManager : MonoBehaviourPun
             Visibility(MerchantButton[i], false);
 
 
-        PlaceMerchants();
+        // PlaceMerchants();
         // TODO Hide witch at the start
         
         PV = GetComponent<PhotonView>();
@@ -95,11 +98,12 @@ public class MerchantUIManager : MonoBehaviourPun
     // Called when a hero moves, the UI updates depending on which region the hero lands on
     public void UpdateMerchantButton(int RegionNumber)
     {
+        int MyRegion = GameManager.GetSelfPlayer().GetHero().GetCurrentRegion().GetWaypointNum();
         // Reset all buttons
         for(int i=0; i<MerchantButton.Count; i++) 
             Visibility(MerchantButton[i], false);
 
-        switch (RegionNumber)
+        switch (MyRegion)
         {
             case 18:
                 Visibility(MerchantButton[0], true);
@@ -144,6 +148,7 @@ public class MerchantUIManager : MonoBehaviourPun
 
         TMPro.TextMeshProUGUI AmountText = GameObject.Find(ArticleNames[Index]+"Amount").GetComponent<TMPro.TextMeshProUGUI>();
         // Debug.Log(AmountText);
+
         TMPro.TextMeshProUGUI CostText = GameObject.Find("Cost").GetComponent<TMPro.TextMeshProUGUI>();
 
         int CurrentAmount = int.Parse(AmountText.text);
@@ -169,6 +174,7 @@ public class MerchantUIManager : MonoBehaviourPun
     {
 
         TMPro.TextMeshProUGUI AmountText = GameObject.Find(ArticleNames[Index]+"Amount").GetComponent<TMPro.TextMeshProUGUI>();
+        // Debug.Log(AmountText.text);
 
         TMPro.TextMeshProUGUI CostText = GameObject.Find("Cost").GetComponent<TMPro.TextMeshProUGUI>();
 
@@ -235,8 +241,6 @@ public class MerchantUIManager : MonoBehaviourPun
 
     private void ConfirmPurchase()
     {
-        Hero MyHero = GameManager.GetSelfPlayer().GetHero();
-
         // TODO: Instantiate Items (somehow)...
         for(int i=0; i<Purchased.Length; i++)
         {
@@ -250,32 +254,32 @@ public class MerchantUIManager : MonoBehaviourPun
                 switch(i)
                 {
                     case 0:     // Helm
-                       MyHero.BuyFromMerchant(ItemType.Helm);
+                       HeroManager.BuyFromMerchant(ItemType.Helm);
                        // Debug.Log("Bought Helm");
                        break;
                     case 1:
-                       MyHero.BuyFromMerchant(ItemType.Wineskin);
+                       HeroManager.BuyFromMerchant(ItemType.Wineskin);
                        // Debug.Log("Bought Wineskin");
                        break;
                     case 2:
-                       MyHero.BuyFromMerchant(ItemType.Bow);
+                       HeroManager.BuyFromMerchant(ItemType.Bow);
                        // Debug.Log("Bought Bow");
                        break;
                     case 3:
-                       MyHero.BuyFromMerchant(ItemType.Witchbrew);
+                       HeroManager.BuyFromMerchant(ItemType.StrengthPoints);
                        // Debug.Log("Bought WitchBrew");
                        break;
                     case 4:
-                       MyHero.BuyFromMerchant(ItemType.Falcon);
+                       HeroManager.BuyFromMerchant(ItemType.Falcon);
                        // Debug.Log("Bought Falcon");
                        break;
                     case 5:
-                       MyHero.BuyFromMerchant(ItemType.Telescope);
+                       HeroManager.BuyFromMerchant(ItemType.Telescope);
                        // Debug.Log("Bought Telescope");
                        break;
 
                     case 6:
-                       MyHero.BuyFromMerchant(ItemType.Shield);
+                       HeroManager.BuyFromMerchant(ItemType.Shield);
                        // Debug.Log("Bought Shield");
                        break;
 

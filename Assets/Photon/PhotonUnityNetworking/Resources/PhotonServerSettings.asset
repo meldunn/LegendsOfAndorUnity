@@ -68,6 +68,7 @@ MonoBehaviour:
   - ReadyUpMaster
   - RemoveBattleInviteRPC
   - SendBattleInvitesRPC
+  - SendChatRPC
   - SendHeroRollValuesRPC
   - SendNewCreatureRollRPC
   - SendNewHeroRollRPC
@@ -81,22 +82,8 @@ MonoBehaviour:
   - ToggleIsPlayingRPC
   - UpdateMaxAmountRPC
   - UpdateWellRPC
-  - advanceNarratorRPC
-  - CleanupHeroBattleRPC
-  - DecreaseCoins
-  - DecreaseWine
-  - DisplayTheirInventory
-  - dropFarmerRPC
-  - dropGoldPRC
-  - IncrementCoins
-  - IncrementWine
-  - LeaveBattleRPC
-  - pickupFarmerRPC
-  - pickupGoldRPC
-  - SendChatRPC
-  - SendReplyRPC
-  - SendTradeRPC
-  - TeleportRPC
+  - DrinkFromWellRPC
+  - BuyFromMerchantRPC
   DisableAutoOpenWizard: 1
-  ShowSettings: 1
+  ShowSettings: 0
   DevRegionSetOnce: 0

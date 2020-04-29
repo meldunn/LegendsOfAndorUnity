@@ -19,6 +19,7 @@ public class HeroInventory : MonoBehaviour
         Inventory[ItemType.Falcon] = 0;
         Inventory[ItemType.MedicinalHerb] = 0;
         Inventory[ItemType.Witchbrew] = 0;
+        Inventory[ItemType.StrengthPoints] = 0;
         Inventory[ItemType.Shield] = 0;
     }
 
