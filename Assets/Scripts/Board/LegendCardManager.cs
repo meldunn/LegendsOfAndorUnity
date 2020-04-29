@@ -9,6 +9,7 @@ public class LegendCardManager : MonoBehaviourPun
     GameManager gameManager;
     CreatureManager creatureManager;
     HeroManager heroManager;
+    RuneStoneMenu RuneStoneMenu;
 
     [SerializeField]
     GameObject infoPanel;
@@ -23,6 +24,7 @@ public class LegendCardManager : MonoBehaviourPun
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         heroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         creatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        RuneStoneMenu = GameObject.Find("RuneStoneMenu").GetComponent<RuneStoneMenu>();
         //infoPanel = GameObject.Find("NarratorPopup");
         //headerText = GameObject.Find("HeaderText").GetComponent<Text>();
         //narratorCardText = GameObject.Find("NarratorCardText").GetComponent<Text>();
@@ -33,6 +35,28 @@ public class LegendCardManager : MonoBehaviourPun
     void Update()
     {
 
+    }
+
+    // Activated on Narrator Space D
+    public void activateRuneStoneLegendCard()
+    {
+        if(PhotonNetwork.IsConnected)
+        {
+            if(PhotonNetwork.IsMasterClient)
+            {
+                Debug.Log("Rune Stone Menu Activated");
+                Vector3 Origin = new Vector3(0,0,0);
+                RuneStoneMenu.transform.Translate(Origin - 
+                        RuneStoneMenu.transform.position);
+            }
+        }
+        else
+        {
+            Debug.Log("Rune Stone Menu Activated");
+            Vector3 Origin = new Vector3(0,0,0);
+            RuneStoneMenu.transform.Translate(Origin - 
+                    RuneStoneMenu.transform.position);
+        }
     }
 
     public void activateLegendCard_C(int regionNumber)

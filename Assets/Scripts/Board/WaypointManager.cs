@@ -225,6 +225,7 @@ public class WaypointManager : MonoBehaviourPun
                 WaypointName = "Waypoint (" + i + ")";
                 Waypoint[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
                 Waypoint[i].SetWaypointNum(i);  // Set the waypoint's number
+                Waypoint[i].InitializeItems();
                 Waypoint[i].SetIcon();
                 Waypoint[i].SetWPAdjList(AdjListHero[i]);
 
