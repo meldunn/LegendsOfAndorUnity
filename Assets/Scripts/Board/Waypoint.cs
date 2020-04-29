@@ -13,6 +13,7 @@ public class Waypoint : MonoBehaviourPun
     public GameObject prefab;
     public GameObject goldIcon;
     public GameObject itemPanel;
+    public RegionItemsUI RegionItemsUI;
 
     // Board tile number
     private int WaypointNum = -1;
@@ -33,7 +34,12 @@ public class Waypoint : MonoBehaviourPun
 
     private List<Farmer> farmers = new List<Farmer>();
 
+<<<<<<< Updated upstream
     private List<Item> items = new List<Item>();
+=======
+    // REMOVED ITEM LIST -- USING DICTIONARY INSTEAD - jonathan
+    public Dictionary<ItemType, int> Items = new Dictionary<ItemType, int>();
+>>>>>>> Stashed changes
 
     int numItems;
     int gold;
@@ -260,12 +266,14 @@ public class Waypoint : MonoBehaviourPun
 
         string name = "RegionItemsPanel (" + WaypointNum + ")";
         itemPanel = GameObject.Find(name);
+        RegionItemsUI = GameObject.Find(name).GetComponent<RegionItemsUI>();
         itemPanel.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
         farmersText = itemPanel.transform.Find("NumFarmersText").GetComponent<Text>();
         farmersText.text = " Farmers: " + farmers.Count;
         goldText = itemPanel.transform.Find("NumGoldText").GetComponent<Text>();
         goldText.text = " Gold: " + gold;
         itemPanel.SetActive(false);
+        RegionItemsUI.Initialize();
     }
 
     public void showItems()
@@ -275,6 +283,7 @@ public class Waypoint : MonoBehaviourPun
             itemPanel.SetActive(true);
             farmersText.text = " Farmers: " + farmers.Count;
             goldText.text = " Gold: " + gold;
+            RegionItemsUI.showItems(Items);
         }
     }
 
