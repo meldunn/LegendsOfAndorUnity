@@ -30,68 +30,7 @@ MonoBehaviour:
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList:
-  - AcceptBattleInviteRPC
-  - AddBattleInviteRPC
-  - AdvanceCreaturesRPC
-  - advanceNarratorRPC
-  - AdvanceTurnRPC
-  - BuyFromMerchantRPC
-  - CancelHeroBattleRPC
-  - CleanupHeroBattleRPC
-  - ClickRpc
-  - ClickToMoveRPC
-  - CreateNewHeroBattleRPC
-  - DeclineBattleInviteRPC
-  - DecreaseCoins
-  - DecreaseWine
-  - DestroyRpc
-  - DisplayTheirInventory
-  - DrinkFromWellRPC
-  - dropFarmerRPC
-  - dropGoldPRC
-  - EndHeroDayRPC
-  - ExecuteMoveRPC
-  - FightingSavedGameRPC
-  - FinalizeRollRPC
-  - FlipDieRPC
-  - GoToNextRoundRPC
-  - GoToNextTurnRPC
-  - HeroMoveRPC
-  - HideWellButton
-  - IncrementCoins
-  - IncrementHeroTimeRPC
-  - IncrementWine
-  - InitializeRuneStone
-  - InstantiateSelector
-  - InstantiateSplitResources
-  - LeaveBattleRPC
-  - LoseSavedGameRPC
-  - MerchantSavedGameRPC
-  - NextHero
-  - PassHeroTurnRPC
-  - pickupFarmerRPC
-  - pickupGoldRPC
-  - PlaceRuneStoneRPC
-  - PrevHero
-  - ReadyUp
-  - ReadyUpMaster
-  - RemoveBattleInviteRPC
-  - SendBattleInvitesRPC
-  - SendChatRPC
-  - SendHeroRollValuesRPC
-  - SendNewCreatureRollRPC
-  - SendNewHeroRollRPC
-  - SendReplyRPC
-  - SendTradeRPC
-  - SetTurnOrderRPC
-  - TakeDamageRPC
-  - TeleportRPC
-  - TestDisplayText
-  - TestStoreText
-  - ToggleIsPlayingRPC
-  - UpdateMaxAmountRPC
-  - UpdateWellRPC
-  DisableAutoOpenWizard: 1
+  RpcList: []
+  DisableAutoOpenWizard: 0
   ShowSettings: 0
   DevRegionSetOnce: 0
