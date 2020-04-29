@@ -269,6 +269,16 @@ public class GameManager : MonoBehaviourPun, Subject
         }
     }
 
+    public void NotifyHeroMove()
+    {
+        Notify("HERO_MOVE");
+    }
+    
+    public void NotifyCreatureMove()
+    {
+        Notify("CREATURE_MOVE");
+    }
+
     /*
      * Dummy Saved Games
      */

@@ -326,6 +326,7 @@ public class HeroManager : MonoBehaviourPun
     {
         HeroIsMoving = Value;
         CreatureManager.AllowFighting(!Value);
+        if (!Value) GameManager.NotifyHeroMove();
     }
 
     // Use for testing only; increments the current hero's time of day by the specified amount
