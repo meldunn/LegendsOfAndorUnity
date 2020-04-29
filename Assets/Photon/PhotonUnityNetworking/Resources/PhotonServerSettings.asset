@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: d4408bb2-cc46-441f-a12b-33f9f0571f95
+    AppIdRealtime: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -40,6 +40,7 @@ MonoBehaviour:
   - CancelHeroBattleRPC
   - CleanupHeroBattleRPC
   - ClickRpc
+  - ClickToMoveRPC
   - CreateNewHeroBattleRPC
   - DeclineBattleInviteRPC
   - DecreaseCoins
@@ -50,11 +51,13 @@ MonoBehaviour:
   - dropFarmerRPC
   - dropGoldPRC
   - EndHeroDayRPC
+  - ExecuteMoveRPC
   - FightingSavedGameRPC
   - FinalizeRollRPC
   - FlipDieRPC
   - GoToNextRoundRPC
   - GoToNextTurnRPC
+  - HeroMoveRPC
   - HideWellButton
   - IncrementCoins
   - IncrementHeroTimeRPC
@@ -89,16 +92,6 @@ MonoBehaviour:
   - ToggleIsPlayingRPC
   - UpdateMaxAmountRPC
   - UpdateWellRPC
-  - DrinkFromWellRPC
-  - BuyFromMerchantRPC
-  - InitializeRuneStone
-  - PlaceRuneStoneRPC
-  - FightingSavedGameRPC
-  - MerchantSavedGameRPC
-  - LoseSavedGameRPC
-  - HeroMoveRPC
-  - ClickToMoveRPC
-  - ExecuteMoveRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0
