@@ -256,7 +256,17 @@ public class GameManager : MonoBehaviourPun, Subject
 
     public void HeroMove()
     {
-        GetCurrentTurnHero().Move();
+        // Check whether it's the turn of the hero who wants to move
+        Hero MyHero = GetSelfHero();
+        HeroType MyHeroType = GetSelfHero().GetHeroType();
+        Hero TurnHero = GetCurrentTurnHero();
+
+        // Cannot move out of turn, without willpower, if you've ended your day or if you're already moving
+        if (MyHero == TurnHero && MyHero.CanAdvanceTimeMarker(1) && !MyHero.HasEndedDay() && !HeroManager.GetHeroIsMoving())
+        {
+            if (PhotonNetwork.IsConnected) photonView.RPC("HeroMoveRPC", RpcTarget.All, MyHeroType);
+            else HeroMoveRPC(MyHeroType);
+        }
     }
 
     /*
@@ -670,5 +680,14 @@ public class GameManager : MonoBehaviourPun, Subject
     public void ToggleIsPlayingRPC(HeroType Type)
     {
         ToggleIsPlaying(Type);
+    }
+
+    // NEWTORKED
+    // Moves the specified hero on all machines
+    [PunRPC]
+    public void HeroMoveRPC(HeroType Type)
+    {
+        HeroManager.SetHeroIsMoving(true);
+        HeroManager.GetHero(Type).Move();
     }
 }

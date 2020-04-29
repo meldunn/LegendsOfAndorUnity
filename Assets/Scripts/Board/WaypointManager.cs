@@ -19,7 +19,7 @@ public class WaypointManager : MonoBehaviourPun
     // Adjacency list of tiles for hero move
     int[][] AdjListHero = new int[][]
     {
-        new int[] {-1},
+        new int[] {1, 2, 4, 5, 6, 7, 11},
         new int[] {0, 2, 3, 4},
         new int[] {0, 1, 3, 6, 14},
         new int[] {1, 2, 4, 10, 14, 19, 20},

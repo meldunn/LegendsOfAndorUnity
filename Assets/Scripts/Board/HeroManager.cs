@@ -14,6 +14,7 @@ public class HeroManager : MonoBehaviourPun
     // Reference to managers
     private GameManager GameManager;
     private WaypointManager WaypointManager;
+    private CreatureManager CreatureManager;
 
     // References to the heroes
     private Hero Warrior;
@@ -28,6 +29,9 @@ public class HeroManager : MonoBehaviourPun
     private bool DwarfWasInitialized = false;
     private bool WizardWasInitialized = false;
     private bool PrinceWasInitialized = false;
+
+    // Used to track whether a hero is moving
+    private bool HeroIsMoving = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +51,7 @@ public class HeroManager : MonoBehaviourPun
         // Initialize reference to WaypointManager
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
 
         // Initialize references to the Heroes
         Warrior = GameObject.Find("Warrior").GetComponent<Hero>();
@@ -237,10 +242,12 @@ public class HeroManager : MonoBehaviourPun
     {
         bool EndDay = true;
 
-        // Check whether all the heroes have ended their day
+        // Check whether all the playing heroes have ended their day
         foreach (HeroType Type in GetAllHeroTypes())
         {
-            if (!GetHero(Type).HasEndedDay()) EndDay = false;
+            Hero TargetHero = GetHero(Type);
+
+            if (GameManager.IsPlaying(TargetHero.GetHeroType()) && !TargetHero.HasEndedDay()) EndDay = false;
         }
 
         // Trigger ending day if necessary
@@ -308,6 +315,17 @@ public class HeroManager : MonoBehaviourPun
         // Validate Thorald's existence
         if (GetHero(HeroType.PrinceThorald).GetWaypoint() == null) Debug.LogError("Cannot teleport Prince Thorald; he has not arrived yet.");
         else Teleport(HeroType.PrinceThorald, Input);
+    }
+
+    public bool GetHeroIsMoving()
+    {
+        return HeroIsMoving;
+    }
+
+    public void SetHeroIsMoving(bool Value)
+    {
+        HeroIsMoving = Value;
+        CreatureManager.AllowFighting(!Value);
     }
 
     // Use for testing only; increments the current hero's time of day by the specified amount

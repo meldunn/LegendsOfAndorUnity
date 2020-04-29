@@ -46,7 +46,6 @@ public class Waypoint : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     { 
-        WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
         
     }
 
@@ -93,6 +92,8 @@ public class Waypoint : MonoBehaviourPun
         //string IconName = "GoldIcon (" + Number + ")";
         //goldIcon = GameObject.Find(IconName);
         //goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+
+        WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
     }
 
     public int GetWaypointNum()
@@ -213,14 +214,16 @@ public class Waypoint : MonoBehaviourPun
     {
         // TODO: PV.IsMine not working for all clients
         // Debug.Log("Emptied");
-        PV.RPC("UpdateWellRPC", RpcTarget.All, false);
+        if (PhotonNetwork.IsConnected) PV.RPC("UpdateWellRPC", RpcTarget.All, false);
+        else UpdateWellRPC(false);
     }
 
     // All clients replenish the well at this waypoint.
     public void ReplenishWell()
     {
         // Debug.Log("Region " + this.GetWaypointNum() + " gets well replenished.");
-        PV.RPC("UpdateWellRPC", RpcTarget.All, true);
+        if (PhotonNetwork.IsConnected) PV.RPC("UpdateWellRPC", RpcTarget.All, true);
+        else UpdateWellRPC(true);
     }
 
     [PunRPC]
