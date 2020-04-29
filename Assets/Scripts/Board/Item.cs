@@ -13,7 +13,10 @@ public enum ItemType
     Bow,
     Falcon,
     MedicinalHerb,
-    StrengthPoints
+    StrengthPoints,
+    BlueRuneStone,
+    YellowRuneStone,
+    GreenRuneStone
 }
 public class Item: MonoBehaviour
 {

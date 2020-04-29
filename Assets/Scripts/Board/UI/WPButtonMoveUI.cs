@@ -1,15 +1,15 @@
 ﻿using System.Collections;
-using System.Text.RegularExpressions;
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class WPButtonMoveUI : MonoBehaviour
+public class WPButtonMoveUI : MonoBehaviourPun
 {
-
-    //TODO: fix issue where if monster and WPbutoon on on same tile cant click WP button, potential fix: when making them visible check if space is occupied if yes then change x/y by a bit
+    [SerializeField]
+    private GameObject EndMoveButton = null;
 
     private static GameManager GM;
+    private static HeroManager HeroManager;
     private WaypointManager WaypointManager;
 
     int[] Location = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11,12,13,14,15,16,17,18,
@@ -25,6 +25,7 @@ public class WPButtonMoveUI : MonoBehaviour
     {
         // Initialize reference to WaypointManager
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
        
 
     }
@@ -140,6 +141,7 @@ public class WPButtonMoveUI : MonoBehaviour
             }
         }
     }
+
     private void Visibility(GameObject GameObject, bool Show)
     {
         if (GameObject != null)
@@ -149,12 +151,21 @@ public class WPButtonMoveUI : MonoBehaviour
         }
         else Debug.Log("Error in WPMoveButtonUI. Referenced null");
     }
-    public void OnMouseUp()
+
+    public void ClickToMove(int RegionNum)
+    {
+        if (PhotonNetwork.IsConnected) photonView.RPC("ClickToMoveRPC", RpcTarget.All, RegionNum);
+        else ClickToMoveRPC(RegionNum);
+    }
+
+    [PunRPC]
+    public void ClickToMoveRPC(int RegionNum)
     {
         Debug.Log("clicked");
-        Debug.Log(" clicked is " + this.gameObject.name);
+        Debug.Log(" clicked is " + RegionNum);
         Debug.Log(GM);
 
+        Hero selfHero = GM.GetSelfHero();
         Hero currHero = GM.GetCurrentTurnHero();
 
         //add to path
@@ -164,7 +175,7 @@ public class WPButtonMoveUI : MonoBehaviour
         {
             if (currHero.path[index] == -1)
             {
-                currHero.path[index] = nameToPosInt(this.gameObject.name);
+                currHero.path[index] = RegionNum;
                 Debug.Log("hero path index is " + index + "wp number is " + currHero.path[index]);
 
                 int i = currHero.path[index];
@@ -196,26 +207,21 @@ public class WPButtonMoveUI : MonoBehaviour
                 Waypoint waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
                 PathButton[index].transform.position = waypoint.transform.position;
                 Visibility(PathButton[index], true);
-                Debug.Log("here");
+                Debug.Log("Before hiding wp buttons");
                 HideWPButtons();
-                Debug.Log("here1");
+                Debug.Log("After hiding wp buttons");
 
+                // Deduct the hero's time (this will automatically update the time track)
+                currHero.AdvanceTimeMarker(1);
 
-                //TO FIX WHEN I GET PANEL !!!!
+                // Kill farmers if this space contains a creature
+                if (WaypointManager.GetWaypoint(RegionNum).GetCreature() != null) currHero.DestroyCarriedFarmers();
 
-                //ExecuteMove(); //TEMPORARY
+                // Show the end move button (to the moving hero only) to allow the hero to end their move
+                if (selfHero == currHero) EndMoveButton.SetActive(true);
 
-
-                if (index == 4)
-                {
-                    ExecuteMove();
-                    break;
-                }
-
+                // Display adjacent waypoints to allow the hero to continue their move
                 ContinueMove();
-
-
-
                 break;
             }
             else
@@ -223,9 +229,6 @@ public class WPButtonMoveUI : MonoBehaviour
                 index++;
             }
         }
-        
-
-       // Visibility(this.gameObject, false);
     }
 
     public void toMakeVisible(int[] list)
@@ -261,42 +264,53 @@ public class WPButtonMoveUI : MonoBehaviour
         }
     }
 
-    public int nameToPosInt(string name)
-    {
-
-        //convert name to int position
-
-        string newStr;
-        newStr = string.Join(string.Empty, Regex.Matches(name, @"\d+").OfType<Match>().Select(m => m.Value)); //extract numbers
-        int num = int.Parse(newStr);
-        return num;
-    }
-
     public void ExecuteMove()
     {
+        if (PhotonNetwork.IsConnected) photonView.RPC("ExecuteMoveRPC", RpcTarget.All);
+        else ExecuteMoveRPC();
+    }
+
+    [PunRPC]
+    public void ExecuteMoveRPC()
+    {
+        EndMoveButton.SetActive(false);
+
         GM.GetCurrentTurnHero().ExecuteMove();
+
         //make invisible pathbutton
         for (int i = 0; i < 10; i++)
         {
             PathButton[i].SetActive(false);
         }
+
+        // Hide the waypoint buttons
+        HideWPButtons();
+
+        HeroManager.SetHeroIsMoving(false);
+
+        // Advance to the next hero's turn
+        GM.GoToNextHeroTurn();
     }
+
     public void ContinueMove()
     {
+        Hero SelfHero = GM.GetSelfHero();
+        Hero TurnHero = GM.GetCurrentTurnHero();
+
         //show adj wp to most recent tile path selected
         int mostRecentTileNum = -1;
 
         for (int i =9 ; i >= 0; i--)
         {
-            if (GM.GetCurrentTurnHero().path[i] != -1)
+            if (TurnHero.path[i] != -1)
             {
-                mostRecentTileNum = GM.GetCurrentTurnHero().path[i];
+                mostRecentTileNum = TurnHero.path[i];
                 break;
-
             }
         }
-        //show adjWP
-        WaypointManager.GetWaypoint(mostRecentTileNum).ShowAdjWP();
+
+        // If this is the moving hero's machine and the hero still has time to move, show the adjacent waypoints
+        if (SelfHero == TurnHero && SelfHero.CanAdvanceTimeMarker(1)) WaypointManager.GetWaypoint(mostRecentTileNum).ShowAdjWP();
     }
 
 }

@@ -36,4 +36,9 @@ public class CreatureUI : MonoBehaviour
         // Toggle the start battle icon
         StartBattleIcon.Toggle();
     }
+
+    public void HideStartBattleIcon()
+    {
+        StartBattleIcon.Hide();
+    }
 }

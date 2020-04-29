@@ -7,7 +7,8 @@ using Photon.Pun;
 
 public class Hero : MonoBehaviourPun, Subject
 {
-    // Reference to WaypointManager, UIManager
+    // References to managers
+    private GameManager GameManager;
     private WaypointManager WaypointManager;
     private UIManager UIManager;
 
@@ -44,10 +45,10 @@ public class Hero : MonoBehaviourPun, Subject
     // Start is called before the first frame update
     void Start()
     {
-        // Initialize reference to WaypointManager
+        // Initialize reference to managers
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
         UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-
     }
 
     // Update is called once per frame
@@ -142,25 +143,23 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void Move()
     {
-        //if (GetSelfHero() == GetCurrentTurnHero())
-        //{
-        //    Debug.Log("hero turn character is on wp " + GetCurrentTurnHero().GetWaypoint().GetWaypointNum());
-        //    Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
-        //}
+        HeroType SelfHeroType = GameManager.GetSelfHero().GetHeroType();
+
         Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
 
+        // TODO Increase max length because a hero can move further if using a wineskin
         path = new int[10]; //max len 10, reset every turn
+
         //initialize to have each element be -1
         for(int i =0; i < 10; i++)
         {
             path[i] = -1;
         }
         
-        //show the adjacent waypoints
-        this.GetWaypoint().ShowAdjWP();
+        // If this is the moving hero's machine, show the adjacent waypoints
+        if (this.Type == SelfHeroType) this.GetWaypoint().ShowAdjWP();
 
         UIManager.onHeroMove(this);
-
     }
 
 
@@ -419,6 +418,26 @@ public class Hero : MonoBehaviourPun, Subject
         return true;
     }
 
+    // Checks whether the hero can advance their time marker by the specified amount
+    public bool CanAdvanceTimeMarker(int Amount)
+    {
+        int NewTime = timeOfDay + Amount;
+        int NewWillpower = willpower;
+
+        // Validate the new time value
+        if (NewTime > 10) return false;
+        
+        else if (NewTime >= 8)
+        {
+            int NumOfOvertimeHours = NewTime - Math.Max(timeOfDay, 7);
+            NewWillpower = willpower - 2 * NumOfOvertimeHours;
+
+            // Validate the new willpower value
+            if (NewWillpower <= 0) return false;
+        }
+        return true;
+    }
+
     public int GetTimeOfDay()
     {
         return timeOfDay;
@@ -589,7 +608,6 @@ public class Hero : MonoBehaviourPun, Subject
     }
 
     // Destroys all farmers carried by this hero. Called when a creature steps onto the same region as a hero.
-    // TODO call this when a hero moves to the same region as a creature.
     public void DestroyCarriedFarmers()
     {
         numFarmers = 0;

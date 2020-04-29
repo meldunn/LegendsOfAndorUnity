@@ -13,6 +13,7 @@ public class Waypoint : MonoBehaviourPun
     public GameObject prefab;
     public GameObject goldIcon;
     public GameObject itemPanel;
+    public RegionItemsUI RegionItemsUI;
 
     // Board tile number
     private int WaypointNum = -1;
@@ -29,11 +30,10 @@ public class Waypoint : MonoBehaviourPun
     // Heroes on this waypoint
     private List<Hero> Heroes = new List<Hero>(4);
 
-    private List<RuneStone> RuneStones = new List<RuneStone>(3);
-
     private List<Farmer> farmers = new List<Farmer>();
 
-    private List<Item> items = new List<Item>();
+    // REMOVED ITEM LIST -- USING DICTIONARY INSTEAD - jonathan
+    private Dictionary<ItemType, int> Items = new Dictionary<ItemType, int>();
 
     int numItems;
     int gold;
@@ -46,7 +46,6 @@ public class Waypoint : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     { 
-        WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
         
     }
 
@@ -59,6 +58,23 @@ public class Waypoint : MonoBehaviourPun
     public void SetFog(Fog Fog)
     {
         this.Fog = Fog;
+    }
+
+    public void InitializeItems()
+    {
+        Items[ItemType.Helm] = 0;
+        Items[ItemType.Wineskin] = 0;
+        Items[ItemType.Bow] = 0;
+        Items[ItemType.Telescope] = 0;
+        Items[ItemType.Falcon] = 0;
+        Items[ItemType.MedicinalHerb] = 0;
+        Items[ItemType.Witchbrew] = 0;
+        Items[ItemType.StrengthPoints] = 0;
+        Items[ItemType.Shield] = 0;
+        Items[ItemType.BlueRuneStone] = 0;
+        Items[ItemType.YellowRuneStone] = 0;
+        Items[ItemType.GreenRuneStone] = 0;
+
     }
 
     public void SetWPAdjList(int[] list)
@@ -93,6 +109,8 @@ public class Waypoint : MonoBehaviourPun
         //string IconName = "GoldIcon (" + Number + ")";
         //goldIcon = GameObject.Find(IconName);
         //goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
+
+        WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
     }
 
     public int GetWaypointNum()
@@ -190,17 +208,22 @@ public class Waypoint : MonoBehaviourPun
 
     public void removeItem(Item item)
     {
-        items.Remove(item);
+        ItemType Type = item.GetItemType();
+        if(Items[Type] > 0) Items[Type] -= 1;
     }
 
     public void addItem(Item item)
     {
-        items.Add(item);
+        ItemType Type = item.GetItemType();
+        Items[Type] += 1;
     }
 
     public bool containsItem(Item item)
     {
-        return items.Contains(item);
+        ItemType Type = item.GetItemType();
+
+        if(Items[Type] > 0) return true;
+        else return false;
     }
 
     public bool containsFullWell()
@@ -213,14 +236,16 @@ public class Waypoint : MonoBehaviourPun
     {
         // TODO: PV.IsMine not working for all clients
         // Debug.Log("Emptied");
-        PV.RPC("UpdateWellRPC", RpcTarget.All, false);
+        if (PhotonNetwork.IsConnected) PV.RPC("UpdateWellRPC", RpcTarget.All, false);
+        else UpdateWellRPC(false);
     }
 
     // All clients replenish the well at this waypoint.
     public void ReplenishWell()
     {
         // Debug.Log("Region " + this.GetWaypointNum() + " gets well replenished.");
-        PV.RPC("UpdateWellRPC", RpcTarget.All, true);
+        if (PhotonNetwork.IsConnected) PV.RPC("UpdateWellRPC", RpcTarget.All, true);
+        else UpdateWellRPC(true);
     }
 
     [PunRPC]
@@ -238,7 +263,12 @@ public class Waypoint : MonoBehaviourPun
 
     public void InitializeRuneStone(int ID)
     {
-        RuneStones.Add(new RuneStone(ID));
+        if(ID == 1 || ID == 2) Items[ItemType.YellowRuneStone] += 1; 
+        else if(ID == 3 || ID == 4) Items[ItemType.GreenRuneStone] += 1;
+        else if(ID == 5) Items[ItemType.BlueRuneStone] += 1;
+        else Debug.Log("Error instantiating Rune Stone. ID " + ID +" invalid.");
+
+        Debug.Log("Yellow Rune Stones: "+Items[ItemType.YellowRuneStone]);
     }
 
     public void ShowAdjWP()
@@ -248,8 +278,6 @@ public class Waypoint : MonoBehaviourPun
         //int[] adjList = WaypointManager.GetWPAdjList(this.WaypointNum);
 
         WPButtonMoveUI.toMakeVisible(WPadjList);
-
-
     }
 
     // Should be moved to a UI class
@@ -264,12 +292,14 @@ public class Waypoint : MonoBehaviourPun
 
         string name = "RegionItemsPanel (" + WaypointNum + ")";
         itemPanel = GameObject.Find(name);
+        RegionItemsUI = GameObject.Find(name).GetComponent<RegionItemsUI>();
         itemPanel.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
         farmersText = itemPanel.transform.Find("NumFarmersText").GetComponent<Text>();
         farmersText.text = " Farmers: " + numFarmers;
         goldText = itemPanel.transform.Find("NumGoldText").GetComponent<Text>();
         goldText.text = " Gold: " + gold;
         itemPanel.SetActive(false);
+        RegionItemsUI.Initialize();
     }
 
     public void showItems()
@@ -279,6 +309,7 @@ public class Waypoint : MonoBehaviourPun
             itemPanel.SetActive(true);
             farmersText.text = " Farmers: " + numFarmers;
             goldText.text = " Gold: " + gold;
+            RegionItemsUI.showItems(Items);
         }
     }
 

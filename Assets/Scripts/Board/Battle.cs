@@ -259,7 +259,8 @@ public class Battle : Subject
     // Tests whether a hero should be removed from the battle and if so, kicks them out
     private void TestKickOutHero(Hero Hero)
     {
-        if (Hero.getWillpower() == 0) KickOutHero(Hero);
+        // Kick them out if they have no more willpower or time
+        if (Hero.getWillpower() == 0 || !Hero.CanAdvanceTimeMarker(1)) KickOutHero(Hero);
     }
 
     // Removes a hero from the battle
@@ -408,7 +409,7 @@ public class Battle : Subject
         // Clear the agreements to go to the next round
         ConsentToContinue.Clear();
 
-        // Kick out any participants who reached 0 willpower
+        // Kick out any participants who have reached 0 willpower or who can't advance their time marker anymore
         var ParticipantsCopy = new List<Hero>(Participants);        // Use a copy to prevent errors removing elements while iterating
         foreach (Hero Participant in ParticipantsCopy)
         {
@@ -526,7 +527,8 @@ public class Battle : Subject
     // Returns the battle round currently in progress
     private BattleRound GetCurrentRound()
     {
-        return Rounds[Rounds.Count - 1];        // The current round is the last one in the list
+        if (Rounds.Count == 0) return null;
+        else return Rounds[Rounds.Count - 1];        // The current round is the last one in the list
     }
 
     public int GetRoundNum()
@@ -630,6 +632,7 @@ public class Battle : Subject
     // Whether Thorald is participating in this battle
     public bool ThoraldIsParticipating()
     {
+        if (GetCurrentRound() == null) Debug.LogError("The current battle has no rounds");
         return GetCurrentRound().ThoraldIsParticipating();
     }
 

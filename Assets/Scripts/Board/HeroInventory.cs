@@ -21,6 +21,9 @@ public class HeroInventory : MonoBehaviour
         Inventory[ItemType.Witchbrew] = 0;
         Inventory[ItemType.StrengthPoints] = 0;
         Inventory[ItemType.Shield] = 0;
+        Inventory[ItemType.BlueRuneStone] = 0;
+        Inventory[ItemType.YellowRuneStone] = 0;
+        Inventory[ItemType.GreenRuneStone] = 0;
     }
 
     public void addItem(ItemType item)

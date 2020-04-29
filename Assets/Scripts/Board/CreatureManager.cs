@@ -237,4 +237,31 @@ public class CreatureManager : MonoBehaviour
         if (NumOfCreatures - 1 < 0) Debug.LogWarning("Warning: tried to decrease the number of creatures below 0.");
         NumOfCreatures = Math.Max(NumOfCreatures - 1, 0);
     }
+
+    public void AllowFighting(bool Value)
+    {
+        // Iterate through all regions except the castle (0)
+        for (int i = 1; i <= 84; i++)
+        {
+            if (WaypointManager.IsValidWaypoint(i)) // Skip regions that don't exist
+            {
+                Waypoint Region = WaypointManager.GetWaypoint(i);
+                Creature Creature = Region.GetCreature();
+
+                // Check whether there is a creature on this region
+                if (Creature != null)
+                {
+                    // Get the creature's box collider
+                    BoxCollider2D Collider = Creature.gameObject.GetComponent<BoxCollider2D>();
+
+                    // Make the creature clickable or unclickable based on Value
+                    if (Value) Collider.size = new Vector2(5.12f, 5.12f);
+                    else Collider.size = new Vector2(0, 0);
+
+                    // Hide the creature's battle icon
+                    if (!Value) Creature.gameObject.GetComponent<CreatureUI>().HideStartBattleIcon();
+                }
+            }
+        }
+    }
 }
