@@ -14,9 +14,9 @@ public class WPButtonMoveUI : MonoBehaviourPun
 
     int[] Location = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 , 10, 11,12,13,14,15,16,17,18,
                         19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-                        51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 81, 82, 84 };
+                        51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 81, 82, 84 };
 
-    public static List<GameObject> WPButton = new List<GameObject>(73);
+    public static List<GameObject> WPButton = new List<GameObject>(75);
     public static List<GameObject> PathButton = new List<GameObject>(10);
 
 
@@ -49,15 +49,15 @@ public class WPButtonMoveUI : MonoBehaviourPun
                 //check if special index
                 if (i == 81)
                 {
-                    j = 71;
+                    j = 73;
                 }
                 else if (i == 82)
                 {
-                    j = 72;
+                    j = 74;
                 }
                 else if (i == 84)
                 {
-                    j = 73;
+                    j = 75;
                 }
 
                 ButtonName = "WPbutton" + Location[j].ToString();
@@ -92,7 +92,8 @@ public class WPButtonMoveUI : MonoBehaviourPun
 
     public bool isValidIndex(int i)
     {
-        if (i == 71 || i == 72 || i == 73|| i == 74 || i == 75 || i == 76 || i == 77 || i == 78 || i == 79 || i == 80 || i == 83)
+        //if (i == 71 || i == 72 || i == 73|| i == 74 || i == 75 || i == 76 || i == 77 || i == 78 || i == 79 || i == 80 || i == 83)
+        if (i == 73|| i == 74 || i == 75 || i == 76 || i == 77 || i == 78 || i == 79 || i == 80 || i == 83)
         {
             return false;
         }
@@ -118,19 +119,20 @@ public class WPButtonMoveUI : MonoBehaviourPun
                 //check if special index
                 if (i == 81)
                 {
-                    j = 71;
+                    j = 73;
                 }
                 else if (i == 82)
                 {
-                    j = 72;
+                    j = 74;
                 }
                 else if (i == 84)
                 {
-                    j = 73;
+                    j = 75;
                 }
 
 
-                WaypointName = "Waypoint (" + Location[j] + ")";
+                // WaypointName = "Waypoint (" + Location[i] + ")";
+                WaypointName = "Waypoint (" + i + ")";
                 Waypoint waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
 
                 //WPButton[i].transform.Translate(Waypoint.GetLocation()

@@ -9,9 +9,11 @@ public class Fog : MonoBehaviour
     public  GameObject FogFrontCard;
     public FogBack FogBackCard;
     //public  Waypoint FogBackCard;
+    
 
-    public Fog(FogBack FogBackCard)
+    public Fog(int waypointnum, FogBack FogBackCard)
     {
+        this.waypointnum = waypointnum;
         this.FogBackCard = FogBackCard;
     }
 
@@ -31,6 +33,10 @@ public class Fog : MonoBehaviour
     {
         this.waypointnum = WPNum;
     }
+    public int GetWPNum()
+    {
+        return waypointnum;
+    }
     public void SetFrontCard(GameObject FogFrontCard)
     {
         this.FogFrontCard = FogFrontCard;
@@ -43,6 +49,11 @@ public class Fog : MonoBehaviour
     //public void SetBackCard(GameObject FogBackCard)
     //{
     //    this.FogBackCard = FogBackCard;
+    //}
+
+    //public void HideFogBack()
+    //{
+    //    this.FogBackCard.SetActive(False);
     //}
 
     public void SetBackCard(FogBack FogBackCard)
