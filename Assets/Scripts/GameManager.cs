@@ -299,7 +299,7 @@ public class GameManager : MonoBehaviourPun, Subject
         CurrentTurnHero = TurnOrder[ (CurrentIndex + 1) % TurnOrder.Length ];
 
         // If the hero can't take the turn because their day is ended, go to the next turn again
-        if (HeroManager.GetHero(CurrentTurnHero).HasEndedDay()) GoToNextHeroTurn();
+        if (HeroManager.GetHero(CurrentTurnHero).HasEndedDay() || !IsPlaying(CurrentTurnHero)) GoToNextHeroTurn();
 
         // Notify observers to update UI
         Notify("TURN");
@@ -400,6 +400,33 @@ public class GameManager : MonoBehaviourPun, Subject
         return Difficulty;
     }
 
+    // Sets whether the specified hero is playing
+    public void SetIsPlaying(HeroType Type, bool Value)
+    {
+        if (Type == HeroType.Warrior)
+        {
+            WarriorIsPlaying = Value;
+            HeroManager.GetHero(HeroType.Warrior).gameObject.SetActive(Value);
+        }
+        else if (Type == HeroType.Archer)
+        {
+            ArcherIsPlaying = Value;
+            HeroManager.GetHero(HeroType.Archer).gameObject.SetActive(Value);
+        }
+        else if (Type == HeroType.Dwarf)
+        {
+            DwarfIsPlaying = Value;
+            HeroManager.GetHero(HeroType.Dwarf).gameObject.SetActive(Value);
+        }
+        else if (Type == HeroType.Wizard)
+        {
+            WizardIsPlaying = Value;
+            HeroManager.GetHero(HeroType.Wizard).gameObject.SetActive(Value);
+        }
+
+        Notify("PLAYING_HEROES");
+    }
+
     // Returns whether the specified hero is playing
     public bool IsPlaying(HeroType Type)
     {
@@ -408,6 +435,19 @@ public class GameManager : MonoBehaviourPun, Subject
         else if (Type == HeroType.Dwarf) return DwarfIsPlaying;
         else if (Type == HeroType.Wizard) return WizardIsPlaying;
         else return false;
+    }
+
+    // Used by the interface
+    public void ToggleIsPlaying(HeroType Type)
+    {
+        SetIsPlaying(Type, !IsPlaying(Type));
+    }
+
+    // Used by the interface
+    public void ToggleIsPlayingForAll(HeroType Type)
+    {
+        if (PhotonNetwork.IsConnected) photonView.RPC("ToggleIsPlayingRPC", RpcTarget.All, Type);
+        else ToggleIsPlayingRPC(Type);
     }
 
     // Used in Observer design pattern
@@ -561,5 +601,13 @@ public class GameManager : MonoBehaviourPun, Subject
     public void AdvanceCreaturesRPC()
     {
         CreatureManager.StartAdvancing(null);
+    }
+
+    // NEWTORKED
+    // Toggles whether the specified player is playing on all machines
+    [PunRPC]
+    public void ToggleIsPlayingRPC(HeroType Type)
+    {
+        ToggleIsPlaying(Type);
     }
 }

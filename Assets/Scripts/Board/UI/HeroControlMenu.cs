@@ -17,13 +17,21 @@ public class HeroControlMenu : MonoBehaviour, Observer
     [SerializeField]
     private GameObject WizardControlFrame = null;
     [SerializeField]
-    private HeroControlIcon WarriorControlIcon = null;
+    private GameObject WarriorControlIcon = null;
     [SerializeField]
-    private HeroControlIcon ArcherControlIcon = null;
+    private GameObject ArcherControlIcon = null;
     [SerializeField]
-    private HeroControlIcon DwarfControlIcon = null;
+    private GameObject DwarfControlIcon = null;
     [SerializeField]
-    private HeroControlIcon WizardControlIcon = null;
+    private GameObject WizardControlIcon = null;
+    [SerializeField]
+    private GameObject WarriorControlIconGrey = null;
+    [SerializeField]
+    private GameObject ArcherControlIconGrey = null;
+    [SerializeField]
+    private GameObject DwarfControlIconGrey = null;
+    [SerializeField]
+    private GameObject WizardControlIconGrey = null;
 
     // Start is called before the first frame update
     void Start()
@@ -46,14 +54,9 @@ public class HeroControlMenu : MonoBehaviour, Observer
         // Register as an observer of GameManager
         GameManager.Attach(this);
 
-        // Initialize children
-        WarriorControlIcon.Initialize(HeroType.Warrior);
-        ArcherControlIcon.Initialize(HeroType.Archer);
-        DwarfControlIcon.Initialize(HeroType.Dwarf);
-        WizardControlIcon.Initialize(HeroType.Wizard);
-
         // Initialize UI
         UpdateControl();
+        UpdateHeroIcons();
     }
 
     // Used in Observer design pattern
@@ -62,6 +65,10 @@ public class HeroControlMenu : MonoBehaviour, Observer
         if (string.Equals(Category, "CONTROL"))
         {
             UpdateControl();
+        }
+        else if (string.Equals(Category, "PLAYING_HEROES"))
+        {
+            UpdateHeroIcons();
         }
     }
 
@@ -86,5 +93,85 @@ public class HeroControlMenu : MonoBehaviour, Observer
             else if (Type == HeroType.Wizard) WizardControlFrame.SetActive(true);
             else Debug.LogError("Cannot update control frames in HeroControlMenu; invalid hero type: " + Type);
         }
+    }
+
+    // Updates which icons are greyed out based on which heroes are in the game
+    private void UpdateHeroIcons()
+    {
+        // Warrior
+        bool Warrior = GameManager.IsPlaying(HeroType.Warrior);
+        bool Archer = GameManager.IsPlaying(HeroType.Archer);
+        bool Dwarf = GameManager.IsPlaying(HeroType.Dwarf);
+        bool Wizard = GameManager.IsPlaying(HeroType.Wizard);
+
+        WarriorControlIcon.SetActive(Warrior);
+        WarriorControlIconGrey.SetActive(!Warrior);
+
+        ArcherControlIcon.SetActive(Archer);
+        ArcherControlIconGrey.SetActive(!Archer);
+
+        DwarfControlIcon.SetActive(Dwarf);
+        DwarfControlIconGrey.SetActive(!Dwarf);
+
+        WizardControlIcon.SetActive(Wizard);
+        WizardControlIconGrey.SetActive(!Wizard);
+    }
+
+    // Player-triggered action
+    public void ControlWarrior()
+    {
+        ControlHero(HeroType.Warrior);
+    }
+
+    // Player-triggered action
+    public void ControlArcher()
+    {
+        ControlHero(HeroType.Archer);
+    }
+
+    // Player-triggered action
+    public void ControlDwarf()
+    {
+        ControlHero(HeroType.Dwarf);
+    }
+
+    // Player-triggered action
+    public void ControlWizard()
+    {
+        ControlHero(HeroType.Wizard);
+    }
+
+    // Player-triggered action
+    public void TogglePlayingWarrior()
+    {
+        ToggleIsPlaying(HeroType.Warrior);
+    }
+
+    // Player-triggered action
+    public void TogglePlayingArcher()
+    {
+        ToggleIsPlaying(HeroType.Archer);
+    }
+
+    // Player-triggered action
+    public void TogglePlayingDwarf()
+    {
+        ToggleIsPlaying(HeroType.Dwarf);
+    }
+
+    // Player-triggered action
+    public void TogglePlayingWizard()
+    {
+        ToggleIsPlaying(HeroType.Wizard);
+    }
+
+    public void ControlHero(HeroType Type)
+    {
+        GameManager.SetSelfPlayer(Type);
+    }
+
+    public void ToggleIsPlaying(HeroType Type)
+    {
+        GameManager.ToggleIsPlayingForAll(Type);
     }
 }

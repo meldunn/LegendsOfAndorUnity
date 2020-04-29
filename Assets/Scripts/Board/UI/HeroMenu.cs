@@ -8,6 +8,16 @@ public class HeroMenu : MonoBehaviour, Observer
     private GameManager GameManager;
 
     // References to children components
+    // Entire hero sections
+    [SerializeField]
+    GameObject WarriorSection = null;
+    [SerializeField]
+    GameObject ArcherSection = null;
+    [SerializeField]
+    GameObject DwarfSection = null;
+    [SerializeField]
+    GameObject WizardSection = null;
+
     // Markers for whose turn it is
     [SerializeField]
     GameObject WarriorTurnBox = null;
@@ -52,6 +62,7 @@ public class HeroMenu : MonoBehaviour, Observer
         // Initialize UI
         UpdateTurn();
         UpdateControl();
+        UpdateVisibleBoxes();
     }
 
     // Used in Observer design pattern
@@ -64,6 +75,10 @@ public class HeroMenu : MonoBehaviour, Observer
         else if (string.Equals(Category, "CONTROL"))
         {
             UpdateControl();
+        }
+        else if (string.Equals(Category, "PLAYING_HEROES"))
+        {
+            UpdateVisibleBoxes();
         }
     }
 
@@ -109,5 +124,19 @@ public class HeroMenu : MonoBehaviour, Observer
             else if (Type == HeroType.Wizard) WizardThisIsMe.SetActive(true);
             else Debug.LogError("Cannot update control marker in HeroMenu; invalid hero type: " + Type);
         }
+    }
+
+    private void UpdateVisibleBoxes()
+    {
+        // Warrior
+        bool Warrior = GameManager.IsPlaying(HeroType.Warrior);
+        bool Archer = GameManager.IsPlaying(HeroType.Archer);
+        bool Dwarf = GameManager.IsPlaying(HeroType.Dwarf);
+        bool Wizard = GameManager.IsPlaying(HeroType.Wizard);
+
+        WarriorSection.SetActive(Warrior);
+        ArcherSection.SetActive(Archer);
+        DwarfSection.SetActive(Dwarf);
+        WizardSection.SetActive(Wizard);
     }
 }

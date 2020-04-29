@@ -78,6 +78,7 @@ MonoBehaviour:
   - TeleportRPC
   - TestDisplayText
   - TestStoreText
+  - ToggleIsPlayingRPC
   - UpdateMaxAmountRPC
   - UpdateWellRPC
   - advanceNarratorRPC
