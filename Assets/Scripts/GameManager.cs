@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviourPun, Subject
 
         //TONETWORK
         // Initialize playing character
-        MyPlayer = WarriorPlayer;              // TODO real value
+        MyPlayer = WarriorPlayer;             // TODO real value
 
         // NETWORKED
         // Initialize turns

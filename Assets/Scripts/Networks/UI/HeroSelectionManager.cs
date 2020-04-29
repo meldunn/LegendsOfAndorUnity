@@ -109,6 +109,9 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     {
         readyPlayers--;
         coinsSplit.Remove(otherPlayer.ActorNumber);
+
+        //TODO: enable coin arrows and wine arrows
+
         wineSplit.Remove(otherPlayer.ActorNumber);
         selectedHeroes.Remove(otherPlayer.ActorNumber);
     }

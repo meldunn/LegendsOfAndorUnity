@@ -201,39 +201,74 @@ public class PlayerSelector : MonoBehaviourPun
 
     public void OnClick_NextCoin()
     {
+        int count = CountCoins();
 
-        Dictionary<int, int> coins = HeroSelectionManager.Instance.coinsSplit;
-
-        int count = 0;
-
-
-        foreach (var player in coins)
-        {
-            count += player.Value;
-        }
 
         if (count < maxCoins)
         {
+
+            //we are about to hit 5
             if(count == maxCoins - 1)
             {
-                nextCoin.gameObject.SetActive(false);
+                PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
+
+                foreach (var player in players)
+                {
+                    player.nextCoin.gameObject.SetActive(false);
+                }
             }
 
+            int value = HeroSelectionManager.Instance.coinsSplit[playerID];
+            value += 1; //increment the value
+
+            if (value == 1)
+            {
+                prevCoin.gameObject.SetActive(true); // enable previous button
+            }
+
+            HeroSelectionManager.Instance.coinsSplit[playerID] = value;
+
             photonView.RPC("IncrementCoins", RpcTarget.All);
+
+            
         }
         else
         {
-            //TODO: display a message that no more coins left to split
+            //shouldnt be able to increase coins, since the buttons are disabled
         }
     }
+
 
     public void OnClick_PrevCoin()
     {
         int amount = Int32.Parse(coinsText.text);
 
-        //decrease
+        //we can decrease
         if(amount > 0)
         {
+            //need to enable the next buttons if we decrease from max
+            int count = CountCoins();
+
+            //we are about to hit 4
+            if (count == maxCoins)
+            {
+                PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
+
+                foreach(var player in players)
+                {
+                    player.nextCoin.gameObject.SetActive(true);
+                }
+            }
+
+            int value = HeroSelectionManager.Instance.coinsSplit[playerID];
+            value -= 1;
+            HeroSelectionManager.Instance.coinsSplit[playerID] = value;
+
+            if (value == 0)
+            {
+                prevCoin.gameObject.SetActive(false); // disable previous button
+            }
+
             photonView.RPC("DecreaseCoins", RpcTarget.All);
         }
         else
@@ -243,71 +278,77 @@ public class PlayerSelector : MonoBehaviourPun
         }
     }
 
+    int CountCoins()
+    {
+        Dictionary<int, int> coins = HeroSelectionManager.Instance.coinsSplit;
+        int count = 0;
+        foreach (var player in coins)
+        {
+            count += player.Value;
+        }
+
+        return count;
+    }
+
+    int CountWineSkins()
+    {
+        Dictionary<int, int> wine = HeroSelectionManager.Instance.wineSplit;
+        int count = 0;
+        foreach (var player in wine)
+        {
+            count += player.Value;
+        }
+
+        return count;
+    }
+
+
     [PunRPC]
     void DecreaseCoins()
     {
         coinsText.text = (Int32.Parse(coinsText.text) - 1).ToString();
-        HeroSelectionManager.Instance.coinsSplit[playerID] -= 1;
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (HeroSelectionManager.Instance.coinsSplit[playerID] == 0)
-            {
-                prevCoin.gameObject.SetActive(false); // enable previous button
-            }
-            else if (HeroSelectionManager.Instance.coinsSplit[playerID] < maxCoins)
-            {
-                nextCoin.gameObject.SetActive(true);
-            }
-        }
-
     }
 
     [PunRPC]
     void IncrementCoins()
     {
         coinsText.text = (Int32.Parse(coinsText.text) + 1).ToString(); //increment the text
-
-        int value = HeroSelectionManager.Instance.coinsSplit[playerID];
-        value += 1; //increment the value
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (value == 1)
-            {
-                prevCoin.gameObject.SetActive(true); // enable previous button
-            }
-        }
-
-
-        HeroSelectionManager.Instance.coinsSplit[playerID] = value;
     }
 
     public void OnClick_NextWine()
     {
+        int count = CountWineSkins();
 
-        Dictionary<int, int> wine = HeroSelectionManager.Instance.wineSplit;
-
-        int count = 0;
-
-
-        foreach (var player in wine)
-        {
-            count += player.Value;
-        }
 
         if (count < maxWine)
         {
-            if(count == maxWine - 1)
+
+            //we are about to hit 5
+            if (count == maxWine - 1)
             {
-                nextWine.gameObject.SetActive(false);
+                PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
+
+                foreach (var player in players)
+                {
+                    player.nextWine.gameObject.SetActive(false);
+                }
             }
+
+            int value = HeroSelectionManager.Instance.wineSplit[playerID];
+            value += 1; //increment the value
+
+            if (value == 1)
+            {
+                prevWine.gameObject.SetActive(true); // enable previous button
+            }
+
+            HeroSelectionManager.Instance.wineSplit[playerID] = value;
 
             photonView.RPC("IncrementWine", RpcTarget.All);
         }
         else
         {
-            //TODO: display a message that no more coins left to split
+            //shouldnt be able to increase coins, since the buttons are disabled
         }
     }
 
@@ -315,9 +356,32 @@ public class PlayerSelector : MonoBehaviourPun
     {
         int amount = Int32.Parse(wineSkinText.text);
 
-        //decrease
+        //we can decrease
         if (amount > 0)
         {
+            //need to enable the next buttons if we decrease from max
+            int count = CountWineSkins();
+
+            //we are about to hit 4
+            if (count == maxWine)
+            {
+                PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
+
+                foreach (var player in players)
+                {
+                    player.nextWine.gameObject.SetActive(true);
+                }
+            }
+
+            int value = HeroSelectionManager.Instance.wineSplit[playerID];
+            value -= 1;
+            HeroSelectionManager.Instance.wineSplit[playerID] = value;
+
+            if (value == 0)
+            {
+                prevWine.gameObject.SetActive(false); // disable previous button
+            }
+
             photonView.RPC("DecreaseWine", RpcTarget.All);
         }
         else
@@ -331,42 +395,11 @@ public class PlayerSelector : MonoBehaviourPun
     void IncrementWine()
     {
         wineSkinText.text = (Int32.Parse(wineSkinText.text) + 1).ToString(); //increment the text
-
-        int value = HeroSelectionManager.Instance.wineSplit[playerID];
-        value += 1; //increment the value
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (value == 1)
-            {
-                prevWine.gameObject.SetActive(true); // enable previous button
-            }
-        }
-
-
-        HeroSelectionManager.Instance.wineSplit[playerID] = value;
     }
-
 
     [PunRPC]
     void DecreaseWine()
     {
         wineSkinText.text = (Int32.Parse(wineSkinText.text) - 1).ToString();
-        HeroSelectionManager.Instance.wineSplit[playerID] -= 1;
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            if (HeroSelectionManager.Instance.wineSplit[playerID] == 0)
-            {
-                prevWine.gameObject.SetActive(false); // enable previous button
-            }
-            else if (HeroSelectionManager.Instance.wineSplit[playerID] < maxWine)
-            {
-                nextWine.gameObject.SetActive(true);
-            }
-        }
     }
-
-
-
 }

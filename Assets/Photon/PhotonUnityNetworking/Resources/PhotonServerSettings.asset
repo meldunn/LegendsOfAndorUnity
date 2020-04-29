@@ -25,7 +25,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: cae
+  DevRegion: 
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -36,6 +36,7 @@ MonoBehaviour:
   - AdvanceCreaturesRPC
   - advanceNarratorRPC
   - AdvanceTurnRPC
+  - BuyFromMerchantRPC
   - CancelHeroBattleRPC
   - CleanupHeroBattleRPC
   - ClickRpc
@@ -45,9 +46,11 @@ MonoBehaviour:
   - DecreaseWine
   - DestroyRpc
   - DisplayTheirInventory
+  - DrinkFromWellRPC
   - dropFarmerRPC
   - dropGoldPRC
   - EndHeroDayRPC
+  - FightingSavedGameRPC
   - FinalizeRollRPC
   - FlipDieRPC
   - GoToNextRoundRPC
@@ -56,13 +59,17 @@ MonoBehaviour:
   - IncrementCoins
   - IncrementHeroTimeRPC
   - IncrementWine
+  - InitializeRuneStone
   - InstantiateSelector
   - InstantiateSplitResources
   - LeaveBattleRPC
+  - LoseSavedGameRPC
+  - MerchantSavedGameRPC
   - NextHero
   - PassHeroTurnRPC
   - pickupFarmerRPC
   - pickupGoldRPC
+  - PlaceRuneStoneRPC
   - PrevHero
   - ReadyUp
   - ReadyUpMaster
@@ -82,13 +89,6 @@ MonoBehaviour:
   - ToggleIsPlayingRPC
   - UpdateMaxAmountRPC
   - UpdateWellRPC
-  - DrinkFromWellRPC
-  - BuyFromMerchantRPC
-  - InitializeRuneStone
-  - PlaceRuneStoneRPC
-  - FightingSavedGameRPC
-  - MerchantSavedGameRPC
-  - LoseSavedGameRPC
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
-  DevRegionSetOnce: 1
+  ShowSettings: 1
+  DevRegionSetOnce: 0
