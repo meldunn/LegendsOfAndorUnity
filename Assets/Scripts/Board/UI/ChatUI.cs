@@ -98,7 +98,6 @@ public class ChatUI : MonoBehaviourPun, Observer
             // Send the message
             if (PhotonNetwork.IsConnected) photonView.RPC("SendChatRPC", RpcTarget.All, MyHeroType, Message);
             else SendChatRPC(MyHeroType, Message);
-
         }
     }
 
