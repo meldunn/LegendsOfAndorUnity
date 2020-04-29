@@ -19,8 +19,18 @@ public class RegionItemsUI : MonoBehaviour
 
     public void Initialize()
     {
-       
-
+        Bow.SetActive(false);
+        Brew.SetActive(false);
+        BlueRune.SetActive(false);
+        Falcon.SetActive(false);
+        GreenRune.SetActive(false);
+        Helm.SetActive(false);
+        Shield.SetActive(false);
+        Telescope.SetActive(false);
+        Wineskin.SetActive(false);
+        Wineskin.SetActive(false);
+        YellowRune.SetActive(false);
+        Medicinalherb.SetActive(false);
     }
 
 
