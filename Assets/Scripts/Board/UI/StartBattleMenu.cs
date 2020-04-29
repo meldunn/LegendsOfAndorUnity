@@ -47,6 +47,12 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
     [SerializeField]
     GameObject WardrakStartBattleIcon = null;
 
+    // Creature stats
+    [SerializeField]
+    GameObject CreatureStrength = null;
+    [SerializeField]
+    GameObject CreatureWillpower = null;
+
     [SerializeField]
     GameObject WarriorStartBattleInviteIcon = null;
     [SerializeField]
@@ -280,7 +286,12 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
 
     public void SetInfoText(string Text)
     {
-        TextMeshProUGUI InfoText = StartBattleInfoText.GetComponent<TextMeshProUGUI>();
+        SetText(StartBattleInfoText, Text);
+    }
+
+    public void SetText(GameObject Display, string Text)
+    {
+        TextMeshProUGUI InfoText = Display.GetComponent<TextMeshProUGUI>();
         InfoText.SetText(Text);
     }
 
@@ -360,6 +371,10 @@ public class StartBattleMenu : MonoBehaviourPun, Observer
             else if (Type == CreatureType.TowerSkral) TowerSkralStartBattleIcon.SetActive(true);
             else if (Type == CreatureType.Wardrak) WardrakStartBattleIcon.SetActive(true);
             else Debug.LogError("Cannot update opponent icons in StartBattleMenu; invalid creature type: " + Type);
+
+            // Display creature stats
+            SetText(CreatureStrength, MainCreature.GetStrength().ToString());
+            SetText(CreatureWillpower, MainCreature.GetWillpower().ToString());
         }
     }
 
