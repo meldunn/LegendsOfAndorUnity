@@ -244,12 +244,12 @@ public class MerchantUIManager : MonoBehaviourPun
 
     private void ConfirmPurchase()
     {
-        MyHero.DecreaseGold(CostOfPurchase);
+        HeroManager.DecreaseGold(CostOfPurchase);
         for(int i=0; i<Purchased.Length; i++)
         {
-            for(int j=0; j<i; j++)
+            if(Purchased[i] > 0)
             {
-                MyHero.BuyFromMerchant(Items[i]);
+                HeroManager.BuyFromMerchant(Items[i], Purchased[i]);
             }
         }
         if(PhotonNetwork.IsConnected)

@@ -365,8 +365,8 @@ public class Creature : MonoBehaviour
         // If the defeated creature was the tower skral, advance the narrator to 'N'
         if (Type == CreatureType.TowerSkral)
         {
-            GameManager.DefeatTowerSkrall();
             NarratorManager.advanceToN();
+            GameManager.DefeatTowerSkrall();
         }
         // Otherwise, advance the narrator by one space
         else

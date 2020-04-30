@@ -155,7 +155,7 @@ public class Hero : MonoBehaviourPun, Subject
         if (this.GetHeroType() == HeroType.PrinceThorald)
         {
 
-            
+
 
             if (path.Length > 0)
             {
@@ -272,7 +272,7 @@ public class Hero : MonoBehaviourPun, Subject
         // If this is the moving hero's machine, show the adjacent waypoints
         if (this.Type == SelfHeroType) this.GetWaypoint().ShowAdjWP();
 
-        //special case prince 
+        //special case prince
         //if (this.Type == HeroType.PrinceThorald)
         //{
         //    this.GetWaypoint().ShowAdjWP();
@@ -305,6 +305,7 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void DecreaseGold(int Amount)
     {
+        // Debug.Log("Gold Decreased by "+Amount+" and is now at "+myGold);
         if(myGold > Amount) myGold -= Amount;
         else myGold = -1;
 
@@ -425,16 +426,20 @@ public class Hero : MonoBehaviourPun, Subject
     }
 
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
-    public void BuyFromMerchant(ItemType ItemType)
+    public void BuyFromMerchant(ItemType ItemType, int Amount)
     {
+
         if (ItemType == ItemType.StrengthPoints)
         {
-            if (strength < maxStrength) strength++;
-            Debug.Log("Updating Strength Points");
+            IncreaseStrength(Amount);
         }
-        else heroInventory.addItem(ItemType);
+        else
+        {
+            for(int i=0; i<Amount; i++) addItem(ItemType);
 
-        Notify("HERO_ITEMS");
+            Notify("HERO_ITEMS");
+        }
+
     }
 
     public Dictionary<ItemType, int> GetInventory()
@@ -454,7 +459,7 @@ public class Hero : MonoBehaviourPun, Subject
         // WaypointManager.GetWPAdjList(this.myRegion.)
         FogManager.UnveilFogTelescope(adjlist);
 
-        //remove telescope from inventory 
+        //remove telescope from inventory
         this.heroInventory.removeItem(ItemType.Telescope);
         Debug.Log("hero has this many telescope after using" + this.heroInventory.GetNumTelescope());
 

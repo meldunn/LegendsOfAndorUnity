@@ -24,6 +24,9 @@ public enum NarratorLetter
 
 public class NarratorManager : MonoBehaviourPun
 {
+    // References to managers
+    GameManager GameManager;
+
     // Array of waypoints
     private NarratorWaypoint[] waypoints = new NarratorWaypoint[16];
 
@@ -50,6 +53,7 @@ public class NarratorManager : MonoBehaviourPun
 
     public void Initialize()
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         legendCardManager = GameObject.Find("LegendCardManager").GetComponent<LegendCardManager>();
         marker = GameObject.Find("NarratorMarker").GetComponent<NarratorMarker>();
         string WaypointName;
@@ -118,6 +122,7 @@ public class NarratorManager : MonoBehaviourPun
             case NarratorLetter.N:
                 marker.transform.SetPositionAndRotation(waypoints[14].GetLocation(), Quaternion.identity);
                 legendCardManager.activateLegendCard_N();
+                GameManager.ReachN();
                 return;
             case NarratorLetter.Z:
                 marker.transform.SetPositionAndRotation(waypoints[15].GetLocation(), Quaternion.identity);
@@ -160,5 +165,6 @@ public class NarratorManager : MonoBehaviourPun
     {
         curLetter = NarratorLetter.N;
         marker.transform.SetPositionAndRotation(waypoints[14].GetLocation(), Quaternion.identity);
+        // GameManager.ReachN();        // No need for this because this function is only called when defeating the tower skral
     }
 }

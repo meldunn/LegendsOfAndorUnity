@@ -337,7 +337,17 @@ public class GameManager : MonoBehaviourPun, Subject
     public void WinSavedGameRPC()
     {
         // Juice Up the Heroes so they don't lose
-        PlaceHerbOnCastleRPC();
+        HeroManager.GetHero(HeroType.Warrior).IncreaseStrength(14);
+        HeroManager.GetHero(HeroType.Archer).IncreaseStrength(14);
+        HeroManager.GetHero(HeroType.Dwarf).IncreaseStrength(14);
+        HeroManager.GetHero(HeroType.Wizard).IncreaseStrength(14);
+
+        HeroManager.GetHero(HeroType.Warrior).IncreaseWillpower(20);
+        HeroManager.GetHero(HeroType.Archer).IncreaseWillpower(20);
+        HeroManager.GetHero(HeroType.Dwarf).IncreaseWillpower(20);
+        HeroManager.GetHero(HeroType.Wizard).IncreaseWillpower(20);
+
+        WaypointManager.GetWaypoint(0).addItem(ItemType.MedicinalHerb);
         CreatureManager.Spawn(CreatureType.TowerSkral, 20);
         HeroManager.TeleportRPC(HeroType.Warrior, 19);
         HeroManager.TeleportRPC(HeroType.Dwarf, 20);
@@ -770,15 +780,31 @@ public class GameManager : MonoBehaviourPun, Subject
     {
         TowerSkrallDefeated = true;
         if(HerbOnCastle) UIManager.EndGame(true);
+        else UIManager.EndGame(false);
     }
 
+    // For winning or losing the game
+    public void ReachN()
+    {
+        if (PhotonNetwork.IsConnected) photonView.RPC("ReachNRPC", RpcTarget.All);
+        else ReachNRPC();
+    }
 
-
+    [PunRPC]
+    private void ReachNRPC()
+    {
+        if (HerbOnCastle && TowerSkrallDefeated) UIManager.EndGame(true);
+        else UIManager.EndGame(false);
+    }
+    
     //quit button 
     //author vitaly
     public void OnClick_DisconnectEveryone()
     {
-        PhotonNetwork.Disconnect();
-        SceneManager.LoadScene(0);
+        if (PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+            SceneManager.LoadScene(0);
+        }
     }
 }

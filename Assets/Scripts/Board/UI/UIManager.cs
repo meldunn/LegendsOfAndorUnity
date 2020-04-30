@@ -220,6 +220,8 @@ public class UIManager : MonoBehaviour
 
     public void EndGame(bool GameWon)
     {
+        // Block button usage
+        ActivateEndDayBlocker(true);
         
         TMPro.TextMeshProUGUI Header = GameObject.Find("EndGameHeader").GetComponent<TMPro.TextMeshProUGUI>();
         TMPro.TextMeshProUGUI Message = GameObject.Find("EndGameMessage").GetComponent<TMPro.TextMeshProUGUI>();
@@ -231,13 +233,21 @@ public class UIManager : MonoBehaviour
         else
         {
             Header.text = "Game has been lost!";
-            Message.text = "The Monsters prevailed. You allowed too many monsters to enter the castle.";
+            Message.text = "The Monsters prevailed. You allowed too many monsters to enter the castle, or didn't fulfill the requirements before reaching N on the narration track.";
         }
 
         Vector3 Origin = new Vector3(0,0,0);
         GameObject Panel = GameObject.Find("EndGamePopup");
 
         Panel.transform.Translate(Origin - Panel.transform.position);
+    }
+
+    public void EndGameClickOk()
+    {
+        Vector3 Origin = new Vector3(200, 0, 0);
+        GameObject Panel = GameObject.Find("EndGamePopup");
+
+        Panel.transform.Translate(Origin + Panel.transform.position);
     }
 
     public DivideBattleResources GetDivideBattleResourcesPanel()
