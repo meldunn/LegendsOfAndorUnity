@@ -58,7 +58,7 @@ public class EventCardManager : MonoBehaviourPun
             index = random.Next(9);
         } while (usedCards.Contains(index));
 
-        if (PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnected && photonView.IsMine)
         {
             photonView.RPC("triggerRandomRPC", RpcTarget.All, index);
         }
