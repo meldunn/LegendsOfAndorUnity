@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class EventCardManager : MonoBehaviourPun
@@ -9,6 +10,13 @@ public class EventCardManager : MonoBehaviourPun
     private System.Random random = new System.Random();
     private List<int> usedCards = new List<int>();
     private int counter = 0;
+
+    [SerializeField]
+    GameObject infoPanel;
+    [SerializeField]
+    Text quoteText;
+    [SerializeField]
+    Text descriptionText;
 
     string[] cardQuotes = new string[]
     {
@@ -71,9 +79,21 @@ public class EventCardManager : MonoBehaviourPun
     [PunRPC]
     private void triggerRandomRPC(int index)
     {
+        //Update the text fields
+        quoteText.text = eventCards[index].getQuote();
+        descriptionText.text = eventCards[index].getDescription();
+        //Display the panel
+        infoPanel.SetActive(true);
+        infoPanel.transform.SetPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
+
         eventCards[index].trigger();
         usedCards.Add(index);
         counter++;
+    }
+
+    public void hide()
+    {
+        infoPanel.SetActive(false);
     }
 
     // Start is called before the first frame update
