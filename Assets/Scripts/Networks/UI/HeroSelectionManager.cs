@@ -146,8 +146,6 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     {
         //RPC
         photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Normal);
-
-
     }
 
     public void OnClick_EasyDifficulty()
