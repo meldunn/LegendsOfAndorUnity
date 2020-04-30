@@ -43,6 +43,11 @@ public class Hero : MonoBehaviourPun, Subject
     // Current battle invitation
     BattleInvitation BattleInvitation;
 
+
+
+    private Hero ThoraldTurnPlayer;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +84,7 @@ public class Hero : MonoBehaviourPun, Subject
         if (Type == HeroType.PrinceThorald)
         {
             strength = 4;
-        } 
+        }
         else
         {
             strength = 1;
@@ -88,7 +93,7 @@ public class Hero : MonoBehaviourPun, Subject
         maxWillpower = 20;
         myGold = 20;
         heroInventory = new HeroInventory();
-       
+
         //needs to be removed, for testing only:
         heroInventory.addItem(ItemType.Wineskin);
         heroInventory.addItem(ItemType.Bow);
@@ -120,64 +125,108 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void ExecuteMove()
     {
-        if (path.Length > 0)
+
+        if (this.GetHeroType() == HeroType.PrinceThorald)
         {
-            for (int i =0; i < path.Length; i++)
+
+            
+
+            if (path.Length > 0)
             {
-                if (path[i] != -1)
+                for (int i = 0; i < path.Length; i++)
                 {
-                    Debug.Log("in hero execmove, path[i] is " + path[i]);
-                    myRegion.RemoveHero(this);
-                    myRegion = WaypointManager.GetWaypoint(path[i]);
-                    myRegion.AddHero(this);
-                    //Move the hero sprite
-                    this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
-                        Quaternion.identity);                                         // No rotation
-
-                    //this.transform.position = Vector2.MoveTowards(this.GetLocation(),     // Self
-                    //myRegion.GetLocation(),                                        // Destination
-                    //MoveSpeed * Time.deltaTime);                                 // Max distance moved
-
-
-                    //if on last path tile check if fog
-                    if (path[i + 1] == -1)
+                    if (path[i] != -1)
                     {
-                        Debug.Log("i == path.Length - 1 " + i);
-                        FogManager.triggerFogAtWP(path[i]);
+                        Debug.Log("in hero execmove, path[i] is " + path[i]);
+                        myRegion.RemoveHero(this);
+                        myRegion = WaypointManager.GetWaypoint(path[i]);
+                        myRegion.AddHero(this);
+                        //Move the prince sprite
+                        this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
+                            Quaternion.identity);                                         // No rotation
 
-                        ////check if creature on this tile
-                        //if (WaypointManager.GetWaypoint(path[i]).GetCreature() != null)
-                        //{
-                        //    this.transform.position = transform.position + new Vector3(7 * 5f* Time.deltaTime, 0);
-                        //}
-                        if (this.Type == HeroType.Warrior)
+                        //this.transform.position = Vector2.MoveTowards(this.GetLocation(),     // Self
+                        //myRegion.GetLocation(),                                        // Destination
+                        //MoveSpeed * Time.deltaTime);                                 // Max distance moved
+
+
+                        //if on last path tile check if fog
+                        if (path[i + 1] == -1)
                         {
-                            this.transform.position = transform.position + new Vector3(5 * 5f * Time.deltaTime, 0);
-                        }
-                        else if (this.Type == HeroType.Archer)
-                        {
-                            this.transform.position = transform.position + new Vector3(-5 * 5f * Time.deltaTime, 0);
-                        }
-                        else if (this.Type == HeroType.Dwarf)
-                        {
-                            this.transform.position = transform.position + new Vector3(0, 5 * 5f * Time.deltaTime);
-                        }
-                        else if (this.Type == HeroType.Wizard)
-                        {
-                            this.transform.position = transform.position + new Vector3(0, -5 * 5f * Time.deltaTime);
+                            this.transform.position = transform.position + new Vector3(-2 * 5f * Time.deltaTime, -2 * 5f * Time.deltaTime);
                         }
 
-                            
+                        //return path to empty
+                        path[i] = -1;
                     }
+                }
+            }
 
-                    //return path to empty
-                    path[i] = -1;
+
+
+
+            //remove ref to thorald player
+            this.ThoraldTurnPlayer = null;
+        }
+        else
+        {
+            if (path.Length > 0)
+            {
+                for (int i = 0; i < path.Length; i++)
+                {
+                    if (path[i] != -1)
+                    {
+                        Debug.Log("in hero execmove, path[i] is " + path[i]);
+                        myRegion.RemoveHero(this);
+                        myRegion = WaypointManager.GetWaypoint(path[i]);
+                        myRegion.AddHero(this);
+                        //Move the hero sprite
+                        this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
+                            Quaternion.identity);                                         // No rotation
+
+                        //this.transform.position = Vector2.MoveTowards(this.GetLocation(),     // Self
+                        //myRegion.GetLocation(),                                        // Destination
+                        //MoveSpeed * Time.deltaTime);                                 // Max distance moved
+
+
+                        //if on last path tile check if fog
+                        if (path[i + 1] == -1)
+                        {
+                            Debug.Log("i == path.Length - 1 " + i);
+                            FogManager.triggerFogAtWP(path[i]);
+
+
+                            if (this.Type == HeroType.Warrior)
+                            {
+                                this.transform.position = transform.position + new Vector3(5 * 5f * Time.deltaTime, 0);
+                            }
+                            else if (this.Type == HeroType.Archer)
+                            {
+                                this.transform.position = transform.position + new Vector3(-5 * 5f * Time.deltaTime, 0);
+                            }
+                            else if (this.Type == HeroType.Dwarf)
+                            {
+                                this.transform.position = transform.position + new Vector3(0, 5 * 5f * Time.deltaTime);
+                            }
+                            else if (this.Type == HeroType.Wizard)
+                            {
+                                this.transform.position = transform.position + new Vector3(0, -5 * 5f * Time.deltaTime);
+                            }
+
+
+                        }
+
+                        //return path to empty
+                        path[i] = -1;
+                    }
                 }
             }
         }
 
         UIManager.onHeroMove();
     }
+
+
 
     public void Move()
     {
@@ -189,16 +238,38 @@ public class Hero : MonoBehaviourPun, Subject
         path = new int[10]; //max len 10, reset every turn
 
         //initialize to have each element be -1
-        for(int i =0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
             path[i] = -1;
         }
-        
+
         // If this is the moving hero's machine, show the adjacent waypoints
         if (this.Type == SelfHeroType) this.GetWaypoint().ShowAdjWP();
 
+        //special case prince 
+        //if (this.Type == HeroType.PrinceThorald)
+        //{
+        //    this.GetWaypoint().ShowAdjWP();
+        //}
+
     }
 
+
+    public void ThoraldMove(Hero TurnPlayer)
+    {
+        Debug.Log("hero turn character is on wp " + this.GetWaypoint().GetWaypointNum());
+
+        // TODO Increase max length because a hero can move further if using a wineskin
+        path = new int[10]; //max len 10, reset every turn
+
+        //initialize to have each element be -1
+        for (int i = 0; i < 10; i++)
+        {
+            path[i] = -1;
+        }
+        this.GetWaypoint().ShowAdjWP();
+        ThoraldTurnPlayer = TurnPlayer;
+    }
 
     // Get the location of this hero
     private Vector3 GetLocation()
@@ -318,9 +389,9 @@ public class Hero : MonoBehaviourPun, Subject
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
     public void BuyFromMerchant(ItemType ItemType)
     {
-        if(ItemType == ItemType.StrengthPoints)
+        if (ItemType == ItemType.StrengthPoints)
         {
-            if(strength < maxStrength) strength ++;
+            if (strength < maxStrength) strength++;
             Debug.Log("Updating Strength Points");
         }
         else heroInventory.addItem(ItemType);
@@ -469,7 +540,7 @@ public class Hero : MonoBehaviourPun, Subject
 
         // Validate the new time value
         if (NewTime > 10) return false;
-        
+
         else if (NewTime >= 8)
         {
             int NumOfOvertimeHours = NewTime - Math.Max(timeOfDay, 7);
@@ -686,4 +757,9 @@ public class Hero : MonoBehaviourPun, Subject
     {
         return Rank;
     }
+    public Hero GetThoraldTurnPlayer()
+    {
+        return ThoraldTurnPlayer;
+    }
+
 }

@@ -166,7 +166,17 @@ public class WPButtonMoveUI : MonoBehaviourPun
         Debug.Log(GM);
 
         Hero selfHero = GM.GetSelfHero();
+        Debug.Log("self hero iis " + selfHero);
         Hero currHero = GM.GetCurrentTurnHero();
+        Debug.Log("currHero is " + currHero);
+
+        //check if moving prince
+        if (HeroManager.GetHero(HeroType.PrinceThorald).GetThoraldTurnPlayer() != null)
+        {
+            Debug.Log("moving the prince");
+            currHero = HeroManager.GetHero(HeroType.PrinceThorald);
+        }
+    
 
         //add to path
         //get path index
@@ -211,18 +221,47 @@ public class WPButtonMoveUI : MonoBehaviourPun
                 HideWPButtons();
                 Debug.Log("After hiding wp buttons");
 
-                // Deduct the hero's time (this will automatically update the time track)
-                currHero.AdvanceTimeMarker(1);
+                if (currHero.GetHeroType() != HeroType.PrinceThorald)
+                {
 
-                // Kill farmers if this space contains a creature
-                if (WaypointManager.GetWaypoint(RegionNum).GetCreature() != null) currHero.DestroyCarriedFarmers();
+                    Debug.Log("not moving prince");
+                    Debug.Log("currhero is " + currHero);
+                    Debug.Log("self hero is " + selfHero);
+                    Debug.Log("is end move button null? " + EndMoveButton == null);
+                    
+                    // Deduct the hero's time (this will automatically update the time track)
+                    currHero.AdvanceTimeMarker(1);
 
-                // Show the end move button (to the moving hero only) to allow the hero to end their move
-                if (selfHero == currHero) EndMoveButton.SetActive(true);
+                    // Kill farmers if this space contains a creature
+                    if (WaypointManager.GetWaypoint(RegionNum).GetCreature() != null) currHero.DestroyCarriedFarmers();
 
-                // Display adjacent waypoints to allow the hero to continue their move
-                ContinueMove();
-                break;
+                    // Show the end move button (to the moving hero only) to allow the hero to end their move
+                    if (selfHero == currHero) EndMoveButton.SetActive(true);
+
+                    // Display adjacent waypoints to allow the hero to continue their move
+                    ContinueMove();
+                    break;
+                }
+
+                else //moving the prince
+                {
+                    Debug.Log("moving prince");
+                    // Show the end move button (to the moving hero only) to allow the hero to end their move
+                    if (selfHero == HeroManager.GetHero(HeroType.PrinceThorald).GetThoraldTurnPlayer()) EndMoveButton.SetActive(true);
+
+                    // Show the end move button (to the moving hero only) to allow the hero to end their move
+                    if (selfHero == currHero) EndMoveButton.SetActive(true);
+
+                    if (index == 0 || index == 4 || index == 8)
+                    {
+                        selfHero.AdvanceTimeMarker(1);
+                    }
+
+
+                    //display adj wp to allow prince to continue moving
+                    PrinceContinueMove();
+                    break;
+                }
             }
             else
             {
@@ -270,12 +309,28 @@ public class WPButtonMoveUI : MonoBehaviourPun
         else ExecuteMoveRPC();
     }
 
+    //public void ThoraldExecuteMove()
+    //{
+    //    if (PhotonNetwork.IsConnected) photonView.RPC("ThoraldExecuteMoveRPC", RpcTarget.All);
+    //    else ThoraldExecuteMoveRPC();
+    //}
+
     [PunRPC]
     public void ExecuteMoveRPC()
     {
-        EndMoveButton.SetActive(false);
 
-        GM.GetCurrentTurnHero().ExecuteMove();
+        if (HeroManager.GetHero(HeroType.PrinceThorald).GetThoraldTurnPlayer() != null)
+        {
+            HeroManager.GetHero(HeroType.PrinceThorald).ExecuteMove();
+        }
+        else
+        {
+            GM.GetCurrentTurnHero().ExecuteMove();
+        }
+
+            EndMoveButton.SetActive(false);
+
+        //GM.GetCurrentTurnHero().ExecuteMove();
 
         //make invisible pathbutton
         for (int i = 0; i < 10; i++)
@@ -292,6 +347,30 @@ public class WPButtonMoveUI : MonoBehaviourPun
         GM.GoToNextHeroTurn();
     }
 
+    //[PunRPC]
+    //public void ThoraldExecuteMoveRPC()
+    //{
+    //    EndMoveButton.SetActive(false);
+
+    //    HeroManager.GetHero(HeroType.PrinceThorald).ExecuteMove();
+
+    //    //make invisible pathbutton
+    //    for (int i = 0; i < 10; i++)
+    //    {
+    //        PathButton[i].SetActive(false);
+    //    }
+
+    //    // Hide the waypoint buttons
+    //    HideWPButtons();
+
+    //    HeroManager.SetHeroIsMoving(false);
+
+    //    // Advance to the next hero's turn
+    //    GM.GoToNextHeroTurn();
+    //}
+
+
+
     public void ContinueMove()
     {
         Hero SelfHero = GM.GetSelfHero();
@@ -305,6 +384,28 @@ public class WPButtonMoveUI : MonoBehaviourPun
             if (TurnHero.path[i] != -1)
             {
                 mostRecentTileNum = TurnHero.path[i];
+                break;
+            }
+        }
+
+        // If this is the moving hero's machine and the hero still has time to move, show the adjacent waypoints
+        if (SelfHero == TurnHero && SelfHero.CanAdvanceTimeMarker(1)) WaypointManager.GetWaypoint(mostRecentTileNum).ShowAdjWP();
+    }
+
+    public void PrinceContinueMove()
+    {
+        Hero SelfHero = GM.GetSelfHero();
+        Hero TurnHero = GM.GetCurrentTurnHero();
+        Hero Thorald = HeroManager.GetHero(HeroType.PrinceThorald);
+
+        //show adj wp to most recent tile path selected
+        int mostRecentTileNum = -1;
+
+        for (int i = 9; i >= 0; i--)
+        {
+            if (Thorald.path[i] != -1)
+            {
+                mostRecentTileNum = Thorald.path[i];
                 break;
             }
         }
