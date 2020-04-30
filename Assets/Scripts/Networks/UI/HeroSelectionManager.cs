@@ -194,5 +194,6 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         //TODO: setgold and wineskin
 
         //TODO: destroy the canvas
+        Destroy(heroSelectCanvas);
     }
 }
