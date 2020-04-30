@@ -138,6 +138,7 @@ public class UIManager : MonoBehaviour
 
         // Must come AFTER all initializations
         InputManager.Initialize();
+
     }
     
     public void onHeroMove()
@@ -208,6 +209,14 @@ public class UIManager : MonoBehaviour
 
         Invoke("HideRuneStonePopup", 5);
 
+    }
+
+    public void ShowRuneStonePopup()
+    {
+        GameObject RuneStonePopup = GameObject.Find("PlaceRuneStonePopup"); 
+
+        Vector3 Origin = new Vector3(0, 0, 0);
+        RuneStonePopup.transform.Translate(Origin - RuneStonePopup.transform.position);
     }
 
     public void HideRuneStonePopup()
