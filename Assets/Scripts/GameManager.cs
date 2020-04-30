@@ -164,13 +164,16 @@ public class GameManager : MonoBehaviourPun, Subject
         // IMPORTANT: Do this last to ensure all data is available
         UIManager.Initialize(this);
 
+        if(PhotonNetwork.IsMasterClient || !PhotonNetwork.IsConnected)
+        {
+            UIManager.ShowRuneStonePopup();
+        };
 
         // Dummy Save Games
         // MerchantSavedGame(); // Done
         // FightingSavedGame(); // Done
         // LoseSavedGame();     // Passable, could be better
         // WinSavedGame();
-        
     }
 
     // Sets the difficulty and makes final initializations based on difficulty
@@ -307,12 +310,14 @@ public class GameManager : MonoBehaviourPun, Subject
 
     public void WinSavedGame()
     {
+        CreatureManager.Spawn(CreatureType.TowerSkral, 20);
         if(PhotonNetwork.IsConnected) photonView.RPC("WinSavedGameRPC", RpcTarget.All);
         else WinSavedGameRPC();
     }
 
     public void FightingSavedGame()
     {
+        CreatureManager.Spawn(CreatureType.Wardrak, 14);
         // TODO: Move all heroes to a spot, spawn a wardrak
         if(PhotonNetwork.IsConnected) photonView.RPC("FightingSavedGameRPC", RpcTarget.All);
         else FightingSavedGameRPC();
@@ -323,11 +328,26 @@ public class GameManager : MonoBehaviourPun, Subject
     [PunRPC]
     public void FightingSavedGameRPC()
     {
-        GameObject.Find("NarratorPopup").SetActive(false);
+        if(GameObject.Find("PlaceRuneStonePopup") != null)
+        {
+            GameObject.Find("PlaceRuneStonePopup").SetActive(false);
+        }
+        if(GameObject.Find("NarratorPopup") != null)
+        {
+            GameObject.Find("NarratorPopup").SetActive(false);
+        }
+
         // TODO: Move all heroes to a spot, spawn a wardrak
-        CreatureManager.Spawn(CreatureType.Wardrak, 14);
+        HeroManager.GetHero(HeroType.Warrior).IncreaseStrength(3);
+        HeroManager.GetHero(HeroType.Archer).IncreaseStrength(1);
+        HeroManager.GetHero(HeroType.Dwarf).IncreaseStrength(4);
+
+        HeroManager.GetHero(HeroType.Warrior).IncreaseWillpower(3);
+        HeroManager.GetHero(HeroType.Archer).IncreaseWillpower(5);
+        HeroManager.GetHero(HeroType.Dwarf).IncreaseWillpower(4);
+
         HeroManager.TeleportRPC(HeroType.Archer, 6);
-        HeroManager.TeleportRPC(HeroType.Dwarf, 10);
+        HeroManager.TeleportRPC(HeroType.Dwarf, 72);
         HeroManager.TeleportRPC(HeroType.Warrior, 14);
     }
 
@@ -336,32 +356,62 @@ public class GameManager : MonoBehaviourPun, Subject
     [PunRPC]
     public void WinSavedGameRPC()
     {
+        if(GameObject.Find("PlaceRuneStonePopup") != null)
+        {
+            GameObject.Find("PlaceRuneStonePopup").SetActive(false);
+        }
+        if(GameObject.Find("NarratorPopup") != null)
+        {
+            GameObject.Find("NarratorPopup").SetActive(false);
+        }
         // Juice Up the Heroes so they don't lose
-        PlaceHerbOnCastleRPC();
-        CreatureManager.Spawn(CreatureType.TowerSkral, 20);
-        HeroManager.TeleportRPC(HeroType.Warrior, 19);
-        HeroManager.TeleportRPC(HeroType.Dwarf, 20);
-        HeroManager.TeleportRPC(HeroType.Wizard, 22);
+        // PlaceHerbOnCastleRPC();
+        HerbOnCastle = true;
+
+        HeroManager.GetHero(HeroType.Warrior).IncreaseStrength(20);
+        HeroManager.GetHero(HeroType.Archer).IncreaseStrength(20);
+        HeroManager.GetHero(HeroType.Dwarf).IncreaseStrength(20);
+
+        HeroManager.GetHero(HeroType.Warrior).IncreaseWillpower(20);
+        HeroManager.GetHero(HeroType.Archer).IncreaseWillpower(20);
+        HeroManager.GetHero(HeroType.Dwarf).IncreaseWillpower(20);
+
+        HeroManager.GetHero(HeroType.Dwarf).addItem(ItemType.Helm);
+        HeroManager.GetHero(HeroType.Warrior).addItem(ItemType.Helm);
     }
 
     // Done
     [PunRPC]
     public void MerchantSavedGameRPC()
     {
+        if(GameObject.Find("PlaceRuneStonePopup") != null)
+        {
+            GameObject.Find("PlaceRuneStonePopup").SetActive(false);
+        }
+        if(GameObject.Find("NarratorPopup") != null)
+        {
+            GameObject.Find("NarratorPopup").SetActive(false);
+        }
         // TODO: Invoke the move function
-        GameObject.Find("NarratorPopup").SetActive(false);
-        HeroManager.GetHero(HeroType.Warrior).ReceiveGold(10);
+        // GameObject.Find("NarratorPopup").SetActive(false);
+        HeroManager.GetHero(HeroType.Dwarf).ReceiveGold(10);
         HeroManager.TeleportRPC(HeroType.Warrior, 18);
-        // TODO: Add other values (items?) to simulate a real game
     }
 
     // Done
     [PunRPC]
     public void LoseSavedGameRPC()
     {
+        if(GameObject.Find("PlaceRuneStonePopup") != null)
+        {
+            GameObject.Find("PlaceRuneStonePopup").SetActive(false);
+        }
+        if(GameObject.Find("NarratorPopup") != null)
+        {
+            GameObject.Find("NarratorPopup").SetActive(false);
+        }
         // TODO: Invoke the move function instead of teleport
         // TODO: Add other values (items?) to simulate a real game
-        GameObject.Find("NarratorPopup").SetActive(false);
         CreatureManager.SpamCastle();
         // UIManager.EndGame(false);
     }
@@ -700,10 +750,28 @@ public class GameManager : MonoBehaviourPun, Subject
         }
 
         CurrentTurnHero = HeroWithLowestRank;
-
         // Notify observers to update UI
         Notify("TURN");
+
+        // Place rune stone
+        if(PhotonNetwork.IsConnected)
+        {
+            photonView.RPC("RollRuneStone", RpcTarget.All, CurrentTurnHero);
+        }
+        else RollRuneStone(CurrentTurnHero);
+
     }
+
+    [PunRPC]
+    private void RollRuneStone(HeroType TargetHeroType)
+    {
+        if(GetSelfHero().GetHeroType() == TargetHeroType)
+        {
+            UIManager.ShowRuneStonePopup();
+        }
+    }
+
+
 
     // NETWORKED
     // Advances the turn order on all machines
