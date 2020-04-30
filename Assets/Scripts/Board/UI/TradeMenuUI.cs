@@ -19,6 +19,9 @@ public class TradeMenuUI : MonoBehaviourPun
     private int CurrentRecipientID;
     private int CurrentTradePartnerID;
 
+    private int MyGold;
+    private int TheirGold;
+
     private PhotonView PV;
 
     private Dictionary<ItemType, int> MyInventory;
@@ -30,6 +33,7 @@ public class TradeMenuUI : MonoBehaviourPun
     // References to all gui parts
     private GameObject TradePopup;
     private GameObject ConfirmationPopup;
+    private GameObject TheirPanel;
 
     private TMPro.TextMeshProUGUI Confirmation;
     private TMPro.TextMeshProUGUI Their;
@@ -44,6 +48,7 @@ public class TradeMenuUI : MonoBehaviourPun
     {
         // Get References to current players
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        TheirPanel = GameObject.Find("TheirItemsPanel");
         // Debug.Log(GameManager);
         TradePopup = GameObject.Find("IncomingTradePopup");
         ConfirmationPopup = GameObject.Find("TradeConfirmationPopup");
@@ -68,7 +73,7 @@ public class TradeMenuUI : MonoBehaviourPun
         Type = new ItemType[11];
         Type[0] = ItemType.Helm;
         Type[1] = ItemType.Wineskin;
-        Type[2] = ItemType.Bow;
+        Type[2] = ItemType.Gold;
         Type[3] = ItemType.Telescope;
         Type[4] = ItemType.Falcon;
         Type[5] = ItemType.MedicinalHerb;
@@ -115,16 +120,19 @@ public class TradeMenuUI : MonoBehaviourPun
     {
         // Refresh Inventories
         MyHero = GameManager.GetSelfHero();
+        TheirPanel.SetActive(false);
 
         MyInventory = GameManager.GetSelfHero().GetInventory();
+        MyGold = MyHero.GetGold();
         Reset(TradedItems);
 
-        MyHeroType = GameManager.GetSelfHero().GetHeroType();
-
-        //for(int k=0; k<8; k++)
-        //{
-        //    MyAmount[k].text = MyInventory[Type[k]].ToString();
-        //}
+        for(int i=0; i<4; i++)
+        {
+            if(Hero[i] == MyHero.GetHeroType() || !GameManager.IsPlaying(Hero[i]))
+            {
+                GameObject.Find(Hero[i].ToString()+"Trade").SetActive(false);
+            }
+        }
 
         Vector3 Origin = new Vector3(0,0,0);
         transform.Translate(Origin - transform.position);
@@ -154,7 +162,12 @@ public class TradeMenuUI : MonoBehaviourPun
     {
         int CurrentAmount = int.Parse(MyAmount[i].text);
 
-        if(CurrentAmount < MyInventory[Type[i]])
+        if(i == 2 && CurrentAmount < MyGold)
+        {
+            CurrentAmount++;
+            TradedItems[Type[i]] ++;
+        }
+        else if(i!=2 && CurrentAmount < MyInventory[Type[i]])
         {
             CurrentAmount ++;
             TradedItems[Type[i]] ++;
@@ -166,6 +179,7 @@ public class TradeMenuUI : MonoBehaviourPun
     public void DecreaseMyItemAmount(int i)
     {
         int CurrentAmount = int.Parse(MyAmount[i].text);
+
         if(CurrentAmount > 0)
         {
             CurrentAmount --;
@@ -178,7 +192,12 @@ public class TradeMenuUI : MonoBehaviourPun
     {
         int CurrentAmount = int.Parse(TheirAmount[i].text);
 
-        if(CurrentAmount < TheirInventory[Type[i]])
+        if(i == 2 && CurrentAmount < TheirGold)
+        {
+            CurrentAmount ++;
+            TradedItems[Type[i]] --;
+        }
+        else if(i!=2 &&CurrentAmount < TheirInventory[Type[i]])
         {
             CurrentAmount ++;
             TradedItems[Type[i]] --;
@@ -405,6 +424,7 @@ public class TradeMenuUI : MonoBehaviourPun
             Debug.Log("Successful match with"+Hero[RecID]);
             MatchFound = true;
             TheirInventory = GameManager.GetSelfHero().GetInventory();
+            TheirGold = GameManager.GetSelfHero().GetGold();
         }
 
         if(Hero[SenderID] == MyHeroType)
@@ -415,6 +435,7 @@ public class TradeMenuUI : MonoBehaviourPun
             //    TheirAmount[k].text = TheirInventory[Type[k]].ToString();
             //}
             CurrentRecipientID = RecID;
+            TheirPanel.SetActive(true);
         }
         
     }

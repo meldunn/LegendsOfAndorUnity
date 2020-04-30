@@ -272,6 +272,11 @@ public class Hero : MonoBehaviourPun, Subject
         }
     }
 
+    public void addItem(ItemType Item)
+    {
+        heroInventory.addItem(Item);
+    }
+
     public void useItem(Item item)
     {
         /*
@@ -447,6 +452,11 @@ public class Hero : MonoBehaviourPun, Subject
             if (NewWillpower <= 0) return false;
         }
         return true;
+    }
+
+    public int GetGold()
+    {
+        return myGold;
     }
 
     public int GetTimeOfDay()
