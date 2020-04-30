@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fog : MonoBehaviour
+public class Fog 
 {
     private FogType FogType;
     public int waypointnum; //number on the board

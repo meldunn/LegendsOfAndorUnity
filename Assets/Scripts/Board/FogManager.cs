@@ -36,11 +36,7 @@ public class FogManager : MonoBehaviour
         foglist = new Fog[15];
         string WaypointName;
 
-        //for (int i = 0; i < 15; i++)
-        //{
-        //    WaypointName = "FogWaypoint" + i;
-        //    possibleWaypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
-        //}
+      
 
         int numWaypointsSelected = 0;
         System.Random rand = new System.Random();
@@ -63,7 +59,7 @@ public class FogManager : MonoBehaviour
 
 
         }
-        printlist(SelectedWP);  //for testing
+       // printlist(SelectedWP);  //for testing
 
         //place selected fogwaypoints into finalwaypoints
         for (int i = 0; i < 15; i++)
@@ -76,11 +72,11 @@ public class FogManager : MonoBehaviour
         for (int i = 1; i < 16; i++)
         {
             WaypointName = "FogBack" + i;
-            Debug.Log(WaypointName);
+            //Debug.Log(WaypointName);
             FogBackList.Add(GameObject.Find(WaypointName).GetComponent<FogBack>());
         }
 
-        //set fogfront list TODO
+        
 
         //set willpower front fog
         FogFrontList.Add(GameObject.Find("FogFaceWillpower2").GetComponent<FogFront>());
@@ -150,8 +146,6 @@ public class FogManager : MonoBehaviour
             }
 
 
-            //Fog newFog= new Fog(TileWPNum[SelectedWP[i]],FogBackList[i]);
-            //foglist[i] = newFog;
 
 
 
@@ -185,19 +179,17 @@ public class FogManager : MonoBehaviour
         {
             if (wpnumber == foglist[i].GetWPNum())
             {
-                Debug.Log("wpnum for fog is " + wpnumber);
-                //return foglist[i];
-                //foglist[i].GetFogBackCard().HideFogBack();
+               
                 foglist[i].GetFogBackCard().gameObject.SetActive(false);
 
-                //show fog front for 5 seconds
+                //show fog front 
                 foglist[i].GetFogFrontCard().gameObject.SetActive(true);
 
-                //for (int j =0; j< 10000; j++)
-                //{
 
-                //}
-                //foglist[i].GetFogFrontCard().gameObject.SetActive(false);
+
+              
+                foglist[i].GetFogFrontCard().gameObject.SetActive(false);  //TO REMOVE
+                
 
                 if (foglist[i].GetFogType() == FogType.Gor)
                 {
@@ -229,17 +221,7 @@ public class FogManager : MonoBehaviour
         //return null;
     }
 
-    //private bool Waited(float seconds)
-    //{
-    //    timerMax = seconds;
-
-    //    timer += Time.deltaTime;
-
-    //    if (timer >= timerMax)
-    //    {
-    //        return true; //max reached - waited x - seconds
-    //    }
-    //}
+ 
 
     public void TriggerFogGor(int wpnumber)
     {
