@@ -112,6 +112,17 @@ MonoBehaviour:
   - TriggerFogGorRPC
   - DecreaseGoldRPC
   - ReachNRPC
+  - dropBowRPC
+  - dropBRSRPC
+  - dropFalconRPC
+  - dropGRSRPC
+  - dropHelmRPC
+  - dropMedHerbRPC
+  - dropShieldRPC
+  - dropTelescopeRPC
+  - dropWineskinRPC
+  - dropWitchbrewRPC
+  - dropYRSRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
