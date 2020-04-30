@@ -93,15 +93,16 @@ public class Hero : MonoBehaviourPun, Subject
         }
         willpower = 7;
         maxWillpower = 20;
-        myGold = 20;
+        myGold = 0;
         heroInventory = new HeroInventory();
         IsWineskinActivated = false;
 
 
         //needs to be removed, for testing only:
-        heroInventory.addItem(ItemType.Wineskin);
-        heroInventory.addItem(ItemType.Bow);
-        numFarmers = 1;
+        //heroInventory.addItem(ItemType.Wineskin);
+        //heroInventory.addItem(ItemType.Bow);
+        //numFarmers = 1;
+        //myGold = 20;
 
         // Initialize rank
         if (Type == HeroType.Warrior) Rank = 14;
