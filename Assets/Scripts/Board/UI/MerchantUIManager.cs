@@ -99,12 +99,11 @@ public class MerchantUIManager : MonoBehaviourPun
     // Called when a hero moves, the UI updates depending on which region the hero lands on
     public void UpdateMerchantButton(int RegionNumber)
     {
-        int MyRegion = GameManager.GetSelfHero().GetCurrentRegion().GetWaypointNum();
         // Reset all buttons
         for(int i=0; i<MerchantButton.Count; i++) 
             Visibility(MerchantButton[i], false);
 
-        switch (MyRegion)
+        switch (RegionNumber)
         {
             case 18:
                 Visibility(MerchantButton[0], true);
