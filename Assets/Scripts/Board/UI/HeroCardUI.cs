@@ -63,101 +63,220 @@ public class HeroCardUI : MonoBehaviourPun, Observer
         }   
     }
 
-    public void dropShield() {
-        if (GameManager.GetSelfHero() == myHero)
+    [PunRPC]
+    public void dropShieldRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.Shield);
+        Shield.SetActive(false);
+    }
+
+    public void dropShield()
+    {
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.Shield);
-            Shield.SetActive(false);
+            photonView.RPC("dropShieldRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropShieldRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropMedHerbRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.MedicinalHerb);
+        Medicinalherb.SetActive(false);
+
     }
 
     public void dropMedHerb()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.MedicinalHerb);
-            Medicinalherb.SetActive(false);
+            photonView.RPC("dropMedHerbRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropMedHerbRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropBowRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.Bow);
+        Bow.SetActive(false);
     }
 
     public void dropBow()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.Bow);
-            Bow.SetActive(false);
+            photonView.RPC("dropBowRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropBowRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropWineskinRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.Wineskin);
+        Wineskin.SetActive(false);
+
     }
 
     public void dropWineskin()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.Wineskin);
-            Wineskin.SetActive(false);
-            Debug.LogError("NOTIFY");
+            photonView.RPC("dropWineskinRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropWineskinRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropTelescopeRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.Telescope);
+        Telescope.SetActive(false);
+
     }
 
     public void dropTelescope()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.Telescope);
-            Telescope.SetActive(false);
+            photonView.RPC("dropTelescopeRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
+        }
+        else
+        {
+            dropTelescopeRPC(GameManager.GetSelfHero().GetHeroType());
         }
     }
 
+    [PunRPC]
+    public void dropWitchbrewRPC(HeroType type)
+    {
+            HeroManager.GetHero(type).dropItem(ItemType.Witchbrew);
+            Brew.SetActive(false);
+        
+    }
+    
     public void dropWitchbrew()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.Witchbrew);
-            Brew.SetActive(false);
+            photonView.RPC("dropWitchbrewRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropWitchbrewRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropHelmRPC(HeroType type)
+    {
+           HeroManager.GetHero(type).dropItem(ItemType.Helm);
+           Helm.SetActive(false);
+        
     }
 
     public void dropHelm()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.Helm);
-            Helm.SetActive(false);
+            photonView.RPC("dropHelmRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropHelmRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropFalconRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.Falcon);
+        Falcon.SetActive(false);
+        
     }
 
     public void dropFalcon()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.Falcon);
-            Falcon.SetActive(false);
+            photonView.RPC("dropHelmRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
+        }
+        else
+        {
+            dropHelmRPC(GameManager.GetSelfHero().GetHeroType());
         }
     }
+
+    [PunRPC]
+    public void dropYRSRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.YellowRuneStone);
+        YellowRune.SetActive(false);
+        
+    }
+
     public void dropYRS()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.YellowRuneStone);
-            YellowRune.SetActive(false);
+            photonView.RPC("dropYRSRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropYRSRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropBRSRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.BlueRuneStone);
+        BlueRune.SetActive(false);
     }
 
     public void dropBRS()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.BlueRuneStone);
-            BlueRune.SetActive(false);
+            photonView.RPC("dropBRSRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
         }
+        else
+        {
+            dropBRSRPC(GameManager.GetSelfHero().GetHeroType());
+        }
+    }
+
+    [PunRPC]
+    public void dropGRSRPC(HeroType type)
+    {
+        HeroManager.GetHero(type).dropItem(ItemType.GreenRuneStone);
+        GreenRune.SetActive(false);
+       
     }
 
     public void dropGRS()
     {
-        if (GameManager.GetSelfHero() == myHero)
+        if (PhotonNetwork.IsConnected)
         {
-            myHero.dropItem(ItemType.GreenRuneStone);
-            GreenRune.SetActive(false);
+            photonView.RPC("dropGRSRPC", RpcTarget.All, GameManager.GetSelfHero().GetHeroType());
+        }
+        else
+        {
+            dropGRSRPC(GameManager.GetSelfHero().GetHeroType());
         }
     }
 
