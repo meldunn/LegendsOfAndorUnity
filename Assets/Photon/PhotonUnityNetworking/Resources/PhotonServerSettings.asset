@@ -100,6 +100,11 @@ MonoBehaviour:
   - PlaceHerbOnCastleRPC
   - ConfirmPurchaseRPC
   - ThoraldMoveRPC
+  - AcceptDivisionRPC
+  - DecreaseGoldAmountRPC
+  - DecreaseWPAmountRPC
+  - IncreaseGoldAmountRPC
+  - IncreaseWPAmountRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

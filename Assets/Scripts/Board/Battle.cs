@@ -9,6 +9,7 @@ public class Battle : Subject
     // Managers
     private GameManager GameManager;
     private CreatureManager CreatureManager;
+    private UIManager UIManager;
 
     // List of Observers (Observer design pattern)
     private List<Observer> Observers = new List<Observer>();
@@ -52,6 +53,7 @@ public class Battle : Subject
         // Managers
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
         // Add the battle starter as a participant
         Participants.Add(BattleStarter);
@@ -203,6 +205,10 @@ public class Battle : Subject
         Creature.Defeat();
 
         this.End();
+
+        // Display the division of winnings screen
+        int Winnings = Creature.GetWinnings();
+        if (Winnings > 0) UIManager.GetDivideBattleResourcesPanel().DivideResources(Participants[0].GetHeroType(), Winnings, new List<Hero>(Participants));
 
         Notify("BATTLE_WON");
     }

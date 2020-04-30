@@ -237,4 +237,9 @@ public class UIManager : MonoBehaviour
 
         Panel.transform.Translate(Origin - Panel.transform.position);
     }
+
+    public DivideBattleResources GetDivideBattleResourcesPanel()
+    {
+        return DivideBattleResources;
+    }
 }

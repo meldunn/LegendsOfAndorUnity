@@ -21,6 +21,9 @@ public class Creature : MonoBehaviour
     // Strength
     int Strength;
 
+    // Amount of gold + willpower awarded to heros when the creature is defeated
+    int Winnings = 0;
+
     // Flag that tracks whether the creature is currently moving
     private bool IsMoving = false;
 
@@ -75,21 +78,25 @@ public class Creature : MonoBehaviour
             case CreatureType.HerbGor:
                 MaxWillpower = 4;
                 Strength = 2;
+                Winnings = 2;
                 break; 
 
             case CreatureType.Skral:
                 MaxWillpower = 6;
                 Strength = 6;
+                Winnings = 4;
                 break;
 
             case CreatureType.Wardrak:
                 MaxWillpower = 7;
                 Strength = 10;
+                Winnings = 6;
                 break;
 
             case CreatureType.TowerSkral:
 
                 MaxWillpower = 6;
+                Winnings = 0;           // Since defeating it ends the game
 
                 int NumPlayers = GameManager.GetNumOfPlayers();
                 DifficultyLevel Difficulty = GameManager.GetDifficulty();
@@ -318,6 +325,11 @@ public class Creature : MonoBehaviour
     public int GetStrength()
     {
         return Strength;
+    }
+
+    public int GetWinnings()
+    {
+        return Winnings;
     }
 
     // Decreases the creature's willpower by the indicated positive amount, to a minimum of 0.
