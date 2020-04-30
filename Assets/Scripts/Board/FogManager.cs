@@ -198,7 +198,7 @@ public class FogManager : MonoBehaviourPun
         //show fog front 
         foglist[i].GetFogFrontCard().gameObject.SetActive(true);
 
-        foglist[i].GetFogFrontCard().gameObject.SetActive(false);  //TO REMOVE
+        // foglist[i].GetFogFrontCard().gameObject.SetActive(false);  //TO REMOVE
 
 
         if (foglist[i].GetFogType() == FogType.Gor)
