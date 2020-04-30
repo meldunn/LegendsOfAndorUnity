@@ -108,7 +108,7 @@ public class Hero : MonoBehaviourPun, Subject
         myRegion.AddHero(this);
 
 
-        UIManager.onHeroMove(this);
+        UIManager.onHeroMove();
 
         // Move the hero sprite
         this.transform.SetPositionAndRotation(myRegion.GetLocation(),     // Destination
@@ -150,6 +150,7 @@ public class Hero : MonoBehaviourPun, Subject
             }
         }
 
+        UIManager.onHeroMove();
     }
 
     public void Move()
@@ -170,7 +171,6 @@ public class Hero : MonoBehaviourPun, Subject
         // If this is the moving hero's machine, show the adjacent waypoints
         if (this.Type == SelfHeroType) this.GetWaypoint().ShowAdjWP();
 
-        UIManager.onHeroMove(this);
     }
 
 
