@@ -360,16 +360,16 @@ public class HeroManager : MonoBehaviourPun
         else DrinkFromWellRPC(MyHeroType);
     }
 
-    public void BuyFromMerchant(ItemType Item)
+    public void BuyFromMerchant(ItemType Item, int Amount)
     {
         HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
 
-        GetHero(MyHeroType).BuyFromMerchant(Item);
-
-        if (PhotonNetwork.IsConnected) photonView.RPC("BuyFromMerchantRPC", RpcTarget.Others, MyHeroType, Item);
-        // else BuyFromMerchantRPC(MyHeroType, Item);
-        
+        if (PhotonNetwork.IsConnected) photonView.RPC("BuyFromMerchantRPC", RpcTarget.All, MyHeroType, Item, Amount);
+        else BuyFromMerchantRPC(MyHeroType, Item, Amount);
     }
+
+    
+
 
     public void DivideBattleResources(Dictionary<HeroType, int> Gold, Dictionary<HeroType, int> WP)
     {
@@ -419,17 +419,32 @@ public class HeroManager : MonoBehaviourPun
         }
     }
 
+    public void DecreaseGold(int Amount)
+    {
+        HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
+
+        if (PhotonNetwork.IsConnected) photonView.RPC("DecreaseGoldRPC", RpcTarget.All, MyHeroType, Amount);
+        else DecreaseGoldRPC(MyHeroType, Amount);
+    }
+
+    [PunRPC]
+    private void DecreaseGoldRPC(HeroType TargetHeroType, int Amount)
+    {
+        GetHero(TargetHeroType).DecreaseGold(Amount);
+    }
+
     [PunRPC]
     private void DivideBattleResourcesRPC(HeroType TargetHeroType, int Gold, int WP)
     {
         GetHero(TargetHeroType).IncreaseWillpower(WP);
         GetHero(TargetHeroType).ReceiveGold(Gold);
     }
+
     // NETWORKED
     [PunRPC]
-    private void BuyFromMerchantRPC(HeroType TargetHeroType, ItemType Item)
+    private void BuyFromMerchantRPC(HeroType TargetHeroType, ItemType Item, int Amount)
     {
-        GetHero(TargetHeroType).BuyFromMerchant(Item);
+        GetHero(TargetHeroType).BuyFromMerchant(Item, Amount);
     }
 
     // NETWORKED
