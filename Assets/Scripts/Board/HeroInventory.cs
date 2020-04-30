@@ -37,7 +37,7 @@ public class HeroInventory
         {
             Inventory[item] += 1;
         }
-        Inventory[item] += 1;
+        // Inventory[item] += 1;
             // Debug.Log("Added Item" + item);
     }
 

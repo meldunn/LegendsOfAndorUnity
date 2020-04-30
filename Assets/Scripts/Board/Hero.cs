@@ -35,7 +35,7 @@ public class Hero : MonoBehaviourPun, Subject
     int timeOfDay;
     bool InRoosterBox = false;
     bool EndedDay = false;
-    int myGold = 40;
+    int myGold = 0;
     int numFarmers;
     bool moveCompleted;
     bool IsWineskinActivated;
@@ -94,7 +94,7 @@ public class Hero : MonoBehaviourPun, Subject
         }
         willpower = 7;
         maxWillpower = 20;
-        myGold = 0;
+        myGold = 10;
         heroInventory = new HeroInventory();
         IsWineskinActivated = false;
 
@@ -305,7 +305,7 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void DecreaseGold(int Amount)
     {
-        Debug.Log("Gold Decreased by "+Amount+" and is now at "+myGold);
+        // Debug.Log("Gold Decreased by "+Amount+" and is now at "+myGold);
         if(myGold > Amount) myGold -= Amount;
         else myGold = myGold;
 
@@ -428,17 +428,20 @@ public class Hero : MonoBehaviourPun, Subject
     }
 
     // Called from MerchantUIManager when items are purchased and hero has enough gold.
-    public void BuyFromMerchant(ItemType ItemType)
+    public void BuyFromMerchant(ItemType ItemType, int Amount)
     {
+        
         if (ItemType == ItemType.StrengthPoints)
         {
-            if (strength < maxStrength) strength++;
-            // Debug.Log("Updating Strength Points");
-            Notify("HERO_STRENGTH");
+            IncreaseStrength(Amount);
         }
-        else heroInventory.addItem(ItemType);
+        else 
+        {
+            for(int i=0; i<Amount; i++) addItem(ItemType);
 
-        Notify("HERO_ITEMS");
+            Notify("HERO_ITEMS");
+        }
+
     }
 
     public Dictionary<ItemType, int> GetInventory()
