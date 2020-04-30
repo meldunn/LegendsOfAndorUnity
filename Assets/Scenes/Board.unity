@@ -5404,6 +5404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 103292958}
   - component: {fileID: 103292959}
+  - component: {fileID: 103292960}
   m_Layer: 5
   m_Name: FogFaceStrength
   m_TagString: Untagged
@@ -5480,6 +5481,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &103292960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103292957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &103573880
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9985,6 +9998,7 @@ GameObject:
   m_Component:
   - component: {fileID: 188189475}
   - component: {fileID: 188189476}
+  - component: {fileID: 188189477}
   m_Layer: 5
   m_Name: FogFaceEventCard (4)
   m_TagString: Untagged
@@ -10061,6 +10075,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &188189477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188189474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &191293658
 GameObject:
   m_ObjectHideFlags: 0
@@ -10071,6 +10097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 191293659}
   - component: {fileID: 191293660}
+  - component: {fileID: 191293661}
   m_Layer: 5
   m_Name: FogFaceGold (0)
   m_TagString: Untagged
@@ -10147,6 +10174,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &191293661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191293658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &191320870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15278,6 +15317,7 @@ GameObject:
   m_Component:
   - component: {fileID: 277289226}
   - component: {fileID: 277289227}
+  - component: {fileID: 277289228}
   m_Layer: 5
   m_Name: FogFaceWillpower2
   m_TagString: Untagged
@@ -15354,6 +15394,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &277289228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277289225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &278929761
 GameObject:
   m_ObjectHideFlags: 0
@@ -27018,6 +27070,7 @@ GameObject:
   m_Component:
   - component: {fileID: 508716045}
   - component: {fileID: 508716046}
+  - component: {fileID: 508716047}
   m_Layer: 5
   m_Name: FogFaceEventCard (1)
   m_TagString: Untagged
@@ -27094,6 +27147,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &508716047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508716044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &510778325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28646,6 +28711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 550077524}
   - component: {fileID: 550077525}
+  - component: {fileID: 550077526}
   m_Layer: 5
   m_Name: FogFaceBrew
   m_TagString: Untagged
@@ -28722,6 +28788,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &550077526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550077523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &550539342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38198,6 +38276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 724580926}
   - component: {fileID: 724580927}
+  - component: {fileID: 724580928}
   m_Layer: 5
   m_Name: FogFaceEventCard (0)
   m_TagString: Untagged
@@ -38274,6 +38353,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &724580928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724580925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &725918040
 GameObject:
   m_ObjectHideFlags: 0
@@ -54724,6 +54815,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1069283840}
   - component: {fileID: 1069283841}
+  - component: {fileID: 1069283842}
   m_Layer: 5
   m_Name: FogFaceWillpower3
   m_TagString: Untagged
@@ -54800,6 +54892,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1069283842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069283839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1074758326
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62587,6 +62691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1227162975}
   - component: {fileID: 1227162976}
+  - component: {fileID: 1227162977}
   m_Layer: 5
   m_Name: FogFaceGor1
   m_TagString: Untagged
@@ -62663,6 +62768,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1227162977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227162974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1227782292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66962,6 +67079,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1303419181}
   - component: {fileID: 1303419182}
+  - component: {fileID: 1303419183}
   m_Layer: 5
   m_Name: FogFaceEventCard (2)
   m_TagString: Untagged
@@ -67038,6 +67156,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1303419183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303419180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1306388125 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 262331298216365649, guid: 4c23102c66fbf014ba0361ea9d8c5084,
@@ -67436,6 +67566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315212877}
   - component: {fileID: 1315212878}
+  - component: {fileID: 1315212879}
   m_Layer: 5
   m_Name: FogFaceGor
   m_TagString: Untagged
@@ -67512,6 +67643,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1315212879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315212876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1315500690
 GameObject:
   m_ObjectHideFlags: 0
@@ -81808,6 +81951,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1615087006}
   - component: {fileID: 1615087007}
+  - component: {fileID: 1615087008}
   m_Layer: 5
   m_Name: FogFaceEventCard (3)
   m_TagString: Untagged
@@ -81884,6 +82028,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1615087008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1615087005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1615577998
 GameObject:
   m_ObjectHideFlags: 0
@@ -84304,6 +84460,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1665418668}
   - component: {fileID: 1665418669}
+  - component: {fileID: 1665418670}
   m_Layer: 5
   m_Name: FogFaceWineskin
   m_TagString: Untagged
@@ -84380,6 +84537,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1665418670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665418667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1666022520
 GameObject:
   m_ObjectHideFlags: 0
@@ -87401,6 +87570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1722070683}
   - component: {fileID: 1722070684}
+  - component: {fileID: 1722070685}
   m_Layer: 5
   m_Name: FogFaceGold (2)
   m_TagString: Untagged
@@ -87477,6 +87647,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1722070685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722070682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1723812555
 GameObject:
   m_ObjectHideFlags: 0
@@ -99138,6 +99320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1919896630}
   - component: {fileID: 1919896631}
+  - component: {fileID: 1919896632}
   m_Layer: 5
   m_Name: FogFaceGold (1)
   m_TagString: Untagged
@@ -99214,6 +99397,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1919896632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919896629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43bab06b16b36ae47b8ae6225790905d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1920634427
 PrefabInstance:
   m_ObjectHideFlags: 0

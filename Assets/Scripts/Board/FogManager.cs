@@ -21,23 +21,23 @@ public class FogManager : MonoBehaviour
 
     public void Initialize()
     {
-        possibleWaypoints = new Waypoint[15];
-        finalWaypoints = new Waypoint[7];
+        //possibleWaypoints = new Waypoint[15];
+        finalWaypoints = new Waypoint[15];
         //foglist = new List<Fog>(7);
-        foglist = new Fog[7];
+        foglist = new Fog[15];
         string WaypointName;
 
-        for (int i = 0; i < 15; i++)
-        {
-            WaypointName = "FogWaypoint" + i;
-            possibleWaypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
-        }
+        //for (int i = 0; i < 15; i++)
+        //{
+        //    WaypointName = "FogWaypoint" + i;
+        //    possibleWaypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
+        //}
 
         int numWaypointsSelected = 0;
         System.Random rand = new System.Random();
         int randomInt;
-        List<int> SelectedWP = new List<int>(7);
-        while(numWaypointsSelected < 7)
+        List<int> SelectedWP = new List<int>(15);
+        while(numWaypointsSelected < 15)
         {
             //pick number between 0 and 14 incl
             randomInt = rand.Next(15);
@@ -60,14 +60,14 @@ public class FogManager : MonoBehaviour
 
     
 
-        for (int i = 0; i<7; i++)
+        for (int i = 0; i<15; i++)
         {
             WaypointName = "FogWaypoint" + SelectedWP[i];
             finalWaypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
         }
 
         //set fogback list
-        for (int i = 1; i < 8; i++)
+        for (int i = 1; i < 16; i++)
         {
             WaypointName = "FogBack" + i;
             //FogBackList[i -1] = GameObject.Find(WaypointName).GetComponent<GameObject>();
@@ -82,8 +82,10 @@ public class FogManager : MonoBehaviour
 
 
 
+
+
         //set and place fogs
-        for (int i =0; i < 7; i++)
+        for (int i =0; i < 15; i++)
         {
             Fog newFod = new Fog(TileWPNum[SelectedWP[i]],FogBackList[i]);
             foglist[i] = newFod;

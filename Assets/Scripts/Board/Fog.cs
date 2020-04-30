@@ -8,12 +8,16 @@ public class Fog : MonoBehaviour
     public int waypointnum; //number on the board
     public  GameObject FogFrontCard;
     public FogBack FogBackCard;
+    public bool IsFogUnused;
+    public bool IsFogUncovered;
     
 
 
     public Fog(int waypointnum, FogBack FogBackCard)
     {
         this.waypointnum = waypointnum;
+        this.IsFogUnused = true;
+        this.IsFogUncovered = false;
         this.FogBackCard = FogBackCard;
     }
 
