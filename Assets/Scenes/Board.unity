@@ -5203,7 +5203,7 @@ GameObject:
   - component: {fileID: 98259667}
   - component: {fileID: 98259666}
   m_Layer: 8
-  m_Name: HeroSlot3
+  m_Name: DwarfTrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10985,7 +10985,7 @@ GameObject:
   - component: {fileID: 201458469}
   - component: {fileID: 201458468}
   m_Layer: 8
-  m_Name: BowPanel
+  m_Name: GoldPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40183,7 +40183,7 @@ GameObject:
   - component: {fileID: 755295100}
   - component: {fileID: 755295099}
   m_Layer: 8
-  m_Name: HeroSlot1
+  m_Name: ArcherTrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48117,7 +48117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bow
+  m_text: Gold
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -48186,7 +48186,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 915526985}
-    characterCount: 3
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -57210,7 +57210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1138776853
 Transform:
   m_ObjectHideFlags: 0
@@ -60450,7 +60450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 200, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 650, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1185954380
@@ -64113,7 +64113,7 @@ GameObject:
   - component: {fileID: 1244802650}
   - component: {fileID: 1244802649}
   m_Layer: 8
-  m_Name: BowPanel
+  m_Name: GoldPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74487,7 +74487,7 @@ GameObject:
   - component: {fileID: 1445829942}
   - component: {fileID: 1445829941}
   m_Layer: 8
-  m_Name: HeroSlot4
+  m_Name: WizardTrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92344,7 +92344,7 @@ GameObject:
   - component: {fileID: 1801497661}
   - component: {fileID: 1801497660}
   m_Layer: 8
-  m_Name: MyBowAmount
+  m_Name: MyGoldAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107888,7 +107888,7 @@ GameObject:
   - component: {fileID: 2069909169}
   - component: {fileID: 2069909168}
   m_Layer: 8
-  m_Name: TheirBowAmount
+  m_Name: TheirGoldAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108086,7 +108086,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bow
+  m_text: Gold
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -108155,7 +108155,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2070486354}
-    characterCount: 3
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -110385,7 +110385,7 @@ GameObject:
   - component: {fileID: 2122589402}
   - component: {fileID: 2122589401}
   m_Layer: 8
-  m_Name: HeroSlot2
+  m_Name: WarriorTrade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
