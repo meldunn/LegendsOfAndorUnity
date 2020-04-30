@@ -219,7 +219,7 @@ public class Hero : MonoBehaviourPun, Subject
                         if (path[i + 1] == -1)
                         {
                             Debug.Log("i == path.Length - 1 " + i);
-                            FogManager.triggerFogAtWP(path[i]);
+                            //FogManager.triggerFogAtWP(path[i]);
 
 
                             if (this.Type == HeroType.Warrior)
