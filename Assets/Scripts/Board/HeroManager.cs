@@ -469,4 +469,9 @@ public class HeroManager : MonoBehaviourPun
         // If the day hasn't changed, move the turn along
         if (!DayChanged) GameManager.GoToNextHeroTurn();
     }
+
+    public void destroyThorald()
+    {
+        Destroy(GameObject.Find("PrinceThorald"));
+    }
 }
