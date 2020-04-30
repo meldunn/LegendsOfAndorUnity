@@ -31468,7 +31468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Saved Game 1: Merchants'
+  m_Text: 'Saved Game 4: Winning'
 --- !u!222 &575359666
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -58345,7 +58345,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: 0}
+  m_AnchoredPosition: {x: -250, y: 0}
   m_SizeDelta: {x: 400, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1119813561
@@ -58680,7 +58680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1138776853
 Transform:
   m_ObjectHideFlags: 0
@@ -75751,7 +75751,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1440514430
 Transform:
   m_ObjectHideFlags: 0
@@ -102012,7 +102012,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Saved Game 1: Merchants'
+  m_Text: 'Saved Game 3: Losing'
 --- !u!222 &1920901037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -112704,7 +112704,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Saved Game 1: Merchants'
+  m_Text: 'Saved Game 2: Fighting'
 --- !u!222 &2124354375
 CanvasRenderer:
   m_ObjectHideFlags: 0

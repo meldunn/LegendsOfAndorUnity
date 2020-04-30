@@ -56,9 +56,8 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         //at run time subsribes the ready up logic. (done on run time because we are dealing with a prefab)
         readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
 
-        Vector3 Pos = new Vector3(-250, 0, 0);
         SavedGamesPanel = GameObject.Find("SGP");
-        SavedGamesPanel.transform.Translate(Pos - SavedGamesPanel.transform.position);
+        SavedGamesPanel.SetActive(false);
 
     }
 
@@ -99,10 +98,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     {
         if(PhotonNetwork.IsMasterClient && ShowSavedGames)
         {
-            Vector3 Pos = new Vector3(-250, 0, 0);
-            SavedGamesPanel = GameObject.Find("SGP");
-            SavedGamesPanel.transform.Translate(Pos - SavedGamesPanel.transform.position);
-
+            SavedGamesPanel.SetActive(true);
         }
 
         PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
