@@ -458,7 +458,7 @@ public class HeroManager : MonoBehaviourPun
     {
         // Check whether another hero is already in the rooster box
         Hero RoosterBoxHero = GetRoosterHero();
-        bool GoToRoosterBox = RoosterBoxHero == null || RoosterBoxHero == GameManager.GetSelfHero();     // Can go there if we are already there
+        bool GoToRoosterBox = RoosterBoxHero == null || RoosterBoxHero.GetHeroType() == TargetHeroType;     // Can go there if we are already there
 
         // End the hero's day
         GetHero(TargetHeroType).EndHeroDay(GoToRoosterBox);
