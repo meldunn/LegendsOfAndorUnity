@@ -155,8 +155,9 @@ public class FogManager : MonoBehaviour
 
 
 
-            WaypointName = "Waypoint (" + TileWPNum[SelectedWP[i]] + ")";
-
+            // WaypointName = "Waypoint (" + TileWPNum[SelectedWP[i]] + ")";
+            WaypointName = "FogWaypoint" + SelectedWP[i];
+           // WaypointName = finalWaypoints[i].ToString();
             Waypoint waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
             foglist[i].GetFogBackCard().transform.position = waypoint.transform.position;
             foglist[i].GetFogFrontCard().transform.position = waypoint.transform.position;
