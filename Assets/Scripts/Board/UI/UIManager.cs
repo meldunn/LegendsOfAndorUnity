@@ -150,4 +150,38 @@ public class UIManager : MonoBehaviour
     {
         return this.StartBattleMenu;
     }
+
+    // Called once at the beginning of the game
+    public void PlaceRuneStoneCard()
+    {
+        NarratorManager NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>(); 
+        TMPro.TextMeshProUGUI RuneRoll = GameObject.Find("RuneCardRoll").GetComponent<TMPro.TextMeshProUGUI>();
+        int Roll;
+        NarratorLetter NarratorSpace = NarratorLetter.H;
+        System.Random rand = new System.Random();
+        Roll = rand.Next(6);
+        Roll += 1; 
+
+        if(Roll == 6) NarratorSpace = NarratorLetter.H;
+        else if(Roll == 5 || Roll == 4) NarratorSpace = NarratorLetter.F;
+        else if(Roll == 3) NarratorSpace = NarratorLetter.E;
+        else if(Roll == 2) NarratorSpace = NarratorLetter.D;
+        else if(Roll == 1) NarratorSpace = NarratorLetter.B;
+
+        RuneRoll.text = "You rolled a "+Roll+
+            "! The Rune Stone card will be activated when the Narrator reaches square " + NarratorSpace;
+
+        NarratorManager.AddRuneStoneCard(NarratorSpace);
+
+        Invoke("HideRuneStonePopup", 5);
+
+    }
+
+    public void HideRuneStonePopup()
+    {
+        GameObject RuneStonePopup = GameObject.Find("PlaceRuneStonePopup"); 
+
+        Vector3 far = new Vector3(200, 0, 0);
+        RuneStonePopup.transform.Translate(far - RuneStonePopup.transform.position);
+    }
 }
