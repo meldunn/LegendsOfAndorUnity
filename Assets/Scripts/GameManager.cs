@@ -249,6 +249,18 @@ public class GameManager : MonoBehaviourPun, Subject
         }
     }
 
+    public void UseTelescope()
+    {
+        Hero MyHero = GetSelfHero();
+        //check if hero has telescope and is not moving (either not their turn OR their turn but not moving
+        if (MyHero.GetHeroInventory().containsItem(ItemType.Telescope) && (GetCurrentTurnHero() != MyHero || HeroManager.GetHeroIsMoving() == false))
+        {
+            //use fog
+            MyHero.UseTelescope();
+        }
+        
+    }
+
     public void MoveThorald()
     {
         // Check whether it's the turn of the hero who wants to move

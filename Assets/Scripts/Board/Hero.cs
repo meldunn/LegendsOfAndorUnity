@@ -404,6 +404,17 @@ public class Hero : MonoBehaviourPun, Subject
         return heroInventory.getInventory();
     }
 
+    public HeroInventory GetHeroInventory()
+    {
+        return heroInventory;
+    }
+
+    public void UseTelescope()
+    {
+        //unveil fog on adj tiles
+    }
+
+
     public void GiveItemFromTrade(ItemType Item)
     {
         heroInventory.removeItem(Item);
