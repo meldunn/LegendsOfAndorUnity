@@ -157,16 +157,12 @@ public class FogManager : MonoBehaviour
             foglist[i].GetFogBackCard().transform.position = waypoint.transform.position;
             foglist[i].GetFogFrontCard().transform.position = waypoint.transform.position;
 
+            
 
-            //FOR TESTING, REMOVE THIS
-
-            foglist[i].GetFogBackCard().gameObject.SetActive(false);
-
-
-            // TO UNCOMMENT
+            foglist[i].GetFogBackCard().gameObject.SetActive(true);
 
             //hide fog front
-            //foglist[i].GetFogFrontCard().gameObject.SetActive(false);
+            foglist[i].GetFogFrontCard().gameObject.SetActive(false);
         }
 
 
@@ -174,77 +170,100 @@ public class FogManager : MonoBehaviour
 
     }
 
+    public void UnveilFogTelescope(int[] PosWPList)
+    {
+        for (int i =0; i < PosWPList.Length; i++)
+        {
+            for (int j =0; j< foglist.Length; j++)
+            {
+                if (PosWPList[i] == foglist[j].GetWPNum())
+                {
+                    foglist[j].UncoverBack();
+                }
+            }
+        }
+    }
+
     public void triggerFogAtWP(int wpnumber)
     {
+
         for (int i = 0; i < foglist.Length; i++)
         {
             if (wpnumber == foglist[i].GetWPNum())
             {
-               
-                foglist[i].GetFogBackCard().gameObject.SetActive(false);
 
-                //show fog front 
-                foglist[i].GetFogFrontCard().gameObject.SetActive(true);
+                if (foglist[i].IsFogUnused == true)
+                    {
 
 
+                    foglist[i].GetFogBackCard().gameObject.SetActive(false);
 
-              
-                foglist[i].GetFogFrontCard().gameObject.SetActive(false);  //TO REMOVE
-                
-
-                if (foglist[i].GetFogType() == FogType.Gor)
-                {
-                    Debug.Log("Fog is Gor type");
-                    //TriggerFogGor(wpnumber);
-                    CreatureManager.Spawn(CreatureType.Gor, wpnumber);
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! A Gor Creature has spawned");
-
-                }
-                if (foglist[i].GetFogType() == FogType.Wineskin)
-                {
-                    Debug.Log("fog is type winesking");
-                    GM.GetCurrentTurnHero().addItem(ItemType.Wineskin);
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received a Wineskin");
-                }
-                if (foglist[i].GetFogType() == FogType.Brew)
-                {
-                    Debug.Log("fog is type brew");
-                    GM.GetCurrentTurnHero().addItem(ItemType.Witchbrew);
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received a Witch's Brew");
-                }
-                if (foglist[i].GetFogType() == FogType.Willpower2)
-                {
-                    Debug.Log("fog is type wp2");
-                    GM.GetCurrentTurnHero().IncreaseWillpower(2);
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 2 Willpower");
-                }
-                if (foglist[i].GetFogType() == FogType.Willpower3)
-                {
-                    Debug.Log("fog is type wp3");
-                    GM.GetCurrentTurnHero().IncreaseWillpower(3);
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 3 Willpower");
-                }
-                if (foglist[i].GetFogType() == FogType.Strength)
-                {
-                    Debug.Log("fog is type strength");
-                    GM.GetCurrentTurnHero().IncreaseStrength(1);
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 1 Strength");
-                }
-                if (foglist[i].GetFogType() == FogType.Gold)
-                {
-                    Debug.Log("fog is type gold");
-                    GM.GetCurrentTurnHero().ReceiveGold(1);
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 1 Gold");
-                }
-                if (foglist[i].GetFogType() == FogType.EventCard)
-                {
-                    Debug.Log("fog is type eventcard");
-                    EventCardManager.triggerRandom();
-                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! It is an event card!");
-                }
+                    //show fog front 
+                    foglist[i].GetFogFrontCard().gameObject.SetActive(true);
 
 
-                foglist[i].GetFogFrontCard().gameObject.SetActive(false); //hide front card
+
+
+                    foglist[i].GetFogFrontCard().gameObject.SetActive(false);  //TO REMOVE
+
+
+                    if (foglist[i].GetFogType() == FogType.Gor)
+                    {
+                        Debug.Log("Fog is Gor type");
+                        //TriggerFogGor(wpnumber);
+                        CreatureManager.Spawn(CreatureType.Gor, wpnumber);
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! A Gor Creature has spawned");
+
+                    }
+                    if (foglist[i].GetFogType() == FogType.Wineskin)
+                    {
+                        Debug.Log("fog is type winesking");
+                        GM.GetCurrentTurnHero().addItem(ItemType.Wineskin);
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received a Wineskin");
+                    }
+                    if (foglist[i].GetFogType() == FogType.Brew)
+                    {
+                        Debug.Log("fog is type brew");
+                        GM.GetCurrentTurnHero().addItem(ItemType.Witchbrew);
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received a Witch's Brew");
+                    }
+                    if (foglist[i].GetFogType() == FogType.Willpower2)
+                    {
+                        Debug.Log("fog is type wp2");
+                        GM.GetCurrentTurnHero().IncreaseWillpower(2);
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 2 Willpower");
+                    }
+                    if (foglist[i].GetFogType() == FogType.Willpower3)
+                    {
+                        Debug.Log("fog is type wp3");
+                        GM.GetCurrentTurnHero().IncreaseWillpower(3);
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 3 Willpower");
+                    }
+                    if (foglist[i].GetFogType() == FogType.Strength)
+                    {
+                        Debug.Log("fog is type strength");
+                        GM.GetCurrentTurnHero().IncreaseStrength(1);
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 1 Strength");
+                    }
+                    if (foglist[i].GetFogType() == FogType.Gold)
+                    {
+                        Debug.Log("fog is type gold");
+                        GM.GetCurrentTurnHero().ReceiveGold(1);
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 1 Gold");
+                    }
+                    if (foglist[i].GetFogType() == FogType.EventCard)
+                    {
+                        Debug.Log("fog is type eventcard");
+                        EventCardManager.triggerRandom();
+                        ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! It is an event card!");
+                    }
+
+
+                    foglist[i].GetFogFrontCard().gameObject.SetActive(false); //hide front card
+                    foglist[i].IsFogUnused = false;
+                    return;
+                }
+                Debug.Log("fog already used");
                 return;
             }
 

@@ -35,10 +35,7 @@ public class Fog
         }
     }
 
-    //public void SetWPNum(int WPNum)
-    //{
-    //    this.waypointnum = WPNum;
-    //}
+
 
     public int GetWPNum()
     {
@@ -63,6 +60,15 @@ public class Fog
     {
         return this.FogType;
     }
+
+    public void UncoverBack()
+    {
+        this.FogBackCard.gameObject.SetActive(false);
+        this.IsFogUncovered = true;
+        //show front card
+        this.FogFrontCard.gameObject.SetActive(true);
+    }
+
     //public void SetBackCard(GameObject FogBackCard)
     //{
     //    this.FogBackCard = FogBackCard;

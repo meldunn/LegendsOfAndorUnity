@@ -287,6 +287,11 @@ public class Waypoint : MonoBehaviourPun
         WPButtonMoveUI.toMakeVisible(WPadjList);
     }
 
+    public int[] GetWPAdjList()
+    {
+        return WPadjList;
+    }
+
     // Should be moved to a UI class
     public void SetIcon()
     {
