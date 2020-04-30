@@ -10,6 +10,7 @@ public class FogManager : MonoBehaviour
 {
     private CreatureManager CreatureManager;
     private ChatManager ChatManager;
+    private EventCardManager EventCardManager;
     private static GameManager GM;
 
     static Waypoint[] possibleWaypoints; //ArrayList of possible fog waypoints
@@ -30,7 +31,7 @@ public class FogManager : MonoBehaviour
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
         ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
         GM  = GameObject.Find("GameManager").GetComponent<GameManager>();
-
+        EventCardManager = GameObject.Find("EventCardManager").GetComponent<EventCardManager>();
         //possibleWaypoints = new Waypoint[15];
         finalWaypoints = new Waypoint[15];
         foglist = new Fog[15];
@@ -234,6 +235,12 @@ public class FogManager : MonoBehaviour
                     Debug.Log("fog is type gold");
                     GM.GetCurrentTurnHero().ReceiveGold(1);
                     ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received 1 Gold");
+                }
+                if (foglist[i].GetFogType() == FogType.EventCard)
+                {
+                    Debug.Log("fog is type eventcard");
+                    EventCardManager.triggerRandom();
+                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! It is an event card!");
                 }
 
 

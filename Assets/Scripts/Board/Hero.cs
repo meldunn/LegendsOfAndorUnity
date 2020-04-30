@@ -144,6 +144,12 @@ public class Hero : MonoBehaviourPun, Subject
                         Debug.Log("i == path.Length - 1 " + i);
                         FogManager.triggerFogAtWP(path[i]);
 
+                        //check if creature on this tile
+                        if (WaypointManager.GetWaypoint(path[i]).GetCreature() != null)
+                        {
+                            this.transform.position = transform.position + new Vector3(7 * 5f* Time.deltaTime, 0);
+                        }
+
                     }
 
                     //return path to empty
