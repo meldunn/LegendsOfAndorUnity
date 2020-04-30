@@ -229,8 +229,8 @@ public class HeroManager : MonoBehaviourPun
         HeroType CurrentTurnHeroType = GameManager.GetCurrentTurnHero().GetHeroType();
         HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
 
-        // Only the hero whose turn it is can pass their turn
-        if (MyHeroType == CurrentTurnHeroType)
+        // Only the hero whose turn it is can pass their turn, and not while someone is moving
+        if (MyHeroType == CurrentTurnHeroType && !HeroIsMoving)
         {
             if (PhotonNetwork.IsConnected) photonView.RPC("PassHeroTurnRPC", RpcTarget.All, MyHeroType);
             else PassHeroTurnRPC(MyHeroType);
@@ -242,8 +242,8 @@ public class HeroManager : MonoBehaviourPun
         HeroType CurrentTurnHeroType = GameManager.GetCurrentTurnHero().GetHeroType();
         HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
 
-        // Only the hero whose turn it is can end their day
-        if (MyHeroType == CurrentTurnHeroType)
+        // Only the hero whose turn it is can end their day, and not while someone is moving
+        if (MyHeroType == CurrentTurnHeroType && !HeroIsMoving)
         {
             if (PhotonNetwork.IsConnected) photonView.RPC("EndHeroDayRPC", RpcTarget.All, MyHeroType);
             else EndHeroDayRPC(MyHeroType);
