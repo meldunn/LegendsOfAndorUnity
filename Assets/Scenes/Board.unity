@@ -7614,6 +7614,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZGreenRune
       objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 151292509}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UseTelescope
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
 --- !u!224 &141418799 stripped
@@ -34232,6 +34262,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DGreenRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 151292509}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UseTelescope
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
@@ -71389,6 +71449,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AGreenRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 151292509}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UseTelescope
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
@@ -115402,6 +115492,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WGreenRune
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 151292509}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UseTelescope
+      objectReference: {fileID: 0}
+    - target: {fileID: 8389855455523519603, guid: 1146541b8a5180d4c953625c029bdd75,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1146541b8a5180d4c953625c029bdd75, type: 3}
