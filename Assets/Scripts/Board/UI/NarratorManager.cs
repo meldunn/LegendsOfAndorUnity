@@ -30,6 +30,8 @@ public class NarratorManager : MonoBehaviourPun
     // Marker placed on narration track
     public static NarratorMarker marker;
 
+    private NarratorLetter RuneStoneLetter;
+
     public static NarratorLetter curLetter = NarratorLetter.A;
 
     LegendCardManager legendCardManager;
@@ -67,6 +69,10 @@ public class NarratorManager : MonoBehaviourPun
     public void advanceNarratorRPC(int regionNumber)
     {
         curLetter++;
+        if(curLetter == RuneStoneLetter)
+        {
+            legendCardManager.activateRuneStoneLegendCard();
+        }
         switch (curLetter)
         {
             case NarratorLetter.B:
@@ -141,6 +147,12 @@ public class NarratorManager : MonoBehaviourPun
             advanceNarratorRPC(51);
         }
 
+    }
+
+    public void AddRuneStoneCard(NarratorLetter Letter)
+    {
+        RuneStoneLetter = Letter;
+        Debug.Log("Rune stone card placed at "+Letter);
     }
 
     public void advanceToN()
