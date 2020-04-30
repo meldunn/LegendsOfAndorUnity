@@ -85,25 +85,13 @@ public class FogManager : MonoBehaviour
         //set and place fogs
         for (int i =0; i < 7; i++)
         {
-            Fog newFod = new Fog(FogBackList[i]);
+            Fog newFod = new Fog(TileWPNum[SelectedWP[i]],FogBackList[i]);
             foglist[i] = newFod;
-
-
-            Debug.Log(FogBackList[i]);
-            Debug.Log(foglist[i]);
-
-
-
-            Debug.Log("SelectedWP[i] " + TileWPNum[SelectedWP[i]]);
 
 
 
             WaypointName = "Waypoint (" + TileWPNum[SelectedWP[i]] + ")";
-
-
-            
-            
-            
+        
             Waypoint waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
             foglist[i].GetFogBackCard().transform.position = waypoint.transform.position;
         }
@@ -112,6 +100,25 @@ public class FogManager : MonoBehaviour
 
 
     }
+
+    public void triggerFogAtWP(int wpnumber)
+    {
+        for (int i = 0; i < foglist.Length; i++)
+        {
+            if (wpnumber == foglist[i].GetWPNum())
+            {
+                Debug.Log("wpnum for fog is " + wpnumber);
+                //return foglist[i];
+                //foglist[i].GetFogBackCard().HideFogBack();
+                foglist[i].GetFogBackCard().gameObject.SetActive(false);
+            }
+
+        }
+        Debug.Log("this wp doesnt have fog");
+        //return null;
+    }
+
+
     //for testing
     public void printlist(List<int> list)
     {

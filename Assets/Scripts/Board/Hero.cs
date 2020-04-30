@@ -10,6 +10,7 @@ public class Hero : MonoBehaviourPun, Subject
     // References to managers
     private GameManager GameManager;
     private WaypointManager WaypointManager;
+    private static FogManager FogManager;
     private UIManager UIManager;
 
     // List of Observers (Observer design pattern)
@@ -49,6 +50,7 @@ public class Hero : MonoBehaviourPun, Subject
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
         UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
     }
 
     // Update is called once per frame
@@ -132,6 +134,15 @@ public class Hero : MonoBehaviourPun, Subject
                     //this.transform.position = Vector2.MoveTowards(this.GetLocation(),     // Self
                     //myRegion.GetLocation(),                                        // Destination
                     //MoveSpeed * Time.deltaTime);                                 // Max distance moved
+
+
+                    //if on last path tile check if fog
+                    if (path[i + 1] == -1)
+                    {
+                        Debug.Log("i == path.Length - 1 " + i);
+                        FogManager.triggerFogAtWP(path[i]);
+
+                    }
 
                     //return path to empty
                     path[i] = -1;
