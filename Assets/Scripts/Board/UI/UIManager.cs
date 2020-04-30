@@ -44,6 +44,8 @@ public class UIManager : MonoBehaviour
     GameObject TimeTrackUIObject = null;
     [SerializeField]
     GameObject ChatUIObject = null;
+    [SerializeField]
+    GameObject DivideBattleResourcesObject = null;
 
     [SerializeField]
     GameObject WarriorCardObject = null;
@@ -90,7 +92,7 @@ public class UIManager : MonoBehaviour
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        // DivideBattleResources = GameObject.Find("DivideBattleResourcesPanel").GetComponent<DivideBattleResources>();
+        DivideBattleResources = DivideBattleResourcesObject.GetComponent<DivideBattleResources>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
         TimeTrackUI = TimeTrackUIObject.GetComponent<TimeTrackUI>();
@@ -115,7 +117,7 @@ public class UIManager : MonoBehaviour
         RuneStoneMenu.Initialize();
         BattleInvitationMenu.Initialize();
         TradeMenuUI.Initialize();
-        // DivideBattleResources.Initialize();
+        DivideBattleResources.Initialize();
 
         // Initializing the HeroCards
         WarriorHeroCard.Initialize();
