@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
-    AppIdRealtime: d4408bb2-cc46-441f-a12b-33f9f0571f95
+    AppIdRealtime: 
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
@@ -25,75 +25,12 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: cae
+  DevRegion: 
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
   StartInOfflineMode: 0
-  RpcList:
-  - AcceptBattleInviteRPC
-  - AddBattleInviteRPC
-  - AdvanceCreaturesRPC
-  - advanceNarratorRPC
-  - AdvanceTurnRPC
-  - BuyFromMerchantRPC
-  - CancelHeroBattleRPC
-  - CleanupHeroBattleRPC
-  - ClickRpc
-  - ClickToMoveRPC
-  - CreateNewHeroBattleRPC
-  - DeclineBattleInviteRPC
-  - DecreaseCoins
-  - DecreaseWine
-  - DestroyRpc
-  - DisplayTheirInventory
-  - DivideBattleResourcesRPC
-  - DrinkFromWellRPC
-  - dropFarmerRPC
-  - dropGoldPRC
-  - EndHeroDayRPC
-  - ExecuteMoveRPC
-  - FightingSavedGameRPC
-  - FinalizeRollRPC
-  - FlipDieRPC
-  - GoToNextRoundRPC
-  - GoToNextTurnRPC
-  - HeroMoveRPC
-  - HideWellButton
-  - IncrementCoins
-  - IncrementHeroTimeRPC
-  - IncrementWine
-  - InitializeRuneStone
-  - InstantiateSelector
-  - InstantiateSplitResources
-  - LeaveBattleRPC
-  - LoseSavedGameRPC
-  - MerchantSavedGameRPC
-  - NextHero
-  - PassHeroTurnRPC
-  - pickupFarmerRPC
-  - pickupGoldRPC
-  - PlaceRuneStoneRPC
-  - PrevHero
-  - ReadyUp
-  - ReadyUpMaster
-  - RemoveBattleInviteRPC
-  - SendBattleInvitesRPC
-  - SendChatRPC
-  - SendHeroRollValuesRPC
-  - SendNewCreatureRollRPC
-  - SendNewHeroRollRPC
-  - SendReplyRPC
-  - SendTradeRPC
-  - SetTurnOrderRPC
-  - TakeDamageRPC
-  - TeleportRPC
-  - TestDisplayText
-  - TestStoreText
-  - ToggleIsPlayingRPC
-  - UpdateMaxAmountRPC
-  - UpdateWellRPC
-  - InitializeGameManager
+  RpcList: []
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

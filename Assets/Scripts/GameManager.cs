@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviourPun, Subject
     private CreatureManager CreatureManager;
     private NarratorManager NarratorManager;
     private ChatManager ChatManager;
+    private EventCardManager EventCardManager;
 
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
@@ -77,6 +78,7 @@ public class GameManager : MonoBehaviourPun, Subject
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
         NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
         ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
+        EventCardManager = GameObject.Find("EventCardManager").GetComponent<EventCardManager>();
 
         // Initialize the non-UI managers
         WaypointManager.Initialize();
@@ -381,7 +383,7 @@ public class GameManager : MonoBehaviourPun, Subject
         Notify("TURN");
 
         // Read an event card
-        Debug.Log("TODO: Read an event card");
+        EventCardManager.triggerRandom();
 
         // When this is done, advance the creatures (IMPORTANT: must be the last step in this function)
         CreatureManager.StartAdvancing(EndDaySecondHalf);       // Provide the second half as a callback when advancing is done
