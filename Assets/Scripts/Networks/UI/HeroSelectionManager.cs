@@ -146,8 +146,6 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     {
         //RPC
         photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Normal);
-
-
     }
 
     public void OnClick_EasyDifficulty()
@@ -166,7 +164,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
         int playerID = PhotonNetwork.LocalPlayer.ActorNumber;
 
-        GameManager.Instance.SetSelfPlayer(selectedHeroes[playerID]);
+        GameManager.Instance.SetSelfHero(selectedHeroes[playerID]);
 
         GameManager.Instance.SetIsPlaying(HeroType.Warrior, false);
         GameManager.Instance.SetIsPlaying(HeroType.Archer, false);
