@@ -269,7 +269,6 @@ public class GameManager : MonoBehaviourPun, Subject
 
     public void LoseSavedGame()
     {
-        // AdvanceCreaturesForAll()
         if(PhotonNetwork.IsConnected) photonView.RPC("LoseSavedGameRPC", RpcTarget.All);
         else LoseSavedGameRPC();
     }
