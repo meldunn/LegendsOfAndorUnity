@@ -150,6 +150,15 @@ public class HeroManager : MonoBehaviourPun
 
     public void UseWineskin()
     {
+        Hero currHero = GameManager.GetCurrentTurnHero();
+        Hero selfHero = GameManager.GetSelfHero();
+
+        if (currHero == selfHero && GetHeroIsMoving() == true && currHero.GetHeroInventory().containsItem(ItemType.Wineskin))
+        {
+            int NumWineskin = currHero.GetHeroInventory().GetNumWineskin();
+            Debug.Log(currHero + " has this amount of wineskin: " + NumWineskin);
+            currHero.ActivateWineskin();
+        }
 
     }
 

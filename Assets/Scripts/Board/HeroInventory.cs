@@ -29,7 +29,15 @@ public class HeroInventory
     //before adding an item check isValid on the inventory first
     public void addItem(ItemType item)
     {
+        if (item == ItemType.Wineskin)
+        {
+            Inventory[item] += 2;
+        }
+        else
+        {
             Inventory[item] += 1;
+        }
+        Inventory[item] += 1;
             // Debug.Log("Added Item" + item);
     }
 
@@ -45,11 +53,26 @@ public class HeroInventory
         }
     }
 
+    public void removeWineskin()
+    {
+        Inventory[ItemType.Wineskin] -= 1;
+    }
+
     public bool containsItem(ItemType item)
     {
         if(Inventory[item] > 0) return true;
 
         return false;
+    }
+
+    public int GetNumWineskin()
+    {
+        return Inventory[ItemType.Wineskin];
+    }
+
+    public int GetNumTelescope()
+    {
+        return Inventory[ItemType.Telescope];
     }
 
     public Dictionary<ItemType, int> getInventory()

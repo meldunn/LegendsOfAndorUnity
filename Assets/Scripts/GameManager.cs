@@ -255,7 +255,9 @@ public class GameManager : MonoBehaviourPun, Subject
         //check if hero has telescope and is not moving (either not their turn OR their turn but not moving
         if (MyHero.GetHeroInventory().containsItem(ItemType.Telescope) && (GetCurrentTurnHero() != MyHero || HeroManager.GetHeroIsMoving() == false))
         {
-            //use fog
+
+            Debug.Log("hero has this many telescope before using " + MyHero.GetHeroInventory().GetNumTelescope());
+            //use telescope
             MyHero.UseTelescope();
         }
         

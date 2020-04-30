@@ -37,6 +37,7 @@ public class Hero : MonoBehaviourPun, Subject
     int myGold;
     int numFarmers;
     bool moveCompleted;
+    bool IsWineskinActivated;
     public HeroInventory heroInventory;
     Waypoint myRegion;
 
@@ -94,6 +95,8 @@ public class Hero : MonoBehaviourPun, Subject
         maxWillpower = 20;
         myGold = 20;
         heroInventory = new HeroInventory();
+        IsWineskinActivated = false;
+
 
         //needs to be removed, for testing only:
         heroInventory.addItem(ItemType.Wineskin);
@@ -125,9 +128,23 @@ public class Hero : MonoBehaviourPun, Subject
     }
 
     //called heromanager from clicking wineskin button in hero panel
-    public void UseWineskin()
+    public void ActivateWineskin()
     {
+        this.IsWineskinActivated = true;
+    }
+    public void WineskinUsed()
+    {
+        this.IsWineskinActivated = false;
 
+        //update wineskin inventory
+        this.GetHeroInventory().removeWineskin();
+        Notify("HERO_ITEMS");
+
+    }
+
+    public bool IsWineskinActivatedCheck()
+    {
+        return this.IsWineskinActivated;
     }
 
     public void ExecuteMove()
@@ -435,6 +452,11 @@ public class Hero : MonoBehaviourPun, Subject
         int[] adjlist = this.myRegion.GetWPAdjList();
         // WaypointManager.GetWPAdjList(this.myRegion.)
         FogManager.UnveilFogTelescope(adjlist);
+
+        //remove telescope from inventory 
+        this.heroInventory.removeItem(ItemType.Telescope);
+        Debug.Log("hero has this many telescope after using" + this.heroInventory.GetNumTelescope());
+        Notify("HERO_ITEMS");
     }
 
 

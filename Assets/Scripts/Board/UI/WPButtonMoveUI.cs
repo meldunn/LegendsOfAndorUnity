@@ -228,9 +228,19 @@ public class WPButtonMoveUI : MonoBehaviourPun
                     Debug.Log("currhero is " + currHero);
                     Debug.Log("self hero is " + selfHero);
                     Debug.Log("is end move button null? " + EndMoveButton == null);
+
+                    // Deduct the hero's time (this will automatically update the time track) 
+                    if (currHero.IsWineskinActivatedCheck() == true)
+                    {
+                        //wineskin is activated
+                        currHero.WineskinUsed();
+                    }
+                    else
+                    {
+                        //wineskin not used so advance time marker
+                        currHero.AdvanceTimeMarker(1);
+                    }
                     
-                    // Deduct the hero's time (this will automatically update the time track)
-                    currHero.AdvanceTimeMarker(1);
 
                     // Kill farmers if this space contains a creature
                     if (WaypointManager.GetWaypoint(RegionNum).GetCreature() != null) currHero.DestroyCarriedFarmers();
