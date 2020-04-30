@@ -144,12 +144,29 @@ public class Hero : MonoBehaviourPun, Subject
                         Debug.Log("i == path.Length - 1 " + i);
                         FogManager.triggerFogAtWP(path[i]);
 
-                        //check if creature on this tile
-                        if (WaypointManager.GetWaypoint(path[i]).GetCreature() != null)
+                        ////check if creature on this tile
+                        //if (WaypointManager.GetWaypoint(path[i]).GetCreature() != null)
+                        //{
+                        //    this.transform.position = transform.position + new Vector3(7 * 5f* Time.deltaTime, 0);
+                        //}
+                        if (this.Type == HeroType.Warrior)
                         {
-                            this.transform.position = transform.position + new Vector3(7 * 5f* Time.deltaTime, 0);
+                            this.transform.position = transform.position + new Vector3(5 * 5f * Time.deltaTime, 0);
+                        }
+                        else if (this.Type == HeroType.Archer)
+                        {
+                            this.transform.position = transform.position + new Vector3(-5 * 5f * Time.deltaTime, 0);
+                        }
+                        else if (this.Type == HeroType.Dwarf)
+                        {
+                            this.transform.position = transform.position + new Vector3(0, 5 * 5f * Time.deltaTime);
+                        }
+                        else if (this.Type == HeroType.Wizard)
+                        {
+                            this.transform.position = transform.position + new Vector3(0, -5 * 5f * Time.deltaTime);
                         }
 
+                            
                     }
 
                     //return path to empty
