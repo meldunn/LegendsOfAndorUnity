@@ -202,6 +202,12 @@ public class Battle : Subject
         // Mark the creature as defeated and move it to region 80
         Creature.Defeat();
 
+        if(Creature.GetCreatureType() == CreatureType.TowerSkrall)
+        {
+            GameManager.TowerSkrallDefeated();
+        }
+
+
         this.End();
 
         Notify("BATTLE_WON");

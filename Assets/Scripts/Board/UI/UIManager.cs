@@ -213,4 +213,26 @@ public class UIManager : MonoBehaviour
         Vector3 far = new Vector3(200, 0, 0);
         RuneStonePopup.transform.Translate(far - RuneStonePopup.transform.position);
     }
+
+    public void EndGame(bool GameWon)
+    {
+        
+        TMPro.TextMeshProUGUI Header = GameObject.Find("EndGameHeader").GetComponent<TMPro.TextMeshProUGUI>();
+        TMPro.TextMeshProUGUI Message = GameObject.Find("EndGameMessage").GetComponent<TMPro.TextMeshProUGUI>();
+        if(GameWon)
+        {
+            Header.text = "Game has been won!";
+            Message.text = "Thanks to you brave heroes, peace in the kingdom is now restored. Stay tuned for Legend 3!";
+        }
+        else
+        {
+            Header.text = "Game has been lost!";
+            Message.text = "The Monsters prevailed. You allowed too many monsters to enter the castle.";
+        }
+
+        Vector3 Origin = new Vector3(0,0,0);
+        GameObject Panel = GameObject.Find("EndGamePopup");
+
+        Panel.transform.Translate(Origin - Panel.transform.position);
+    }
 }

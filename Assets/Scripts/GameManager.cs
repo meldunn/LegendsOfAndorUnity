@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviourPun, Subject
     private bool DwarfIsPlaying;
     private bool WizardIsPlaying;
 
+    private bool TowerSkrallDefeated = false;
+    private bool HerbOnCastle = false;
+
     // Game player
     private Hero MyHero;
 
@@ -163,10 +166,11 @@ public class GameManager : MonoBehaviourPun, Subject
 
 
         // Dummy Save Games
-        // MerchantSavedGame();
-        // FightingSavedGame();
-        // LoseSavedGame();
+        // MerchantSavedGame(); // Done
+        // FightingSavedGame(); // Done
+        // LoseSavedGame();     // Passable, could be better
         // WinSavedGame();
+        
     }
 
     // Sets the difficulty and makes final initializations based on difficulty
@@ -277,7 +281,8 @@ public class GameManager : MonoBehaviourPun, Subject
 
     public void WinSavedGame()
     {
-        Debug.Log("Win!!");
+        if(PhotonNetwork.IsConnected) photonView.RPC("WinSavedGameRPC", RpcTarget.All);
+        else WinSavedGameRPC();
     }
 
     public void FightingSavedGame()
@@ -288,33 +293,52 @@ public class GameManager : MonoBehaviourPun, Subject
 
     }
 
+    // Done
     [PunRPC]
     public void FightingSavedGameRPC()
     {
+        GameObject.Find("NarratorPopup").SetActive(false);
         // TODO: Move all heroes to a spot, spawn a wardrak
         CreatureManager.Spawn(CreatureType.Wardrak, 14);
         HeroManager.TeleportRPC(HeroType.Archer, 6);
-        HeroManager.TeleportRPC(HeroType.Wizard, 10);
+        HeroManager.TeleportRPC(HeroType.Dwarf, 10);
         HeroManager.TeleportRPC(HeroType.Warrior, 14);
     }
 
-    [PunRPC]
-    public void LoseSavedGameRPC()
-    {
-        // TODO: Invoke the move function instead of teleport
-        // TODO: Add other values (items?) to simulate a real game
-        CreatureManager.SpamCastle();
-    }
     
+    // Done
+    [PunRPC]
+    public void WinSavedGameRPC()
+    {
+        // Juice Up the Heroes so they don't lose
+        PlaceHerbOnCastleRPC();
+        CreatureManager.Spawn(CreatureType.TowerSkral, 20);
+        HeroManager.TeleportRPC(HeroType.Warrior, 19);
+        HeroManager.TeleportRPC(HeroType.Dwarf, 20);
+        HeroManager.TeleportRPC(HeroType.Wizard, 22);
+    }
+
+    // Done
     [PunRPC]
     public void MerchantSavedGameRPC()
     {
         // TODO: Invoke the move function
+        GameObject.Find("NarratorPopup").SetActive(false);
         HeroManager.GetHero(HeroType.Warrior).ReceiveGold(10);
         HeroManager.TeleportRPC(HeroType.Warrior, 18);
         // TODO: Add other values (items?) to simulate a real game
     }
 
+    // Done
+    [PunRPC]
+    public void LoseSavedGameRPC()
+    {
+        // TODO: Invoke the move function instead of teleport
+        // TODO: Add other values (items?) to simulate a real game
+        GameObject.Find("NarratorPopup").SetActive(false);
+        CreatureManager.SpamCastle();
+        // UIManager.EndGame(false);
+    }
 
     // Returns a randomly generated turn order
     private HeroType[] GenerateTurnOrder()
@@ -448,6 +472,7 @@ public class GameManager : MonoBehaviourPun, Subject
 
         // TODO connect this notification to UI
         Notify("LOSE");
+        UIManager.EndGame(false);
     }
 
     public DifficultyLevel GetDifficulty()
@@ -679,6 +704,34 @@ public class GameManager : MonoBehaviourPun, Subject
     {
         HeroManager.SetHeroIsMoving(true);
         HeroManager.GetHero(Type).Move();
+    }
+
+
+    // For winning the game
+    public void PlaceHerbOnCastle()
+    {
+        if(PhotonNetwork.IsConnected) photonView.RPC("PlaceHerbOnCastleRPC", RpcTarget.All);
+        else PlaceHerbOnCastleRPC();
+    }
+    [PunRPC]
+    public void PlaceHerbOnCastleRPC()
+    {
+        HerbOnCastle = true;
+        if(TowerSkrallDefeated) UIManager.EndGame(true);
+    }
+
+    // For winning the game
+    public void DefeatTowerSkrall()
+    {
+        if(PhotonNetwork.IsConnected) photonView.RPC("DefeatTowerSkrall", RpcTarget.All);
+        else DefeatTowerSkrallRPC();
+    }
+
+    [PunRPC]
+    private void DefeatTowerSkrallRPC()
+    {
+        TowerSkrallDefeated = true;
+        if(HerbOnCastle) UIManager.EndGame(true);
     }
 
 
