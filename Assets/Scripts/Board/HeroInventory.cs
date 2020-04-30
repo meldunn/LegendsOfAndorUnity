@@ -29,10 +29,8 @@ public class HeroInventory
     //before adding an item check isValid on the inventory first
     public void addItem(ItemType item)
     {
-        
             Inventory[item] += 1;
-            Debug.Log("Added Item" + item);
-        
+            // Debug.Log("Added Item" + item);
     }
 
     public void removeItem(ItemType item)

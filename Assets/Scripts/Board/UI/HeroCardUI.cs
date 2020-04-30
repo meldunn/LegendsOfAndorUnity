@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class HeroCardUI : MonoBehaviour, Observer
+public class HeroCardUI : MonoBehaviourPun, Observer
 {
     HeroManager HeroManager;
     GameManager GameManager;
@@ -47,7 +48,6 @@ public class HeroCardUI : MonoBehaviour, Observer
             HeroCard.SetActive(false);
             StatsPanel.SetActive(false);
         } else{
-            HeroCard.SetActive(true);
 
             if (GameManager.GetSelfHero() == myHero)
             {
@@ -56,6 +56,8 @@ public class HeroCardUI : MonoBehaviour, Observer
 
             //iterating through the items
             UpdateHeroInventory();
+
+            HeroCard.SetActive(true);
 
             StatsPanel.SetActive(true);
         }   
@@ -169,17 +171,16 @@ public class HeroCardUI : MonoBehaviour, Observer
 
     public void UpdateHeroInventory()
     {
-        if (!myHero.heroInventory.containsItem(ItemType.MedicinalHerb)) Medicinalherb.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.Bow)) Bow.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.Wineskin)) Wineskin.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.Telescope)) Telescope.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.Witchbrew)) Brew.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.Helm)) Helm.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.Falcon)) Falcon.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.Shield)) Shield.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.YellowRuneStone)) YellowRune.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.BlueRuneStone)) BlueRune.SetActive(false);
-        if (!myHero.heroInventory.containsItem(ItemType.GreenRuneStone)) GreenRune.SetActive(false);
+        Medicinalherb.SetActive(myHero.heroInventory.containsItem(ItemType.MedicinalHerb));
+        Bow.SetActive(myHero.heroInventory.containsItem(ItemType.Bow));
+        Telescope.SetActive(myHero.heroInventory.containsItem(ItemType.Telescope));
+        Brew.SetActive(myHero.heroInventory.containsItem(ItemType.Witchbrew));
+        Helm.SetActive(myHero.heroInventory.containsItem(ItemType.Helm));
+        Falcon.SetActive(myHero.heroInventory.containsItem(ItemType.Falcon));
+        Shield.SetActive(myHero.heroInventory.containsItem(ItemType.Shield));
+        YellowRune.SetActive(myHero.heroInventory.containsItem(ItemType.YellowRuneStone));
+        BlueRune.SetActive(myHero.heroInventory.containsItem(ItemType.BlueRuneStone));
+        GreenRune.SetActive(myHero.heroInventory.containsItem(ItemType.GreenRuneStone));
     }
 
-    }
+}

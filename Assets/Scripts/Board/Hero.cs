@@ -56,6 +56,7 @@ public class Hero : MonoBehaviourPun, Subject
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
         UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
+
     }
 
     // Update is called once per frame
@@ -277,6 +278,14 @@ public class Hero : MonoBehaviourPun, Subject
         return transform.position;
     }
 
+    public void DecreaseGold(int Amount)
+    {
+        if(myGold > Amount) myGold -= Amount;
+        else myGold = -1;
+
+        Notify("HERO_STATS");
+    }
+
     public void ReceiveGold(int Amount)
     {
         myGold += Amount;
@@ -368,6 +377,11 @@ public class Hero : MonoBehaviourPun, Subject
         {
             Debug.Log("The hero does not have this item.");
         }
+    }
+
+    public bool CanCarry(ItemType Item)
+    {
+        return heroInventory.isValid();
     }
 
     public void addItem(ItemType Item)
