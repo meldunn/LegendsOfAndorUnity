@@ -66,8 +66,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropShieldRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.Shield);
-        Shield.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Shield);
+            Shield.SetActive(false);
+        }
     }
 
     public void dropShield()
@@ -85,9 +88,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropMedHerbRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.MedicinalHerb);
-        Medicinalherb.SetActive(false);
-
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.GetHero(type).dropItem(ItemType.MedicinalHerb);
+            Medicinalherb.SetActive(false);
+        }
     }
 
     public void dropMedHerb()
@@ -105,8 +110,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropBowRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.Bow);
-        Bow.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Bow);
+            Bow.SetActive(false);
+        }
     }
 
     public void dropBow()
@@ -124,8 +132,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropWineskinRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.Wineskin);
-        Wineskin.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Wineskin);
+            Wineskin.SetActive(false);
+        }
 
     }
 
@@ -144,8 +155,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropTelescopeRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.Telescope);
-        Telescope.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Telescope);
+            Telescope.SetActive(false);
+        }
 
     }
 
@@ -164,9 +178,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropWitchbrewRPC(HeroType type)
     {
-            HeroManager.GetHero(type).dropItem(ItemType.Witchbrew);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Witchbrew);
             Brew.SetActive(false);
-        
+        }
     }
     
     public void dropWitchbrew()
@@ -184,8 +200,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropHelmRPC(HeroType type)
     {
-           HeroManager.GetHero(type).dropItem(ItemType.Helm);
-           Helm.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Helm);
+            Helm.SetActive(false);
+        }
         
     }
 
@@ -204,8 +223,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropFalconRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.Falcon);
-        Falcon.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Falcon);
+            Falcon.SetActive(false);
+        }
         
     }
 
@@ -224,8 +246,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropYRSRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.YellowRuneStone);
-        YellowRune.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.YellowRuneStone);
+            YellowRune.SetActive(false);
+        }
         
     }
 
@@ -244,8 +269,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropBRSRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.BlueRuneStone);
-        BlueRune.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.BlueRuneStone);
+            BlueRune.SetActive(false);
+        }
     }
 
     public void dropBRS()
@@ -263,8 +291,11 @@ public class HeroCardUI : MonoBehaviourPun, Observer
     [PunRPC]
     public void dropGRSRPC(HeroType type)
     {
-        HeroManager.GetHero(type).dropItem(ItemType.GreenRuneStone);
-        GreenRune.SetActive(false);
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.GreenRuneStone);
+            GreenRune.SetActive(false);
+        }
        
     }
 
