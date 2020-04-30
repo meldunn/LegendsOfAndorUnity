@@ -23,6 +23,7 @@ public class MerchantUIManager : MonoBehaviourPun
     private int CostOfPurchase = 0;
     private int CurrentUpdate = 0;
 
+    private bool DwarfBeastMode = false;
 
     private PhotonView PV;
 
@@ -127,18 +128,23 @@ public class MerchantUIManager : MonoBehaviourPun
         MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
 
         TMPro.TextMeshProUGUI MyGoldText = GameObject.Find("YourGold").GetComponent<TMPro.TextMeshProUGUI>();
+        TMPro.TextMeshProUGUI StrengthText = GameObject.Find("StrengthText").GetComponent<TMPro.TextMeshProUGUI>();
 
         if(MerchantNum == 71 && GameManager.GetSelfHero().GetHeroType() == HeroType.Dwarf)
         {
-            // TODO
-            // Change strength points text and value 
+            StrengthText.text = "Strength (1g)";
+            DwarfBeastMode = true;
+        }
+        else
+        {
+            StrengthText.text = "Strength (2g)";
+            DwarfBeastMode = false;
         }
         
         // Get the gold of the player who opens the merchant menu
         int PlayerGold = GameManager.GetSelfHero().getGold();
 
         // Debug.Log("Player has "+PlayerGold);
-
         MyGoldText.text = "Your Gold: "+PlayerGold+"g";
     }
     
@@ -160,7 +166,8 @@ public class MerchantUIManager : MonoBehaviourPun
             Purchased[Index] += 1;
 
             // TODO: Change Special Case for dwarf;
-            CurrentCost += 2;
+            if(DwarfBeastMode && Index == 3) CurrentCost += 1;
+            else CurrentCost += 2;
         }
 
         AmountText.text = CurrentAmount.ToString();
@@ -187,8 +194,9 @@ public class MerchantUIManager : MonoBehaviourPun
 
             Purchased[Index] -= 1;
 
-            // TODO: Change Special Case for dwarf;
-            CurrentCost -= 2;
+            if(DwarfBeastMode && Index == 3) CurrentCost -= 1;
+            else CurrentCost -= 2;
+
         }
 
         AmountText.text = CurrentAmount.ToString();
@@ -246,8 +254,14 @@ public class MerchantUIManager : MonoBehaviourPun
         {
             // For each item, purchased, create an item and send it
             // {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
-
-            if(Purchased[i] > 0) PV.RPC("UpdateMaxAmountRPC", RpcTarget.All, i, Purchased[i]);
+            if(PhotonNetwork.IsConnected)
+            {
+                if(Purchased[i] > 0) PV.RPC("UpdateMaxAmountRPC", RpcTarget.All, i, Purchased[i]);
+            }
+            else
+            {
+                if(Purchased[i] > 0) UpdateMaxAmountRPC(i, Purchased[i]);
+            }
 
             for(int j=0; j<Purchased[i]; j++)
             {
