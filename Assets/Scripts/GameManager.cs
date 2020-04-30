@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviourPun, Subject
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
         NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
         ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
-        //  EventCardManager = GameObject.Find("EventCardManager").GetComponent<EventCardManager>();
+        EventCardManager = GameObject.Find("EventCardManager").GetComponent<EventCardManager>();
 
         // Initialize the non-UI managers
         WaypointManager.Initialize();
@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviourPun, Subject
         CreatureManager.Initialize();
         NarratorManager.Initialize();
         ChatManager.Initialize();
+        EventCardManager.Initialize();
 
         //TONETWORK
         // Initialize game difficulty
