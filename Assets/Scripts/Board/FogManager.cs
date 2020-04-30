@@ -202,13 +202,25 @@ public class FogManager : MonoBehaviour
                 if (foglist[i].GetFogType() == FogType.Gor)
                 {
                     Debug.Log("Fog is Gor type");
-                    TriggerFogGor(wpnumber);
-                    foglist[i].GetFogFrontCard().gameObject.SetActive(false); //hide front card
+                    //TriggerFogGor(wpnumber);
+                    CreatureManager.Spawn(CreatureType.Gor, wpnumber);
+                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! A Gor Creature has spawned");
 
                 }
+                if (foglist[i].GetFogType() == FogType.Wineskin)
+                {
+                    Debug.Log("fog is type winesking");
+                    GM.GetCurrentTurnHero().addItem(ItemType.Wineskin);
+                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received a Wineskin");
+                }
+                if (foglist[i].GetFogType() == FogType.Brew)
+                {
+                    Debug.Log("fog is type brew");
+                    GM.GetCurrentTurnHero().addItem(ItemType.Witchbrew);
+                    ChatManager.SendSystemMessage("A fog token has been activated by the " + GM.GetCurrentTurnHero().GetHeroType() + "! They have received a Witch's Brew");
+                }
 
-
-               
+                foglist[i].GetFogFrontCard().gameObject.SetActive(false); //hide front card
                 return;
             }
 
