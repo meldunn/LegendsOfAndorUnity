@@ -136,11 +136,10 @@ public class UIManager : MonoBehaviour
         InputManager.Initialize();
     }
     
-    public void onHeroMove(Hero Hero)
+    public void onHeroMove()
     {
         // Makes all the nevessary UI changes AFTER a Hero has moved to the new Waypoint
         Waypoint HeroRegion = GameManager.GetSelfHero().GetCurrentRegion();
-
 
         Debug.Log("HeroRegion: "+HeroRegion.containsFullWell());
 
