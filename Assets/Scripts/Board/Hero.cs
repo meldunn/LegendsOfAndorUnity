@@ -12,6 +12,7 @@ public class Hero : MonoBehaviourPun, Subject
     private WaypointManager WaypointManager;
     private static FogManager FogManager;
     private UIManager UIManager;
+    private ChatManager ChatManager;
 
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
@@ -57,7 +58,7 @@ public class Hero : MonoBehaviourPun, Subject
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
         UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
-
+        ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
     }
 
     // Update is called once per frame
@@ -457,6 +458,9 @@ public class Hero : MonoBehaviourPun, Subject
         //remove telescope from inventory 
         this.heroInventory.removeItem(ItemType.Telescope);
         Debug.Log("hero has this many telescope after using" + this.heroInventory.GetNumTelescope());
+
+        ChatManager.SendSystemMessage("The " + this.Type + "has used a Telescope!");
+
         Notify("HERO_ITEMS");
     }
 
