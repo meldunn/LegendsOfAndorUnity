@@ -657,7 +657,9 @@ public class Hero : MonoBehaviourPun, Subject
     // Returns whether the hero has the black die (if they have 3 different rune stones)
     private bool HasBlackDie()
     {
-        return false;            // TODO real value
+        return heroInventory.containsItem(ItemType.BlueRuneStone)
+            && heroInventory.containsItem(ItemType.YellowRuneStone)
+            && heroInventory.containsItem(ItemType.GreenRuneStone);
     }
 
     // Returns the type of dice used by this hero
