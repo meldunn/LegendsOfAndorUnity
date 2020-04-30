@@ -5,6 +5,10 @@ using UnityEngine;
 public class RegionItemsUI : MonoBehaviour
 {
 
+    HeroManager HeroManager;
+    GameManager GameManager;
+    Waypoint Waypoint;
+
     [SerializeField] GameObject Bow;
     [SerializeField] GameObject Brew;
     [SerializeField] GameObject BlueRune;
@@ -17,8 +21,12 @@ public class RegionItemsUI : MonoBehaviour
     [SerializeField] GameObject YellowRune;
     [SerializeField] GameObject Medicinalherb;
 
-    public void Initialize()
+    public void Initialize(Waypoint w)
     {
+        HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        Waypoint = w;
+
         Bow.SetActive(false);
         Brew.SetActive(false);
         BlueRune.SetActive(false);
@@ -51,7 +59,26 @@ public class RegionItemsUI : MonoBehaviour
 
     }
 
-    
+    public void pickupBow()
+    {
+        if (Waypoint.containsHero(GameManager.GetSelfHero()))
+        {
+            GameManager.GetSelfHero().heroInventory.addItem(ItemType.Bow);
+            Bow.SetActive(false);
+        }
+    }
+
+    public void pickupWineskin()
+    {
+        if (Waypoint.containsHero(GameManager.GetSelfHero()))
+        {
+            //doesnt work...
+            GameManager.GetSelfHero().pickupItem(ItemType.Wineskin);
+            Wineskin.SetActive(false);
+
+        }
+    }
+
 
 
 

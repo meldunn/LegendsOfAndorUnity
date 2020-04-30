@@ -141,6 +141,15 @@ public class Waypoint : MonoBehaviourPun
         Heroes.Add(Hero);
     }
 
+    public bool containsHero(Hero t)
+    {
+        foreach (Hero h in Heroes)
+        {
+            if (h == t) return true;
+        }
+        return false;
+    }
+
     // Removes the hero from occupying this waypoint, but does NOT move the hero icon away from the waypoint
     public void RemoveHero(Hero Hero)
     {
@@ -297,7 +306,7 @@ public class Waypoint : MonoBehaviourPun
         goldText = itemPanel.transform.Find("NumGoldText").GetComponent<Text>();
         goldText.text = " Gold: " + gold;
         itemPanel.SetActive(false);
-        RegionItemsUI.Initialize();
+        RegionItemsUI.Initialize(this);
     }
 
     public void showItems()

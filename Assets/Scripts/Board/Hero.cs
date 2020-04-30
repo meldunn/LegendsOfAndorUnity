@@ -91,6 +91,7 @@ public class Hero : MonoBehaviourPun, Subject
        
         //needs to be removed, for testing only:
         heroInventory.addItem(ItemType.Wineskin);
+        heroInventory.addItem(ItemType.Bow);
         numFarmers = 1;
 
         // Initialize rank
@@ -269,9 +270,10 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void pickupItem(ItemType ItemType)
     {
-        if (myRegion.containsItem(ItemType))
+        if (myRegion.containsItem(ItemType) && heroInventory.isValid())
         {
             heroInventory.addItem(ItemType);
+
             myRegion.removeItem(ItemType);
 
             Notify("HERO_ITEMS");
