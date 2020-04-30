@@ -242,12 +242,12 @@ public class Hero : MonoBehaviourPun, Subject
         }
     }
 
-    public void pickupItem(Item item)
+    public void pickupItem(ItemType ItemType)
     {
-        if (myRegion.containsItem(item))
+        if (myRegion.containsItem(ItemType))
         {
-            heroInventory.addItem(item.GetItemType());
-            myRegion.removeItem(item);
+            heroInventory.addItem(ItemType);
+            myRegion.removeItem(ItemType);
 
             Notify("HERO_ITEMS");
         }
@@ -257,12 +257,12 @@ public class Hero : MonoBehaviourPun, Subject
         }
     }
 
-    public void dropItem(Item item)
+    public void dropItem(ItemType ItemType)
     {
-        if (heroInventory.containsItem(item.GetItemType()))
+        if (heroInventory.containsItem(ItemType))
         {
-            heroInventory.removeItem(item.GetItemType());
-            myRegion.addItem(item);
+            heroInventory.removeItem(ItemType);
+            myRegion.addItem(ItemType);
 
             Notify("HERO_ITEMS");
         }
@@ -270,6 +270,11 @@ public class Hero : MonoBehaviourPun, Subject
         {
             Debug.Log("The hero does not have this item.");
         }
+    }
+
+    public void addItem(ItemType Item)
+    {
+        heroInventory.addItem(Item);
     }
 
     public void useItem(Item item)
@@ -447,6 +452,11 @@ public class Hero : MonoBehaviourPun, Subject
             if (NewWillpower <= 0) return false;
         }
         return true;
+    }
+
+    public int GetGold()
+    {
+        return myGold;
     }
 
     public int GetTimeOfDay()

@@ -55,6 +55,10 @@ public class UIManager : MonoBehaviour
     GameObject WizardCardObject = null;
     [SerializeField]
     GameObject helpMenu;
+    [SerializeField]
+    GameObject fakeMerchant;
+    [SerializeField]
+    GameObject fakeEndMove;
 
 
     // Start is called before the first frame update
@@ -157,8 +161,18 @@ public class UIManager : MonoBehaviour
     }
     public void ToggleHelpMenu()
     {
-        if (helpMenu.gameObject.activeSelf == true) helpMenu.SetActive(false);
-        else if (helpMenu.gameObject.activeSelf == false) helpMenu.SetActive(true);
+        if (helpMenu.gameObject.activeSelf == true)
+        {
+            helpMenu.SetActive(false);
+            fakeMerchant.SetActive(false);
+            fakeEndMove.SetActive(false);
+        }
+        else if (helpMenu.gameObject.activeSelf == false)
+        {
+            helpMenu.SetActive(true);
+            fakeMerchant.SetActive(true);
+            fakeEndMove.SetActive(true);
+        }
     }
 
     public StartBattleMenu GetStartBattleMenu()

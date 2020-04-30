@@ -152,7 +152,6 @@ public class GameManager : MonoBehaviourPun, Subject
         //    Merchant.Initialize();
         //}
 
-
         ChatManager.SendSystemMessage("Welcome to Legends of Andor!");
 
         // Initialize the UI manager
@@ -176,11 +175,21 @@ public class GameManager : MonoBehaviourPun, Subject
         switch (Difficulty)
         {
             case DifficultyLevel.Easy:
-                // TODO Use InitialEasyFarmerLocation to generate farmers
+                // Use InitialEasyFarmerLocation to generate farmers
+                foreach (int RegionNum in InitialEasyFarmerLocation)
+                {
+                    WaypointManager.GetWaypoint(RegionNum).dropOneFarmer();
+                }
                 break;
+
             case DifficultyLevel.Normal:
-                // TODO Use InitialNormalFarmerLocation to generate farmers
+                // Use InitialNormalFarmerLocation to generate farmers
+                foreach (int RegionNum in InitialNormalFarmerLocation)
+                {
+                    WaypointManager.GetWaypoint(RegionNum).dropOneFarmer();
+                }
                 break;
+
             default:
                 Debug.LogError("Cannot spawn farmers; invalid difficulty level");
                 break;

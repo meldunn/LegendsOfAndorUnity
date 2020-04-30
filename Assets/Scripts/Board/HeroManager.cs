@@ -350,8 +350,10 @@ public class HeroManager : MonoBehaviourPun
     {
         HeroType MyHeroType = GameManager.GetSelfHero().GetHeroType();
 
-        if (PhotonNetwork.IsConnected) photonView.RPC("BuyFromMerchantRPC", RpcTarget.All, MyHeroType, Item);
-        else BuyFromMerchantRPC(MyHeroType, Item);
+        GetHero(MyHeroType).BuyFromMerchant(Item);
+
+        if (PhotonNetwork.IsConnected) photonView.RPC("BuyFromMerchantRPC", RpcTarget.Others, MyHeroType, Item);
+        // else BuyFromMerchantRPC(MyHeroType, Item);
         
     }
 

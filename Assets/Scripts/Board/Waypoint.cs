@@ -206,23 +206,19 @@ public class Waypoint : MonoBehaviourPun
         goldText.text = "" + gold;
     }
 
-    public void removeItem(Item item)
+    public void removeItem(ItemType ItemType)
     {
-        ItemType Type = item.GetItemType();
-        if(Items[Type] > 0) Items[Type] -= 1;
+        if(Items[ItemType] > 0) Items[ItemType] -= 1;
     }
 
-    public void addItem(Item item)
+    public void addItem(ItemType ItemType)
     {
-        ItemType Type = item.GetItemType();
-        Items[Type] += 1;
+        Items[ItemType] += 1;
     }
 
-    public bool containsItem(Item item)
+    public bool containsItem(ItemType ItemType)
     {
-        ItemType Type = item.GetItemType();
-
-        if(Items[Type] > 0) return true;
+        if(Items[ItemType] > 0) return true;
         else return false;
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroInventory : MonoBehaviour
+public class HeroInventory
 {
 
     // Keeps track of item quantity
