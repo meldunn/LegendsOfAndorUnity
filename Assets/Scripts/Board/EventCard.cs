@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 
 public class EventCard : MonoBehaviour
@@ -40,6 +41,16 @@ public class EventCard : MonoBehaviour
     public void setDescription(string s)
     {
         cardDescription = s;
+    }
+
+    public string getQuote()
+    {
+        return cardQuote;
+    }
+
+    public string getDescription()
+    {
+        return cardDescription;
     }
 
     public void trigger()

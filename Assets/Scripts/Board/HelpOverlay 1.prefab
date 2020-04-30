@@ -3168,7 +3168,6 @@ GameObject:
   - component: {fileID: 7391764637378776717}
   - component: {fileID: 7391764637378776716}
   - component: {fileID: 7391764637378776707}
-  - component: {fileID: 7391764637378776706}
   m_Layer: 0
   m_Name: Skral
   m_TagString: Untagged
@@ -3264,32 +3263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b94bc14e5134774f99cddc0179e9ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &7391764637378776706
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7391764637378776705}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.12, y: 5.12}
-  m_EdgeRadius: 0
 --- !u!1 &7391764637378886987
 GameObject:
   m_ObjectHideFlags: 0
@@ -5149,7 +5122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7391764638115450750}
   - component: {fileID: 7391764638115450745}
-  - component: {fileID: 7391764638115450744}
   - component: {fileID: 7391764638115450751}
   m_Layer: 0
   m_Name: StartBattleIcon
@@ -5222,32 +5194,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &7391764638115450744
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7391764638115450749}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 5.12}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 5.12, y: 5.12}
-  m_EdgeRadius: 0
 --- !u!114 &7391764638115450751
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class NarratorManager : MonoBehaviourPun
             //Debug.Log(i);
         }
         //Debug.Log(waypoints[2].GetLocation());
-        //legendCardManager.activateLegendCard_A();
+        legendCardManager.activateLegendCard_A();
         marker.transform.SetPositionAndRotation(waypoints[1].GetLocation(), Quaternion.identity);
     }
 
