@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 public enum DifficultyLevel { Easy, Normal };
@@ -677,5 +678,15 @@ public class GameManager : MonoBehaviourPun, Subject
     {
         HeroManager.SetHeroIsMoving(true);
         HeroManager.GetHero(Type).Move();
+    }
+
+
+
+    //quit button 
+    //author vitaly
+    public void OnClick_DisconnectEveryone()
+    {
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene(0);
     }
 }
