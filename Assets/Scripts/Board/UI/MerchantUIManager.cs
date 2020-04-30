@@ -98,7 +98,7 @@ public class MerchantUIManager : MonoBehaviourPun
     // Called when a hero moves, the UI updates depending on which region the hero lands on
     public void UpdateMerchantButton(int RegionNumber)
     {
-        int MyRegion = GameManager.GetSelfHero().GetCurrentRegion().GetWaypointNum();
+        int MyRegion = GameManager.GetSelfPlayer().GetHero().GetCurrentRegion().GetWaypointNum();
         // Reset all buttons
         for(int i=0; i<MerchantButton.Count; i++) 
             Visibility(MerchantButton[i], false);
@@ -128,14 +128,14 @@ public class MerchantUIManager : MonoBehaviourPun
 
         TMPro.TextMeshProUGUI MyGoldText = GameObject.Find("YourGold").GetComponent<TMPro.TextMeshProUGUI>();
 
-        if(MerchantNum == 71 && GameManager.GetSelfHero().GetHeroType() == HeroType.Dwarf)
+        if(MerchantNum == 71 && GameManager.GetSelfPlayer().GetHero().GetHeroType() == HeroType.Dwarf)
         {
             // TODO
             // Change strength points text and value 
         }
         
         // Get the gold of the player who opens the merchant menu
-        int PlayerGold = GameManager.GetSelfHero().getGold();
+        int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
 
         // Debug.Log("Player has "+PlayerGold);
 
@@ -212,7 +212,7 @@ public class MerchantUIManager : MonoBehaviourPun
 
     public void RequestPurchase()
     {
-        int PlayerGold = GameManager.GetSelfHero().getGold();
+        int PlayerGold = GameManager.GetSelfPlayer().GetHero().getGold();
 
         bool Error = false;
         // Called when Player has enough gold, and purchases the items

@@ -8,6 +8,8 @@ using System;
 
 //Autor: Vitaly
 
+
+
 public class HeroSelectionManager : MonoBehaviourPunCallbacks
 {
     public static HeroSelectionManager Instance;
@@ -15,13 +17,6 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     public Transform[] heroSelectorPositions;
     [SerializeField]
     private Button readyUp;
-    [SerializeField]
-    private Button normalDifficulty;
-    [SerializeField]
-    private Button easyDifficulty;
-    [SerializeField]
-    private GameObject heroSelectCanvas;
-
 
     //ready logic
     int readyPlayers = 0;
@@ -34,7 +29,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        if (Instance == null)
+        if(Instance == null)
         {
             Instance = this;
         }
@@ -48,17 +43,17 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         wineSplit = new Dictionary<int, int>();
 
         int id = PhotonNetwork.LocalPlayer.ActorNumber - 1;
-        GameObject heroSelectorInstance = PhotonNetwork.Instantiate("HeroSelectionGUI", heroSelectorPositions[id].position, heroSelectorPositions[id].rotation);
+        // GameObject heroSelectorInstance = PhotonNetwork.Instantiate("HeroSelectionGUI", heroSelectorPositions[id].position, heroSelectorPositions[id].rotation);
 
 
         //at run time subsribes the ready up logic. (done on run time because we are dealing with a prefab)
-        readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
-
+        // readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
+       
     }
 
     public void OnPlayerReady(int playerID, HeroType type, bool status)
     {
-
+       
         if (status)
         {
             readyPlayers++;
@@ -72,11 +67,11 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
             selectedHeroes.Remove(playerID);
             coinsSplit.Remove(playerID);
             wineSplit.Remove(playerID);
-
+           
         }
 
         print("Hero is : " + type);
-        print("Status Recieved: " + status + " || Number ready: " + readyPlayers + " || Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount);
+        print("Status Recieved: " + status + " || Number ready: "+ readyPlayers+" || Players in room: " + PhotonNetwork.CurrentRoom.PlayerCount);
         if (readyPlayers == PhotonNetwork.CurrentRoom.PlayerCount)
         {
             if (AreDifferentHeroes())
@@ -84,7 +79,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
                 //this executes on master by construction
 
                 photonView.RPC("InstantiateSplitResources", RpcTarget.All);
-
+               
             }
         }
     }
@@ -94,27 +89,22 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     {
         PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
 
-        foreach (var player in players)
+        foreach(var player in players)
         {
             player.TransitionToResourceDivision();
-
+            
         }
 
+        //TODO: enable readyUP after resources are split
         readyUp.gameObject.SetActive(false);
+
     }
 
-    public void EnableDifficultyButtons()
-    {
-        normalDifficulty.gameObject.SetActive(true);
-        easyDifficulty.gameObject.SetActive(true);
-    }
+   
 
-    public void DisableDifficultyButtons()
-    {
-        normalDifficulty.gameObject.SetActive(false);
-        easyDifficulty.gameObject.SetActive(false);
-    }
 
+
+    //TODO: to be tested if works properly
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         readyPlayers--;
@@ -128,11 +118,11 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
     bool AreDifferentHeroes()
     {
-        foreach (var player1 in selectedHeroes)
+        foreach(var player1 in selectedHeroes)
         {
-            foreach (var player2 in selectedHeroes)
+            foreach(var player2 in selectedHeroes)
             {
-                if (player1.Key != player2.Key)
+                if(player1.Key != player2.Key)
                 {
                     if (player1.Value == player2.Value) return false;
                 }
@@ -142,59 +132,4 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         return true;
     }
 
-    public void OnClick_NormalDifficulty()
-    {
-        //RPC
-        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Normal);
-
-
-    }
-
-    public void OnClick_EasyDifficulty()
-    {
-        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Easy, selectedHeroes, coinsSplit, wineSplit);
-    }
-
-
-    [PunRPC]
-    void InitializeGameManager(DifficultyLevel level,
-                               Dictionary<int, HeroType> selectedHeroes,
-                               Dictionary<int, int> coinsSplit,
-                               Dictionary<int, int> wineSplit)
-    {
-        GameManager.Instance.Difficulty = level;
-
-        int playerID = PhotonNetwork.LocalPlayer.ActorNumber;
-
-        GameManager.Instance.SetSelfPlayer(selectedHeroes[playerID]);
-
-        GameManager.Instance.SetIsPlaying(HeroType.Warrior, false);
-        GameManager.Instance.SetIsPlaying(HeroType.Archer, false);
-        GameManager.Instance.SetIsPlaying(HeroType.Dwarf, false);
-        GameManager.Instance.SetIsPlaying(HeroType.Wizard, false);
-
-
-        foreach (var hero in selectedHeroes)
-        {
-            switch (hero.Value)
-            {
-                case HeroType.Warrior:
-                    GameManager.Instance.SetIsPlaying(HeroType.Warrior, true);
-                    break;
-                case HeroType.Archer:
-                    GameManager.Instance.SetIsPlaying(HeroType.Archer, true);
-                    break;
-                case HeroType.Dwarf:
-                    GameManager.Instance.SetIsPlaying(HeroType.Dwarf, true);
-                    break;
-                case HeroType.Wizard:
-                    GameManager.Instance.SetIsPlaying(HeroType.Wizard, true);
-                    break;
-            }
-        }
-
-        //TODO: setgold and wineskin
-
-        //TODO: destroy the canvas
-    }
 }

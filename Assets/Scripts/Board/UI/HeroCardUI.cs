@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HeroCardUI : MonoBehaviour, Observer
 {
+    //TODO: attach game manager for getSelfPlayer
     HeroManager HeroManager;
     GameManager GameManager;
 
@@ -49,7 +50,7 @@ public class HeroCardUI : MonoBehaviour, Observer
         } else{
             HeroCard.SetActive(true);
 
-            if (GameManager.GetSelfHero() == myHero)
+            if (GameManager.GetSelfPlayer().GetHero() == myHero)
             {
                 //set drop buttons as active
             }

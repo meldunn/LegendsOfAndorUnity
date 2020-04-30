@@ -69,11 +69,11 @@ public class PlayerSelector : MonoBehaviourPun
     {
 
         if (photonView.IsMine)
-        {
+        { 
             currentHero = 0;
             hero.sprite = heroSprites[currentHero];
 
-
+            
             next.gameObject.SetActive(true);
             prev.gameObject.SetActive(true);
 
@@ -98,17 +98,17 @@ public class PlayerSelector : MonoBehaviourPun
     public void OnClick_NextHero()
     {
         //executes only if the owner of the button clicked
-        if (photonView.IsMine && !readyToken.activeSelf)
-        {
+       if (photonView.IsMine && !readyToken.activeSelf)
+       {
             photonView.RPC("NextHero", RpcTarget.All);
-        }
+       }
     }
 
     [PunRPC]
     void NextHero()
     {
         currentHero += 1;
-        if (currentHero == 4)
+        if(currentHero == 4)
         {
             currentHero = 0;
         }
@@ -119,7 +119,7 @@ public class PlayerSelector : MonoBehaviourPun
 
     public void OnClick_PrevHero()
     {
-
+        
         //executes only if the owner of the button clicked
         if (photonView.IsMine && !readyToken.activeSelf)
         {
@@ -135,6 +135,7 @@ public class PlayerSelector : MonoBehaviourPun
         {
             currentHero = 3;
         }
+
 
         hero.sprite = heroSprites[currentHero];
         heroSelectedType = (HeroType)currentHero;
@@ -156,7 +157,7 @@ public class PlayerSelector : MonoBehaviourPun
         //sends an rpc only for master client to avoid cloging the network
         if (PhotonNetwork.IsMasterClient)
         {
-
+            
             HeroSelectionManager.Instance.OnPlayerReady(PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
         }
         else
@@ -207,7 +208,7 @@ public class PlayerSelector : MonoBehaviourPun
         {
 
             //we are about to hit 5
-            if (count == maxCoins - 1)
+            if(count == maxCoins - 1)
             {
                 PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
 
@@ -229,11 +230,7 @@ public class PlayerSelector : MonoBehaviourPun
 
             photonView.RPC("IncrementCoins", RpcTarget.All);
 
-            if (isFullySplit())
-            {
-                HeroSelectionManager.Instance.EnableDifficultyButtons();
-            }
-
+            
         }
         else
         {
@@ -241,33 +238,13 @@ public class PlayerSelector : MonoBehaviourPun
         }
     }
 
-    bool isFullySplit()
-    {
-        int coinCount = CountCoins();
-        int wineCount = CountWineSkins();
-
-        if (coinCount == maxCoins && wineCount == maxWine)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     public void OnClick_PrevCoin()
     {
-        if (isFullySplit())
-        {
-            HeroSelectionManager.Instance.DisableDifficultyButtons();
-        }
-
-
         int amount = Int32.Parse(coinsText.text);
 
         //we can decrease
-        if (amount > 0)
+        if(amount > 0)
         {
             //need to enable the next buttons if we decrease from max
             int count = CountCoins();
@@ -277,7 +254,7 @@ public class PlayerSelector : MonoBehaviourPun
             {
                 PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
 
-                foreach (var player in players)
+                foreach(var player in players)
                 {
                     player.nextCoin.gameObject.SetActive(true);
                 }
@@ -325,6 +302,7 @@ public class PlayerSelector : MonoBehaviourPun
         return count;
     }
 
+
     [PunRPC]
     void DecreaseCoins()
     {
@@ -367,11 +345,6 @@ public class PlayerSelector : MonoBehaviourPun
             HeroSelectionManager.Instance.wineSplit[playerID] = value;
 
             photonView.RPC("IncrementWine", RpcTarget.All);
-
-            if (isFullySplit())
-            {
-                HeroSelectionManager.Instance.EnableDifficultyButtons();
-            }
         }
         else
         {
@@ -381,11 +354,6 @@ public class PlayerSelector : MonoBehaviourPun
 
     public void OnClick_PrevWine()
     {
-        if (isFullySplit())
-        {
-            HeroSelectionManager.Instance.DisableDifficultyButtons();
-        }
-
         int amount = Int32.Parse(wineSkinText.text);
 
         //we can decrease
@@ -415,8 +383,6 @@ public class PlayerSelector : MonoBehaviourPun
             }
 
             photonView.RPC("DecreaseWine", RpcTarget.All);
-
-
         }
         else
         {

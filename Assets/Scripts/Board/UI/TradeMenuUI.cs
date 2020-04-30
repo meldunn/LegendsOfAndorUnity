@@ -48,12 +48,12 @@ public class TradeMenuUI : MonoBehaviourPun
         TradePopup = GameObject.Find("IncomingTradePopup");
         ConfirmationPopup = GameObject.Find("TradeConfirmationPopup");
 
-        MyInventory = GameManager.GetSelfHero().GetInventory();
+        MyInventory = GameManager.GetSelfPlayer().GetHero().GetInventory();
         
         // TODO: Switch to other player
-        TheirInventory = GameManager.GetSelfHero().GetInventory();
+        TheirInventory = GameManager.GetSelfPlayer().GetHero().GetInventory();
 
-        MyHero = GameManager.GetSelfHero();
+        MyHero = GameManager.GetSelfPlayer().GetHero();
 
         TradeOffer = new int[11];
 
@@ -114,12 +114,12 @@ public class TradeMenuUI : MonoBehaviourPun
     public void DisplayTradeMenu()
     {
         // Refresh Inventories
-        MyHero = GameManager.GetSelfHero();
+        MyHero = GameManager.GetSelfPlayer().GetHero();
 
-        MyInventory = GameManager.GetSelfHero().GetInventory();
+        MyInventory = GameManager.GetSelfPlayer().GetHero().GetInventory();
         Reset(TradedItems);
 
-        MyHeroType = GameManager.GetSelfHero().GetHeroType();
+        MyHeroType = GameManager.GetSelfPlayer().GetHero().GetHeroType();
 
         //for(int k=0; k<8; k++)
         //{
@@ -395,7 +395,7 @@ public class TradeMenuUI : MonoBehaviourPun
 
         bool MatchFound = false;
         // Debug.Log("Requesting Hero Inventory");
-        MyHeroType = GameManager.GetSelfHero().GetHeroType();
+        MyHeroType = GameManager.GetSelfPlayer().GetHero().GetHeroType();
         
         // Debug.Log("My Hero Type: "+MyHeroType);
         Dictionary<ItemType, int> Buffer = new Dictionary<ItemType, int>();
@@ -404,7 +404,7 @@ public class TradeMenuUI : MonoBehaviourPun
         {
             Debug.Log("Successful match with"+Hero[RecID]);
             MatchFound = true;
-            TheirInventory = GameManager.GetSelfHero().GetInventory();
+            TheirInventory = GameManager.GetSelfPlayer().GetHero().GetInventory();
         }
 
         if(Hero[SenderID] == MyHeroType)

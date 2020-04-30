@@ -28,8 +28,12 @@ public class GameManager : MonoBehaviourPun, Subject
     private bool DwarfIsPlaying;
     private bool WizardIsPlaying;
 
-    // Game player
-    private Hero MyHero;
+    // Game players
+    private AndorPlayer MyPlayer;               // The player currently playing in this session (same value as one of the four player variables below)
+    private AndorPlayer WarriorPlayer;
+    private AndorPlayer ArcherPlayer;
+    private AndorPlayer DwarfPlayer;
+    private AndorPlayer WizardPlayer;
 
     // Turn management
     private HeroType CurrentTurnHero;           // The hero whose turn it is
@@ -67,6 +71,8 @@ public class GameManager : MonoBehaviourPun, Subject
         Initialize();
     }
 
+
+
     // Start is called before the first frame update
     void Initialize()
     {
@@ -85,26 +91,48 @@ public class GameManager : MonoBehaviourPun, Subject
         NarratorManager.Initialize();
         ChatManager.Initialize();
 
+
         //TONETWORK
         // Initialize game difficulty
-        Difficulty = DifficultyLevel.Normal;    // Is later overwritten with real value
+        //Difficulty = DifficultyLevel.Normal;    // TODO real value
+
 
         //TONETWORK
         // Initialize which heroes are playing
-        WarriorIsPlaying = true;                // Is later overwritten with real value
-        ArcherIsPlaying = true;                 // Is later overwritten with real value
-        DwarfIsPlaying = true;                  // Is later overwritten with real value
-        WizardIsPlaying = true;                 // Is later overwritten with real value
+        WarriorIsPlaying = true;                // TODO real value
+        ArcherIsPlaying = true;                 // TODO real value
+        DwarfIsPlaying = true;                  // TODO real value
+        WizardIsPlaying = true;                 // TODO real value
 
-        // Initialize heroes (including their board positions)
-        if (WarriorIsPlaying) HeroManager.InitializeHero(HeroType.Warrior, InitialWarrior);
-        if (ArcherIsPlaying) HeroManager.InitializeHero(HeroType.Archer, InitialArcher);
-        if (DwarfIsPlaying) HeroManager.InitializeHero(HeroType.Dwarf, InitialDwarf);
-        if (WizardIsPlaying) HeroManager.InitializeHero(HeroType.Wizard, InitialWizard);
+        // Initialize players and their corresponding heroes (including their board positions)
+        if (WarriorIsPlaying)
+        {
+            WarriorPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
+            WarriorPlayer.SetHero(HeroManager.GetHero(HeroType.Warrior));
+            HeroManager.InitializeHero(HeroType.Warrior, InitialWarrior);
+        }
+        if (ArcherIsPlaying)
+        {
+            ArcherPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
+            ArcherPlayer.SetHero(HeroManager.GetHero(HeroType.Archer));
+            HeroManager.InitializeHero(HeroType.Archer, InitialArcher);
+        }
+        if (DwarfIsPlaying)
+        {
+            DwarfPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
+            DwarfPlayer.SetHero(HeroManager.GetHero(HeroType.Dwarf));
+            HeroManager.InitializeHero(HeroType.Dwarf, InitialDwarf);
+        }
+        if (WizardIsPlaying)
+        {
+            WizardPlayer = GameObject.Find("GameManager").AddComponent<AndorPlayer>();       // TODO real value
+            WizardPlayer.SetHero(HeroManager.GetHero(HeroType.Wizard));
+            HeroManager.InitializeHero(HeroType.Wizard, InitialWizard);
+        }
 
         //TONETWORK
         // Initialize playing character
-        MyHero = HeroManager.GetHero(HeroType.Warrior);                // Is later overwritten with real value
+        MyPlayer = WarriorPlayer;             // TODO real value
 
         // NETWORKED
         // Initialize turns
@@ -139,6 +167,20 @@ public class GameManager : MonoBehaviourPun, Subject
         // Generate initial skrall
         CreatureManager.Spawn(CreatureType.Skral, InitialSkralLocation);
 
+        // Generate initial farmers
+        switch (Difficulty)
+        {
+            case DifficultyLevel.Easy:
+                // TODO Use InitialEasyFarmerLocation to generate farmers
+                break;
+            case DifficultyLevel.Normal:
+                // TODO Use InitialNormalFarmerLocation to generate farmers
+                break;
+            default:
+                Debug.LogError("Cannot spawn farmers; invalid difficulty level");
+                break;
+        }
+
         //// Generate Initial Merchants
         //for(int i=0; i<MerchantLocation.Length; i++)
         //{
@@ -165,36 +207,32 @@ public class GameManager : MonoBehaviourPun, Subject
         // WinSavedGame();
     }
 
-    // Sets the difficulty and makes final initializations based on difficulty
-    public void SetDifficulty(DifficultyLevel Difficulty)
-    {
-        this.Difficulty = Difficulty;
-
-        // Generate initial farmers
-        switch (Difficulty)
-        {
-            case DifficultyLevel.Easy:
-                // TODO Use InitialEasyFarmerLocation to generate farmers
-                break;
-            case DifficultyLevel.Normal:
-                // TODO Use InitialNormalFarmerLocation to generate farmers
-                break;
-            default:
-                Debug.LogError("Cannot spawn farmers; invalid difficulty level");
-                break;
-        }
-    }
-
     // Update is called once per frame
     void Update()
     {
         
     }
 
+    // Get a reference to the player controlling this game instance
+    public AndorPlayer GetSelfPlayer()
+    {
+        return MyPlayer;
+    }
+
     // Get a reference to the hero of the player controlling this game instance
     public Hero GetSelfHero()
     {
-        return MyHero;
+        if (MyPlayer == null) return null;
+        else return MyPlayer.GetHero();
+    }
+
+    public AndorPlayer GetCurrentTurnPlayer()
+    {
+        if (CurrentTurnHero == HeroType.Warrior) return WarriorPlayer;
+        else if (CurrentTurnHero == HeroType.Archer) return ArcherPlayer;
+        else if (CurrentTurnHero == HeroType.Dwarf) return DwarfPlayer;
+        else if (CurrentTurnHero == HeroType.Wizard) return WizardPlayer;
+        else return null;
     }
 
     public Hero GetCurrentTurnHero()
@@ -293,7 +331,7 @@ public class GameManager : MonoBehaviourPun, Subject
     public void MerchantSavedGameRPC()
     {
         // TODO: Invoke the move function
-        HeroManager.GetHero(HeroType.Warrior).ReceiveGold(10);
+        WarriorPlayer.GetHero().ReceiveGold(10);
         HeroManager.TeleportRPC(HeroType.Warrior, 18);
         // TODO: Add other values (items?) to simulate a real game
     }
@@ -399,9 +437,30 @@ public class GameManager : MonoBehaviourPun, Subject
 
     // Changes control of the current game session to a different player.
     // Note: this is used to simulate local multiplayer (for testing and demonstration purposes) and will NOT be used in the real networked game
-    public void SetSelfHero(HeroType ControlledHeroType)
+    public void SetSelfPlayer(HeroType NewControlledPlayersHero)
     {
-        MyHero = HeroManager.GetHero(ControlledHeroType);
+        switch (NewControlledPlayersHero)
+        {
+            case HeroType.Warrior:
+                MyPlayer = WarriorPlayer;
+                break;
+
+            case HeroType.Archer:
+                MyPlayer = ArcherPlayer;
+                break;
+
+            case HeroType.Dwarf:
+                MyPlayer = DwarfPlayer;
+                break;
+
+            case HeroType.Wizard:
+                MyPlayer = WizardPlayer;
+                break;
+
+            default:
+                Debug.LogError("Cannot set controlled player; invalid hero type: " + NewControlledPlayersHero);
+                return;
+        }
 
         // Notify observers to update UI
         Notify("CONTROL");
