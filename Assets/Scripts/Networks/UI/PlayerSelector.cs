@@ -271,7 +271,7 @@ public class PlayerSelector : MonoBehaviourPun
                 prevCoin.gameObject.SetActive(false); // disable previous button
             }
 
-            photonView.RPC("DecreaseCoins", RpcTarget.All, playerID);
+            photonView.RPC("DecreaseCoins", RpcTarget.All, playerID, value);
         }
         else
         {

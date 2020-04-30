@@ -198,7 +198,6 @@ public class RegionItemsUI : MonoBehaviour, Observer
     {
         farmersText.text = " Farmers: " + Waypoint.getNumFarmers();
         goldText.text = " Gold: " + Waypoint.getNumGold();
-        Debug.LogError("NOTIFY");
         showItems(Waypoint.Items);
     }
 }
