@@ -28,19 +28,11 @@ public class EventCard : MonoBehaviour
 
     }
 
-    public void setId(int i)
+    public EventCard(int id, string quote, string description)
     {
-        cardId = i;
-    }
-
-    public void setQuote(string s)
-    {
-        cardQuote = s;
-    }
-
-    public void setDescription(string s)
-    {
-        cardDescription = s;
+        cardId = id;
+        cardQuote = quote;
+        cardDescription = description;
     }
 
     public string getQuote()

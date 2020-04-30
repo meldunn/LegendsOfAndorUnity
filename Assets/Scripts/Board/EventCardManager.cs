@@ -48,9 +48,7 @@ public class EventCardManager : MonoBehaviourPun
     {
         for (int i = 0; i < 9; i++)
         {
-            eventCards[i].setId(i + 1);
-            eventCards[i].setQuote(cardQuotes[i]);
-            eventCards[i].setDescription(cardDescriptions[i]);
+            eventCards[i] = new EventCard(i + 1, cardQuotes[i], cardDescriptions[i]);
         }
     }
 
