@@ -29,10 +29,10 @@ public class Fog : MonoBehaviour
         }
     }
 
-    public void SetWPNum(int WPNum)
-    {
-        this.waypointnum = WPNum;
-    }
+    //public void SetWPNum(int WPNum)
+    //{
+    //    this.waypointnum = WPNum;
+    //}
 
     public int GetWPNum()
     {
@@ -48,13 +48,18 @@ public class Fog : MonoBehaviour
     {
         return this.FogBackCard;
     }
+
+    public FogType GetFogType()
+    {
+        return this.FogType;
+    }
     //public void SetBackCard(GameObject FogBackCard)
     //{
     //    this.FogBackCard = FogBackCard;
     //}
 
-    public void SetBackCard(FogBack FogBackCard)
-    {
-        this.FogBackCard = FogBackCard;
-    }
+    //public void SetBackCard(FogBack FogBackCard)
+    //{
+    //    this.FogBackCard = FogBackCard;
+    //}
 }
