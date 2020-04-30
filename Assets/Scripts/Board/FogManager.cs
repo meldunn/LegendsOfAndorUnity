@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Windows.Forms.Timer;
+//using System.Windows.Forms;
 using UnityEngine;
 
 public enum FogType { EventCard, Strength, Willpower2, Willpower3, Gold, Wineskin, Gor, Brew };
@@ -14,7 +16,7 @@ public class FogManager : MonoBehaviour
 
     public static List<FogBack> FogBackList = new List<FogBack>(7);
     //public static List<Waypoint> FogBackList = new List<Waypoint>(7);
-    public static List<GameObject> FogFrontList = new List<GameObject>(7);
+    public static List<FogFront> FogFrontList = new List<FogFront>(7);
 
     static int[] TileWPNum = {13, 8, 11, 47, 46, 32, 12, 16, 64, 48, 44, 42, 56, 49, 63}; //in order of fogwp number 
 
@@ -23,7 +25,6 @@ public class FogManager : MonoBehaviour
     {
         //possibleWaypoints = new Waypoint[15];
         finalWaypoints = new Waypoint[15];
-        //foglist = new List<Fog>(7);
         foglist = new Fog[15];
         string WaypointName;
 
@@ -57,9 +58,6 @@ public class FogManager : MonoBehaviour
         printlist(SelectedWP);  //for testing
 
         //place selected fogwaypoints into finalwaypoints
-
-    
-
         for (int i = 0; i<15; i++)
         {
             WaypointName = "FogWaypoint" + SelectedWP[i];
@@ -70,25 +68,82 @@ public class FogManager : MonoBehaviour
         for (int i = 1; i < 16; i++)
         {
             WaypointName = "FogBack" + i;
-            //FogBackList[i -1] = GameObject.Find(WaypointName).GetComponent<GameObject>();
             Debug.Log(WaypointName);
-            //Debug.Log(GameObject.Find(WaypointName).GetComponent<Waypoint>());
-            //FogBackList.Add(GameObject.Find(WaypointName).GetComponent<Waypoint>());
             FogBackList.Add(GameObject.Find(WaypointName).GetComponent<FogBack>());
         }
 
         //set fogfront list TODO
 
-
-
-
-
+        //set willpower front fog
+        FogFrontList.Add(GameObject.Find("FogFaceWillpower2").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceWillpower3").GetComponent<FogFront>());
+        //set gor front fog
+        FogFrontList.Add(GameObject.Find("FogFaceGor").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceGor1").GetComponent<FogFront>());
+        //set fog front strength
+        FogFrontList.Add(GameObject.Find("FogFaceStrength").GetComponent<FogFront>());
+        //set fog face gold
+        FogFrontList.Add(GameObject.Find("FogFaceGold (0)").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceGold (1)").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceGold (2)").GetComponent<FogFront>());
+        //set fog face event card
+        FogFrontList.Add(GameObject.Find("FogFaceEventCard (0)").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceEventCard (1)").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceEventCard (2)").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceEventCard (3)").GetComponent<FogFront>());
+        FogFrontList.Add(GameObject.Find("FogFaceEventCard (4)").GetComponent<FogFront>());
+        //set fog face brew
+        FogFrontList.Add(GameObject.Find("FogFaceBrew").GetComponent<FogFront>());
+        //set fog face wineskin
+        FogFrontList.Add(GameObject.Find("FogFaceWineskin").GetComponent<FogFront>());
 
         //set and place fogs
         for (int i =0; i < 15; i++)
         {
-            Fog newFod = new Fog(TileWPNum[SelectedWP[i]],FogBackList[i]);
-            foglist[i] = newFod;
+            if (i == 0)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Willpower2);
+                foglist[i] = newFog;
+            }
+            if (i == 1)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Willpower3);
+                foglist[i] = newFog;
+            }
+            if (i == 2 || i == 3)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Gor);
+                foglist[i] = newFog;
+            }
+            if (i == 4)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Strength);
+                foglist[i] = newFog;
+            }
+            if (i == 5 || i == 6 || i == 7)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Gold);
+                foglist[i] = newFog;
+            }
+            if (i <=12 && i >= 8)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.EventCard);
+                foglist[i] = newFog;
+            }
+            if (i == 13)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Brew);
+                foglist[i] = newFog;
+            }
+            if (i == 14)
+            {
+                Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Wineskin);
+                foglist[i] = newFog;
+            }
+
+
+            //Fog newFog= new Fog(TileWPNum[SelectedWP[i]],FogBackList[i]);
+            //foglist[i] = newFog;
 
 
 
@@ -96,6 +151,9 @@ public class FogManager : MonoBehaviour
         
             Waypoint waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
             foglist[i].GetFogBackCard().transform.position = waypoint.transform.position;
+            foglist[i].GetFogFrontCard().transform.position = waypoint.transform.position;
+            //hide fog front
+            foglist[i].GetFogFrontCard().gameObject.SetActive(false);
         }
 
 
@@ -113,6 +171,16 @@ public class FogManager : MonoBehaviour
                 //return foglist[i];
                 //foglist[i].GetFogBackCard().HideFogBack();
                 foglist[i].GetFogBackCard().gameObject.SetActive(false);
+
+                //show fog front for 5 seconds
+                foglist[i].GetFogFrontCard().gameObject.SetActive(true);
+
+                //for (int j =0; j< 10000; j++)
+                //{
+
+                //}
+                //foglist[i].GetFogFrontCard().gameObject.SetActive(false);
+
             }
 
         }
@@ -120,9 +188,20 @@ public class FogManager : MonoBehaviour
         //return null;
     }
 
+    //private bool Waited(float seconds)
+    //{
+    //    timerMax = seconds;
 
-    //for testing
-    public void printlist(List<int> list)
+    //    timer += Time.deltaTime;
+
+    //    if (timer >= timerMax)
+    //    {
+    //        return true; //max reached - waited x - seconds
+    //    }
+    //}
+
+        //for testing
+        public void printlist(List<int> list)
     {
         for (int i = 0; i< list.Count; i++)
         {

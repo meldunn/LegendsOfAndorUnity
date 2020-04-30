@@ -6,19 +6,21 @@ public class Fog : MonoBehaviour
 {
     private FogType FogType;
     public int waypointnum; //number on the board
-    public  GameObject FogFrontCard;
+    public  FogFront FogFrontCard;
     public FogBack FogBackCard;
     public bool IsFogUnused;
     public bool IsFogUncovered;
     
 
 
-    public Fog(int waypointnum, FogBack FogBackCard)
+    public Fog(int waypointnum, FogBack FogBackCard, FogFront FogFrontCard, FogType FogType)
     {
         this.waypointnum = waypointnum;
         this.IsFogUnused = true;
         this.IsFogUncovered = false;
         this.FogBackCard = FogBackCard;
+        this.FogFrontCard = FogFrontCard;
+        this.FogType = FogType;
     }
 
     public void Visibility(GameObject card, bool visible)
@@ -43,14 +45,18 @@ public class Fog : MonoBehaviour
         return waypointnum;
     }
 
-    public void SetFrontCard(GameObject FogFrontCard)
-    {
-        this.FogFrontCard = FogFrontCard;
-    }
+    //public void SetFrontCard(GameObject FogFrontCard)
+    //{
+    //    this.FogFrontCard = FogFrontCard;
+    //}
 
     public FogBack GetFogBackCard()
     {
         return this.FogBackCard;
+    }
+    public FogFront GetFogFrontCard()
+    {
+        return this.FogFrontCard;
     }
 
     public FogType GetFogType()
