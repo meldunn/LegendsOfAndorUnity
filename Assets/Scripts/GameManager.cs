@@ -273,6 +273,11 @@ public class GameManager : MonoBehaviourPun, Subject
         else LoseSavedGameRPC();
     }
 
+    public void WinSavedGame()
+    {
+        Debug.Log("Win!!");
+    }
+
     public void FightingSavedGame()
     {
         // TODO: Move all heroes to a spot, spawn a wardrak

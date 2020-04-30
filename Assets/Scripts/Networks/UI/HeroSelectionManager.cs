@@ -22,6 +22,8 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject heroSelectCanvas;
 
+    [SerializeField]
+    private GameObject SavedGamesPanel;
 
     //ready logic
     int readyPlayers = 0;
@@ -50,9 +52,13 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         int id = PhotonNetwork.LocalPlayer.ActorNumber - 1;
         GameObject heroSelectorInstance = PhotonNetwork.Instantiate("HeroSelectionGUI", heroSelectorPositions[id].position, heroSelectorPositions[id].rotation);
 
-
+        Debug.Log("Hero Stuffs");
         //at run time subsribes the ready up logic. (done on run time because we are dealing with a prefab)
         readyUp.onClick.AddListener(heroSelectorInstance.GetComponent<PlayerSelector>().OnClick_Ready);
+
+        Vector3 Pos = new Vector3(-250, 0, 0);
+        SavedGamesPanel = GameObject.Find("SGP");
+        SavedGamesPanel.transform.Translate(Pos - SavedGamesPanel.transform.position);
 
     }
 
@@ -82,16 +88,23 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
             if (AreDifferentHeroes())
             {
                 //this executes on master by construction
-
-                photonView.RPC("InstantiateSplitResources", RpcTarget.All);
-
+                bool ShowSavedGames = SavedGamesAllowed();
+                photonView.RPC("InstantiateSplitResources", RpcTarget.All, ShowSavedGames);
             }
         }
     }
 
     [PunRPC]
-    private void InstantiateSplitResources()
+    private void InstantiateSplitResources(bool ShowSavedGames)
     {
+        if(PhotonNetwork.IsMasterClient && ShowSavedGames)
+        {
+            Vector3 Pos = new Vector3(-250, 0, 0);
+            SavedGamesPanel = GameObject.Find("SGP");
+            SavedGamesPanel.transform.Translate(Pos - SavedGamesPanel.transform.position);
+
+        }
+
         PlayerSelector[] players = GameObject.FindObjectsOfType<PlayerSelector>();
 
         foreach (var player in players)
@@ -102,6 +115,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
         readyUp.gameObject.SetActive(false);
     }
+
 
     public void EnableDifficultyButtons()
     {
@@ -142,24 +156,45 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
         return true;
     }
 
+    bool SavedGamesAllowed()
+    {
+        bool Archer = false;
+        bool Warrior = false;
+        bool Dwarf = false;
+        foreach (var player in selectedHeroes)
+        {
+            if(player.Value == HeroType.Archer) Archer = true;
+            if(player.Value == HeroType.Warrior) Warrior = true;
+            if(player.Value == HeroType.Dwarf) Dwarf = true;
+        }
+
+        if(Archer && Warrior && Dwarf && PhotonNetwork.CurrentRoom.PlayerCount == 3) return true;
+
+        return false;
+    }
+
     public void OnClick_NormalDifficulty()
     {
         //RPC
-        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Normal);
+        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Normal, -1);
     }
 
     public void OnClick_EasyDifficulty()
     {
-        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Easy);
+        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Easy, -1);
     }
 
+    public void LoadGame(int SaveGameID)
+    {
+        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Easy, SaveGameID);
+    }
 
 
     //TODO: send info another way
     //TODO: use setdifficulty function
     //todo: quit to main screen
     [PunRPC]
-    void InitializeGameManager(DifficultyLevel level)
+    void InitializeGameManager(DifficultyLevel level, int SaveGameID)
     {
         GameManager.Instance.SetDifficulty(level);
 
@@ -196,11 +231,28 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
         GameManager.Instance.GetSelfHero().GetInventory()[ItemType.Wineskin] += wineSplit[playerID];
         
-
+        switch (SaveGameID)
+        {
+            case(1):
+                GameManager.Instance.MerchantSavedGame();
+                break;
+            case(2):
+                GameManager.Instance.FightingSavedGame();
+                break;
+            case(3):
+                GameManager.Instance.LoseSavedGame();
+                break;
+            case(4):
+                GameManager.Instance.WinSavedGame();
+                break;
+            default:
+                break;
+        }
 
         //TODO: setgold and wineskin
 
         //TODO: destroy the canvas
         Destroy(heroSelectCanvas);
+
     }
 }
