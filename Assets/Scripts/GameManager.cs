@@ -251,7 +251,19 @@ public class GameManager : MonoBehaviourPun, Subject
 
     public void MoveThorald()
     {
+        // Check whether it's the turn of the hero who wants to move
+        Hero MyHero = GetSelfHero();
+        // HeroType MyHeroType = GetSelfHero().GetHeroType();
+        Hero TurnHero = GetCurrentTurnHero();
 
+
+
+        // Cannot move out of turn, without willpower, if you've ended your day or if you're already moving
+        if (MyHero == TurnHero && MyHero.CanAdvanceTimeMarker(1) && !MyHero.HasEndedDay() && !HeroManager.GetHeroIsMoving() && (HeroManager.GetHero(HeroType.PrinceThorald).GetWaypoint() != null))
+        {
+            if (PhotonNetwork.IsConnected) photonView.RPC("ThoraldMoveRPC", RpcTarget.All, MyHero);
+            else ThoraldMoveRPC(MyHero);
+        }
     }
 
     public void NotifyHeroMove()
@@ -706,6 +718,12 @@ public class GameManager : MonoBehaviourPun, Subject
         HeroManager.GetHero(Type).Move();
     }
 
+    [PunRPC]
+    public void ThoraldMoveRPC(Hero ThoraldTurnPlayer)
+    {
+        HeroManager.SetHeroIsMoving(true);
+        HeroManager.GetHero(HeroType.PrinceThorald).ThoraldMove(ThoraldTurnPlayer);
+    }
 
     // For winning the game
     public void PlaceHerbOnCastle()
