@@ -191,6 +191,12 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
             }
         }
 
+        GameManager.Instance.GetSelfHero().ReceiveGold(coinsSplit[playerID]);
+
+        GameManager.Instance.GetSelfHero().GetInventory()[ItemType.Wineskin] += wineSplit[playerID];
+        
+
+
         //TODO: setgold and wineskin
 
         //TODO: destroy the canvas
