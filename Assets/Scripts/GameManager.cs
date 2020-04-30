@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviourPun, Subject
     private NarratorManager NarratorManager;
     private ChatManager ChatManager;
     private EventCardManager EventCardManager;
+    private LegendCardManager LegendCardManager;
 
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
@@ -78,7 +79,7 @@ public class GameManager : MonoBehaviourPun, Subject
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
         NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
         ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
-      //  EventCardManager = GameObject.Find("EventCardManager").GetComponent<EventCardManager>();
+        //  EventCardManager = GameObject.Find("EventCardManager").GetComponent<EventCardManager>();
 
         // Initialize the non-UI managers
         WaypointManager.Initialize();
