@@ -124,6 +124,12 @@ public class Hero : MonoBehaviourPun, Subject
             Quaternion.identity);                                         // No rotation
     }
 
+    //called heromanager from clicking wineskin button in hero panel
+    public void UseWineskin()
+    {
+
+    }
+
     public void ExecuteMove()
     {
 

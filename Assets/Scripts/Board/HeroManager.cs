@@ -148,6 +148,11 @@ public class HeroManager : MonoBehaviourPun
         Target.AddHero(HeroToInitialize);
     }
 
+    public void UseWineskin()
+    {
+
+    }
+
     public Hero GetHero(HeroType Type)
     {
         switch (Type)
