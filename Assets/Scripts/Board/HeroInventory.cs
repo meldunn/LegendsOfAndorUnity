@@ -26,13 +26,13 @@ public class HeroInventory
         Inventory[ItemType.GreenRuneStone] = 0;
     }
 
+    //before adding an item check isValid on the inventory first
     public void addItem(ItemType item)
     {
-        if (isValid())
-        {
+        
             Inventory[item] += 1;
             Debug.Log("Added Item" + item);
-        }
+        
     }
 
     public void removeItem(ItemType item)
