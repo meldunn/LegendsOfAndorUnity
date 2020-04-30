@@ -426,6 +426,9 @@ public class Hero : MonoBehaviourPun, Subject
     public void UseTelescope()
     {
         //unveil fog on adj tiles
+        int[] adjlist = this.myRegion.GetWPAdjList();
+        // WaypointManager.GetWPAdjList(this.myRegion.)
+        FogManager.UnveilFogTelescope(adjlist);
     }
 
 
