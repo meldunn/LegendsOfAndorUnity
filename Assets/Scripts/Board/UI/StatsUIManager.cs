@@ -109,6 +109,7 @@ public class StatsUIManager : MonoBehaviour, Observer
 
     public void UpdateHeroStats()
     {
+        Debug.Log("updating stats");
         warriorFarmerText.text = " Farmers: " + heroManager.GetHero(HeroType.Warrior).getNumFarmers();
         warriorWillpowerText.text = " Willpower: " + heroManager.GetHero(HeroType.Warrior).getWillpower();
         warriorStrengthText.text = " Strength: " + heroManager.GetHero(HeroType.Warrior).getStrength();
