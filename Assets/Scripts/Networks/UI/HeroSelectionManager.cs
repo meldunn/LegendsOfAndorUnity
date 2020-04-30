@@ -161,7 +161,7 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void InitializeGameManager(DifficultyLevel level)
     {
-        GameManager.Instance.Difficulty = level;
+        GameManager.Instance.SetDifficulty(level);
 
         int playerID = PhotonNetwork.LocalPlayer.ActorNumber;
 
