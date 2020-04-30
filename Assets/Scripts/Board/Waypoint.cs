@@ -34,7 +34,7 @@ public class Waypoint : MonoBehaviourPun, Subject
     List<Observer> Observers = new List<Observer>();
 
     // REMOVED ITEM LIST -- USING DICTIONARY INSTEAD - jonathan
-    private Dictionary<ItemType, int> Items = new Dictionary<ItemType, int>();
+    public Dictionary<ItemType, int> Items = new Dictionary<ItemType, int>();
 
     int numItems;
     int gold;
@@ -226,12 +226,14 @@ public class Waypoint : MonoBehaviourPun, Subject
     {
         if(Items[ItemType] > 0) Items[ItemType] -= 1;
         numItems -= 1;
+        Notify("REGION_ITEMS");
     }
 
     public void addItem(ItemType ItemType)
     {
         Items[ItemType] += 1;
         numItems += 1;
+        Notify("REGION_ITEMS");
     }
 
     public bool containsItem(ItemType ItemType)
@@ -327,6 +329,7 @@ public class Waypoint : MonoBehaviourPun, Subject
         if (numItems > 0)
         {
             itemPanel.SetActive(true);
+            RegionItemsUI.showItems(Items);
         }
     }
 
@@ -339,6 +342,7 @@ public class Waypoint : MonoBehaviourPun, Subject
     {
         itemPanel = GameObject.Find("RegionItemsPanel (" + WaypointNum + ")");
         RegionItemsUI = GameObject.Find("RegionItemsPanel (" + WaypointNum + ")").GetComponent<RegionItemsUI>();
+        RegionItemsUI.Initialize(this);
         RegionItemsUI.SetPanel(WaypointNum);
     }
 
