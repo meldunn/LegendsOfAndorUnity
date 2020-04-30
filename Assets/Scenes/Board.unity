@@ -55098,7 +55098,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 500, y: 500}
+  m_SizeDelta: {x: 600, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1067339031
 MonoBehaviour:
@@ -58098,7 +58098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb55a66742ad6434fa6e3fc6c5c8252b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 151292508}
   infoPanel: {fileID: 621575102}
   headerText: {fileID: 110997750}
   narratorCardText: {fileID: 1067339031}
