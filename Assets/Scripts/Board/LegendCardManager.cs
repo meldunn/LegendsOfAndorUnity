@@ -59,6 +59,32 @@ public class LegendCardManager : MonoBehaviourPun
         }
     }
 
+    public void activateLegendCard_A()
+    {
+        Debug.Log("LEGEND CARD C");
+        //A1
+        //Skral stronghold - 50 + dice roll is the region num
+        //Farmer placed on 28
+        Waypoint waypoint28 = GameObject.Find("Waypoint (28)").GetComponent<Waypoint>();
+        waypoint28.dropOneFarmer();
+        //creatureManager.SpawnTowerSkral();
+
+        headerText.text = "LEGEND CARD C";
+        narratorCardText.text = "";
+        infoPanel.SetActive(true);
+        infoPanel.transform.SetPositionAndRotation(new Vector3(0, 0, 0), Quaternion.identity);
+
+
+        //C2
+        //Gors placed on 27, 31
+        creatureManager.Spawn(CreatureType.Gor, 27);
+        creatureManager.Spawn(CreatureType.Gor, 31);
+        //Skral placed on 29
+        creatureManager.Spawn(CreatureType.Skral, 29);
+        //Prince Thorald placed on 72
+        heroManager.InitializeHero(HeroType.PrinceThorald, 72);
+    }
+
     public void activateLegendCard_C(int regionNumber)
     {
         Debug.Log("LEGEND CARD C");
@@ -69,9 +95,11 @@ public class LegendCardManager : MonoBehaviourPun
         waypoint28.dropOneFarmer();
         //creatureManager.SpawnTowerSkral();
         creatureManager.Spawn(CreatureType.TowerSkral, regionNumber);
+        WaypointManager wpManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        int strength = wpManager.GetWaypoint(regionNumber).GetCreature().GetStrength();
 
         headerText.text = "LEGEND CARD C";
-        narratorCardText.text = "C1 – The Skral Stronghold has been placed on " + regionNumber + ". The heroes may enter and pass through this space. The skral does not move at sunrise. Other creatures that would move into the space are instead advanced along the arrow to the next space. The skral on the tower has 6 willpower points and 30 strength points. Task: The skral on the tower must be defeated. As soon as he is defeated, the Narrator is advanced to the letter “N” on the Legend track. And there’s more unsettling news: Rumors are circulating about cruel wardraks from the south. They have not been sighted, but more and more farmers are losing their courage, leaving their farmsteads, and seeking safety in the castle. A farmer has been spawned on 28.\n\nC2 – Gors have been placed on 27 and 31, and one skral on 29. But there’s good news from the south too: Prince Thorald, just back from a battle on the edge of the southern forest, is preparing himself to help the heroes. Prince Thorald has been placed on 72. If the prince is standing on the same space as a creature, he counts as 4 extra strength points for the heroes in a battle with the creature. Instead of “fighting” or “moving”, a hero can now also choose the “move prince” action during his move. That will cost him 1 hour on the time track. He can move the prince up to 4 spaces. He can also do that several times during his turn (for example, move the prince up to 8 spaces at a cost of 2 hours). After the “move prince” action, it is the next hero’s turn. Note: Prince Thorald cannot collect any tokens or move any farmers. Prince Thorald accompanies the heroes up to letter “G” on the Legend track.\n Legend goal: The Legend is won when the Narrator reaches the letter “N” on the Legend track, and…\n    ·The castle has been defended, and…\n    ·The medicinal herb is on the castle space, and… \n    ·The skral on the tower has been defeated.";
+        narratorCardText.text = "C1 – The Skral Stronghold has been placed on " + regionNumber + ". The heroes may enter and pass through this space. The skral does not move at sunrise. Other creatures that would move into the space are instead advanced along the arrow to the next space. The skral on the tower has 6 willpower points and " + strength + " strength points. Task: The skral on the tower must be defeated. As soon as he is defeated, the Narrator is advanced to the letter “N” on the Legend track. And there’s more unsettling news: Rumors are circulating about cruel wardraks from the south. They have not been sighted, but more and more farmers are losing their courage, leaving their farmsteads, and seeking safety in the castle. A farmer has been spawned on 28.\n\nC2 – Gors have been placed on 27 and 31, and one skral on 29. But there’s good news from the south too: Prince Thorald, just back from a battle on the edge of the southern forest, is preparing himself to help the heroes. Prince Thorald has been placed on 72. If the prince is standing on the same space as a creature, he counts as 4 extra strength points for the heroes in a battle with the creature. Instead of “fighting” or “moving”, a hero can now also choose the “move prince” action during his move. That will cost him 1 hour on the time track. He can move the prince up to 4 spaces. He can also do that several times during his turn (for example, move the prince up to 8 spaces at a cost of 2 hours). After the “move prince” action, it is the next hero’s turn. Note: Prince Thorald cannot collect any tokens or move any farmers. Prince Thorald accompanies the heroes up to letter “G” on the Legend track.\n Legend goal: The Legend is won when the Narrator reaches the letter “N” on the Legend track, and…\n    ·The castle has been defended, and…\n    ·The medicinal herb is on the castle space, and… \n    ·The skral on the tower has been defeated.";
         infoPanel.SetActive(true);
         infoPanel.transform.SetPositionAndRotation(new Vector3(0,0,0), Quaternion.identity);
 
