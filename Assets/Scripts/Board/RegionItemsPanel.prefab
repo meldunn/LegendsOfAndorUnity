@@ -116,7 +116,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2994048140629964688}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupWitchbrew
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &262331298216365648
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +508,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 139539099663231300}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupFalcon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2032443071281824596
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +636,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8826125305128916330}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupHelm
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2359800248489794807
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +764,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8562252067128823714}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupTelescope
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2933753446772987257
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +892,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1527989472994229311}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupBow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3589768825736882292
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +1020,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5116634010639792915}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupYellowRuneStone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4656670987227792320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,7 +1394,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8481457764210214163}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupBlueRuneStone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7010293377768657269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,7 +1595,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5331505104526642218}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupGreenRuneStone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8976160503751875749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,4 +1723,15 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6467832246506427608}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2696871703267733666}
+        m_MethodName: pickupShield
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
