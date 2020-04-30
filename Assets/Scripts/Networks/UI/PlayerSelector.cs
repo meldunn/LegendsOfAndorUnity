@@ -149,35 +149,17 @@ public class PlayerSelector : MonoBehaviourPun
         next.gameObject.SetActive(!next.gameObject.activeSelf);
         prev.gameObject.SetActive(!prev.gameObject.activeSelf);
 
-
-        photonView.RPC("ReadyUp", RpcTarget.All);
-
-
         //sends an rpc only for master client to avoid cloging the network
-        if (PhotonNetwork.IsMasterClient)
-        {
-
-            HeroSelectionManager.Instance.OnPlayerReady(PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
-        }
-        else
-        {
-
-            //TODO: the RPC has to include isReady
-            //google rpc parameters sending local variables.
-            photonView.RPC("ReadyUpMaster", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
-        }
+     
+        photonView.RPC("ReadyUp", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, heroSelectedType, isReady);
     }
 
     [PunRPC]
-    void ReadyUp()
+    void ReadyUp(int playerID, HeroType hero, bool isReady)
     {
         bool isEnabled = readyToken.activeSelf;
         readyToken.SetActive(!isEnabled);
-    }
 
-    [PunRPC]
-    void ReadyUpMaster(int playerID, HeroType hero, bool isReady)
-    {
         //checks for all the players being ready
         HeroSelectionManager.Instance.OnPlayerReady(playerID, hero, isReady);
     }
@@ -225,9 +207,7 @@ public class PlayerSelector : MonoBehaviourPun
                 prevCoin.gameObject.SetActive(true); // enable previous button
             }
 
-            HeroSelectionManager.Instance.coinsSplit[playerID] = value;
-
-            photonView.RPC("IncrementCoins", RpcTarget.All);
+            photonView.RPC("IncrementCoins", RpcTarget.All, playerID, value);
 
             if (isFullySplit())
             {
@@ -285,14 +265,13 @@ public class PlayerSelector : MonoBehaviourPun
 
             int value = HeroSelectionManager.Instance.coinsSplit[playerID];
             value -= 1;
-            HeroSelectionManager.Instance.coinsSplit[playerID] = value;
 
             if (value == 0)
             {
                 prevCoin.gameObject.SetActive(false); // disable previous button
             }
 
-            photonView.RPC("DecreaseCoins", RpcTarget.All);
+            photonView.RPC("DecreaseCoins", RpcTarget.All, playerID);
         }
         else
         {
@@ -326,15 +305,17 @@ public class PlayerSelector : MonoBehaviourPun
     }
 
     [PunRPC]
-    void DecreaseCoins()
+    void DecreaseCoins(int playerID, int value)
     {
         coinsText.text = (Int32.Parse(coinsText.text) - 1).ToString();
+        HeroSelectionManager.Instance.coinsSplit[playerID] = value;
     }
 
     [PunRPC]
-    void IncrementCoins()
+    void IncrementCoins(int playerID, int value )
     {
         coinsText.text = (Int32.Parse(coinsText.text) + 1).ToString(); //increment the text
+        HeroSelectionManager.Instance.coinsSplit[playerID] = value;
     }
 
     public void OnClick_NextWine()
@@ -364,9 +345,9 @@ public class PlayerSelector : MonoBehaviourPun
                 prevWine.gameObject.SetActive(true); // enable previous button
             }
 
-            HeroSelectionManager.Instance.wineSplit[playerID] = value;
+            
 
-            photonView.RPC("IncrementWine", RpcTarget.All);
+            photonView.RPC("IncrementWine", RpcTarget.All, playerID, value);
 
             if (isFullySplit())
             {
@@ -407,16 +388,14 @@ public class PlayerSelector : MonoBehaviourPun
 
             int value = HeroSelectionManager.Instance.wineSplit[playerID];
             value -= 1;
-            HeroSelectionManager.Instance.wineSplit[playerID] = value;
+            
 
             if (value == 0)
             {
                 prevWine.gameObject.SetActive(false); // disable previous button
             }
 
-            photonView.RPC("DecreaseWine", RpcTarget.All);
-
-
+            photonView.RPC("DecreaseWine", RpcTarget.All, playerID, value);
         }
         else
         {
@@ -426,14 +405,16 @@ public class PlayerSelector : MonoBehaviourPun
     }
 
     [PunRPC]
-    void IncrementWine()
+    void IncrementWine(int playerID, int value)
     {
         wineSkinText.text = (Int32.Parse(wineSkinText.text) + 1).ToString(); //increment the text
+        HeroSelectionManager.Instance.wineSplit[playerID] = value;
     }
 
     [PunRPC]
-    void DecreaseWine()
+    void DecreaseWine(int playerID, int value)
     {
         wineSkinText.text = (Int32.Parse(wineSkinText.text) - 1).ToString();
+        HeroSelectionManager.Instance.wineSplit[playerID] = value;
     }
 }

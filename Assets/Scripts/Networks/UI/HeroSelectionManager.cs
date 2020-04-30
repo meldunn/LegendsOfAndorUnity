@@ -150,15 +150,16 @@ public class HeroSelectionManager : MonoBehaviourPunCallbacks
 
     public void OnClick_EasyDifficulty()
     {
-        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Easy, selectedHeroes, coinsSplit, wineSplit);
+        photonView.RPC("InitializeGameManager", RpcTarget.All, DifficultyLevel.Easy);
     }
 
 
+
+    //TODO: send info another way
+    //TODO: use setdifficulty function
+    //todo: quit to main screen
     [PunRPC]
-    void InitializeGameManager(DifficultyLevel level,
-                               Dictionary<int, HeroType> selectedHeroes,
-                               Dictionary<int, int> coinsSplit,
-                               Dictionary<int, int> wineSplit)
+    void InitializeGameManager(DifficultyLevel level)
     {
         GameManager.Instance.Difficulty = level;
 
