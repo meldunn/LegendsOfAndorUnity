@@ -223,12 +223,14 @@ public class WaypointManager : MonoBehaviourPun
             if (IsValidWaypoint(i)) // Skip waypoints that don't exist
             {
                 WaypointName = "Waypoint (" + i + ")";
+                String panelName = "RegionItemsPanel (" + i + ")";
                 Waypoint[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
                 Waypoint[i].SetWaypointNum(i);  // Set the waypoint's number
                 Waypoint[i].InitializeItems();
-                Waypoint[i].SetIcon();
+                RegionItemsUI panel = GameObject.Find(panelName).GetComponent<RegionItemsUI>();
+                
                 Waypoint[i].SetWPAdjList(AdjListHero[i]);
-
+                Waypoint[i].setPanel();
             }
         }
 

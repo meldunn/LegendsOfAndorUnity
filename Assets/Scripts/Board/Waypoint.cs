@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class Waypoint : MonoBehaviourPun
+public class Waypoint : MonoBehaviourPun, Subject
 {
     // Reference to WaypointManager
     private WaypointManager WaypointManager;
@@ -30,7 +30,8 @@ public class Waypoint : MonoBehaviourPun
     // Heroes on this waypoint
     private List<Hero> Heroes = new List<Hero>(4);
 
-    private List<Farmer> farmers = new List<Farmer>();
+    // List of Observers (Observer design pattern)
+    List<Observer> Observers = new List<Observer>();
 
     // REMOVED ITEM LIST -- USING DICTIONARY INSTEAD - jonathan
     private Dictionary<ItemType, int> Items = new Dictionary<ItemType, int>();
@@ -45,7 +46,7 @@ public class Waypoint : MonoBehaviourPun
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
         
     }
 
@@ -161,6 +162,7 @@ public class Waypoint : MonoBehaviourPun
         if (numFarmers > 0) {
             numFarmers--;
             numItems--;
+            Notify("REGION_ITEMS");
             return 1;
         } else {
             return -1;
@@ -172,6 +174,7 @@ public class Waypoint : MonoBehaviourPun
         //farmers.Add(new Farmer());
         numFarmers++;
         numItems++;
+        Notify("REGION_ITEMS");
         // Dropping a farmer at the castle is handled by overriding this method in WaypointCastle.cs
     }
 
@@ -179,7 +182,9 @@ public class Waypoint : MonoBehaviourPun
     public void DestroyFarmers()
     {
         //farmers.Clear();
+        numItems -= numFarmers;
         numFarmers = 0;
+        Notify("REGION_ITEMS");
     }
 
     // Destroys all farmers carried by heroes on this region. Used when a creature enters the region.
@@ -197,6 +202,7 @@ public class Waypoint : MonoBehaviourPun
         {
             gold--;
             numItems--;
+            Notify("REGION_ITEMS");
             if (gold == 0)
             {
                 //goldIcon.SetActive(false);
@@ -213,6 +219,7 @@ public class Waypoint : MonoBehaviourPun
         numItems++;
         //goldIcon.SetActive(true);
         goldText.text = "" + gold;
+        Notify("REGION_ITEMS");
     }
 
     public void removeItem(ItemType ItemType)
@@ -292,26 +299,27 @@ public class Waypoint : MonoBehaviourPun
         return WPadjList;
     }
 
-    // Should be moved to a UI class
-    public void SetIcon()
+    public void Attach(Observer o)
     {
-        //string name = "GoldIcon (" + WaypointNum + ")";
-        //goldIcon = GameObject.Find(name);
-        //goldIcon.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
-        //goldText = goldIcon.transform.Find("Text").GetComponent<Text>();
-        //goldText.text = "" + gold;
-        //goldIcon.SetActive(false);
+        Observers.Add(o);
+    }
 
-        string name = "RegionItemsPanel (" + WaypointNum + ")";
-        itemPanel = GameObject.Find(name);
-        RegionItemsUI = GameObject.Find(name).GetComponent<RegionItemsUI>();
-        itemPanel.transform.SetPositionAndRotation(this.GetLocation(), Quaternion.identity);
-        farmersText = itemPanel.transform.Find("NumFarmersText").GetComponent<Text>();
-        farmersText.text = " Farmers: " + numFarmers;
-        goldText = itemPanel.transform.Find("NumGoldText").GetComponent<Text>();
-        goldText.text = " Gold: " + gold;
-        itemPanel.SetActive(false);
-        RegionItemsUI.Initialize(this);
+    // Used in Observer design pattern
+    public void Detach(Observer o)
+    {
+        Observers.Remove(o);
+    }
+
+    // Used in Observer design pattern
+    public void Notify(string Category)
+    {
+        // Iterate through a copy of the observer list in case observers detach themselves during notify
+        var ObserversCopy = new List<Observer>(Observers);
+
+        foreach (Observer o in ObserversCopy)
+        {
+            o.UpdateData(Category);
+        }
     }
 
     public void showItems()
@@ -319,14 +327,27 @@ public class Waypoint : MonoBehaviourPun
         if (numItems > 0)
         {
             itemPanel.SetActive(true);
-            farmersText.text = " Farmers: " + numFarmers;
-            goldText.text = " Gold: " + gold;
-            RegionItemsUI.showItems(Items);
         }
     }
 
     public void hideItems()
     {
         itemPanel.SetActive(false);
+    }
+
+    public void setPanel()
+    {
+        itemPanel = GameObject.Find("RegionItemsPanel (" + WaypointNum + ")");
+        RegionItemsUI = GameObject.Find("RegionItemsPanel (" + WaypointNum + ")").GetComponent<RegionItemsUI>();
+        RegionItemsUI.SetPanel(WaypointNum);
+    }
+
+    public int getNumFarmers()
+    {
+        return numFarmers;
+    }
+    public int getNumGold()
+    {
+        return gold;
     }
 }

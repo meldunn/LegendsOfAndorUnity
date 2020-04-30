@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class RegionItemsUI : MonoBehaviour
+public class RegionItemsUI : MonoBehaviour, Observer
 {
 
     HeroManager HeroManager;
@@ -20,6 +21,15 @@ public class RegionItemsUI : MonoBehaviour
     [SerializeField] GameObject Wineskin;
     [SerializeField] GameObject YellowRune;
     [SerializeField] GameObject Medicinalherb;
+
+    int numItems;
+    int gold;
+    int numFarmers;
+    Text goldText;
+    Text farmersText;
+
+    public GameObject goldIcon;
+    public GameObject itemPanel;
 
     public void Initialize(Waypoint w)
     {
@@ -158,7 +168,35 @@ public class RegionItemsUI : MonoBehaviour
         }
     }
 
+    // Should be moved to a UI class
+    public void SetPanel(int wpNumber)
+    {
+        string name = "RegionItemsPanel (" + wpNumber + ")";
+        Waypoint = GameObject.Find("Waypoint (" + wpNumber + ")").GetComponent<Waypoint>();
+        itemPanel = GameObject.Find(name);
+        //RegionItemsUI = GameObject.Find(name).GetComponent<RegionItemsUI>();
+        itemPanel.transform.SetPositionAndRotation(Waypoint.GetLocation(), Quaternion.identity);
+        farmersText = itemPanel.transform.Find("NumFarmersText").GetComponent<Text>();
+        farmersText.text = " Farmers: " + numFarmers;
+        goldText = itemPanel.transform.Find("NumGoldText").GetComponent<Text>();
+        goldText.text = " Gold: " + gold;
+        itemPanel.SetActive(false);
+        Waypoint.Attach(this);
+        //RegionItemsUI.Initialize(this);
+    }
 
 
+    public void UpdateData(string Category)
+    {
+        if (string.Equals(Category, "REGION_ITEMS"))
+        {
+            updateRegionItems();
+        }
+    }
 
+    public void updateRegionItems()
+    {
+        farmersText.text = " Farmers: " + Waypoint.getNumFarmers();
+        goldText.text = " Gold: " + Waypoint.getNumGold();
+    }
 }

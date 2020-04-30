@@ -36,7 +36,7 @@ public class Hero : MonoBehaviourPun, Subject
     bool InRoosterBox = false;
     bool EndedDay = false;
     int myGold = 40;
-    int numFarmers;
+    int numFarmers = 10;
     bool moveCompleted;
     bool IsWineskinActivated;
     public HeroInventory heroInventory;
