@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class EventCard : MonoBehaviour
+public class EventCard
 {
     private GameManager GameManager;
     private HeroManager HeroManager;
@@ -14,22 +14,12 @@ public class EventCard : MonoBehaviour
     private string cardQuote;
     private string cardDescription;
 
-    // Start is called before the first frame update
-    void Start()
+    public EventCard(int id, string quote, string description)
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         HeroManager = GameObject.Find("HeroManager").GetComponent<HeroManager>();
         WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public EventCard(int id, string quote, string description)
-    {
         cardId = id;
         cardQuote = quote;
         cardDescription = description;
