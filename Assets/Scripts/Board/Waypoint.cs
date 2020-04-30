@@ -7,7 +7,6 @@ using Photon.Pun;
 public class Waypoint : MonoBehaviourPun, Subject
 {
     // References to managers
-    private GameManager GameManager;
     private WaypointManager WaypointManager;
     private WPButtonMoveUI WPButtonMoveUI;
 
@@ -15,7 +14,7 @@ public class Waypoint : MonoBehaviourPun, Subject
     public GameObject goldIcon;
     public GameObject itemPanel;
     public RegionItemsUI RegionItemsUI;
-
+    
     // Board tile number
     private int WaypointNum = -1;
     private int[] WPadjList;
@@ -112,7 +111,7 @@ public class Waypoint : MonoBehaviourPun, Subject
         //goldIcon = GameObject.Find(IconName);
         //goldIcon.transform.SetPositionAndRotation(transform.position, Quaternion.identity);
 
-        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
     }
 
@@ -238,7 +237,7 @@ public class Waypoint : MonoBehaviourPun, Subject
 
         Notify("REGION_ITEMS");
 
-        if (ItemType == ItemType.MedicinalHerb && WaypointNum == 0) GameManager.PlaceHerbOnCastle();
+        if (ItemType == ItemType.MedicinalHerb && WaypointNum == 0) WaypointManager.PlaceHerbOnCastle();
     }
 
     public bool containsItem(ItemType ItemType)

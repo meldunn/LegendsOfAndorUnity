@@ -8,6 +8,8 @@ using Photon.Pun;
 
 public class WaypointManager : MonoBehaviourPun
 {
+    GameManager GameManager;
+
     private bool itemsShown = false;
 
     // Array of waypoints (including the castle)
@@ -213,6 +215,8 @@ public class WaypointManager : MonoBehaviourPun
 
     public void Initialize()
     {
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         // Initialize references to the waypoints and set their numbers
         Waypoint = new Waypoint[85];
 
@@ -284,6 +288,11 @@ public class WaypointManager : MonoBehaviourPun
     public WaypointCastle GetCastle()
     {
         return Castle;
+    }
+
+    public void PlaceHerbOnCastle()
+    {
+        GameManager.PlaceHerbOnCastle();
     }
 
     // Returns a reference to the waypoint after the specified one when following the monster advancement arrows
