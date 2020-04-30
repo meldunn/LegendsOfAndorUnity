@@ -209,11 +209,13 @@ public class Waypoint : MonoBehaviourPun
     public void removeItem(ItemType ItemType)
     {
         if(Items[ItemType] > 0) Items[ItemType] -= 1;
+        numItems -= 1;
     }
 
     public void addItem(ItemType ItemType)
     {
         Items[ItemType] += 1;
+        numItems += 1;
     }
 
     public bool containsItem(ItemType ItemType)

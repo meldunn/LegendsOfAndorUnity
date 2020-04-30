@@ -88,7 +88,9 @@ public class Hero : MonoBehaviourPun, Subject
         maxWillpower = 20;
         myGold = 20;
         heroInventory = new HeroInventory();
-
+       
+        //needs to be removed, for testing only:
+        heroInventory.addItem(ItemType.Wineskin);
         numFarmers = 1;
 
         // Initialize rank
