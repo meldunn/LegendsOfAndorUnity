@@ -614,6 +614,17 @@ public class Hero : MonoBehaviourPun, Subject
         return strength;
     }
 
+    // Increases the hero's strength by the indicated positive amount, to a maximum of 14.
+    public void IncreaseStrength(int Amount)
+    {
+        if (Amount > 0)
+        {
+            strength = Math.Min(strength + Amount, 14);
+
+            Notify("HERO_STRENGTH");
+        }
+    }
+
     // Decreases the hero's strength by the indicated positive amount, to a minimum of 1.
     public void DecreaseStrength(int Amount)
     {
