@@ -334,10 +334,7 @@ public class Creature : MonoBehaviour
         // If the defeated creature is a medicinal herb-carrying gor, instantiate an herb on the creature's region
         if (Type == CreatureType.HerbGor)
         {
-            // TODO
-            // Item MedicinalHerb = new Item();
-            // MedicinalHerb.type = Type.MedicinalHerb;
-            // Region.addItem(MedicinalHerb);
+            Region.addItem(ItemType.MedicinalHerb);
         }
 
         // Unlink the creature from its region
