@@ -74,17 +74,102 @@ public class HeroCardUI : MonoBehaviour, Observer
         }   
     }
 
-    public void dropShield() { myHero.dropItem(ItemType.Shield); }
-    public void dropMedHerb() { myHero.dropItem(ItemType.MedicinalHerb); }
-    public void dropBow() { myHero.dropItem(ItemType.Bow); }
-    public void dropWineskin() { myHero.dropItem(ItemType.Wineskin); }
-    public void dropTelescope() { myHero.dropItem(ItemType.Telescope); }
-    public void dropWitchbrew() { myHero.dropItem(ItemType.Witchbrew); }
-    public void dropHelm() { myHero.dropItem(ItemType.Helm); }
-    public void dropFalcon() { myHero.dropItem(ItemType.Falcon); }
-    public void dropYRS() { myHero.dropItem(ItemType.YellowRuneStone); }
-    public void dropBRS() { myHero.dropItem(ItemType.BlueRuneStone); }
-    public void dropGRS() { myHero.dropItem(ItemType.GreenRuneStone); }
+    public void dropShield() {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Shield);
+            Shield.SetActive(false);
+        }
+    }
+
+    public void dropMedHerb()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.MedicinalHerb);
+            Medicinalherb.SetActive(false);
+        }
+    }
+
+    public void dropBow()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Bow);
+            Bow.SetActive(false);
+        }
+    }
+
+    public void dropWineskin()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Wineskin);
+            Wineskin.SetActive(false);
+        }
+    }
+
+    public void dropTelescope()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Telescope);
+            Telescope.SetActive(false);
+        }
+    }
+
+    public void dropWitchbrew()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Witchbrew);
+            Brew.SetActive(false);
+        }
+    }
+
+    public void dropHelm()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Helm);
+            Helm.SetActive(false);
+        }
+    }
+
+    public void dropFalcon()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.Falcon);
+            Falcon.SetActive(false);
+        }
+    }
+    public void dropYRS()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.YellowRuneStone);
+            YellowRune.SetActive(false);
+        }
+    }
+
+    public void dropBRS()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.BlueRuneStone);
+            BlueRune.SetActive(false);
+        }
+    }
+
+    public void dropGRS()
+    {
+        if (GameManager.GetSelfHero() == myHero)
+        {
+            myHero.dropItem(ItemType.GreenRuneStone);
+            GreenRune.SetActive(false);
+        }
+    }
 
 
     public void UpdateData(string Category)
