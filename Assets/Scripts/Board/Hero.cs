@@ -35,8 +35,8 @@ public class Hero : MonoBehaviourPun, Subject
     int timeOfDay;
     bool InRoosterBox = false;
     bool EndedDay = false;
-    int myGold = 40;
-    int numFarmers = 10;
+    int myGold;
+    int numFarmers;
     bool moveCompleted;
     bool IsWineskinActivated;
     public HeroInventory heroInventory;
@@ -305,9 +305,8 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void DecreaseGold(int Amount)
     {
-        Debug.Log("Gold Decreased by "+Amount+" and is now at "+myGold);
         if(myGold > Amount) myGold -= Amount;
-        else myGold = myGold;
+        else myGold = -1;
 
         Notify("HERO_STATS");
     }
@@ -396,7 +395,6 @@ public class Hero : MonoBehaviourPun, Subject
         {
             heroInventory.removeItem(ItemType);
             myRegion.addItem(ItemType);
-
             Notify("HERO_ITEMS");
         }
         else
@@ -407,7 +405,6 @@ public class Hero : MonoBehaviourPun, Subject
 
     public bool CanCarry(ItemType Item)
     {
-        if(Item == ItemType.StrengthPoints) return true;
         return heroInventory.isValid();
     }
 
@@ -433,8 +430,7 @@ public class Hero : MonoBehaviourPun, Subject
         if (ItemType == ItemType.StrengthPoints)
         {
             if (strength < maxStrength) strength++;
-            // Debug.Log("Updating Strength Points");
-            Notify("HERO_STRENGTH");
+            Debug.Log("Updating Strength Points");
         }
         else heroInventory.addItem(ItemType);
 

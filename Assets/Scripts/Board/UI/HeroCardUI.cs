@@ -95,6 +95,7 @@ public class HeroCardUI : MonoBehaviourPun, Observer
         {
             myHero.dropItem(ItemType.Wineskin);
             Wineskin.SetActive(false);
+            Debug.LogError("NOTIFY");
         }
     }
 
@@ -171,6 +172,7 @@ public class HeroCardUI : MonoBehaviourPun, Observer
 
     public void UpdateHeroInventory()
     {
+        Wineskin.SetActive(myHero.heroInventory.containsItem(ItemType.Wineskin));
         Medicinalherb.SetActive(myHero.heroInventory.containsItem(ItemType.MedicinalHerb));
         Bow.SetActive(myHero.heroInventory.containsItem(ItemType.Bow));
         Telescope.SetActive(myHero.heroInventory.containsItem(ItemType.Telescope));
