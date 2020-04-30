@@ -245,27 +245,26 @@ public class MerchantUIManager : MonoBehaviourPun
     private void ConfirmPurchase()
     {
         MyHero.DecreaseGold(CostOfPurchase);
+        for(int i=0; i<Purchased.Length; i++)
+        {
+            for(int j=0; j<i; j++)
+            {
+                MyHero.BuyFromMerchant(Items[i]);
+            }
+        }
         if(PhotonNetwork.IsConnected)
-            photonView.RPC("ConfirmPurchaseRPC", RpcTarget.All, MyHero.GetHeroType(), Purchased, CostOfPurchase);
-        else ConfirmPurchaseRPC(MyHero.GetHeroType(), Purchased, CostOfPurchase);
+            photonView.RPC("ConfirmPurchaseRPC", RpcTarget.All, MyHero.GetHeroType(), Purchased);
+        else ConfirmPurchaseRPC(MyHero.GetHeroType(), Purchased);
     }
 
     [PunRPC]
-    public void ConfirmPurchaseRPC(HeroType TargetHeroType, int[] BoughtItems, int Cost)
+    public void ConfirmPurchaseRPC(HeroType TargetHeroType, int[] BoughtItems)
     {
         for(int i=0; i<BoughtItems.Length; i++)
         {
             // Subtract from total available
             MaxAmount[i] -= BoughtItems[i];
-
-            HeroManager.GetHero(TargetHeroType).DecreaseGold(Cost);
-            for(int j=0; j<i; j++)
-            {
-                HeroManager.GetHero(TargetHeroType).BuyFromMerchant(Items[i]);
-
-            }
         }
-
     }
 
 }

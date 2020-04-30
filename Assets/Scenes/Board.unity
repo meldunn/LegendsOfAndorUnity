@@ -39601,6 +39601,7 @@ GameObject:
   - component: {fileID: 716743931}
   - component: {fileID: 716743933}
   - component: {fileID: 716743932}
+  - component: {fileID: 716743934}
   m_Layer: 0
   m_Name: FogManager
   m_TagString: Untagged
@@ -39646,6 +39647,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bbb9eaf9371c04fa925449c161f866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &716743934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716743930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 98
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &724580925
 GameObject:
   m_ObjectHideFlags: 0

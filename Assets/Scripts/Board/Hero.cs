@@ -34,7 +34,7 @@ public class Hero : MonoBehaviourPun, Subject
     int timeOfDay;
     bool InRoosterBox = false;
     bool EndedDay = false;
-    int myGold;
+    int myGold = 40;
     int numFarmers;
     bool moveCompleted;
     public HeroInventory heroInventory;
@@ -92,7 +92,7 @@ public class Hero : MonoBehaviourPun, Subject
         }
         willpower = 7;
         maxWillpower = 20;
-        myGold = 20;
+        myGold = 40;
         heroInventory = new HeroInventory();
 
         //needs to be removed, for testing only:
@@ -280,8 +280,9 @@ public class Hero : MonoBehaviourPun, Subject
 
     public void DecreaseGold(int Amount)
     {
+        Debug.Log("Gold Decreased by "+Amount+" and is now at "+myGold);
         if(myGold > Amount) myGold -= Amount;
-        else myGold = -1;
+        else myGold = myGold;
 
         Notify("HERO_STATS");
     }
@@ -381,6 +382,7 @@ public class Hero : MonoBehaviourPun, Subject
 
     public bool CanCarry(ItemType Item)
     {
+        if(Item == ItemType.StrengthPoints) return true;
         return heroInventory.isValid();
     }
 
@@ -406,7 +408,8 @@ public class Hero : MonoBehaviourPun, Subject
         if (ItemType == ItemType.StrengthPoints)
         {
             if (strength < maxStrength) strength++;
-            Debug.Log("Updating Strength Points");
+            // Debug.Log("Updating Strength Points");
+            Notify("HERO_STRENGTH");
         }
         else heroInventory.addItem(ItemType);
 
