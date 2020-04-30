@@ -8,6 +8,9 @@ public enum FogType { EventCard, Strength, Willpower2, Willpower3, Gold, Wineski
 
 public class FogManager : MonoBehaviour
 {
+    private CreatureManager CreatureManager;
+    private ChatManager ChatManager;
+    private static GameManager GM;
 
     static Waypoint[] possibleWaypoints; //ArrayList of possible fog waypoints
     static Waypoint[] finalWaypoints; //Arraylist of fogwaypoints where fogs are located
@@ -18,11 +21,16 @@ public class FogManager : MonoBehaviour
     //public static List<Waypoint> FogBackList = new List<Waypoint>(7);
     public static List<FogFront> FogFrontList = new List<FogFront>(7);
 
-    static int[] TileWPNum = {13, 8, 11, 47, 46, 32, 12, 16, 64, 48, 44, 42, 56, 49, 63}; //in order of fogwp number 
+    static int[] TileWPNum = { 13, 8, 11, 47, 46, 32, 12, 16, 64, 48, 44, 42, 56, 49, 63 }; //in order of fogwp number 
 
 
     public void Initialize()
     {
+
+        CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
+        ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
+        GM  = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         //possibleWaypoints = new Waypoint[15];
         finalWaypoints = new Waypoint[15];
         foglist = new Fog[15];
@@ -38,7 +46,7 @@ public class FogManager : MonoBehaviour
         System.Random rand = new System.Random();
         int randomInt;
         List<int> SelectedWP = new List<int>(15);
-        while(numWaypointsSelected < 15)
+        while (numWaypointsSelected < 15)
         {
             //pick number between 0 and 14 incl
             randomInt = rand.Next(15);
@@ -52,13 +60,13 @@ public class FogManager : MonoBehaviour
                 SelectedWP.Add(randomInt);
                 numWaypointsSelected++;
             }
-            
+
 
         }
         printlist(SelectedWP);  //for testing
 
         //place selected fogwaypoints into finalwaypoints
-        for (int i = 0; i<15; i++)
+        for (int i = 0; i < 15; i++)
         {
             WaypointName = "FogWaypoint" + SelectedWP[i];
             finalWaypoints[i] = GameObject.Find(WaypointName).GetComponent<Waypoint>();
@@ -98,7 +106,7 @@ public class FogManager : MonoBehaviour
         FogFrontList.Add(GameObject.Find("FogFaceWineskin").GetComponent<FogFront>());
 
         //set and place fogs
-        for (int i =0; i < 15; i++)
+        for (int i = 0; i < 15; i++)
         {
             if (i == 0)
             {
@@ -125,7 +133,7 @@ public class FogManager : MonoBehaviour
                 Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.Gold);
                 foglist[i] = newFog;
             }
-            if (i <=12 && i >= 8)
+            if (i <= 12 && i >= 8)
             {
                 Fog newFog = new Fog(TileWPNum[SelectedWP[i]], FogBackList[i], FogFrontList[i], FogType.EventCard);
                 foglist[i] = newFog;
@@ -148,12 +156,21 @@ public class FogManager : MonoBehaviour
 
 
             WaypointName = "Waypoint (" + TileWPNum[SelectedWP[i]] + ")";
-        
+
             Waypoint waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
             foglist[i].GetFogBackCard().transform.position = waypoint.transform.position;
             foglist[i].GetFogFrontCard().transform.position = waypoint.transform.position;
+
+
+            //FOR TESTING, REMOVE THIS
+
+            foglist[i].GetFogBackCard().gameObject.SetActive(false);
+
+
+            // TO UNCOMMENT
+
             //hide fog front
-            foglist[i].GetFogFrontCard().gameObject.SetActive(false);
+            //foglist[i].GetFogFrontCard().gameObject.SetActive(false);
         }
 
 
@@ -181,6 +198,17 @@ public class FogManager : MonoBehaviour
                 //}
                 //foglist[i].GetFogFrontCard().gameObject.SetActive(false);
 
+                if (foglist[i].GetFogType() == FogType.Gor)
+                {
+                    Debug.Log("Fog is Gor type");
+                    TriggerFogGor(wpnumber);
+                    foglist[i].GetFogFrontCard().gameObject.SetActive(false); //hide front card
+
+                }
+
+
+               
+                return;
             }
 
         }
@@ -200,10 +228,18 @@ public class FogManager : MonoBehaviour
     //    }
     //}
 
-        //for testing
-        public void printlist(List<int> list)
+    public void TriggerFogGor(int wpnumber)
     {
-        for (int i = 0; i< list.Count; i++)
+        CreatureManager.Spawn(CreatureType.Gor, wpnumber);
+        ChatManager.SendSystemMessage("A fog token has been activated by the" + GM.GetCurrentTurnHero().GetHeroType() + "! A Gor Creature has spawned");
+    }
+
+
+
+    //for testing
+    public void printlist(List<int> list)
+    {
+        for (int i = 0; i < list.Count; i++)
         {
             Debug.Log("FogWP list " + list[i]);
         }
