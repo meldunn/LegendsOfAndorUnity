@@ -231,6 +231,11 @@ public class GameManager : MonoBehaviourPun, Subject
         }
     }
 
+    public void MoveThorald()
+    {
+
+    }
+
     public void NotifyHeroMove()
     {
         Notify("HERO_MOVE");
