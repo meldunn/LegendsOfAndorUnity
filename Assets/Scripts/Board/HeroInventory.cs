@@ -28,8 +28,11 @@ public class HeroInventory
 
     public void addItem(ItemType item)
     {
-        Inventory[item] += 1;
-        Debug.Log("Added Item"+ item);
+        if (isValid())
+        {
+            Inventory[item] += 1;
+            Debug.Log("Added Item" + item);
+        }
     }
 
     public void removeItem(ItemType item)
@@ -55,6 +58,25 @@ public class HeroInventory
     {
         return Inventory;
     }
+    
+    public bool isValid()
+    {
+        if ((
+            Inventory[ItemType.Helm] +
+            Inventory[ItemType.Wineskin] +
+            Inventory[ItemType.Telescope] +
+            Inventory[ItemType.MedicinalHerb] +
+            Inventory[ItemType.Witchbrew] +
+            Inventory[ItemType.BlueRuneStone] +
+            Inventory[ItemType.YellowRuneStone] +
+            Inventory[ItemType.GreenRuneStone]) > 3)
+        {
+            return false;
+        }
+        else return true;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
