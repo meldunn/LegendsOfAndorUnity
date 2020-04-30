@@ -454,6 +454,9 @@ public class GameManager : MonoBehaviourPun, Subject
     {
         Debug.Log("It's a new dawn, it's a new day.");
 
+        // Block button use
+        UIManager.ActivateEndDayBlocker(true);
+
         // Change the hero turn
         CurrentTurnHero = HeroManager.GetRoosterHero().GetHeroType();
         Notify("TURN");
@@ -473,6 +476,9 @@ public class GameManager : MonoBehaviourPun, Subject
 
         // Advance the narrator
         NarratorManager.advanceNarratorRPC(51);
+
+        // Unblock button use
+        UIManager.ActivateEndDayBlocker(false);
     }
 
     // Changes control of the current game session to a different player.

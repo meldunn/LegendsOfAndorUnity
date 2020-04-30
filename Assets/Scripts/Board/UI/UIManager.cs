@@ -46,6 +46,8 @@ public class UIManager : MonoBehaviour
     GameObject ChatUIObject = null;
     [SerializeField]
     GameObject DivideBattleResourcesObject = null;
+    [SerializeField]
+    GameObject EndDayBlocker = null;
 
     [SerializeField]
     GameObject WarriorCardObject = null;
@@ -241,5 +243,16 @@ public class UIManager : MonoBehaviour
     public DivideBattleResources GetDivideBattleResourcesPanel()
     {
         return DivideBattleResources;
+    }
+
+    public void ActivateEndDayBlocker(bool Active)
+    {
+        EndDayBlocker.SetActive(Active);
+    }
+
+    public void ToggleEndDayBlocker()
+    {
+        if (EndDayBlocker.gameObject.activeSelf == false) ActivateEndDayBlocker(true);
+        else ActivateEndDayBlocker(false);
     }
 }

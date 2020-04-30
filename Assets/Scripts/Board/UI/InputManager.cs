@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     private GameObject WellsOverlay;
     private GameObject RuneStoneMenu;
     private GameObject MerchantsOverlay;
+    private UIManager UIManager;
 
 
     // Start is called before the first frame update
@@ -30,6 +31,7 @@ public class InputManager : MonoBehaviour
         WellsOverlay = GameObject.Find("WellsOverlay");
         RuneStoneMenu = GameObject.Find("RuneStoneMenu");
         MerchantsOverlay = GameObject.Find("MerchantsOverlay");
+        UIManager = GameObject.Find("UIManager").GetComponent<UIManager>();
     }
 
     private void toggleGameObjectVisibility(GameObject GameObject)
@@ -48,6 +50,9 @@ public class InputManager : MonoBehaviour
     private void HandleInput()
     {
         // Handles keyboard input
-
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            UIManager.ToggleEndDayBlocker();
+        }
     }
 }
