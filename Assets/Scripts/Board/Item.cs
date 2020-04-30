@@ -16,7 +16,8 @@ public enum ItemType
     StrengthPoints,
     BlueRuneStone,
     YellowRuneStone,
-    GreenRuneStone
+    GreenRuneStone,
+    Gold
 }
 public class Item: MonoBehaviour
 {

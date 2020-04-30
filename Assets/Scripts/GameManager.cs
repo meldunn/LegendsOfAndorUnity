@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviourPun, Subject
     private CreatureManager CreatureManager;
     private NarratorManager NarratorManager;
     private ChatManager ChatManager;
+    private EventCardManager EventCardManager;
 
     // List of Observers (Observer design pattern)
     List<Observer> Observers = new List<Observer>();
@@ -77,6 +78,7 @@ public class GameManager : MonoBehaviourPun, Subject
         CreatureManager = GameObject.Find("CreatureManager").GetComponent<CreatureManager>();
         NarratorManager = GameObject.Find("NarratorManager").GetComponent<NarratorManager>();
         ChatManager = GameObject.Find("ChatManager").GetComponent<ChatManager>();
+        EventCardManager = GameObject.Find("EventCardManager").GetComponent<EventCardManager>();
 
         // Initialize the non-UI managers
         WaypointManager.Initialize();
@@ -150,7 +152,6 @@ public class GameManager : MonoBehaviourPun, Subject
         //    Merchant.Initialize();
         //}
 
-
         ChatManager.SendSystemMessage("Welcome to Legends of Andor!");
 
         // Initialize the UI manager
@@ -174,11 +175,21 @@ public class GameManager : MonoBehaviourPun, Subject
         switch (Difficulty)
         {
             case DifficultyLevel.Easy:
-                // TODO Use InitialEasyFarmerLocation to generate farmers
+                // Use InitialEasyFarmerLocation to generate farmers
+                foreach (int RegionNum in InitialEasyFarmerLocation)
+                {
+                    WaypointManager.GetWaypoint(RegionNum).dropOneFarmer();
+                }
                 break;
+
             case DifficultyLevel.Normal:
-                // TODO Use InitialNormalFarmerLocation to generate farmers
+                // Use InitialNormalFarmerLocation to generate farmers
+                foreach (int RegionNum in InitialNormalFarmerLocation)
+                {
+                    WaypointManager.GetWaypoint(RegionNum).dropOneFarmer();
+                }
                 break;
+
             default:
                 Debug.LogError("Cannot spawn farmers; invalid difficulty level");
                 break;
@@ -381,7 +392,7 @@ public class GameManager : MonoBehaviourPun, Subject
         Notify("TURN");
 
         // Read an event card
-        Debug.Log("TODO: Read an event card");
+        EventCardManager.triggerRandom();
 
         // When this is done, advance the creatures (IMPORTANT: must be the last step in this function)
         CreatureManager.StartAdvancing(EndDaySecondHalf);       // Provide the second half as a callback when advancing is done

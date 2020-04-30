@@ -26,7 +26,8 @@ public class UIManager : MonoBehaviour
     TimeTrackUI TimeTrackUI;
     ChatUI ChatUI;
     DivideBattleResources DivideBattleResources;
-    
+    WaypointManager WaypointManager;
+    GameManager GameManager;
 
     // Directly linked UI elements
     [SerializeField]
@@ -87,6 +88,8 @@ public class UIManager : MonoBehaviour
         MerchantUIManager = GameObject.Find("MerchantUIManager").GetComponent<MerchantUIManager>();
         BattleMenu = BattleMenuObject.GetComponent<BattleMenu>();
         WPButtonMoveUI = GameObject.Find("WPButtonMoveUI").GetComponent<WPButtonMoveUI>();
+        WaypointManager = GameObject.Find("WaypointManager").GetComponent<WaypointManager>();
+        GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // DivideBattleResources = GameObject.Find("DivideBattleResourcesPanel").GetComponent<DivideBattleResources>();
         FogManager = GameObject.Find("FogManager").GetComponent<FogManager>();
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
@@ -136,7 +139,8 @@ public class UIManager : MonoBehaviour
     public void onHeroMove(Hero Hero)
     {
         // Makes all the nevessary UI changes AFTER a Hero has moved to the new Waypoint
-        Waypoint HeroRegion = Hero.GetWaypoint();
+        Waypoint HeroRegion = GameManager.GetSelfHero().GetCurrentRegion();
+
 
         Debug.Log("HeroRegion: "+HeroRegion.containsFullWell());
 
@@ -146,6 +150,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("Request to show well");
             WellUIManager.DisplayWellButton(HeroRegion.GetWaypointNum());
         }
+
         MerchantUIManager.UpdateMerchantButton(HeroRegion.GetWaypointNum());
     }
 

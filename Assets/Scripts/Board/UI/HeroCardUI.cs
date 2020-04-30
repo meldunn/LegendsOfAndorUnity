@@ -63,11 +63,29 @@ public class HeroCardUI : MonoBehaviour, Observer
             if (!myHero.heroInventory.containsItem(ItemType.Helm)) Helm.SetActive(false);
             if (!myHero.heroInventory.containsItem(ItemType.Falcon)) Falcon.SetActive(false);
             if (!myHero.heroInventory.containsItem(ItemType.Shield)) Shield.SetActive(false);
+            if (!myHero.heroInventory.containsItem(ItemType.YellowRuneStone)) YellowRune.SetActive(false);
+            if (!myHero.heroInventory.containsItem(ItemType.BlueRuneStone)) BlueRune.SetActive(false);
+            if (!myHero.heroInventory.containsItem(ItemType.GreenRuneStone)) GreenRune.SetActive(false);
+
+
 
 
             StatsPanel.SetActive(true);
         }   
     }
+
+    public void dropShield() { myHero.dropItem(ItemType.Shield); }
+    public void dropMedHerb() { myHero.dropItem(ItemType.MedicinalHerb); }
+    public void dropBow() { myHero.dropItem(ItemType.Bow); }
+    public void dropWineskin() { myHero.dropItem(ItemType.Wineskin); }
+    public void dropTelescope() { myHero.dropItem(ItemType.Telescope); }
+    public void dropWitchbrew() { myHero.dropItem(ItemType.Witchbrew); }
+    public void dropHelm() { myHero.dropItem(ItemType.Helm); }
+    public void dropFalcon() { myHero.dropItem(ItemType.Falcon); }
+    public void dropYRS() { myHero.dropItem(ItemType.YellowRuneStone); }
+    public void dropBRS() { myHero.dropItem(ItemType.BlueRuneStone); }
+    public void dropGRS() { myHero.dropItem(ItemType.GreenRuneStone); }
+
 
     public void UpdateData(string Category)
     {
