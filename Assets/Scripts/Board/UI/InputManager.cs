@@ -49,22 +49,5 @@ public class InputManager : MonoBehaviour
     {
         // Handles keyboard input
 
-        // Toggle Wells Overlay
-        if(Input.GetKeyDown("w"))
-        {
-            toggleGameObjectVisibility(WellsOverlay);
-        }
-
-        // Toggle Wells Overlay
-        if(Input.GetKeyDown("r"))
-        {
-            toggleGameObjectVisibility(RuneStoneMenu);
-        }
-
-        // Toggle Merchants Overlay
-        if(Input.GetKeyDown("m"))
-        {
-            toggleGameObjectVisibility(MerchantsOverlay);
-        }
     }
 }

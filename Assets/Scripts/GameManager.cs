@@ -270,9 +270,8 @@ public class GameManager : MonoBehaviourPun, Subject
     public void LoseSavedGame()
     {
         // AdvanceCreaturesForAll()
-        // AdvanceCreaturesForAll()
-        // if(PhotonNetwork.IsConnected) photonView.RPC("LoseSavedGameRPC", RpcTarget.All);
-        // else LoseSavedGameRPC();
+        if(PhotonNetwork.IsConnected) photonView.RPC("LoseSavedGameRPC", RpcTarget.All);
+        else LoseSavedGameRPC();
     }
 
     public void FightingSavedGame()
@@ -298,7 +297,7 @@ public class GameManager : MonoBehaviourPun, Subject
     {
         // TODO: Invoke the move function instead of teleport
         // TODO: Add other values (items?) to simulate a real game
-
+        CreatureManager.SpamCastle();
     }
     
     [PunRPC]

@@ -157,6 +157,7 @@ public class UIManager : MonoBehaviour
     {
         if (CheatMenu.gameObject.activeSelf == true) CheatMenu.SetActive(false);
         else if (CheatMenu.gameObject.activeSelf == false) CheatMenu.SetActive(true);
+        
     }
     public void ToggleHelpMenu()
     {

@@ -264,4 +264,11 @@ public class CreatureManager : MonoBehaviour
             }
         }
     }
+
+    // Called by Dummy Save Game in Game Manager
+    public void SpamCastle()
+    {
+        Action Spam1 = () => StartAdvancing(null);
+        StartAdvancing(Spam1);
+    }
 }
