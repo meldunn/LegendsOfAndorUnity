@@ -61,7 +61,7 @@ public class LegendCardManager : MonoBehaviourPun
 
     public void activateLegendCard_A()
     {
-        Debug.Log("LEGEND CARD C");
+        Debug.Log("LEGEND CARD A");
         //A1
         //Skral stronghold - 50 + dice roll is the region num
         //Farmer placed on 28

@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     TimeTrackUI TimeTrackUI;
     ChatUI ChatUI;
     DivideBattleResources DivideBattleResources;
+    
 
     // Directly linked UI elements
     [SerializeField]
@@ -51,6 +52,8 @@ public class UIManager : MonoBehaviour
     GameObject ArcherCardObject = null;
     [SerializeField]
     GameObject WizardCardObject = null;
+    [SerializeField]
+    GameObject helpMenu;
 
 
     // Start is called before the first frame update
@@ -85,6 +88,8 @@ public class UIManager : MonoBehaviour
         CastleMenu = CastleMenuObject.GetComponent<CastleMenu>();
         TimeTrackUI = TimeTrackUIObject.GetComponent<TimeTrackUI>();
         ChatUI = ChatUIObject.GetComponent<ChatUI>();
+        //helpMenu = GameObject.Find("HelpOverlay");
+        helpMenu.SetActive(false);
 
         // Initializing the HeroCards
         WarriorHeroCard = WarriorCardObject.GetComponent<HeroCardUI>();
@@ -144,6 +149,11 @@ public class UIManager : MonoBehaviour
     {
         if (CheatMenu.gameObject.activeSelf == true) CheatMenu.SetActive(false);
         else if (CheatMenu.gameObject.activeSelf == false) CheatMenu.SetActive(true);
+    }
+    public void ToggleHelpMenu()
+    {
+        if (helpMenu.gameObject.activeSelf == true) helpMenu.SetActive(false);
+        else if (helpMenu.gameObject.activeSelf == false) helpMenu.SetActive(true);
     }
 
     public StartBattleMenu GetStartBattleMenu()
