@@ -11,6 +11,8 @@ public class MerchantUIManager : MonoBehaviourPun
     private HeroManager HeroManager;
     private GameObject GoldError;
 
+    private Hero MyHero;
+
     // Total amount in a client's "cart". Updated each time merchant menu is opened
     private int[] Purchased = {0, 0, 0, 0, 0, 0, 0};
     // Amount of available tokens for each item in the entire game.
@@ -29,6 +31,16 @@ public class MerchantUIManager : MonoBehaviourPun
 
     // Wineskin, Shield, Falcon, Bow, Helm, Telescope, WitchBrew (only from witch), strenght points
     private string[] ArticleNames = {"Helm", "Wineskin", "Bow", "StrengthPoints", "Falcon", "Telescope", "Shield"};
+    private ItemType[] Items = 
+    {
+        ItemType.Helm,
+        ItemType.Wineskin,
+        ItemType.Bow,
+        ItemType.StrengthPoints,
+        ItemType.Falcon,
+        ItemType.Telescope,
+        ItemType.Shield,
+    };
 
     public void Initialize()
     {
@@ -69,23 +81,6 @@ public class MerchantUIManager : MonoBehaviourPun
         PV = GetComponent<PhotonView>();
     }
 
-    // Called once in Initialize() to place the merchants
-    private void PlaceMerchants()
-    {
-        string IconName = "";
-        string WaypointName = "";
-
-        for(int i=0; i<Location.Length; i++)
-        {
-            WaypointName = "Waypoint ("+Location[i] + ")";
-            
-            Waypoint Waypoint = GameObject.Find(WaypointName).GetComponent<Waypoint>();
-
-            Merchant[i].transform.Translate(Waypoint.GetLocation() 
-                    - Merchant[i].transform.position);
-        }
-
-    }
 
     private void Visibility(GameObject GameObject, bool Show)
     {
@@ -123,6 +118,8 @@ public class MerchantUIManager : MonoBehaviourPun
     public void ShowMerchantMenu(int MerchantNum)
     {
 
+        MyHero = GameManager.GetSelfHero();
+
         Vector3 Location = new Vector3(0, 0, 0);
         MerchantMenu.transform.Translate(Location - MerchantMenu.transform.position);
 
@@ -141,7 +138,7 @@ public class MerchantUIManager : MonoBehaviourPun
         }
         
         // Get the gold of the player who opens the merchant menu
-        int PlayerGold = GameManager.GetSelfHero().getGold();
+        int PlayerGold = MyHero.getGold();
 
         // Debug.Log("Player has "+PlayerGold);
         MyGoldText.text = "Your Gold: "+PlayerGold+"g";
@@ -159,12 +156,11 @@ public class MerchantUIManager : MonoBehaviourPun
         int CurrentAmount = int.Parse(AmountText.text);
         int CurrentCost = int.Parse(CostText.text);
 
-        if(CurrentAmount < MaxAmount[Index] )
+        if(CurrentAmount < MaxAmount[Index] && MyHero.CanCarry(Items[Index]))
         {
             CurrentAmount++;
             Purchased[Index] += 1;
 
-            // TODO: Change Special Case for dwarf;
             if(DwarfBeastMode && Index == 3) CurrentCost += 1;
             else CurrentCost += 2;
         }
@@ -219,7 +215,7 @@ public class MerchantUIManager : MonoBehaviourPun
 
     public void RequestPurchase()
     {
-        int PlayerGold = GameManager.GetSelfHero().getGold();
+        int PlayerGold = MyHero.getGold();
 
         bool Error = false;
         // Called when Player has enough gold, and purchases the items
@@ -248,67 +244,28 @@ public class MerchantUIManager : MonoBehaviourPun
 
     private void ConfirmPurchase()
     {
-        // TODO: Instantiate Items (somehow)...
-        for(int i=0; i<Purchased.Length; i++)
-        {
-            // For each item, purchased, create an item and send it
-            // {"Helm", "Wineskin", "Bow", "WitchBrew", "Falcon", "Telescope", "Shield"};
-            if(PhotonNetwork.IsConnected)
-            {
-                if(Purchased[i] > 0) PV.RPC("UpdateMaxAmountRPC", RpcTarget.All, i, Purchased[i]);
-            }
-            else
-            {
-                if(Purchased[i] > 0) UpdateMaxAmountRPC(i, Purchased[i]);
-            }
-
-            for(int j=0; j<Purchased[i]; j++)
-            {
-                switch(i)
-                {
-                    case 0:     // Helm
-                       HeroManager.BuyFromMerchant(ItemType.Helm);
-                       // Debug.Log("Bought Helm");
-                       break;
-                    case 1:
-                       HeroManager.BuyFromMerchant(ItemType.Wineskin);
-                       // Debug.Log("Bought Wineskin");
-                       break;
-                    case 2:
-                       HeroManager.BuyFromMerchant(ItemType.Bow);
-                       // Debug.Log("Bought Bow");
-                       break;
-                    case 3:
-                       HeroManager.BuyFromMerchant(ItemType.StrengthPoints);
-                       // Debug.Log("Bought WitchBrew");
-                       break;
-                    case 4:
-                       HeroManager.BuyFromMerchant(ItemType.Falcon);
-                       // Debug.Log("Bought Falcon");
-                       break;
-                    case 5:
-                       HeroManager.BuyFromMerchant(ItemType.Telescope);
-                       // Debug.Log("Bought Telescope");
-                       break;
-
-                    case 6:
-                       HeroManager.BuyFromMerchant(ItemType.Shield);
-                       // Debug.Log("Bought Shield");
-                       break;
-
-                    default:
-                       Debug.Log("Error in MerchantUIManager Buy from Merchant.");
-                       break;
-                }
-            }
-        }
+        MyHero.DecreaseGold(CostOfPurchase);
+        if(PhotonNetwork.IsConnected)
+            photonView.RPC("ConfirmPurchaseRPC", RpcTarget.All, MyHero.GetHeroType(), Purchased, CostOfPurchase);
+        else ConfirmPurchaseRPC(MyHero.GetHeroType(), Purchased, CostOfPurchase);
     }
 
     [PunRPC]
-    public void UpdateMaxAmountRPC(int ind, int amount)
+    public void ConfirmPurchaseRPC(HeroType TargetHeroType, int[] BoughtItems, int Cost)
     {
-        MaxAmount[ind] -= amount;
-        Debug.Log(ArticleNames[ind]+" now has "+MaxAmount[ind]+" left");
+        for(int i=0; i<BoughtItems.Length; i++)
+        {
+            // Subtract from total available
+            MaxAmount[i] -= BoughtItems[i];
+
+            HeroManager.GetHero(TargetHeroType).DecreaseGold(Cost);
+            for(int j=0; j<i; j++)
+            {
+                HeroManager.GetHero(TargetHeroType).BuyFromMerchant(Items[i]);
+
+            }
+        }
+
     }
 
 }
