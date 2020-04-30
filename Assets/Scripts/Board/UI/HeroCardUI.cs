@@ -53,22 +53,9 @@ public class HeroCardUI : MonoBehaviour, Observer
             {
                 //set drop buttons as active
             }
-            
+
             //iterating through the items
-            if (!myHero.heroInventory.containsItem(ItemType.MedicinalHerb)) Medicinalherb.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.Bow)) Bow.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.Wineskin)) Wineskin.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.Telescope)) Telescope.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.Witchbrew)) Brew.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.Helm)) Helm.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.Falcon)) Falcon.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.Shield)) Shield.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.YellowRuneStone)) YellowRune.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.BlueRuneStone)) BlueRune.SetActive(false);
-            if (!myHero.heroInventory.containsItem(ItemType.GreenRuneStone)) GreenRune.SetActive(false);
-
-
-
+            UpdateHeroInventory();
 
             StatsPanel.SetActive(true);
         }   
@@ -182,7 +169,17 @@ public class HeroCardUI : MonoBehaviour, Observer
 
     public void UpdateHeroInventory()
     {
-        
+        if (!myHero.heroInventory.containsItem(ItemType.MedicinalHerb)) Medicinalherb.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.Bow)) Bow.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.Wineskin)) Wineskin.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.Telescope)) Telescope.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.Witchbrew)) Brew.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.Helm)) Helm.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.Falcon)) Falcon.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.Shield)) Shield.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.YellowRuneStone)) YellowRune.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.BlueRuneStone)) BlueRune.SetActive(false);
+        if (!myHero.heroInventory.containsItem(ItemType.GreenRuneStone)) GreenRune.SetActive(false);
     }
 
     }
