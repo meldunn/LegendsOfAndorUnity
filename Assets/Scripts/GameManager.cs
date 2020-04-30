@@ -345,22 +345,33 @@ public class GameManager : MonoBehaviourPun, Subject
     // Gives the turn to the next hero in the turn order
     public void GoToNextHeroTurn()
     {
-        int CurrentIndex = Array.FindIndex(TurnOrder, e => e == CurrentTurnHero);
+        bool NextIsPossible = false;
 
-        // Validation
-        if (CurrentIndex == -1)
+        // Validate that there exists a hero who can take the turn (to avoid an infinite loop)
+        foreach (HeroType PossibleHero in TurnOrder)
         {
-            Debug.LogError("Could not find the hero whose turn it is in the turn order.");
-            return;
+            if (!HeroManager.GetHero(PossibleHero).HasEndedDay() && IsPlaying(PossibleHero)) NextIsPossible = true;
         }
 
-        CurrentTurnHero = TurnOrder[ (CurrentIndex + 1) % TurnOrder.Length ];
+        if (NextIsPossible)
+        {
+            int CurrentIndex = Array.FindIndex(TurnOrder, e => e == CurrentTurnHero);
 
-        // If the hero can't take the turn because their day is ended, go to the next turn again
-        if (HeroManager.GetHero(CurrentTurnHero).HasEndedDay() || !IsPlaying(CurrentTurnHero)) GoToNextHeroTurn();
+            // Validation
+            if (CurrentIndex == -1)
+            {
+                Debug.LogError("Could not find the hero whose turn it is in the turn order.");
+                return;
+            }
 
-        // Notify observers to update UI
-        Notify("TURN");
+            CurrentTurnHero = TurnOrder[(CurrentIndex + 1) % TurnOrder.Length];
+
+            // If the hero can't take the turn because their day is ended, go to the next turn again
+            if (HeroManager.GetHero(CurrentTurnHero).HasEndedDay() || !IsPlaying(CurrentTurnHero)) GoToNextHeroTurn();
+
+            // Notify observers to update UI
+            Notify("TURN");
+        }
     }
 
     // Used only by the UI button that advances the turn. For all other purposes, call GoToNextHeroTurn() from within an RPC
@@ -460,6 +471,12 @@ public class GameManager : MonoBehaviourPun, Subject
             WizardIsPlaying = Value;
             HeroManager.GetHero(HeroType.Wizard).gameObject.SetActive(Value);
         }
+
+        // Update the current turn hero if that hero isn't playing anymore
+        if (Type == CurrentTurnHero && !Value) GoToNextHeroTurn();
+
+        // Update the current turn hero if the old current turn hero wan't playing
+        if (!IsPlaying(CurrentTurnHero) && Value) GoToNextHeroTurn();
 
         Notify("PLAYING_HEROES");
     }
