@@ -15950,7 +15950,7 @@ MonoBehaviour:
   TimeTrackUIObject: {fileID: 8403564647618788064}
   ChatUIObject: {fileID: 4182533403892621797}
   DivideBattleResourcesObject: {fileID: 520551422}
-  EndDayBlocker: {fileID: 0}
+  EndDayBlocker: {fileID: 1093029687}
   WarriorCardObject: {fileID: 1196721069}
   DwarfCardObject: {fileID: 621621578}
   ArcherCardObject: {fileID: 2135854129}
